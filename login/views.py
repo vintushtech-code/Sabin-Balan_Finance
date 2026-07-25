@@ -205,24 +205,32 @@ class SocialAuthCallbackView(View):
 
 
 # --------------------------------------------------------------------------
-# 6. Authenticated User Main Home Page (home.html)
+# 6. Finance Advisory Landing & Main Home Page (home.html)
 # --------------------------------------------------------------------------
-class HomeView(LoginRequiredMixin, TemplateView):
+class HomeView(TemplateView):
     """
-    Protected user main home page (home.html) rendered upon successful login.
+    Public Finance Advisory Landing Page & Member Command Center (home.html).
+    Accessible to both visitors (guests) and logged-in members.
     """
     template_name = 'login/home.html'
-    login_url = reverse_lazy('login:login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         context['user'] = user
-        context['page_title'] = "Home"
+        context['page_title'] = "Sabin Balan Finance — Wealth & Institutional Advisory"
+        try:
+            from contactform.forms import ContactForm
+            context['contact_form'] = ContactForm()
+        except Exception:
+            context['contact_form'] = None
         return context
 
     def post(self, request, *args, **kwargs):
-        """Allows updating profile bio safely with XSS sanitization."""
+        """Allows updating profile bio safely for logged in users."""
+        if not request.user.is_authenticated:
+            return redirect('login:login')
+
         bio = request.POST.get('bio', '')
         sanitized_bio = sanitize_input(bio)
         
@@ -232,3 +240,4 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
         messages.success(request, "Your profile bio has been updated successfully!")
         return redirect('login:home')
+

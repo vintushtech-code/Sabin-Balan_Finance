@@ -1,22 +1,19 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Rate Limit Exceeded | Base Features{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'contactform/css/contactform.css' %}">
-{% endblock %}
+{% block title %}Security Throttling — Sabin Balan Private Wealth{% endblock %}
 
 {% block content %}
-<div class="contact-card-container" style="text-align: center;">
-  <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🛡️</div>
-  <div class="contact-header">
-    <h1 style="color: var(--color-error);">Security Throttling Active</h1>
-    <p class="subtitle">Too many contact submissions detected from your IP address.</p>
+<div class="card-container glass-card" style="text-align: center; margin: 4rem auto; max-width: 500px;">
+  <div style="font-size: 3.5rem; margin-bottom: 1rem;">🛡️</div>
+  <div class="auth-header">
+    <h1 style="color: var(--color-error); font-size: 1.8rem;">Submission Limit Exceeded</h1>
+    <p class="subtitle">Security throttling active to prevent automated spam</p>
   </div>
-  <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.5;">
-    {{ error_message }}
+  <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
+    {{ error_message|default:"Too many submission attempts detected. Please wait a short while before sending another consultation request." }}
   </p>
-  <a href="{% url 'contactform:contact' %}" class="btn btn-primary">Refresh Contact Page</a>
+
+  <a href="{% url 'login:home' %}" class="btn btn-gold" style="width: 100%;">Return to Home Page &rarr;</a>
 </div>
 {% endblock %}

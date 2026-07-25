@@ -1,17 +1,20 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Create Account | Base Features{% endblock %}
+{% block title %}Create Account — Sabin Balan Private Wealth{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'login/css/login.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="card-container">
+<div class="card-container glass-card" style="margin: 4rem auto;">
   <div class="auth-header">
-    <h1>Create Account</h1>
-    <p class="subtitle">Join Base Features in less than a minute</p>
+    <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; color: var(--color-gold);">
+      🏛️
+    </div>
+    <h1 style="font-size: 1.8rem; margin-bottom: 0.35rem;">Create Client Account</h1>
+    <p class="subtitle">Join Sabin Balan Finance to access institutional wealth advisory</p>
   </div>
 
   {% if form.non_field_errors %}
@@ -68,7 +71,9 @@
       {% endif %}
     </div>
 
-    <button type="submit" class="btn btn-primary" style="margin-top:0.5rem;">Create Account</button>
+    <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+      Register Client Account &rarr;
+    </button>
   </form>
 
   <div class="auth-footer">

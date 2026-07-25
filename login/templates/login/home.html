@@ -1,86 +1,646 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Home | Sabin Balan Finance{% endblock %}
+{% block title %}Sabin Balan Finance — Wealth & Institutional Advisory{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+<style>
+  /* Hero Banner — Jio BlackRock Executive Aesthetic */
+  .hero-banner {
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.15) 0%, rgba(6, 8, 13, 0.95) 70%), 
+                linear-gradient(180deg, #0A0D14 0%, #06080D 100%);
+    overflow: hidden;
+    padding: 6rem 1.5rem 4rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+  }
+
+  .hero-glow-gold {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(245, 215, 127, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    animation: pulseGlow 6s ease-in-out infinite;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 960px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1.25rem;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-pill);
+    color: var(--color-gold);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+  }
+
+  .hero-title {
+    font-size: 3.75rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 60%, #94A3B8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-title span.gold-text {
+    background: linear-gradient(135deg, #FFF9D2 0%, #F5D77F 40%, #D4AF37 80%, #A8801C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-subtext);
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  /* Metrics Bar */
+  .metrics-ticker-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.75rem 2rem;
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .metric-item {
+    text-align: center;
+    position: relative;
+  }
+
+  .metric-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .metric-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    color: var(--color-gold);
+    margin-bottom: 0.2rem;
+  }
+
+  .metric-label {
+    font-size: 0.8rem;
+    color: var(--color-subtext);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  /* User Welcome Command Banner */
+  .member-banner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* Advisory Services Grid */
+  .advisory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .advisory-card {
+    position: relative;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition-smooth);
+    overflow: hidden;
+  }
+
+  .advisory-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    opacity: 0;
+    transition: var(--transition-smooth);
+  }
+
+  .advisory-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), 0 0 25px rgba(212, 175, 55, 0.15);
+  }
+
+  .advisory-card:hover::before {
+    opacity: 1;
+  }
+
+  .card-icon-box {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: var(--color-gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .advisory-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .advisory-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-tag {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-subtext);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Contact & Lead Gen Section */
+  .lead-gen-container {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+    align-items: center;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 3.5rem;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .lead-info h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .lead-feature-list {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .lead-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .lead-feature-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  @media (max-width: 992px) {
+    .hero-title { font-size: 2.75rem; }
+    .metrics-ticker-wrapper { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .metric-item:nth-child(2)::after { display: none; }
+    .lead-gen-container { grid-template-columns: 1fr; padding: 2.25rem; }
+  }
+
+  @media (max-width: 576px) {
+    .hero-title { font-size: 2.1rem; }
+    .hero-banner { min-height: auto; padding: 4rem 1rem 3rem; }
+    .metrics-ticker-wrapper { grid-template-columns: 1fr; }
+    .metric-item::after { display: none !important; }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="dashboard-container" style="max-width: 800px; width: 100%; margin: 0 auto;">
-  
-  <!-- Hero Welcome Card -->
-  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem;">
-    <div class="profile-header" style="display: flex; align-items: center; gap: 1.25rem;">
-      <div class="avatar-circle">
-        {% if user.avatar_url %}
-          <img src="{{ user.avatar_url }}" alt="{{ user.get_display_name }}">
-        {% else %}
+
+<!-- 1. EXECUTIVE HERO BANNER (Jio BlackRock UI Inspiration) -->
+<section class="hero-banner">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow-gold"></div>
+
+  <div class="hero-content">
+    <div class="hero-pill-badge">
+      <span>✨ Sabin Balan Private Wealth & Advisory</span>
+    </div>
+
+    <h1 class="hero-title">
+      Investing Redefined.<br>
+      <span class="gold-text">Institutional Rigor.</span> Global Impact.
+    </h1>
+
+    <p class="hero-subtitle">
+      Empowering high-net-worth individuals, institutional treasuries, and families with data-driven portfolio strategies, risk-managed wealth preservation, and bespoke advisory.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="#advisory-services" class="btn btn-gold">
+        Explore Advisory Solutions &rarr;
+      </a>
+      <a href="#contact-section" class="btn btn-secondary">
+        Schedule Private Consultation
+      </a>
+      {% if not user.is_authenticated %}
+      <a href="{% url 'login:login' %}" class="btn btn-outline-gold">
+        Client Portal Sign In
+      </a>
+      {% endif %}
+    </div>
+
+    <!-- Live Financial Market Metrics Ticker -->
+    <div class="metrics-ticker-wrapper">
+      <div class="metric-item">
+        <div class="metric-value">₹15,000+ Cr</div>
+        <div class="metric-label">Assets Under Advisory</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">99.4%</div>
+        <div class="metric-label">Client Retention</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">25+ Yrs</div>
+        <div class="metric-label">Advisory Heritage</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">ISO 27001</div>
+        <div class="metric-label">Institutional Security</div>
+      </div>
+    </div>
+
+    <!-- Authenticated Member Command Bar -->
+    {% if user.is_authenticated %}
+    <div class="member-banner">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="width: 46px; height: 46px; border-radius: 50%; background: var(--color-gold); color: #0A0D14; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;">
           {{ user.get_initials }}
-        {% endif %}
-      </div>
-
-      <div class="profile-title">
-        <h2 style="font-size: 1.5rem; margin-bottom: 0.25rem;">Welcome Home, {{ user.get_display_name }}!</h2>
-        <p style="color: var(--color-subtext); font-size: 0.95rem;">Sabin Balan Finance — Your Personal Financial Command Center</p>
-      </div>
-    </div>
-
-    <!-- Quick Stats Grid -->
-    <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
-      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Account ID</div>
-        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-primary);">#{{ user.id|stringformat:"05d" }}</div>
-      </div>
-
-      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Auth Provider</div>
-        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-primary);">{{ user.auth_provider|title }}</div>
-      </div>
-
-      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Security Status</div>
-        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-success);">Protected</div>
-      </div>
-
-      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Member Since</div>
-        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-primary);">{{ user.date_joined|date:"M Y" }}</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Feature Grid -->
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; width: 100%;">
-    
-    <!-- Profile & Bio Card -->
-    <div class="card-container" style="max-width: 100%;">
-      <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">👤 Profile Bio</h3>
-      <p style="color: var(--color-subtext); font-size: 0.9rem; margin-bottom: 1rem;">Update your personal profile summary.</p>
-      
-      <form method="post" action="{% url 'login:home' %}" class="auth-form">
-        {% csrf_token %}
-        <div class="form-group">
-          <textarea name="bio" class="form-input" rows="3" placeholder="Add a short bio...">{{ user.bio }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 0.75rem;">Save Bio</button>
-      </form>
-    </div>
+        <div>
+          <div style="font-weight: 700; font-size: 1.05rem; color: var(--color-primary);">
+            Welcome Back, {{ user.get_display_name }}
+          </div>
+          <div style="font-size: 0.85rem; color: var(--color-subtext);">
+            Client Account #{{ user.id|stringformat:"05d" }} &bull; Provider: {{ user.auth_provider|title }}
+          </div>
+        </div>
+      </div>
 
-    <!-- Quick Navigation Card -->
-    <div class="card-container" style="max-width: 100%;">
-      <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">⚡ Quick Actions</h3>
-      <p style="color: var(--color-subtext); font-size: 0.9rem; margin-bottom: 1rem;">Common account management shortcuts.</p>
-      
-      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <form method="post" action="{% url 'login:logout' %}">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="btn btn-secondary" onclick="document.getElementById('bio-modal').style.display='flex'" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+          Edit Profile Bio
+        </button>
+        <form method="post" action="{% url 'login:logout' %}" style="display: inline;">
           {% csrf_token %}
-          <button type="submit" class="btn btn-outline" style="width: 100%;">Sign Out</button>
+          <button type="submit" class="btn btn-outline-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+            Sign Out
+          </button>
         </form>
       </div>
     </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- 2. ADVISORY SERVICES SECTION -->
+<section id="advisory-services" class="section-container">
+  <div class="section-header">
+    <div class="section-tag">Core Capabilities</div>
+    <h2 class="section-title">Institutional Wealth & Advisory Solutions</h2>
+    <p class="section-subtitle">
+      Tailored financial architectures built on quantitative analytics, zero conflicts of interest, and long-term capital compounding.
+    </p>
   </div>
 
+  <div class="advisory-grid">
+
+    <!-- Card 1: Private Wealth Management -->
+    <div class="advisory-card">
+      <div>
+        <div class="card-icon-box">💼</div>
+        <span class="card-tag">Bespoke Portfolios</span>
+        <h3>Private Wealth Management</h3>
+        <p>
+          Customized multi-asset equity and fixed-income portfolios structured around your specific liquidity requirements, risk tolerance, and tax profile.
+        </p>
+      </div>
+      <a href="#contact-section" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Inquire Wealth Desk</a>
+    </div>
+
+    <!-- Card 2: Family Office & Estate Planning -->
+    <div class="advisory-card">
+      <div>
+        <div class="card-icon-box">🏛️</div>
+        <span class="card-tag">Generational Impact</span>
+        <h3>Family Office & Trust Advisory</h3>
+        <p>
+          Comprehensive estate planning, private trust formation, succession structuring, and governance framework for legacy wealth.
+        </p>
+      </div>
+      <a href="#contact-section" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Inquire Family Office</a>
+    </div>
+
+    <!-- Card 3: Systematic SIPs & Mutual Funds -->
+    <div class="advisory-card">
+      <div>
+        <div class="card-icon-box">📈</div>
+        <span class="card-tag">Algorithmic Compounding</span>
+        <h3>Systematic SIPs & Funds</h3>
+        <p>
+          Quantitative asset allocation models, index rebalancing algorithms, and automated systematic investment plans optimized for maximum risk-adjusted return.
+        </p>
+      </div>
+      <a href="#contact-section" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Explore SIP Plans</a>
+    </div>
+
+    <!-- Card 4: Tax-Optimized Restructuring -->
+    <div class="advisory-card">
+      <div>
+        <div class="card-icon-box">🛡️</div>
+        <span class="card-tag">Capital Protection</span>
+        <h3>Tax-Optimized Structuring</h3>
+        <p>
+          Advanced fiscal planning, capital gains tax optimization, and legally compliant international tax-sheltered investment entities.
+        </p>
+      </div>
+      <a href="#contact-section" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Inquire Tax Structuring</a>
+    </div>
+
+    <!-- Card 5: Global Equity & Multi-Asset -->
+    <div class="advisory-card">
+      <div>
+        <div class="card-icon-box">🌐</div>
+        <span class="card-tag">International Markets</span>
+        <h3>Global Multi-Asset Allocation</h3>
+        <p>
+          Direct access to international equity markets, global private credit, venture funds, and offshore diversification strategies.
+        </p>
+      </div>
+      <a href="#contact-section" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Inquire Global Markets</a>
+    </div>
+
+    <!-- Card 6: Retirement & Annuity Solutions -->
+    <div class="advisory-card">
+      <div>
+        <div class="card-icon-box">🔒</div>
+        <span class="card-tag">Guaranteed Cashflow</span>
+        <h3>Retirement & Trust Annuities</h3>
+        <p>
+          Inflation-hedged pension restructuring, protected annuity streams, and capital preservation vehicles designed for peace of mind.
+        </p>
+      </div>
+      <a href="#contact-section" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Inquire Retirement Plan</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. INVESTMENT PHILOSOPHY & WHY CHOOSE US -->
+<section style="width: 100%; background: var(--color-input-bg); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-tag">Institutional Discipline</div>
+      <h2 class="section-title">The Sabin Balan Advantage</h2>
+      <p class="section-subtitle">
+        We combine modern quantitative financial intelligence with institutional risk management principles.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+      <div class="glass-card" style="padding: 2.25rem;">
+        <div style="font-size: 2rem; color: var(--color-gold); margin-bottom: 1rem;">01</div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Data-Driven Intelligence</h3>
+        <p style="font-size: 0.9rem;">
+          Our quantitative algorithms analyze global macro indicators, market volatility, and sector trends to optimize asset allocation continuously.
+        </p>
+      </div>
+
+      <div class="glass-card" style="padding: 2.25rem;">
+        <div style="font-size: 2rem; color: var(--color-gold); margin-bottom: 1rem;">02</div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Zero Conflict Commitment</h3>
+        <p style="font-size: 0.9rem;">
+          We operate strictly under a fiduciary model. Our recommendations are entirely aligned with your long-term wealth growth, free from hidden broker commissions.
+        </p>
+      </div>
+
+      <div class="glass-card" style="padding: 2.25rem;">
+        <div style="font-size: 2rem; color: var(--color-gold); margin-bottom: 1rem;">03</div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Bank-Grade Security</h3>
+        <p style="font-size: 0.9rem;">
+          Every account is protected with 256-bit encryption, strict multi-factor authentication, and audited compliance with regulatory authorities.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. INTEGRATED LEAD GENERATION CONTACT SECTION -->
+<section id="contact-section" class="section-container">
+  <div class="lead-gen-container">
+    <div class="lead-info">
+      <div class="section-tag" style="margin-bottom: 1rem;">Private Consultation</div>
+      <h2>Connect with an Executive Financial Advisor</h2>
+      <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.5rem;">
+        Schedule a confidential strategy session with our senior advisory team to review your current portfolio and build a customized wealth blueprint.
+      </p>
+
+      <ul class="lead-feature-list">
+        <li class="lead-feature-item">
+          <span class="lead-feature-icon">✓</span>
+          <span>Complimentary comprehensive portfolio risk analysis</span>
+        </li>
+        <li class="lead-feature-item">
+          <span class="lead-feature-icon">✓</span>
+          <span>Tailored asset allocation and tax-optimization roadmap</span>
+        </li>
+        <li class="lead-feature-item">
+          <span class="lead-feature-icon">✓</span>
+          <span>Direct 1-on-1 access to senior chartered wealth managers</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Integrated Lead Capture Form -->
+    <div class="glass-card" style="padding: 2.5rem;">
+      <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem; text-align: center;">Request Advisory Call</h3>
+      <p style="font-size: 0.85rem; color: var(--color-subtext); text-align: center; margin-bottom: 1.75rem;">
+        Fill in your details below and an advisor will contact you within 24 hours.
+      </p>
+
+      {% if contact_form %}
+      <form method="post" action="{% url 'contactform:contact' %}" class="contact-form" novalidate>
+        {% csrf_token %}
+        {{ contact_form.website }}
+        {{ contact_form.submission_security }}
+
+        <div class="form-group">
+          <label class="form-label" for="{{ contact_form.name.id_for_label }}">Full Name</label>
+          {{ contact_form.name }}
+          {% if contact_form.name.errors %}
+            <div class="field-error">{{ contact_form.name.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="{{ contact_form.email.id_for_label }}">Email Address</label>
+          {{ contact_form.email }}
+          {% if contact_form.email.errors %}
+            <div class="field-error">{{ contact_form.email.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="{{ contact_form.subject.id_for_label }}">Advisory Service of Interest</label>
+          {{ contact_form.subject }}
+          {% if contact_form.subject.errors %}
+            <div class="field-error">{{ contact_form.subject.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="{{ contact_form.message.id_for_label }}">Brief Message / Portfolio Goal</label>
+          {{ contact_form.message }}
+          {% if contact_form.message.errors %}
+            <div class="field-error">{{ contact_form.message.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+          Submit Consultation Request &rarr;
+        </button>
+      </form>
+      {% else %}
+      <a href="{% url 'contactform:contact' %}" class="btn btn-gold" style="width: 100%;">
+        Open Contact Portal
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Modal for Profile Bio Edit (if authenticated) -->
+{% if user.is_authenticated %}
+<div id="bio-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 1.5rem;">
+  <div class="glass-card" style="width: 100%; max-width: 500px; padding: 2.25rem; background: var(--color-secondary);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+      <h3 style="font-size: 1.25rem;">Update Profile Summary</h3>
+      <button onclick="document.getElementById('bio-modal').style.display='none'" style="background: none; border: none; font-size: 1.5rem; color: var(--color-subtext); cursor: pointer;">&times;</button>
+    </div>
+
+    <form method="post" action="{% url 'login:home' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label class="form-label">Personal Bio / Advisory Note</label>
+        <textarea name="bio" class="form-input" rows="4" placeholder="Enter a brief summary about yourself or your financial objectives...">{{ user.bio }}</textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('bio-modal').style.display='none'">Cancel</button>
+        <button type="submit" class="btn btn-gold">Save Changes</button>
+      </div>
+    </form>
+  </div>
 </div>
+{% endif %}
+
 {% endblock %}

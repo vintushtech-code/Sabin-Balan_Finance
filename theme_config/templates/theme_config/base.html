@@ -1,55 +1,52 @@
-{% load static %}
+{% load static navfooter_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sabin Balan Finance - Modular Financial & Auth Platform">
-  <title>{% block title %}Sabin Balan Finance{% endblock %}</title>
+  <meta name="description" content="Sabin Balan Finance — Institutional Wealth & Financial Advisory Services">
+  <title>{% block title %}Sabin Balan Finance — Wealth & Institutional Advisory{% endblock %}</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     (function() {
+      // Injected Dynamic CSS Variables
       const style = document.createElement('style');
       style.textContent = "{{ THEME_CSS_VARIABLES|escapejs }}";
       document.head.appendChild(style);
+
+      // Check saved theme preference (Default: dark mode for Jio BlackRock executive aesthetic)
+      const savedTheme = localStorage.getItem('bf-theme');
+      if (savedTheme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
     })();
   </script>
 
-  <!-- Master Vanilla CSS Stylesheet -->
+  <!-- Master Executive Theme Stylesheet -->
   <link rel="stylesheet" href="{% static 'theme_config/css/theme.css' %}">
+  <link rel="stylesheet" href="{% static 'navfooter/css/navfooter.css' %}">
   {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-  <!-- Navigation Bar Component -->
-  <nav class="navbar">
-    <a href="{% url 'login:home' %}" class="navbar-brand">
-      <span>SBF</span> Sabin Balan Finance
-    </a>
-    <ul class="nav-links">
-      {% if user.is_authenticated %}
-        <li><a href="{% url 'login:home' %}" class="nav-link">Home</a></li>
-        <li><span class="nav-link" style="font-weight: 600;">Hi, {{ user.get_display_name }}</span></li>
-        <li>
-          <form method="post" action="{% url 'login:logout' %}" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; width: auto;">Logout</button>
-          </form>
-        </li>
-      {% else %}
-        <li><a href="{% url 'login:login' %}" class="nav-link">Login</a></li>
-        <li><a href="{% url 'login:signup' %}" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; width: auto;">Sign Up</a></li>
-      {% endif %}
-    </ul>
-  </nav>
+  <!-- Navigation Bar Component (Unified Navfooter Module) -->
+  {% render_navbar brand_name="Sabin Balan Finance" brand_short="SBF" %}
 
-  <!-- Application Main Section -->
+  <!-- Application Main Content Area -->
   <main class="app-container">
     {% if messages %}
       <div class="messages-wrapper">
         {% for message in messages %}
           <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">
             <span>{{ message }}</span>
+            <button type="button" onclick="this.parentElement.remove()" style="background:none; border:none; color:currentColor; cursor:pointer; font-weight:bold; font-size:1.1rem; margin-left:1rem;">&times;</button>
           </div>
         {% endfor %}
       </div>
@@ -59,10 +56,8 @@
     {% endblock %}
   </main>
 
-  <!-- Footer Component -->
-  <footer class="footer">
-    <p>&copy; {% now "Y" %} Sabin Balan Finance. All rights reserved.</p>
-  </footer>
+  <!-- Footer Component (Unified Navfooter Module) -->
+  {% render_footer tagline="Institutional-Grade Advisory & Private Wealth Management" %}
 
   {% block extra_js %}{% endblock %}
 </body>

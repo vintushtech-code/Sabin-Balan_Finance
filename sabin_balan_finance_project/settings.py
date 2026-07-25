@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'theme_config',
+    'navfooter',
+    'contactform',
     'login',
 ]
 

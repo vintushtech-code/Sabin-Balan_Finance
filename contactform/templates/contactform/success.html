@@ -1,24 +1,30 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Thank You | Base Features{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'contactform/css/contactform.css' %}">
-{% endblock %}
+{% block title %}Request Received — Sabin Balan Private Wealth{% endblock %}
 
 {% block content %}
-<div class="contact-card-container" style="text-align: center;">
-  <div class="success-illustration">✉️</div>
-  <div class="contact-header">
-    <h1>Thank You!</h1>
-    <p class="subtitle">Your message has been successfully sent.</p>
+<div class="card-container glass-card" style="text-align: center; margin: 4rem auto; max-width: 520px;">
+  <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--color-success); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 1.5rem;">
+    ✓
   </div>
-  <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.5;">
-    We appreciate you reaching out to us. Our team will review your submission and respond as soon as possible.
+
+  <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Consultation Request Received</h1>
+  <p class="subtitle" style="font-size: 1.05rem; margin-bottom: 1.5rem;">
+    Thank you for connecting with Sabin Balan Private Wealth Advisory.
   </p>
-  <a href="{% if user.is_authenticated %}{% url 'login:dashboard' %}{% else %}{% url 'contactform:contact' %}{% endif %}" class="btn btn-primary">
-    Back to Contact Form
-  </a>
+
+  <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
+    Your message has been assigned to a senior charter wealth manager. An advisor will review your requirements and reach out within 24 hours.
+  </p>
+
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a href="{% url 'login:home' %}" class="btn btn-gold" style="flex: 1;">
+      Return to Home &rarr;
+    </a>
+    <a href="{% url 'contactform:contact' %}" class="btn btn-secondary" style="flex: 1;">
+      Contact Desk
+    </a>
+  </div>
 </div>
 {% endblock %}
