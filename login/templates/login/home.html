@@ -1,0 +1,86 @@
+{% extends 'theme_config/base.html' %}
+{% load static %}
+
+{% block title %}Home | Sabin Balan Finance{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container" style="max-width: 800px; width: 100%; margin: 0 auto;">
+  
+  <!-- Hero Welcome Card -->
+  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem;">
+    <div class="profile-header" style="display: flex; align-items: center; gap: 1.25rem;">
+      <div class="avatar-circle">
+        {% if user.avatar_url %}
+          <img src="{{ user.avatar_url }}" alt="{{ user.get_display_name }}">
+        {% else %}
+          {{ user.get_initials }}
+        {% endif %}
+      </div>
+
+      <div class="profile-title">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.25rem;">Welcome Home, {{ user.get_display_name }}!</h2>
+        <p style="color: var(--color-subtext); font-size: 0.95rem;">Sabin Balan Finance — Your Personal Financial Command Center</p>
+      </div>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Account ID</div>
+        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-primary);">#{{ user.id|stringformat:"05d" }}</div>
+      </div>
+
+      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Auth Provider</div>
+        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-primary);">{{ user.auth_provider|title }}</div>
+      </div>
+
+      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Security Status</div>
+        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-success);">Protected</div>
+      </div>
+
+      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+        <div class="info-label" style="font-size: 0.8rem; color: var(--color-subtext); text-transform: uppercase;">Member Since</div>
+        <div class="info-value" style="font-weight: 700; font-size: 1.1rem; color: var(--color-primary);">{{ user.date_joined|date:"M Y" }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; width: 100%;">
+    
+    <!-- Profile & Bio Card -->
+    <div class="card-container" style="max-width: 100%;">
+      <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">👤 Profile Bio</h3>
+      <p style="color: var(--color-subtext); font-size: 0.9rem; margin-bottom: 1rem;">Update your personal profile summary.</p>
+      
+      <form method="post" action="{% url 'login:home' %}" class="auth-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea name="bio" class="form-input" rows="3" placeholder="Add a short bio...">{{ user.bio }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 0.75rem;">Save Bio</button>
+      </form>
+    </div>
+
+    <!-- Quick Navigation Card -->
+    <div class="card-container" style="max-width: 100%;">
+      <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">⚡ Quick Actions</h3>
+      <p style="color: var(--color-subtext); font-size: 0.9rem; margin-bottom: 1rem;">Common account management shortcuts.</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <form method="post" action="{% url 'login:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline" style="width: 100%;">Sign Out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
