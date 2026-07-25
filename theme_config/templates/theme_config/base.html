@@ -1,4 +1,4 @@
-{% load static %}
+{% load static navfooter_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,31 +17,13 @@
 
   <!-- Master Vanilla CSS Stylesheet -->
   <link rel="stylesheet" href="{% static 'theme_config/css/theme.css' %}">
+  <link rel="stylesheet" href="{% static 'navfooter/css/navfooter.css' %}">
   {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-  <!-- Navigation Bar Component -->
-  <nav class="navbar">
-    <a href="{% url 'login:home' %}" class="navbar-brand">
-      <span>SBF</span> Sabin Balan Finance
-    </a>
-    <ul class="nav-links">
-      {% if user.is_authenticated %}
-        <li><a href="{% url 'login:home' %}" class="nav-link">Home</a></li>
-        <li><span class="nav-link" style="font-weight: 600;">Hi, {{ user.get_display_name }}</span></li>
-        <li>
-          <form method="post" action="{% url 'login:logout' %}" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; width: auto;">Logout</button>
-          </form>
-        </li>
-      {% else %}
-        <li><a href="{% url 'login:login' %}" class="nav-link">Login</a></li>
-        <li><a href="{% url 'login:signup' %}" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; width: auto;">Sign Up</a></li>
-      {% endif %}
-    </ul>
-  </nav>
+  <!-- Navigation Bar Component from navfooter app -->
+  {% render_navbar brand_name="Sabin Balan Finance" brand_short="SBF" %}
 
   <!-- Application Main Section -->
   <main class="app-container">
@@ -59,10 +41,8 @@
     {% endblock %}
   </main>
 
-  <!-- Footer Component -->
-  <footer class="footer">
-    <p>&copy; {% now "Y" %} Sabin Balan Finance. All rights reserved.</p>
-  </footer>
+  <!-- Footer Component from navfooter app -->
+  {% render_footer tagline="Sabin Balan Finance — Modular Financial Command Center" %}
 
   {% block extra_js %}{% endblock %}
 </body>

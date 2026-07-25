@@ -1,0 +1,752 @@
+/*
+  Modular Component CSS for Finance Skeuomorphic Luxury Navbar & Footer
+  Consumes CSS custom variables injected by theme_config.
+*/
+
+/* =====================================================
+   Finance Skeuomorphic Luxury Gold Navbar Styling (Master Design)
+   ===================================================== */
+
+.finance-navbar-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 1.5rem 1.5rem 1.25rem 1.5rem;
+  box-sizing: border-box;
+  background-color: #F6F3EC;
+  background-image: radial-gradient(ellipse at 50% 0%, #FCFBF8 0%, #F3EFE7 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.finance-navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 1140px;
+  overflow: visible;
+}
+
+/* Far Left Badge Group */
+.finance-left-badge-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.finance-circle-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, #FFF9D2 0%, #F5D77F 25%, #D4AF37 50%, #8C671B 80%, #423007 100%);
+  box-shadow: 
+    0 6px 16px rgba(60, 45, 15, 0.28),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 3px rgba(40, 30, 10, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-decoration: none;
+}
+
+.finance-circle-badge:hover {
+  transform: scale(1.06);
+  box-shadow: 
+    0 8px 20px rgba(60, 45, 15, 0.38),
+    inset 0 2px 3px rgba(255, 255, 255, 1);
+}
+
+.finance-circle-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFFFFF 55%, #F7F4EE 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.finance-badge-real-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+
+.finance-badge-custom-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.finance-coins-badge-svg {
+  width: 48px;
+  height: 48px;
+}
+
+.finance-badge-text {
+  margin-top: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #3B2E1E;
+  text-align: center;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  font-family: inherit;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Connector Line & Dot */
+.finance-connector {
+  display: flex;
+  align-items: center;
+  margin: 0 0.6rem;
+  position: relative;
+  top: -10px;
+  flex-shrink: 0;
+}
+
+.finance-connector-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3B2E1E;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.finance-connector-line {
+  width: 22px;
+  height: 1.8px;
+  background: linear-gradient(90deg, #3B2E1E, #D4AF37);
+}
+
+/* Main Gold Capsule Pill Container with Multi-Stop Metallic Gold Frame */
+.finance-pill {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: linear-gradient(180deg, 
+    #FFF9D2 0%, 
+    #F5D77F 12%, 
+    #D4AF37 30%, 
+    #9E7924 50%, 
+    #C79D32 75%, 
+    #664E14 90%, 
+    #3D2D09 100%
+  );
+  border-radius: 9999px;
+  padding: 4.5px;
+  box-shadow: 
+    0 16px 36px rgba(45, 30, 10, 0.32),
+    0 4px 10px rgba(0, 0, 0, 0.1),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(35, 25, 5, 0.6);
+  flex: 1;
+  height: 74px;
+  box-sizing: border-box;
+  overflow: visible !important;
+}
+
+/* Thick Metallic Ribbed Gold End Caps */
+.finance-cap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.finance-cap-left {
+  left: 2px;
+}
+
+.finance-cap-right {
+  right: 2px;
+}
+
+.finance-cap svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Inner Marble Content Area with Subtle Shimmer */
+.finance-pill-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 45%, #EFE7D8 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -2px 5px rgba(160, 130, 70, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+  overflow: visible !important;
+}
+
+/* Subtle Marble Overlay */
+.finance-pill-inner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 9999px;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.8) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(230, 215, 190, 0.2) 0%, rgba(255, 255, 255, 0) 40%, rgba(210, 190, 160, 0.25) 100%);
+  pointer-events: none;
+}
+
+/* Nav Link Groups */
+.finance-nav-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+.finance-nav-section-left {
+  padding-left: 2.2rem;
+  padding-right: 3.5rem;
+}
+
+.finance-nav-section-right {
+  padding-left: 3.5rem;
+  padding-right: 2.2rem;
+}
+
+/* 3D Embossed Nav Link Item */
+.finance-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #4A3A1A;
+  position: relative;
+  padding: 0.25rem 0.6rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.finance-icon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  filter: drop-shadow(0 1.5px 2px rgba(255, 255, 255, 0.8)) drop-shadow(0 -1px 1px rgba(60, 45, 15, 0.3));
+  transition: transform 0.25s ease, fill 0.25s ease, filter 0.25s ease;
+}
+
+.finance-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: inherit;
+  margin-top: 0.25rem;
+  font-family: inherit;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -1px 1px rgba(60, 45, 15, 0.15);
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.finance-nav-item:hover {
+  color: #A8801C;
+  transform: translateY(-2px);
+}
+
+.finance-nav-item:hover .finance-icon {
+  filter: drop-shadow(0 4px 6px rgba(212, 175, 55, 0.45));
+}
+
+.finance-nav-item.active {
+  color: #3B2E1E;
+}
+
+.finance-active-indicator {
+  position: absolute;
+  bottom: -5px;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(180deg, #FFF1B0 0%, #D4AF37 50%, #7A5810 100%);
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(60, 45, 15, 0.35);
+  transition: width 0.25s ease;
+}
+
+.finance-nav-item.active .finance-active-indicator {
+  width: 26px;
+}
+
+/* Center Emblem Wrapper (Full 100% Unclipped Crown & Shield Crest) */
+.finance-emblem-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: 120px;
+  height: 130px;
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: visible !important;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  pointer-events: auto;
+}
+
+.finance-emblem-real-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(60, 45, 15, 0.45));
+  mix-blend-mode: multiply;
+  overflow: visible !important;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.finance-emblem-wrapper:hover .finance-emblem-real-img {
+  transform: scale(1.06);
+  filter: drop-shadow(0 10px 22px rgba(212, 175, 55, 0.65));
+}
+
+.finance-shield-master-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible !important;
+}
+
+/* User Dropdown Positioned Below Emblem */
+.user-dropdown-menu {
+  position: absolute;
+  top: 105px;
+  right: calc(50% - 130px);
+  width: 260px;
+  background-color: var(--color-secondary);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(90, 70, 20, 0.2), 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 1rem 0;
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.user-dropdown-menu.show {
+  display: flex;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.user-info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.25rem 0.75rem 1.25rem;
+}
+
+.user-avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #3B2E1E;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.user-details .username {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+}
+
+.user-details .user-email {
+  font-size: 0.75rem;
+  color: var(--color-subtext);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 0.5rem 0;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1.25rem;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--color-input-bg);
+  color: #996E13;
+}
+
+.dropdown-item.highlight {
+  color: #B88A28;
+  background-color: var(--color-input-bg);
+}
+
+.dropdown-item.highlight:hover {
+  background-color: #D4AF37;
+  color: #ffffff;
+}
+
+.logout-form {
+  margin: 0;
+}
+
+.btn-logout {
+  color: #c0392b;
+}
+
+.btn-logout:hover {
+  background-color: #fdf2f2;
+  color: #e74c3c;
+}
+
+.btn-theme-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* =====================================================
+   Finance Skeuomorphic Luxury Footer Styling
+   ===================================================== */
+
+.finance-footer-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-top: auto;
+  background-color: #F6F3EC;
+}
+
+.finance-footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 90px;
+  background: linear-gradient(180deg, #F6F3EC 0%, #FAF8F5 50%, #ECE6DA 100%);
+  border-top: 2.5px solid #D4AF37;
+  box-shadow:
+    inset 0 3px 5px rgba(255, 255, 255, 1),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.05),
+    0 -4px 20px rgba(0, 0, 0, 0.03);
+
+  padding: 1.25rem 2.5rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.finance-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.finance-footer-badge {
+  width: 44px;
+  height: 44px;
+}
+
+.footer-brand-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #3B2E1E;
+}
+
+.finance-footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.footer-brand-tagline {
+  font-size: 0.8rem;
+  color: #776A55;
+  font-weight: 500;
+}
+
+.footer-copy-text {
+  font-size: 0.75rem;
+  color: #776A55;
+  opacity: 0.85;
+}
+
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0.25rem 0;
+}
+
+.footer-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFFFFF 65%, #F7F4EE 100%);
+  border: 1.5px solid #D4AF37;
+  color: #3B2E1E;
+  box-shadow: 0 2px 5px rgba(60, 45, 15, 0.1);
+  transition: all 0.25s ease;
+}
+
+.footer-social-icon:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 5px 12px rgba(212, 175, 55, 0.35);
+  background: #D4AF37;
+  color: #ffffff;
+}
+
+.footer-social-icon .social-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.finance-footer-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.finance-scroll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #996E13 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(60, 45, 15, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  transition: all 0.25s ease;
+}
+
+.finance-scroll-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 6px 14px rgba(60, 45, 15, 0.3);
+}
+
+.finance-scroll-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Component Identity Labels */
+.component-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+  border: 1px solid #D4AF37;
+  color: #5C4A21;
+  background-color: #FAF8F5;
+}
+
+.component-label--footer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -10px;
+  z-index: 101;
+}
+
+/* Responsive Adaptations */
+@media (max-width: 900px) {
+  .finance-nav-section-left {
+    padding-left: 1.5rem;
+    padding-right: 2.5rem;
+  }
+  .finance-nav-section-right {
+    padding-left: 2.5rem;
+    padding-right: 1.5rem;
+  }
+  .finance-label {
+    font-size: 0.6rem;
+  }
+  .finance-pill {
+    height: 64px;
+  }
+  .finance-emblem-wrapper {
+    width: 96px;
+    height: 104px;
+  }
+}
+
+@media (max-width: 680px) {
+  .finance-label {
+    display: none;
+  }
+  .finance-connector {
+    display: none;
+  }
+  .finance-left-badge-group {
+    margin-right: 0.25rem;
+  }
+  .finance-badge-text {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .finance-left-badge-group {
+    display: none;
+  }
+  .finance-pill-inner {
+    padding: 0 0.5rem;
+  }
+  .finance-footer {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* =====================================================
+   Subtle & Minimal Dark Theme Adaptation
+   Consumes theme_config custom variables with minimal, smooth shifts
+   ===================================================== */
+
+[data-theme='dark'] .finance-navbar-wrapper,
+[data-theme='dark'] .finance-footer-wrapper {
+  background-color: var(--color-bg);
+  background-image: none;
+}
+
+[data-theme='dark'] .finance-pill-inner {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-bg) 100%);
+  box-shadow: inset 0 1.5px 3px rgba(255, 255, 255, 0.05), inset 0 -1.5px 4px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .finance-circle-inner {
+  background: var(--color-secondary);
+}
+
+[data-theme='dark'] .finance-nav-item {
+  color: var(--color-primary);
+}
+
+[data-theme='dark'] .finance-nav-item:hover,
+[data-theme='dark'] .finance-nav-item.active {
+  color: #D4AF37;
+}
+
+[data-theme='dark'] .finance-badge-text {
+  color: var(--color-primary);
+}
+
+[data-theme='dark'] .user-dropdown-menu {
+  background-color: var(--color-secondary);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-subtle);
+}
+
+[data-theme='dark'] .user-details .username {
+  color: var(--color-primary);
+}
+
+[data-theme='dark'] .user-details .user-email {
+  color: var(--color-subtext);
+}
+
+[data-theme='dark'] .dropdown-divider {
+  background-color: var(--color-border);
+}
+
+[data-theme='dark'] .dropdown-item {
+  color: var(--color-primary);
+}
+
+[data-theme='dark'] .dropdown-item:hover {
+  background-color: var(--color-input-bg);
+  color: #D4AF37;
+}
+
+[data-theme='dark'] .finance-footer {
+  background: var(--color-secondary);
+  border-top-color: var(--color-border);
+}
+
+[data-theme='dark'] .footer-brand-title {
+  color: var(--color-primary);
+}
+
+[data-theme='dark'] .footer-brand-tagline,
+[data-theme='dark'] .footer-copy-text {
+  color: var(--color-subtext);
+}
