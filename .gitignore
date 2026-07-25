@@ -4,3 +4,5 @@ __pycache__/
 .env
 *.pyc
 sabin_venv/
+
+db.sqlite3
