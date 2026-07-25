@@ -292,3 +292,88 @@
   color: var(--color-primary);
   word-break: break-all;
 }
+
+/* Split Screen Auth Container */
+.auth-split-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 960px;
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+  margin: 1.5rem auto;
+  min-height: 560px;
+}
+
+.auth-split-image {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 350px;
+}
+
+.auth-image-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.85) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 2.5rem 2rem;
+}
+
+.auth-image-content {
+  color: #ffffff;
+}
+
+.auth-image-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  padding: 0.35rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.auth-image-content h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.auth-image-content p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.auth-split-form {
+  flex: 1;
+  padding: 2.5rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .auth-split-wrapper {
+    flex-direction: column;
+    max-width: 480px;
+  }
+  .auth-split-image {
+    min-height: 220px;
+  }
+  .auth-image-content h2 {
+    font-size: 1.3rem;
+  }
+}

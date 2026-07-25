@@ -23,7 +23,9 @@
 <body>
 
   <!-- Navigation Bar Component from navfooter app -->
-  {% render_navbar brand_name="Sabin Balan Finance" brand_short="SBF" %}
+  {% block navbar %}
+    {% render_navbar brand_name="Sabin Balan Finance" brand_short="SBF" %}
+  {% endblock %}
 
   <!-- Application Main Section -->
   <main class="app-container">
@@ -42,7 +44,9 @@
   </main>
 
   <!-- Footer Component from navfooter app -->
-  {% render_footer tagline="Sabin Balan Finance — Modular Financial Command Center" %}
+  {% block footer %}
+    {% render_footer tagline="Sabin Balan Finance — Modular Financial Command Center" %}
+  {% endblock %}
 
   {% block extra_js %}{% endblock %}
 </body>

@@ -14,12 +14,12 @@
   width: 100%;
   padding: 1.5rem 1.5rem 1.25rem 1.5rem;
   box-sizing: border-box;
-  background-color: #F6F3EC;
-  background-image: radial-gradient(ellipse at 50% 0%, #FCFBF8 0%, #F3EFE7 100%);
+  background-color: var(--color-bg);
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
 }
 
 .finance-navbar-container {
@@ -337,16 +337,16 @@
   overflow: visible !important;
 }
 
-/* User Dropdown Positioned Below Emblem */
+/* User Dropdown Positioned Below Settings Button */
 .user-dropdown-menu {
   position: absolute;
-  top: 105px;
-  right: calc(50% - 130px);
-  width: 260px;
+  top: calc(100% + 14px);
+  right: -10px;
+  width: 250px;
   background-color: var(--color-secondary);
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(90, 70, 20, 0.2), 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 15px 35px rgba(90, 70, 20, 0.25), 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
   display: none;
   flex-direction: column;
@@ -354,6 +354,7 @@
   transform: translateY(10px);
   opacity: 0;
   transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: auto;
 }
 
 .user-dropdown-menu.show {
@@ -602,6 +603,200 @@
   height: 20px;
 }
 
+/* =====================================================
+   Extended Multi-Column Footer Layout
+   ===================================================== */
+.finance-footer-extended {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #F6F3EC 0%, #FAF8F5 50%, #ECE6DA 100%);
+  border-top: 2.5px solid #D4AF37;
+  box-shadow: inset 0 3px 5px rgba(255, 255, 255, 1), inset 0 -3px 5px rgba(0, 0, 0, 0.05);
+  padding: 3rem 2.5rem 1.5rem 2.5rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.footer-grid-container {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.footer-col-brand .footer-brand-desc {
+  font-size: 0.85rem;
+  color: #665842;
+  margin-top: 0.85rem;
+  line-height: 1.5;
+  max-width: 320px;
+}
+
+.footer-social-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.footer-col-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #3B2E1E;
+  margin-bottom: 1rem;
+  letter-spacing: -0.2px;
+}
+
+.footer-link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-link-list a {
+  text-decoration: none;
+  color: #665842;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.footer-link-list a:hover {
+  color: #D4AF37;
+  transform: translateX(3px);
+}
+
+.security-badge-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: radial-gradient(circle, #FFFFFF 65%, #F7F4EE 100%);
+  border: 1.5px solid #D4AF37;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(60, 45, 15, 0.08);
+  margin-bottom: 1.25rem;
+}
+
+.security-badge-icon {
+  font-size: 1.4rem;
+}
+
+.security-badge-text strong {
+  display: block;
+  font-size: 0.8rem;
+  color: #3B2E1E;
+}
+
+.security-badge-text span {
+  font-size: 0.72rem;
+  color: #776A55;
+}
+
+.finance-scroll-btn-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.scroll-btn-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3B2E1E;
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  padding-top: 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-bottom-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #776A55;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-legal-links a {
+  color: #776A55;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-links a:hover {
+  color: #D4AF37;
+}
+
+/* Dark Theme Overrides for Extended Footer */
+[data-theme='dark'] .finance-footer-extended {
+  background: var(--color-secondary);
+  border-top-color: var(--color-border);
+}
+
+[data-theme='dark'] .footer-col-title,
+[data-theme='dark'] .scroll-btn-text {
+  color: var(--color-primary);
+}
+
+[data-theme='dark'] .footer-col-brand .footer-brand-desc,
+[data-theme='dark'] .footer-link-list a,
+[data-theme='dark'] .footer-bottom-content,
+[data-theme='dark'] .footer-legal-links a {
+  color: var(--color-subtext);
+}
+
+[data-theme='dark'] .footer-link-list a:hover,
+[data-theme='dark'] .footer-legal-links a:hover {
+  color: #D4AF37;
+}
+
+[data-theme='dark'] .security-badge-box {
+  background: var(--color-bg);
+  border-color: var(--color-border);
+}
+
+[data-theme='dark'] .security-badge-text strong {
+  color: var(--color-primary);
+}
+
+[data-theme='dark'] .footer-bottom-bar {
+  border-top-color: var(--color-border);
+}
+
+@media (max-width: 900px) {
+  .footer-grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-grid-container {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
 /* Component Identity Labels */
 .component-label {
   font-size: 0.65rem;
@@ -682,28 +877,9 @@
    Consumes theme_config custom variables with minimal, smooth shifts
    ===================================================== */
 
-[data-theme='dark'] .finance-navbar-wrapper,
 [data-theme='dark'] .finance-footer-wrapper {
   background-color: var(--color-bg);
   background-image: none;
-}
-
-[data-theme='dark'] .finance-pill-inner {
-  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-bg) 100%);
-  box-shadow: inset 0 1.5px 3px rgba(255, 255, 255, 0.05), inset 0 -1.5px 4px rgba(0, 0, 0, 0.4);
-}
-
-[data-theme='dark'] .finance-circle-inner {
-  background: var(--color-secondary);
-}
-
-[data-theme='dark'] .finance-nav-item {
-  color: var(--color-primary);
-}
-
-[data-theme='dark'] .finance-nav-item:hover,
-[data-theme='dark'] .finance-nav-item.active {
-  color: #D4AF37;
 }
 
 [data-theme='dark'] .finance-badge-text {
