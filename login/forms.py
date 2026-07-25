@@ -66,10 +66,16 @@ class CustomUserCreationForm(UserCreationForm):
                 'placeholder': 'Confirm password',
             })
 
+    def clean_username(self):
+        """
+        Allows non-unique usernames (multiple users can share the same username).
+        """
+        username = self.cleaned_data.get('username', '').strip()
+        return username
+
     def clean_email(self):
         """
-        Verifies that email is unique across all users.
-        Uses ORM parameterization to prevent SQL injection.
+        Verifies that email is strictly unique across all users.
         """
         email = self.cleaned_data.get('email', '').strip().lower()
         if User.objects.filter(email__iexact=email).exists():
@@ -80,6 +86,7 @@ class CustomUserCreationForm(UserCreationForm):
 class EmailOrUsernameLoginForm(forms.Form):
     """
     User Login Form supporting Username OR Email identification with Password.
+    Supports non-unique usernames by checking password across matching username candidates.
     """
     login_identity = forms.CharField(
         label=_("Username or Email"),
@@ -114,12 +121,26 @@ class EmailOrUsernameLoginForm(forms.Form):
 
         if identity and password:
             identity = identity.strip()
-            # 1. Try finding user by email first using ORM parameterized lookup
-            user_obj = User.objects.filter(email__iexact=identity).first()
-            username_to_auth = user_obj.username if user_obj else identity
+            self.user_cache = None
 
-            # 2. Authenticate credentials
-            self.user_cache = authenticate(username=username_to_auth, password=password)
+            # 1. Look up by exact email address
+            users_by_email = User.objects.filter(email__iexact=identity)
+            for user in users_by_email:
+                if user.check_password(password):
+                    self.user_cache = user
+                    break
+
+            # 2. If not matched by email, look up candidates by username
+            if self.user_cache is None:
+                users_by_username = User.objects.filter(username__iexact=identity)
+                for user in users_by_username:
+                    if user.check_password(password):
+                        self.user_cache = user
+                        break
+
+            # 3. Fallback standard Django authenticate
+            if self.user_cache is None:
+                self.user_cache = authenticate(username=identity, password=password)
 
             if self.user_cache is None:
                 raise ValidationError(

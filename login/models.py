@@ -18,9 +18,16 @@ from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractUser):
     """
-    Custom user model for Base Features.
-    Supports email uniqueness, social provider identification, and profile fields.
+    Custom user model for Sabin Balan Finance.
+    Supports unique email authentication and non-unique usernames.
     """
+
+    username = models.CharField(
+        _('username'),
+        max_length=150,
+        unique=False,
+        help_text=_("Required. 150 characters or fewer.")
+    )
 
     PROVIDER_CHOICES = (
         ('email', 'Standard Email/Password'),
@@ -37,6 +44,9 @@ class CustomUser(AbstractUser):
         },
         help_text=_("Required. Enter a valid email address.")
     )
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     bio = models.TextField(
         _('bio'),

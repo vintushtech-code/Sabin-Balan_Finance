@@ -1,24 +1,40 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Thank You | Base Features{% endblock %}
+{% block title %}Thank You | Sabin Balan Finance{% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
 <link rel="stylesheet" href="{% static 'contactform/css/contactform.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="contact-card-container" style="text-align: center;">
-  <div class="success-illustration">✉️</div>
-  <div class="contact-header">
-    <h1>Thank You!</h1>
-    <p class="subtitle">Your message has been successfully sent.</p>
+<div class="auth-split-wrapper" style="max-width: 980px;">
+  
+  <!-- Left Side: Unsplash Hero Image & Brand Overlay -->
+  <div class="auth-split-image" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80');">
+    <div class="auth-image-overlay">
+      <div class="auth-image-content">
+        <span class="auth-image-badge">✉️ Message Dispatched</span>
+        <h2>Thank You for Reaching Out</h2>
+        <p>Our financial advisory and support team will review your message and get back to you promptly.</p>
+      </div>
+    </div>
   </div>
-  <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.5;">
-    We appreciate you reaching out to us. Our team will review your submission and respond as soon as possible.
-  </p>
-  <a href="{% if user.is_authenticated %}{% url 'login:dashboard' %}{% else %}{% url 'contactform:contact' %}{% endif %}" class="btn btn-primary">
-    Back to Contact Form
-  </a>
+
+  <!-- Right Side: Content Column -->
+  <div class="auth-split-form" style="text-align: left;">
+    <div class="contact-header" style="text-align: left;">
+      <h1 style="font-size: 1.8rem; margin-bottom: 0.25rem;">Message Received!</h1>
+      <p class="subtitle" style="margin-bottom: 1.25rem;">Your transmission has been delivered successfully.</p>
+    </div>
+
+    <p style="color: var(--color-subtext); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.75rem;">
+      We appreciate you contacting Sabin Balan Finance. One of our dedicated specialists will respond to your query at your email address.
+    </p>
+
+    <a href="{% url 'login:home' %}" class="btn btn-primary" style="display: block; text-align: center; text-decoration: none;">Return to Home Console</a>
+  </div>
+
 </div>
 {% endblock %}
