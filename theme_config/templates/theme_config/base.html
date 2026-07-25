@@ -37,7 +37,9 @@
 <body>
 
   <!-- Navigation Bar Component (Unified Navfooter Module) -->
-  {% render_navbar brand_name="Sabin Balan Finance" brand_short="SBF" %}
+  {% block navbar %}
+    {% render_navbar brand_name="Sabin Balan Finance" brand_short="SBF" %}
+  {% endblock %}
 
   <!-- Application Main Content Area -->
   <main class="app-container">
@@ -57,7 +59,9 @@
   </main>
 
   <!-- Footer Component (Unified Navfooter Module) -->
-  {% render_footer tagline="Institutional-Grade Advisory & Private Wealth Management" %}
+  {% block footer %}
+    {% render_footer tagline="Institutional-Grade Advisory & Private Wealth Management" %}
+  {% endblock %}
 
   {% block extra_js %}{% endblock %}
 </body>

@@ -28,9 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'theme_config',
-    'navfooter',
     'contactform',
+    'navfooter',
+    'theme_config',
     'login',
 ]
 

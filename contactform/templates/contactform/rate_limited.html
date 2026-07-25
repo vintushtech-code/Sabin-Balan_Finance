@@ -11,7 +11,7 @@
     <p class="subtitle">Security throttling active to prevent automated spam</p>
   </div>
   <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
-    {{ error_message|default:"Too many submission attempts detected. Please wait a short while before sending another consultation request." }}
+    {{ error_message|default:"Too many submission attempts detected from your IP address. Please wait a short while before sending another consultation request." }}
   </p>
 
   <a href="{% url 'login:home' %}" class="btn btn-gold" style="width: 100%;">Return to Home Page &rarr;</a>

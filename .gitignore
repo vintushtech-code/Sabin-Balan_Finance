@@ -1,6 +1,26 @@
+# Virtual Environments
 venv/
-__pycache__/
-.vscode/
-.env
-*.pyc
 sabin_venv/
+ENV/
+env/
+
+# Python & Django Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment Variables & Secrets
+.env
+.env.local
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+
+# Database Files
+*.sqlite3
+db.sqlite3
+
+# Static Files Build Directory
+staticfiles/

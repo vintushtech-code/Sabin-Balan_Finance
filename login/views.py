@@ -241,3 +241,47 @@ class HomeView(TemplateView):
         messages.success(request, "Your profile bio has been updated successfully!")
         return redirect('login:home')
 
+# --------------------------------------------------------------------------
+# 7. About Us Page
+# --------------------------------------------------------------------------
+class AboutView(TemplateView):
+    """
+    Publicly accessible About Us page (about.html).
+    """
+    template_name = 'login/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "About Us — Sabin Balan Finance"
+        return context
+
+
+# --------------------------------------------------------------------------
+# 8. Services Page
+# --------------------------------------------------------------------------
+class ServicesView(TemplateView):
+    """
+    Publicly accessible Services page (services.html).
+    """
+    template_name = 'login/services.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Our Advisory Services — Sabin Balan Finance"
+        return context
+
+
+# --------------------------------------------------------------------------
+# 9. Testimonials Page
+# --------------------------------------------------------------------------
+class TestimonialsView(TemplateView):
+    """
+    Publicly accessible Testimonials page (testimonials.html).
+    """
+    template_name = 'login/testimonials.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Client Testimonials — Sabin Balan Finance"
+        return context
+

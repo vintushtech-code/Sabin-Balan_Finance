@@ -1,0 +1,64 @@
+{% extends 'theme_config/base.html' %}
+{% load static %}
+
+{% block title %}Testimonials | Sabin Balan Finance{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="testimonials-container" style="max-width: 900px; width: 100%; margin: 0 auto;">
+  
+  <!-- Hero Section -->
+  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2.5rem 2rem; box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; text-align: center;">
+    <span class="provider-badge" style="margin-bottom: 0.75rem; display: inline-block;">
+      ⭐ Client Reviews &amp; Success Stories
+    </span>
+    <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--color-primary);">What Our Clients Say</h1>
+    <p style="color: var(--color-subtext); font-size: 1.05rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">
+      Read authentic feedback from individuals, small business owners, and corporate partners who trust Sabin Balan Finance.
+    </p>
+  </div>
+
+  <!-- Testimonials Cards Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; width: 100%;">
+    
+    <div class="card-container" style="max-width: 100%;">
+      <div style="color: #D4AF37; font-size: 1.1rem; margin-bottom: 0.5rem;">⭐⭐⭐⭐⭐</div>
+      <p style="color: var(--color-subtext); font-size: 0.95rem; font-style: italic; line-height: 1.6; margin-bottom: 1rem;">
+        "Sabin Balan Finance transformed how our startup manages cash flow. The security features and instant reporting give us total peace of mind."
+      </p>
+      <div style="font-weight: 700; color: var(--color-primary); font-size: 0.95rem;">Sophia Martinez</div>
+      <div style="font-size: 0.8rem; color: var(--color-subtext);">CFO, Nexus Innovations</div>
+    </div>
+
+    <div class="card-container" style="max-width: 100%;">
+      <div style="color: #D4AF37; font-size: 1.1rem; margin-bottom: 0.5rem;">⭐⭐⭐⭐⭐</div>
+      <p style="color: var(--color-subtext); font-size: 0.95rem; font-style: italic; line-height: 1.6; margin-bottom: 1rem;">
+        "The automated budgeting tools allowed me to increase my annual savings by 35%. Clean interface and zero unnecessary clutter."
+      </p>
+      <div style="font-weight: 700; color: var(--color-primary); font-size: 0.95rem;">David Chen</div>
+      <div style="font-size: 0.8rem; color: var(--color-subtext);">Software Architect &amp; Investor</div>
+    </div>
+
+    <div class="card-container" style="max-width: 100%;">
+      <div style="color: #D4AF37; font-size: 1.1rem; margin-bottom: 0.5rem;">⭐⭐⭐⭐⭐</div>
+      <p style="color: var(--color-subtext); font-size: 0.95rem; font-style: italic; line-height: 1.6; margin-bottom: 1rem;">
+        "Outstanding security infrastructure. The OAuth authentication and instant account controls make managing family wealth effortless."
+      </p>
+      <div style="font-weight: 700; color: var(--color-primary); font-size: 0.95rem;">Elena Rostova</div>
+      <div style="font-size: 0.8rem; color: var(--color-subtext);">Private Wealth Management Client</div>
+    </div>
+
+  </div>
+
+  <!-- Share Feedback Banner -->
+  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-subtle); text-align: center;">
+    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Have Feedback to Share?</h3>
+    <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 1.25rem;">We value your experience and are constantly improving our platform.</p>
+    <a href="{% url 'contactform:contact' %}" class="btn btn-primary" style="width: auto; padding: 0.75rem 2rem;">Send Us Your Feedback</a>
+  </div>
+
+</div>
+{% endblock %}

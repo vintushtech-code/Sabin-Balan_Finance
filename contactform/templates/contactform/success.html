@@ -4,27 +4,47 @@
 {% block title %}Request Received — Sabin Balan Private Wealth{% endblock %}
 
 {% block content %}
-<div class="card-container glass-card" style="text-align: center; margin: 4rem auto; max-width: 520px;">
-  <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--color-success); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 1.5rem;">
-    ✓
+<div class="auth-split-wrapper" style="display: flex; width: 100%; min-height: 100vh; background: var(--color-bg);">
+  
+  <!-- Left Side: Unsplash Hero Image & Brand Overlay -->
+  <div class="auth-split-image" style="flex: 1; min-height: 100vh; background-image: linear-gradient(180deg, rgba(6, 8, 13, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 4rem; position: relative;">
+    <div class="auth-image-content" style="position: relative; z-index: 10; max-width: 540px; color: #ffffff;">
+      <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">
+        ✉️ Message Dispatched
+      </span>
+      <h2 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff;">
+        Thank You for Reaching Out
+      </h2>
+      <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+        Our senior chartered advisory team will review your requirements and respond to your inquiry within 24 hours.
+      </p>
+    </div>
   </div>
 
-  <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Consultation Request Received</h1>
-  <p class="subtitle" style="font-size: 1.05rem; margin-bottom: 1.5rem;">
-    Thank you for connecting with Sabin Balan Private Wealth Advisory.
-  </p>
+  <!-- Right Side: Content Column -->
+  <div class="auth-split-form" style="flex: 0 0 520px; max-width: 520px; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 3rem; background: var(--color-secondary);">
+    <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--color-success); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.25rem;">
+      ✓
+    </div>
 
-  <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
-    Your message has been assigned to a senior charter wealth manager. An advisor will review your requirements and reach out within 24 hours.
-  </p>
+    <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Message Received!</h1>
+    <p class="subtitle" style="font-size: 0.95rem; margin-bottom: 1.5rem;">
+      Your transmission has been delivered successfully.
+    </p>
 
-  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-    <a href="{% url 'login:home' %}" class="btn btn-gold" style="flex: 1;">
-      Return to Home &rarr;
-    </a>
-    <a href="{% url 'contactform:contact' %}" class="btn btn-secondary" style="flex: 1;">
-      Contact Desk
-    </a>
+    <p style="color: var(--color-subtext); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">
+      We appreciate you connecting with Sabin Balan Private Wealth Advisory. An advisor will reach out to you directly at your email address.
+    </p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="{% url 'login:home' %}" class="btn btn-gold" style="flex: 1;">
+        Return to Home &rarr;
+      </a>
+      <a href="{% url 'contactform:contact' %}" class="btn btn-secondary" style="flex: 1;">
+        Contact Desk
+      </a>
+    </div>
   </div>
+
 </div>
 {% endblock %}

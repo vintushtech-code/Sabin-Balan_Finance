@@ -1,0 +1,83 @@
+{% extends 'theme_config/base.html' %}
+{% load static %}
+
+{% block title %}About Us | Sabin Balan Finance{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="about-container" style="max-width: 900px; width: 100%; margin: 0 auto;">
+  
+  <!-- Hero Section -->
+  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2.5rem 2rem; box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; text-align: center;">
+    <span class="provider-badge" style="margin-bottom: 0.75rem; display: inline-block;">
+      ⚡ Premier Financial Platform
+    </span>
+    <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--color-primary);">About Sabin Balan Finance</h1>
+    <p style="color: var(--color-subtext); font-size: 1.05rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">
+      Empowering individuals and enterprises with intelligent wealth management, automated budgeting, and bank-grade security protections.
+    </p>
+  </div>
+
+  <!-- Mission & Core Values Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; width: 100%;">
+    
+    <div class="card-container" style="max-width: 100%;">
+      <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        🎯 Our Mission
+      </h3>
+      <p style="color: var(--color-subtext); font-size: 0.92rem; line-height: 1.6;">
+        To simplify complex financial workflows through elegant user experiences, real-time insights, and uncompromised privacy.
+      </p>
+    </div>
+
+    <div class="card-container" style="max-width: 100%;">
+      <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        🛡️ Bank-Grade Security
+      </h3>
+      <p style="color: var(--color-subtext); font-size: 0.92rem; line-height: 1.6;">
+        Built with 256-bit encryption standards, ORM SQL injection immunity, and custom brute-force rate-limiting defenses.
+      </p>
+    </div>
+
+    <div class="card-container" style="max-width: 100%;">
+      <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        ⚙️ Modular Architecture
+      </h3>
+      <p style="color: var(--color-subtext); font-size: 0.92rem; line-height: 1.6;">
+        Engineered with isolated, decoupled Django micro-modules (<code>login</code>, <code>theme_config</code>, <code>navfooter</code>, <code>contactform</code>).
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Key Statistics Banner -->
+  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-subtle);">
+    <h3 style="font-size: 1.25rem; margin-bottom: 1.25rem; text-align: center;">Platform Highlights</h3>
+    
+    <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center;">
+      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--color-primary);">99.99%</div>
+        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">Uptime Security</div>
+      </div>
+
+      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--color-primary);">256-Bit</div>
+        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">SSL Encryption</div>
+      </div>
+
+      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--color-primary);">Instant</div>
+        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">OAuth Authentication</div>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 1.5rem;">
+      <a href="{% url 'contactform:contact' %}" class="btn btn-primary" style="width: auto; padding: 0.75rem 2rem;">Get in Touch With Us</a>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
