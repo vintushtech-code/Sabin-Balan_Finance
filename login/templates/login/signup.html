@@ -1,7 +1,7 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Create Account | Sabin Balan Finance{% endblock %}
+{% block title %}Create Account — Sabin Balan Private Wealth{% endblock %}
 
 {% block navbar %}{% endblock %}
 {% block footer %}{% endblock %}
@@ -11,24 +11,31 @@
 {% endblock %}
 
 {% block content %}
-<div class="auth-split-wrapper">
+<div class="auth-split-wrapper" style="display: flex; width: 100%; min-height: 100vh; background: var(--color-bg);">
   
   <!-- Left Side: Unsplash Financial Hero Image & Brand Overlay -->
-  <div class="auth-split-image" style="background-image: url('https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80');">
-    <div class="auth-image-overlay">
-      <div class="auth-image-content">
-        <span class="auth-image-badge">🚀 Instant Setup</span>
-        <h2>Join Sabin Balan Finance Today</h2>
-        <p>Start tracking your assets, creating intelligent budgets, and protecting your financial future in less than a minute.</p>
-      </div>
+  <div class="auth-split-image" style="flex: 1; min-height: 100vh; background-image: linear-gradient(180deg, rgba(6, 8, 13, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%), url('https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 4rem; position: relative;">
+    <div class="auth-image-content" style="position: relative; z-index: 10; max-width: 540px; color: #ffffff;">
+      <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">
+        🚀 Instant Account Setup
+      </span>
+      <h2 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff;">
+        Join Sabin Balan Private Wealth
+      </h2>
+      <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+        Start managing your assets, receiving quantitative portfolio insights, and securing your financial future in less than a minute.
+      </p>
     </div>
   </div>
 
   <!-- Right Side: Signup Form Column -->
-  <div class="auth-split-form">
-    <div class="auth-header" style="text-align: left;">
-      <h1>Create Account</h1>
-      <p class="subtitle">Join Sabin Balan Finance in less than a minute</p>
+  <div class="auth-split-form" style="flex: 0 0 520px; max-width: 520px; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 3rem; background: var(--color-secondary);">
+    <div class="auth-header" style="text-align: left; margin-bottom: 2rem;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--color-gold); font-size: 1.3rem; margin-bottom: 1rem;">
+        🏛️
+      </div>
+      <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Create Client Account</h1>
+      <p class="subtitle" style="font-size: 0.95rem;">Join Sabin Balan Finance to access institutional wealth advisory</p>
     </div>
 
     {% if form.non_field_errors %}
@@ -85,10 +92,12 @@
         {% endif %}
       </div>
 
-      <button type="submit" class="btn btn-primary" style="margin-top:0.5rem;">Create Account</button>
+      <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+        Register Client Account &rarr;
+      </button>
     </form>
 
-    <div class="auth-footer" style="text-align: left;">
+    <div class="auth-footer" style="text-align: left; margin-top: 1.5rem;">
       Already have an account? <a href="{% url 'login:login' %}">Sign In</a>
     </div>
   </div>

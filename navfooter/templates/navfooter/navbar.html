@@ -3,7 +3,7 @@
 <div class="finance-navbar-wrapper">
 
   <!-- Accessible & test compatibility metadata -->
-  <span style="display: none;">{{ brand_name|default:"Base Features" }}</span>
+  <span style="display: none;">{{ brand_name|default:"Sabin Balan Finance" }}</span>
   <span style="display: none;">Dashboard</span>
 
   <div class="finance-navbar-container">
@@ -11,7 +11,7 @@
     <!-- Far Left: Savings & Growth 3D Gold Badge -->
     <div class="finance-left-badge-group">
       <a href="{% if user.is_authenticated %}{% url 'login:home' %}{% else %}{% url 'login:login' %}{% endif %}"
-        class="finance-circle-badge" aria-label="{{ brand_name|default:'Sabin balan - finance' }}">
+        class="finance-circle-badge" aria-label="{{ brand_name|default:'Sabin Balan Finance' }}">
         <div class="finance-circle-inner">
           {% if navbar_settings.logo_image_file %}
           <img src="{{ navbar_settings.logo_image_file.url }}" alt="{{ brand_name|default:'Logo' }}"
@@ -43,12 +43,12 @@
             <ellipse cx="30" cy="34" rx="12.5" ry="4.2" fill="#5C4209" />
             <path d="M23.5 34v6c0 2.3 5.6 4.2 12.5 4.2s12.5-1.9 12.5-4.2v-6" fill="url(#coinGoldBright)" />
             <ellipse cx="36" cy="22" rx="12.5" ry="4.2" fill="url(#coinGoldBright)" />
-            <path d="M38 43c7-2 12-10 11-17-7 6-10 11-11 17z" fill="url(#leafGrad)" />
+            <path d="M38 43c7-2 12-10 11-17-7 6-10 11-17z" fill="url(#leafGrad)" />
           </svg>
           {% endif %}
         </div>
       </a>
-      <span class="finance-badge-text">Sabin balan &amp;<br />Finance</span>
+      <span class="finance-badge-text">Sabin Balan &amp;<br />Finance</span>
     </div>
 
     <!-- Connector Line & Dot -->
@@ -88,7 +88,7 @@
         </svg>
       </div>
 
-      <!-- Inner Marble Content Area -->
+      <!-- Inner Content Area -->
       <div class="finance-pill-inner">
 
         <!-- LEFT NAV LINKS -->
@@ -236,15 +236,15 @@
             <div class="finance-active-indicator"></div>
           </a>
 
-          <!-- SETTINGS (Dropdown Trigger) -->
+          <!-- SETTINGS / ACCOUNT (Dropdown Trigger) -->
           <div class="finance-nav-item" id="settings-dropdown-trigger" onclick="toggleUserDropdown(event)" role="button" tabindex="0" style="cursor: pointer; position: relative;">
             <svg class="finance-icon" viewBox="0 0 24 24">
               <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
             </svg>
-            <span class="finance-label">SETTINGS ▾</span>
+            <span class="finance-label">ACCOUNT ▾</span>
             <div class="finance-active-indicator"></div>
 
-            <!-- User Action Dropdown Menu Positioned Anchored Below SETTINGS -->
+            <!-- Dropdown Menu -->
             <div class="user-dropdown-menu finance-dropdown-menu" id="user-dropdown-menu">
               {% if user.is_authenticated %}
               <div class="user-info-header">
@@ -268,19 +268,18 @@
                 <span>Toggle Theme</span> <span id="theme-icon-dropdown">🌙</span>
               </button>
 
-              <!-- Reports Link -->
-              <a href="{% url 'login:home' %}" class="dropdown-item">Reports</a>
+              <a href="{% url 'login:home' %}" class="dropdown-item">Client Portal</a>
 
               <div class="dropdown-divider"></div>
 
-              <!-- Login / Logout -->
               {% if user.is_authenticated %}
               <form action="{% url 'login:logout' %}" method="post" class="logout-form">
                 {% csrf_token %}
                 <button type="submit" class="dropdown-item btn-logout" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer; color: var(--color-error, #d9534f);">Logout</button>
               </form>
               {% else %}
-              <a href="{% url 'login:login' %}" class="dropdown-item">Login</a>
+              <a href="{% url 'login:login' %}" class="dropdown-item">Sign In</a>
+              <a href="{% url 'login:signup' %}" class="dropdown-item highlight">Create Account</a>
               {% endif %}
             </div>
 
@@ -304,7 +303,6 @@
     </div>
 
   </div>
-
 </div>
 
 <script>

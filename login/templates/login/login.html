@@ -1,7 +1,7 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Sign In | Sabin Balan Finance{% endblock %}
+{% block title %}Sign In — Sabin Balan Client Portal{% endblock %}
 
 {% block navbar %}{% endblock %}
 {% block footer %}{% endblock %}
@@ -11,26 +11,32 @@
 {% endblock %}
 
 {% block content %}
-<div class="auth-split-wrapper">
+<div class="auth-split-wrapper" style="display: flex; width: 100%; min-height: 100vh; background: var(--color-bg);">
 
-  <!-- Left Side: Unsplash Financial Hero Image & Brand Overlay -->
+  <!-- Left Side: Financial Hero Image & Brand Overlay -->
   <div class="auth-split-image"
-    style="background-image: url('https://images.unsplash.com/photo-1561514958-6ed1d8a74060?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-    <div class="auth-image-overlay">
-      <div class="auth-image-content">
-        <span class="auth-image-badge">🛡️ Bank-Grade Security</span>
-        <h2>Master Your Wealth with Intelligence</h2>
-        <p>Access real-time analytics, automated budgeting, and seamless portfolio insights with Sabin Balan Finance.
-        </p>
-      </div>
+    style="flex: 1; min-height: 100vh; background-image: linear-gradient(180deg, rgba(6, 8, 13, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%), url('https://images.unsplash.com/photo-1561514958-6ed1d8a74060?q=80&w=1200&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 4rem; position: relative;">
+    <div class="auth-image-content" style="position: relative; z-index: 10; max-width: 540px; color: #ffffff;">
+      <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">
+        🛡️ Bank-Grade 256-Bit Protection
+      </span>
+      <h2 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff;">
+        Master Your Wealth with Institutional Intelligence
+      </h2>
+      <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+        Access real-time portfolio analytics, quantitative advisory, and seamless wealth control with Sabin Balan Finance.
+      </p>
     </div>
   </div>
 
   <!-- Right Side: Login Form Column -->
-  <div class="auth-split-form">
-    <div class="auth-header" style="text-align: left;">
-      <h1>Welcome Back</h1>
-      <p class="subtitle">Enter your credentials to access your account</p>
+  <div class="auth-split-form" style="flex: 0 0 520px; max-width: 520px; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 3rem; background: var(--color-secondary);">
+    <div class="auth-header" style="text-align: left; margin-bottom: 2rem;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--color-gold); font-size: 1.3rem; margin-bottom: 1rem;">
+        🔐
+      </div>
+      <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Client Portal Sign In</h1>
+      <p class="subtitle" style="font-size: 0.95rem;">Enter your credentials to access your advisory dashboard</p>
     </div>
 
     {% if form.non_field_errors %}
@@ -46,7 +52,7 @@
       {% csrf_token %}
 
       <div class="form-group">
-        <label for="{{ form.login_identity.id_for_label }}" class="form-label">Username or Email</label>
+        <label for="{{ form.login_identity.id_for_label }}" class="form-label">Username or Registered Email</label>
         {{ form.login_identity }}
         {% if form.login_identity.errors %}
         <div class="field-error">{{ form.login_identity.errors.0 }}</div>
@@ -54,7 +60,7 @@
       </div>
 
       <div class="form-group">
-        <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+        <label for="{{ form.password.id_for_label }}" class="form-label">Account Password</label>
         <div class="password-field-wrapper">
           {{ form.password }}
           <button type="button" class="password-toggle-btn"
@@ -75,11 +81,13 @@
         <a href="{% url 'login:password_reset' %}" class="forgot-link">Forgot password?</a>
       </div>
 
-      <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">Sign In</button>
+      <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+        Sign In to Portal &rarr;
+      </button>
     </form>
 
     <div class="auth-divider">
-      <span>Or continue with</span>
+      <span>Or sign in with</span>
     </div>
 
     <!-- Social Authentication Providers -->
@@ -95,7 +103,7 @@
           <path fill="#34A853"
             d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.3-6.7-5.3L1.6 16C3.5 19.8 7.4 23 12 23z" />
         </svg>
-        Google
+        Google Corporate SSO
       </a>
 
       <a href="{% url 'login:social_init' 'github' %}" class="btn-social">
@@ -103,12 +111,12 @@
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
         </svg>
-        GitHub
+        GitHub SSO
       </a>
     </div>
 
-    <div class="auth-footer" style="text-align: left;">
-      Don't have an account? <a href="{% url 'login:signup' %}">Create account</a>
+    <div class="auth-footer" style="text-align: left; margin-top: 1.5rem;">
+      Don't have a private account? <a href="{% url 'login:signup' %}">Create client account</a>
     </div>
   </div>
 

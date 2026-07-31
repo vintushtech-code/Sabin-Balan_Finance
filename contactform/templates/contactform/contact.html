@@ -1,84 +1,201 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Contact Us | Sabin Balan Finance{% endblock %}
+{% block title %}Contact Advisory — Sabin Balan Private Wealth{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
-<link rel="stylesheet" href="{% static 'contactform/css/contactform.css' %}">
+<style>
+  .contact-page-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 3.5rem auto;
+    padding: 0 1.5rem;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-info-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-pill);
+    color: var(--color-gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .contact-title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .contact-desc {
+    font-size: 1.05rem;
+    color: var(--color-subtext);
+    line-height: 1.6;
+  }
+
+  .info-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .info-card-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .info-icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 992px) {
+    .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="auth-split-wrapper" style="max-width: 980px;">
-  
-  <!-- Left Side: Unsplash Contact Hero Image & Brand Overlay -->
-  <div class="auth-split-image" style="background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=1200&q=80');">
-    <div class="auth-image-overlay">
-      <div class="auth-image-content">
-        <span class="auth-image-badge">💬 24/7 Advisory &amp; Support</span>
-        <h2>We'd Love to Hear From You</h2>
-        <p>Whether you have a question about wealth management, platform features, or partnership opportunities, our team is ready to help.</p>
+<div class="contact-page-wrapper">
+  <div class="contact-layout">
+
+    <!-- Left Column: Corporate & Advisory Contact Info -->
+    <div class="contact-info-panel">
+      <div>
+        <div class="contact-badge">💬 24/7 Advisory Desk</div>
+        <h1 class="contact-title" style="margin-top: 0.75rem; margin-bottom: 0.75rem;">Get in Touch with Our Wealth Advisory Desk</h1>
+        <p class="contact-desc">
+          Whether you are exploring private wealth solutions, institutional asset allocation, or systematic portfolio strategies, our senior chartered wealth managers are ready to assist.
+        </p>
+      </div>
+
+      <div class="info-cards-list">
+        <div class="info-card-item">
+          <div class="info-icon-badge">📍</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1.05rem;">Global Headquarters</div>
+            <div style="font-size: 0.9rem; color: var(--color-subtext);">Financial District Towers, Level 38, BKC, Mumbai 400051</div>
+          </div>
+        </div>
+
+        <div class="info-card-item">
+          <div class="info-icon-badge">📞</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1.05rem;">Direct Private Desk</div>
+            <div style="font-size: 0.9rem; color: var(--color-subtext);">+91 (022) 8800-FINANCE (Mon-Fri 09:00 - 18:00 IST)</div>
+          </div>
+        </div>
+
+        <div class="info-card-item">
+          <div class="info-icon-badge">✉️</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1.05rem;">Client Advisory Email</div>
+            <div style="font-size: 0.9rem; color: var(--color-subtext);">advisory@sabinbalanfinance.com</div>
+          </div>
+        </div>
+
+        <div class="info-card-item">
+          <div class="info-icon-badge">🛡️</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1.05rem;">Regulatory Security & Compliance</div>
+            <div style="font-size: 0.9rem; color: var(--color-subtext);">Registered Financial Advisory Entity &bull; 256-bit Encrypted Vault</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Right Side: Contact Form Column -->
-  <div class="auth-split-form">
-    <div class="contact-header" style="text-align: left;">
-      <h1 style="font-size: 1.8rem; margin-bottom: 0.25rem;">Contact Us</h1>
-      <p class="subtitle" style="margin-bottom: 1.25rem;">Have questions or feedback? Drop us a message below.</p>
+    <!-- Right Column: Glassmorphic Lead Capture Form -->
+    <div class="glass-card" style="padding: 2.75rem 2.25rem;">
+      <h2 style="font-size: 1.6rem; margin-bottom: 0.35rem;">Send an Advisory Message</h2>
+      <p style="font-size: 0.9rem; color: var(--color-subtext); margin-bottom: 1.75rem;">
+        Fill out the form below. A senior chartered advisor will respond within 24 hours.
+      </p>
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-error">
+          {% for error in form.non_field_errors %}
+            <div>{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="post" action="{% url 'contactform:contact' %}" class="contact-form" novalidate>
+        {% csrf_token %}
+
+        <!-- Security & Anti-spam honeypot fields -->
+        {{ form.website }}
+        {{ form.submission_security }}
+
+        <div class="form-group">
+          <label for="{{ form.name.id_for_label }}" class="form-label">Your Full Name</label>
+          {{ form.name }}
+          {% if form.name.errors %}
+            <div class="field-error">{{ form.name.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+          {{ form.email }}
+          {% if form.email.errors %}
+            <div class="field-error">{{ form.email.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}" class="form-label">Subject / Area of Interest</label>
+          {{ form.subject }}
+          {% if form.subject.errors %}
+            <div class="field-error">{{ form.subject.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.message.id_for_label }}" class="form-label">Detailed Message</label>
+          {{ form.message }}
+          {% if form.message.errors %}
+            <div class="field-error">{{ form.message.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+          Send Advisory Request &rarr;
+        </button>
+      </form>
     </div>
 
-    {% if form.non_field_errors %}
-      <div class="alert alert-error">
-        {% for error in form.non_field_errors %}
-          <div>{{ error }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    <form method="post" action="{% url 'contactform:contact' %}" class="auth-form" novalidate>
-      {% csrf_token %}
-
-      <!-- Security and anti-spam fields -->
-      {{ form.website }}
-      {{ form.submission_security }}
-
-      <div class="form-group">
-        <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
-        {{ form.name }}
-        {% if form.name.errors %}
-          <div class="field-error">{{ form.name.errors.0 }}</div>
-        {% endif %}
-      </div>
-
-      <div class="form-group">
-        <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
-        {{ form.email }}
-        {% if form.email.errors %}
-          <div class="field-error">{{ form.email.errors.0 }}</div>
-        {% endif %}
-      </div>
-
-      <div class="form-group">
-        <label for="{{ form.subject.id_for_label }}" class="form-label">Subject</label>
-        {{ form.subject }}
-        {% if form.subject.errors %}
-          <div class="field-error">{{ form.subject.errors.0 }}</div>
-        {% endif %}
-      </div>
-
-      <div class="form-group">
-        <label for="{{ form.message.id_for_label }}" class="form-label">Message</label>
-        {{ form.message }}
-        {% if form.message.errors %}
-          <div class="field-error">{{ form.message.errors.0 }}</div>
-        {% endif %}
-      </div>
-
-      <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">Send Message</button>
-    </form>
   </div>
-
 </div>
 {% endblock %}

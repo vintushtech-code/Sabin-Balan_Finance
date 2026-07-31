@@ -69,7 +69,6 @@ class SignupView(FormView):
 
         # Log user in immediately
         login(self.request, user)
-        messages.success(self.request, f"Welcome to Sabin Balan Finance, {user.username}! Your account has been created.")
         return super().form_valid(form)
 
 
@@ -104,8 +103,6 @@ class LoginView(FormView):
             # Session persists for 14 days
             self.request.session.set_expiry(1209600)
 
-        messages.success(self.request, f"Welcome back, {user.get_display_name()}!")
-        
         # Respect 'next' redirect parameter if safe
         redirect_to = self.request.GET.get('next') or self.success_url
         return redirect(redirect_to)
@@ -182,7 +179,6 @@ class SocialAuthInitView(View):
                 }
             )
             login(request, user)
-            messages.success(request, f"Successfully signed in with {provider.capitalize()} (Dev Mode).")
             return redirect('login:home')
 
         oauth_urls = {
@@ -205,24 +201,32 @@ class SocialAuthCallbackView(View):
 
 
 # --------------------------------------------------------------------------
-# 6. Authenticated User Main Home Page (home.html)
+# 6. Finance Advisory Landing & Main Home Page (home.html)
 # --------------------------------------------------------------------------
-class HomeView(LoginRequiredMixin, TemplateView):
+class HomeView(TemplateView):
     """
-    Protected user main home page (home.html) rendered upon successful login.
+    Public Finance Advisory Landing Page & Member Command Center (home.html).
+    Accessible to both visitors (guests) and logged-in members.
     """
     template_name = 'login/home.html'
-    login_url = reverse_lazy('login:login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         context['user'] = user
-        context['page_title'] = "Home"
+        context['page_title'] = "Sabin Balan Finance — Wealth & Institutional Advisory"
+        try:
+            from contactform.forms import ContactForm
+            context['contact_form'] = ContactForm()
+        except Exception:
+            context['contact_form'] = None
         return context
 
     def post(self, request, *args, **kwargs):
-        """Allows updating profile bio safely with XSS sanitization."""
+        """Allows updating profile bio safely for logged in users."""
+        if not request.user.is_authenticated:
+            return redirect('login:login')
+
         bio = request.POST.get('bio', '')
         sanitized_bio = sanitize_input(bio)
         
@@ -232,7 +236,6 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
         messages.success(request, "Your profile bio has been updated successfully!")
         return redirect('login:home')
-
 
 # --------------------------------------------------------------------------
 # 7. About Us Page
@@ -245,7 +248,7 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = "About Us"
+        context['page_title'] = "About Us — Sabin Balan Finance"
         return context
 
 
@@ -260,7 +263,7 @@ class ServicesView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = "Our Services"
+        context['page_title'] = "Our Advisory Services — Sabin Balan Finance"
         return context
 
 
@@ -275,5 +278,6 @@ class TestimonialsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = "Testimonials"
+        context['page_title'] = "Client Testimonials — Sabin Balan Finance"
         return context
+

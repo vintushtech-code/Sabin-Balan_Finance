@@ -4,36 +4,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sabin Balan Finance - Modular Financial & Auth Platform">
-  <title>{% block title %}Sabin Balan Finance{% endblock %}</title>
+  <meta name="description" content="Sabin Balan Finance — Institutional Wealth & Financial Advisory Services">
+  <title>{% block title %}Sabin Balan Finance — Wealth & Institutional Advisory{% endblock %}</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     (function() {
+      // Injected Dynamic CSS Variables
       const style = document.createElement('style');
       style.textContent = "{{ THEME_CSS_VARIABLES|escapejs }}";
       document.head.appendChild(style);
+
+      // Check saved theme preference (Default: Dark Mode for Jio BlackRock Midnight Onyx & Gold theme)
+      const savedTheme = localStorage.getItem('bf-theme');
+      if (savedTheme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
     })();
   </script>
 
-  <!-- Master Vanilla CSS Stylesheet -->
+  <!-- Master Executive Theme Stylesheet -->
   <link rel="stylesheet" href="{% static 'theme_config/css/theme.css' %}">
   <link rel="stylesheet" href="{% static 'navfooter/css/navfooter.css' %}">
   {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-  <!-- Navigation Bar Component from navfooter app -->
+  <!-- Navigation Bar Component (Unified Navfooter Module) -->
   {% block navbar %}
     {% render_navbar brand_name="Sabin Balan Finance" brand_short="SBF" %}
   {% endblock %}
 
-  <!-- Application Main Section -->
+  <!-- Application Main Content Area -->
   <main class="app-container">
     {% if messages %}
       <div class="messages-wrapper">
         {% for message in messages %}
           <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">
             <span>{{ message }}</span>
+            <button type="button" onclick="this.parentElement.remove()" style="background:none; border:none; color:currentColor; cursor:pointer; font-weight:bold; font-size:1.1rem; margin-left:1rem;">&times;</button>
           </div>
         {% endfor %}
       </div>
@@ -43,9 +58,9 @@
     {% endblock %}
   </main>
 
-  <!-- Footer Component from navfooter app -->
+  <!-- Footer Component (Unified Navfooter Module) -->
   {% block footer %}
-    {% render_footer tagline="Sabin Balan Finance — Modular Financial Command Center" %}
+    {% render_footer tagline="Institutional-Grade Advisory & Private Wealth Management" %}
   {% endblock %}
 
   {% block extra_js %}{% endblock %}
