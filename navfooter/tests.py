@@ -48,8 +48,8 @@ class NavfooterTemplateTagsTestCase(TestCase):
             "{% render_footer %}"
         ).render(Context({}))
 
-        self.assertIn("Base Features", out)
-        self.assertIn("Modular &amp; Secure", out)
+        self.assertIn("Platform", out)
+        self.assertIn("Security &amp; Support", out)
 
     def test_footer_renders_active_social_links(self):
         """Verify that footer renders active links and hides inactive ones."""
