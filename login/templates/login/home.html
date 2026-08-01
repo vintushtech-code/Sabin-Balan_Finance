@@ -9,15 +9,18 @@
   .hero-banner {
     position: relative;
     width: 100%;
+    max-width: 100%;
     min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     background: transparent;
     overflow: hidden;
-    padding: 6.5rem 5rem 3.5rem 5rem;
+    overflow-x: hidden;
+    padding: 6.5rem 2rem 3.5rem 2rem;
     margin-top: 0;
     border-bottom: 1px solid var(--color-border);
+    box-sizing: border-box;
   }
 
   .hero-video-bg {
@@ -64,6 +67,7 @@
     width: 100%;
     text-align: left;
     margin-left: 0;
+    margin-top: 30px;
   }
 
   .hero-pill-badge {
@@ -95,11 +99,12 @@
   }
 
   .hero-image-styled-title span.highlight-text {
-    color: var(--color-gold);
-    background: linear-gradient(135deg, #f5d77f 0%, #d4af37 100%);
+    color: #FFD700;
+    background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 35%, #F59E0B 75%, #B45309 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: #ffd70091;
+    display: inline-block;
   }
 
   .hero-image-styled-subtitle {
@@ -203,51 +208,97 @@
     box-shadow: 0 6px 20px rgba(236, 72, 153, 0.65);
   }
 
-  /* Metrics Bar */
+  /* Metrics Bar — Adaptive Light/Dark Executive Glass Pill */
   .metrics-ticker-wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    gap: 1rem;
     width: 100%;
-    max-width: 1100px;
+    max-width: 920px;
     margin: 0;
-    padding: 1.75rem 2rem;
-    background: var(--color-glass-bg);
-    border: 1px solid var(--color-glass-border);
-    backdrop-filter: blur(20px);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-subtle);
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    backdrop-filter: blur(24px);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 12px rgba(212, 175, 55, 0.08);
+    transition: var(--transition-smooth);
+  }
+
+  .metrics-ticker-wrapper:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12), inset 0 0 16px rgba(212, 175, 55, 0.15);
   }
 
   .metric-item {
     text-align: center;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.15rem 0.5rem;
   }
 
   .metric-item:not(:last-child)::after {
     content: '';
     position: absolute;
     right: 0;
-    top: 20%;
-    height: 60%;
+    top: 15%;
+    height: 70%;
     width: 1px;
-    background: var(--color-border);
+    background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.15), transparent);
   }
 
   .metric-value {
-    font-size: 1.85rem;
+    font-size: 1.35rem;
     font-weight: 800;
     font-family: var(--font-heading);
-    color: var(--color-gold);
-    margin-bottom: 0.2rem;
+    color: #B45309;
+    background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #92400E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.05rem;
+    line-height: 1.2;
   }
 
   .metric-label {
-    font-size: 0.8rem;
-    color: var(--color-subtext);
+    font-size: 0.72rem;
+    color: #334155;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
+    letter-spacing: 0.6px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* Dark Theme Overrides for Metrics Bar */
+  [data-theme='dark'] .metrics-ticker-wrapper {
+    background: rgba(6, 9, 16, 0.88);
+    border-color: rgba(212, 175, 55, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 14px rgba(212, 175, 55, 0.1);
+  }
+
+  [data-theme='dark'] .metrics-ticker-wrapper:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.7), inset 0 0 18px rgba(212, 175, 55, 0.18);
+  }
+
+  [data-theme='dark'] .metric-item:not(:last-child)::after {
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  }
+
+  [data-theme='dark'] .metric-value {
+    color: #FFD700;
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFF59D 35%, #FFD700 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+  }
+
+  [data-theme='dark'] .metric-label {
+    color: #E2E8F0;
   }
 
   /* User Welcome Command Banner */
@@ -269,9 +320,10 @@
   /* Advisory Services Grid */
   .advisory-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 2rem;
     width: 100%;
+    max-width: 100%;
   }
 
   .advisory-card {
@@ -411,7 +463,9 @@
 
     .metrics-ticker-wrapper {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
+      gap: 1rem;
+      border-radius: 1.5rem;
+      padding: 0.85rem 1.25rem;
     }
 
     .metric-item:nth-child(2)::after {
@@ -457,11 +511,9 @@
 
 {% block content %}
 
-<!-- 1. EXECUTIVE HERO BANNER WITH BACKGROUND VIDEO -->
+<!-- 1. EXECUTIVE HERO BANNER WITH BACKGROUND IMAGE -->
 <section class="hero-banner">
-  <video class="hero-video-bg" autoplay loop muted playsinline>
-    <source src="{% static 'hero.mp4' %}" type="video/mp4">
-  </video>
+  <img class="hero-video-bg" src="{% static 'hero (2).png' %}" alt="Sabin Balan Private Wealth & Advisory">
 
   <div class="hero-content-wrapper">
     <!-- Left Aligned Hero Structure (Matching Attached Image) -->
