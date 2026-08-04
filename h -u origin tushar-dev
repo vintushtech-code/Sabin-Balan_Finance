@@ -1,0 +1,23 @@
+[33mcommit 21095d5c2f4244a3eff6ff50cfe8417a10088cff[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mtushar-dev[m[33m)[m
+Author: vintushtech <vintushtech@gmail.com>
+Date:   Sat Aug 1 12:30:28 2026 +0530
+
+    Fix unit tests and update footer social tags
+
+[33mcommit defcb637ad21afa22325559ef0aea2851f979d8e[m
+Author: vintushtech <vintushtech@gmail.com>
+Date:   Sat Aug 1 12:16:51 2026 +0530
+
+    Update hero section to use hero(2).png and optimize metrics ticker layout
+
+[33mcommit e3cbbe50ad3033fe71108c7af83b87e5b21904f3[m
+Author: vintushtech <vintushtech@gmail.com>
+Date:   Sat Aug 1 12:14:06 2026 +0530
+
+    navbar image
+
+[33mcommit 8916a386191141f335e9266a9c17b5ebf0c1763a[m
+Author: vintushtech <vintushtech@gmail.com>
+Date:   Sat Aug 1 12:11:39 2026 +0530
+
+    avbar image
