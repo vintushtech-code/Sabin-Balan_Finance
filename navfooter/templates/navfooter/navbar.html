@@ -317,6 +317,19 @@
     }
   })();
 
+  function handleNavbarScroll() {
+    const wrapper = document.querySelector('.finance-navbar-wrapper');
+    if (wrapper) {
+      if (window.scrollY > 20) {
+        wrapper.classList.add('scrolled');
+      } else {
+        wrapper.classList.remove('scrolled');
+      }
+    }
+  }
+  window.addEventListener('scroll', handleNavbarScroll);
+  window.addEventListener('DOMContentLoaded', handleNavbarScroll);
+
   function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.getAttribute('data-theme') === 'dark';
