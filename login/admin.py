@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser, SuperUser
+from .models import CustomUser, SuperUser, FAQ
 
 class CustomUserAdmin(UserAdmin):
     """
@@ -35,6 +35,23 @@ class SuperUserAdmin(CustomUserAdmin):
     def get_queryset(self, request):
         # Limit to superusers only
         return super().get_queryset(request).filter(is_superuser=True)
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for FAQ model to perform full CRUD operations.
+    Allows managing questions, answers, categories, display order, and publishing status.
+    """
+    list_display = ('question', 'category', 'order', 'is_active', 'updated_at')
+    list_editable = ('order', 'is_active', 'category')
+    list_filter = ('is_active', 'category', 'created_at')
+    search_fields = ('question', 'answer')
+    ordering = ('order', 'created_at')
+    fieldsets = (
+        (None, {
+            'fields': ('question', 'answer', 'category', 'order', 'is_active')
+        }),
+    )
 
 # Register models in admin panel
 admin.site.register(CustomUser, CustomUserAdmin)
