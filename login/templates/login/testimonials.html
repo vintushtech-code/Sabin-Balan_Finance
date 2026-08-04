@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="testimonials-container" style="max-width: 900px; width: 100%; margin: 0 auto;">
+<div class="testimonials-container" style="max-width: 900px; width: 100%; margin: 7.5rem auto 3rem;">
   
   <!-- Hero Section -->
   <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2.5rem 2rem; box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; text-align: center;">
     <span class="provider-badge" style="margin-bottom: 0.75rem; display: inline-block;">
       ⭐ Client Reviews &amp; Success Stories
     </span>
-    <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--color-primary);">What Our Clients Say</h1>
+    <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--color-primary);">What Our Clients <span class="highlight-text">Say</span></h1>
     <p style="color: var(--color-subtext); font-size: 1.05rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">
       Read authentic feedback from individuals, small business owners, and corporate partners who trust Sabin Balan Finance.
     </p>
@@ -55,7 +55,7 @@
 
   <!-- Share Feedback Banner -->
   <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-subtle); text-align: center;">
-    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Have Feedback to Share?</h3>
+    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Have Feedback to <span class="highlight-text">Share?</span></h3>
     <p style="color: var(--color-subtext); font-size: 0.95rem; margin-bottom: 1.25rem;">We value your experience and are constantly improving our platform.</p>
     <a href="{% url 'contactform:contact' %}" class="btn btn-primary" style="width: auto; padding: 0.75rem 2rem;">Send Us Your Feedback</a>
   </div>
