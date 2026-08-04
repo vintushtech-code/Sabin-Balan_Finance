@@ -187,10 +187,12 @@
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 45%, #EFE7D8 100%);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: 
     inset 0 2px 4px rgba(255, 255, 255, 1),
-    inset 0 -2px 5px rgba(160, 130, 70, 0.22);
+    inset 0 -2px 5px rgba(160, 130, 70, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;

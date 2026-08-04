@@ -15,12 +15,12 @@ Supports both Light Theme and Dark Theme (activated via data-theme="dark" on <ht
 # ============================================================
 
 DEEP_ROYAL_PURPLE = "#000000" # Primary headings & text (Deep Royal Purple)
-WARM_PEACH_CREAM = "#FFF7ED"        # Containers & Cards background (Warm Peach Cream)
-SOFT_LAVENDER = "#F5F3FF"           # Page Body Background (Soft Lavender)
-COOL_SLATE_GRAY = "#6B7280"         # Subtext, labels & secondary text (Cool Slate Gray)
-SOFT_LAVENDER_BORDER = "#DDD6FE"    # Soft Lavender Border
-VIBRANT_VIOLET = "#6D28D9"          # Primary hover state (Vibrant Violet)
-ULTRA_SOFT_PURPLE = "#FAF5FF"      # Form input fields background (Ultra Soft Purple)
+WARM_PEACH_CREAM = "#FFFFFF"        # Containers & Cards background (Soft White)
+SOFT_LAVENDER = "#F8FAFC"           # Page Body Background (Clean Neutral White)
+COOL_SLATE_GRAY = "#475569"         # Subtext, labels & secondary text (Cool Slate Gray)
+SOFT_LAVENDER_BORDER = "#E2E8F0"    # Subtle Gray Border
+VIBRANT_VIOLET = "#F1F5F9"          # Primary hover state (Neutral Hover)
+ULTRA_SOFT_PURPLE = "#F1F5F9"      # Form input fields background (Clean Input BG)
 FOREST_GREEN = "#15803D"            # Success notification text (Forest Green)
 SOFT_MINT = "#F0FDF4"               # Success alert pill background (Soft Mint)
 DEEP_CRIMSON = "#B91C1C"            # Error alert text (Deep Crimson)
@@ -139,8 +139,8 @@ def get_css_variables():
         f"--color-avatar-shadow: rgba(59, 7, 100, 0.12);",
         f"--color-gold: {COLOR_GOLD};",
         f"--color-cyan: {COLOR_CYAN};",
-        f"--color-glass-bg: rgba(255, 247, 237, 0.92);",
-        f"--color-glass-border: rgba(221, 214, 254, 0.5);",
+        f"--color-glass-bg: rgba(255, 255, 255, 0.85);",
+        f"--color-glass-border: rgba(255, 255, 255, 0.5);",
         f"--color-body-gradient: {COLOR_BG};",
     ]
 
