@@ -220,6 +220,56 @@ class HomeView(TemplateView):
             context['contact_form'] = ContactForm()
         except Exception:
             context['contact_form'] = None
+
+        # Fetch FAQs for Home Page with Auto-Seeding if empty
+        try:
+            from .models import FAQ
+            if not FAQ.objects.exists():
+                initial_faqs = [
+                    {
+                        "question": "What is Financial Planning?",
+                        "answer": "Financial planning is a comprehensive, quantitative roadmap designed to evaluate your current net worth, streamline cash flows, manage tax liabilities, and build systematic multi-asset allocation strategies tailored to achieve your short- and long-term financial goals.",
+                        "category": "general",
+                        "order": 1,
+                    },
+                    {
+                        "question": "What is Wealth Management?",
+                        "answer": "Wealth management combines institutional-grade financial advisory, customized multi-asset portfolio structuring, family office services, tax optimization, and estate planning into a single integrated fiduciary relationship designed to compound and preserve capital across generations.",
+                        "category": "wealth",
+                        "order": 2,
+                    },
+                    {
+                        "question": "How do you charge for your advisory services?",
+                        "answer": "We operate strictly under a conflict-free fiduciary framework with zero hidden broker commissions or product kickbacks. We charge a transparent, fee-only advisory structure calculated as a flat percentage of Assets Under Management (AUM) or a fixed retainer.",
+                        "category": "fiduciary",
+                        "order": 3,
+                    },
+                    {
+                        "question": "Do I need ₹1 lakh to start investing?",
+                        "answer": "Not at all. While our private wealth desks serve high-net-worth individuals and family offices, our systematic investment plans (SIPs) and quantitative advisory models allow investors to start compounding capital with as little as ₹5,000 per month.",
+                        "category": "investment",
+                        "order": 4,
+                    },
+                    {
+                        "question": "Can salaried employees invest with Sabin Balan Finance?",
+                        "answer": "Absolutely. We specialize in structuring tax-optimized, automated SIP portfolios specifically for working professionals, salaried employees, and corporate executives looking to accelerate their financial independence and compound monthly income into long-term wealth.",
+                        "category": "investment",
+                        "order": 5,
+                    },
+                    {
+                        "question": "How are my assets protected and secured?",
+                        "answer": "All securities and capital remain directly under your custody with SEBI-registered depositories (NSDL/CDSL). We provide advisory intelligence, while your portfolio is secured with bank-grade 256-bit encryption and ISO 27001 data vaults.",
+                        "category": "fiduciary",
+                        "order": 6,
+                    },
+                ]
+                for item in initial_faqs:
+                    FAQ.objects.create(**item)
+
+            context['faqs'] = FAQ.objects.filter(is_active=True).order_by('order', 'created_at')
+        except Exception:
+            context['faqs'] = []
+
         return context
 
     def post(self, request, *args, **kwargs):

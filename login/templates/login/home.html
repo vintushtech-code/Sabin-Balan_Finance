@@ -98,9 +98,10 @@
     text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
   }
 
+  .highlight-text,
   .hero-image-styled-title span.highlight-text {
     color: #FFD700;
-    background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 35%, #F59E0B 75%, #B45309 100%);
+    background: linear-gradient(185deg, #FFF9C4 0%, #FFD700 35%, #F59E0B 75%, #B45309 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: #ffd70091;
@@ -502,24 +503,24 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.95rem 2.25rem;
-    background: linear-gradient(135deg, #2D271E 0%, #1F1B14 100%);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    border: 1px solid #FFD700;
     border-radius: var(--radius-pill);
-    color: #F5D77F;
+    color: #0A0D14;
     font-family: var(--font-heading);
     font-size: 1rem;
     font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .showcase-cta-btn:hover {
-    background: linear-gradient(135deg, #3A3226 0%, #262118 100%);
-    border-color: rgba(212, 175, 55, 0.8);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 100%);
+    border-color: #FFF9C4;
+    color: #000000;
     transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(212, 175, 55, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.5);
   }
 
   .showcase-image-wrapper {
@@ -619,7 +620,7 @@
     opacity: 0 !important;
     transform: translateY(40px) !important;
   }
-  
+
   .fade-up-enter-active {
     opacity: 1 !important;
     transform: translateY(0) !important;
@@ -775,6 +776,324 @@
     color: var(--color-gold);
   }
 
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+    display: inline-block;
+  }
+
+  /* Wealth Simulator Section Styling */
+  .wealth-simulator-wrapper {
+    width: 100%;
+    background: var(--color-bg);
+    padding: 5.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .wealth-sim-backdrop {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(90px);
+    pointer-events: none;
+  }
+
+  .simulator-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 3rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: stretch;
+  }
+
+  .sim-controls-card {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .sim-toggle-group {
+    display: flex;
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 0.35rem;
+    gap: 0.35rem;
+  }
+
+  .sim-type-btn {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-subtext);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .sim-type-btn.active {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  [data-theme='dark'] .sim-type-btn.active {
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    color: #0A0D14;
+  }
+
+  .sim-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .sim-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .sim-value-badge {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-gold);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.88rem;
+    font-weight: 800;
+  }
+
+  .sim-input-box input[type="range"] {
+    width: 100%;
+    accent-color: var(--color-gold);
+    cursor: pointer;
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  .sim-range-limits {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--color-subtext);
+  }
+
+  .sim-label-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .strategy-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .strategy-option {
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .strategy-option:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+  }
+
+  .strategy-option.active {
+    background: rgba(212, 175, 55, 0.12);
+    border-color: var(--color-gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+  }
+
+  .strat-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-subtext);
+    margin-bottom: 0.25rem;
+  }
+
+  .strategy-option.active .strat-title {
+    color: var(--color-primary);
+  }
+
+  .strat-rate {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--color-gold);
+  }
+
+  .horizon-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .horizon-pill {
+    flex: 1;
+    min-width: 60px;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-input-bg);
+    color: var(--color-subtext);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .horizon-pill:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+
+  .horizon-pill.active {
+    background: var(--color-gold);
+    color: #0A0D14;
+    border-color: var(--color-gold);
+    font-weight: 800;
+  }
+
+  .sim-results-card {
+    background: linear-gradient(135deg, rgba(20, 24, 33, 0.95) 0%, rgba(10, 13, 20, 0.98) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    color: #ffffff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-tag {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(245, 215, 127, 0.85);
+  }
+
+  .result-main-value {
+    font-size: clamp(2.2rem, 3vw, 3rem);
+    font-weight: 900;
+    color: #FFD700;
+    background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 50%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0.5rem 0;
+    line-height: 1.1;
+  }
+
+  .result-compounding-boost {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-pill);
+    color: #34D399;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .result-breakdown-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+  }
+
+  .breakdown-label {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.6);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .breakdown-val {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .breakdown-val.gold-text {
+    color: #FFD700;
+  }
+
+  .sim-progress-container {
+    margin-bottom: 1rem;
+  }
+
+  .sim-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .sim-stacked-bar {
+    width: 100%;
+    height: 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    overflow: hidden;
+  }
+
+  .bar-principal {
+    background: rgba(255, 255, 255, 0.4);
+    height: 100%;
+    transition: width 0.4s ease;
+  }
+
+  .bar-yield {
+    background: linear-gradient(90deg, #FFD700, #F59E0B);
+    height: 100%;
+    transition: width 0.4s ease;
+  }
+
+  @media (max-width: 992px) {
+    .simulator-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
   @media (max-width: 992px) {
 
     .hero-banner {
@@ -830,14 +1149,23 @@
     .floating-badge {
       padding: 0.45rem 1rem 0.45rem 0.6rem;
     }
-    
+
     .badge-text-label {
       font-size: 0.8rem;
     }
-    
-    .badge-financial-planning { left: -10px; }
-    .badge-wealth-mgmt { right: -10px; }
-    .badge-portfolio-growth { left: 10%; bottom: -10px; }
+
+    .badge-financial-planning {
+      left: -10px;
+    }
+
+    .badge-wealth-mgmt {
+      right: -10px;
+    }
+
+    .badge-portfolio-growth {
+      left: 10%;
+      bottom: -10px;
+    }
 
     .metrics-ticker-wrapper {
       grid-template-columns: 1fr;
@@ -846,6 +1174,160 @@
     .metric-item::after {
       display: none !important;
     }
+  }
+
+  /* FAQ Section Styling */
+  .faq-section-wrapper {
+    width: 100%;
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
+    padding: 5.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .faq-glow-backdrop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(90px);
+    pointer-events: none;
+  }
+
+  .faq-grid {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .faq-card {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 1.6rem 2rem;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-subtle);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .faq-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #FFD700, #F59E0B);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .faq-card:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .faq-card.open {
+    background: var(--color-secondary);
+    border-color: var(--color-gold);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(212, 175, 55, 0.18);
+  }
+
+  .faq-card.open::before {
+    opacity: 1;
+  }
+
+  .faq-question-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-question-text {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+  }
+
+  .faq-card:hover .faq-question-text,
+  .faq-card.open .faq-question-text {
+    color: var(--color-gold);
+  }
+
+  .faq-toggle-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-card.open .faq-toggle-icon {
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    color: #0A0D14;
+    border-color: #FFD700;
+    transform: rotate(180deg);
+  }
+
+  .faq-card.open .icon-v-line {
+    opacity: 0;
+  }
+
+  .faq-answer-wrapper {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin-top 0.3s ease;
+    margin-top: 0;
+  }
+
+  .faq-card.open .faq-answer-wrapper {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 1.1rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq-answer-text {
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: var(--color-subtext);
+    margin: 0;
+  }
+
+  .faq-badge-category {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
   }
 </style>
 {% endblock %}
@@ -952,21 +1434,27 @@
 <section class="executive-showcase-container">
   <!-- Background Chevron Geometry Graphic -->
   <svg class="showcase-bg-lines" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M-50 250 L150 150 L-50 50" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
-    <path d="M0 300 L200 200 L0 100" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
-    <path d="M50 350 L250 250 L50 150" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" opacity="0.2"/>
+    <path d="M-50 250 L150 150 L-50 50" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round"
+      stroke-linejoin="round" opacity="0.6" />
+    <path d="M0 300 L200 200 L0 100" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round"
+      stroke-linejoin="round" opacity="0.4" />
+    <path d="M50 350 L250 250 L50 150" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round"
+      stroke-linejoin="round" opacity="0.2" />
   </svg>
 
   <div class="showcase-left-content">
     <div class="section-tag">Strategic Wealth Partners</div>
-    <h2 class="showcase-title">Empowering Your Financial Future with Precision & Trust</h2>
+    <h2 class="showcase-title">Empowering Your Financial Future with <span class="highlight-text">Precision &
+        Trust</span></h2>
     <p class="showcase-subtitle">
-      Combining institutional-grade market intelligence, zero-commission advisory, and customized wealth architectures to compound your capital with total peace of mind.
+      Combining institutional-grade market intelligence, zero-commission advisory, and customized wealth architectures
+      to compound your capital with total peace of mind.
     </p>
 
     <a href="#contact-section" class="showcase-cta-btn">
       <span>Connect Now</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
         <line x1="5" y1="12" x2="19" y2="12"></line>
         <polyline points="12 5 19 12 12 19"></polyline>
       </svg>
@@ -974,7 +1462,8 @@
   </div>
 
   <div class="showcase-image-wrapper">
-    <img class="showcase-main-img" src="{% static 'financial_advisors_team.png' %}" alt="Sabin Balan Financial Advisors">
+    <img class="showcase-main-img" src="{% static 'financial_advisors_team.png' %}"
+      alt="Sabin Balan Financial Advisors">
 
     <!-- Floating Gold Pill Badge 1: Financial Planning -->
     <div class="floating-badge badge-financial-planning">
@@ -985,7 +1474,8 @@
     <!-- Floating Gold Pill Badge 2: Wealth Management -->
     <div class="floating-badge badge-wealth-mgmt">
       <div class="badge-icon-circle">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="20" x2="18" y2="10"></line>
           <line x1="12" y1="20" x2="12" y2="4"></line>
           <line x1="6" y1="20" x2="6" y2="14"></line>
@@ -997,13 +1487,14 @@
     <!-- Floating Gold Pill Badge 3: Portfolio Growth -->
     <div class="floating-badge badge-portfolio-growth">
       <div class="badge-icon-circle">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
           <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
           <polyline points="17 6 23 6 23 12"></polyline>
         </svg>
       </div>
       <span class="badge-text-label">Portfolio Growth</span>
-  </div>
+    </div>
 </section>
 
 <!-- 1.7 COMPLIANCE ASSURANCE SECTION (JUST AFTER STRATEGIC WEALTH PARTNERS) -->
@@ -1013,9 +1504,9 @@
   <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
     <div class="section-header">
       <div class="section-tag">Fiduciary & Regulatory Governance</div>
-      <h2 class="section-title">Compliance Assurance</h2>
+      <h2 class="section-title">Compliance <span class="highlight-text">Assurance</span></h2>
       <p class="section-subtitle">
-        Discover how we uphold accountability &amp; empower your financial journey with integrity.
+        Discover how we uphold strict fiduciary accountability &amp; safeguard your capital with institutional integrity.
       </p>
     </div>
 
@@ -1023,26 +1514,38 @@
       <!-- Card 1: Fiduciary Model -->
       <div class="compliance-card">
         <div>
-          <div class="compliance-icon-box">⚖️</div>
-          <span class="compliance-tag">SEBI Registered</span>
+          <div class="compliance-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <span class="compliance-tag"><span class="status-dot"></span> SEBI Registered</span>
           <h3>Fiduciary Accountability</h3>
           <p>
-            Operating strictly under a conflict-free fiduciary framework. We charge zero hidden broker commissions, ensuring every recommendation is 100% aligned with your growth.
+            Operating strictly under a conflict-free fiduciary framework. We charge zero hidden broker commissions,
+            ensuring every recommendation is 100% aligned with your capital growth.
           </p>
         </div>
         <div class="compliance-footer-pill">
-          <span>✓ 100% Conflict-Free</span>
+          <span>✓ 100% Conflict-Free Advisory</span>
         </div>
       </div>
 
       <!-- Card 2: Bank-Grade Encryption -->
       <div class="compliance-card">
         <div>
-          <div class="compliance-icon-box">🔒</div>
-          <span class="compliance-tag">ISO 27001 Certified</span>
+          <div class="compliance-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <span class="compliance-tag"><span class="status-dot"></span> ISO 27001 Certified</span>
           <h3>Bank-Grade Data Vault</h3>
           <p>
-            Protected by end-to-end 256-bit cryptographic AES encryption. Your personal identity, transaction ledgers, and portfolio holdings remain strictly confidential.
+            Protected by end-to-end 256-bit cryptographic AES encryption. Your personal identity, transaction ledgers,
+            and portfolio holdings remain strictly confidential.
           </p>
         </div>
         <div class="compliance-footer-pill">
@@ -1053,26 +1556,40 @@
       <!-- Card 3: Continuous Auditing -->
       <div class="compliance-card">
         <div>
-          <div class="compliance-icon-box">🛡️</div>
-          <span class="compliance-tag">Quarterly Audits</span>
+          <div class="compliance-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <span class="compliance-tag"><span class="status-dot"></span> Quarterly Audits</span>
           <h3>Audited Risk Controls</h3>
           <p>
-            Continuous quantitative stress-testing, automated portfolio drawdown boundaries, and independent third-party regulatory compliance audits.
+            Continuous quantitative stress-testing, automated portfolio drawdown boundaries, and independent third-party
+            regulatory compliance audits.
           </p>
         </div>
         <div class="compliance-footer-pill">
-          <span>✓ Capital Preservation</span>
+          <span>✓ Capital Preservation Engine</span>
         </div>
       </div>
 
       <!-- Card 4: Transparent Custody -->
       <div class="compliance-card">
         <div>
-          <div class="compliance-icon-box">📜</div>
-          <span class="compliance-tag">Real-Time Ledger</span>
+          <div class="compliance-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <span class="compliance-tag"><span class="status-dot"></span> Real-Time Ledger</span>
           <h3>Transparent Reporting</h3>
           <p>
-            Direct access to real-time asset ledgering, SEBI-compliant audit trails, transparent tax reporting, and zero-latency performance analytics.
+            Direct access to real-time asset ledgering, SEBI-compliant audit trails, transparent tax reporting, and
+            zero-latency performance analytics.
           </p>
         </div>
         <div class="compliance-footer-pill">
@@ -1089,7 +1606,7 @@
       </div>
       <div class="trust-bar-item">
         <span class="icon">🔐</span>
-        <span>ISO 27001 Certified Security</span>
+        <span>ISO 27001 Certified Vault</span>
       </div>
       <div class="trust-bar-item">
         <span class="icon">💼</span>
@@ -1098,6 +1615,119 @@
       <div class="trust-bar-item">
         <span class="icon">📊</span>
         <span>Real-Time Audit Trail</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1.8 INTERACTIVE WEALTH ACCUMULATION & COMPOUNDING ENGINE SECTION -->
+<section id="wealth-simulator" class="wealth-simulator-wrapper">
+  <div class="wealth-sim-backdrop"></div>
+  <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
+    <div class="section-header" style="margin-bottom: 3.5rem;">
+      <div class="section-tag">Quantitative Growth Architecture</div>
+      <h2 class="section-title">Interactive Wealth <span class="highlight-text">Compounder</span></h2>
+      <p class="section-subtitle">
+        Simulate long-term capital acceleration powered by institutional-grade multi-asset allocation and zero-commission fiduciary advisory.
+      </p>
+    </div>
+
+    <div class="simulator-layout">
+      <!-- Left Column: Controls -->
+      <div class="sim-controls-card">
+        <!-- Investment Type Toggle -->
+        <div class="sim-toggle-group">
+          <button type="button" class="sim-type-btn active" id="btn-sip" onclick="setSimType('sip')">Monthly SIP</button>
+          <button type="button" class="sim-type-btn" id="btn-lumpsum" onclick="setSimType('lumpsum')">One-Time Lumpsum</button>
+        </div>
+
+        <!-- Slider 1: Monthly/Lumpsum Amount -->
+        <div class="sim-input-box">
+          <div class="sim-label-row">
+            <label id="sim-amount-label" for="sim-amount">Monthly Investment</label>
+            <span class="sim-value-badge" id="sim-amount-val">₹50,000 / mo</span>
+          </div>
+          <input type="range" id="sim-amount" min="5000" max="500000" step="5000" value="50000" oninput="updateSimulator()">
+          <div class="sim-range-limits">
+            <span>₹5,000</span>
+            <span>₹5,00,000+</span>
+          </div>
+        </div>
+
+        <!-- Strategy Selection -->
+        <div class="sim-input-box">
+          <label class="sim-label-text">Select Growth Strategy</label>
+          <div class="strategy-selector-grid">
+            <div class="strategy-option" onclick="selectStrategy(8.5, this)">
+              <div class="strat-title">Conservative</div>
+              <div class="strat-rate">8.5% p.a.</div>
+            </div>
+            <div class="strategy-option active" onclick="selectStrategy(13.5, this)">
+              <div class="strat-title">Balanced Fiduciary</div>
+              <div class="strat-rate">13.5% p.a.</div>
+            </div>
+            <div class="strategy-option" onclick="selectStrategy(17.5, this)">
+              <div class="strat-title">High Growth</div>
+              <div class="strat-rate">17.5% p.a.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Time Horizon Selection -->
+        <div class="sim-input-box">
+          <div class="sim-label-row">
+            <label for="sim-years">Time Horizon</label>
+            <span class="sim-value-badge" id="sim-years-val">15 Years</span>
+          </div>
+          <div class="horizon-pills">
+            <button type="button" class="horizon-pill" onclick="setHorizon(5, this)">5 Yrs</button>
+            <button type="button" class="horizon-pill" onclick="setHorizon(10, this)">10 Yrs</button>
+            <button type="button" class="horizon-pill active" onclick="setHorizon(15, this)">15 Yrs</button>
+            <button type="button" class="horizon-pill" onclick="setHorizon(20, this)">20 Yrs</button>
+            <button type="button" class="horizon-pill" onclick="setHorizon(25, this)">25 Yrs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Output Card & Visual Compounding Bar -->
+      <div class="sim-results-card">
+        <div class="result-header">
+          <span class="result-tag">Projected Future Wealth</span>
+          <div class="result-main-value" id="res-total-wealth">₹1,84,65,200</div>
+          <div class="result-compounding-boost" id="res-boost-tag">🔥 +₹94,65,200 Capital Compounded</div>
+        </div>
+
+        <div class="result-breakdown-grid">
+          <div class="breakdown-item">
+            <span class="breakdown-label">Total Invested Principal</span>
+            <span class="breakdown-val" id="res-invested">₹90,00,000</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">Est. Compound Returns</span>
+            <span class="breakdown-val gold-text" id="res-returns">₹94,65,200</span>
+          </div>
+        </div>
+
+        <!-- Visual Stacked Bar -->
+        <div class="sim-progress-container">
+          <div class="sim-bar-labels">
+            <span>Principal (<span id="pct-invested">49%</span>)</span>
+            <span>Yield Gain (<span id="pct-gain">51%</span>)</span>
+          </div>
+          <div class="sim-stacked-bar">
+            <div class="bar-principal" id="bar-principal-fill" style="width: 49%;"></div>
+            <div class="bar-yield" id="bar-yield-fill" style="width: 51%;"></div>
+          </div>
+        </div>
+
+        <!-- Call to Action -->
+        <a href="#contact-section" class="showcase-cta-btn" style="width: 100%; justify-content: center; margin-top: 1.5rem;">
+          <span>Lock In Custom Wealth Plan</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
       </div>
     </div>
   </div>
@@ -1335,7 +1965,59 @@
     </div>
   </div>
 </section>
---->
+
+<!-- 5. FREQUENTLY ASKED QUESTIONS (FAQ) SECTION -->
+<section id="faq-section" class="faq-section-wrapper">
+  <div class="faq-glow-backdrop"></div>
+  <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
+    <div class="section-header" style="margin-bottom: 3.5rem;">
+      <div class="section-tag">Clear Answers &amp; Fiduciary Transparency</div>
+      <h2 class="section-title">Frequently Asked <span class="highlight-text">Questions</span></h2>
+      <p class="section-subtitle">
+        Everything you need to know about our institutional wealth advisory, zero-commission structure, and capital growth framework.
+      </p>
+    </div>
+
+    <div class="faq-grid">
+      {% for faq in faqs %}
+      <div class="faq-card {% if forloop.first %}open{% endif %}" onclick="toggleFaq(this)">
+        <span class="faq-badge-category">{{ faq.get_category_display }}</span>
+        <div class="faq-question-row">
+          <h3 class="faq-question-text">{{ faq.question }}</h3>
+          <div class="faq-toggle-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19" class="icon-v-line"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="faq-answer-wrapper">
+          <p class="faq-answer-text">{{ faq.answer }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <div class="faq-card open">
+        <span class="faq-badge-category">General Advisory</span>
+        <div class="faq-question-row">
+          <h3 class="faq-question-text">What is Financial Planning?</h3>
+          <div class="faq-toggle-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19" class="icon-v-line"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="faq-answer-wrapper">
+          <p class="faq-answer-text">
+            Financial planning is a comprehensive, quantitative roadmap designed to evaluate your current net worth, streamline cash flows, manage tax liabilities, and build systematic multi-asset allocation strategies tailored to achieve your short- and long-term financial goals.
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 <!-- Modal for Profile Bio Edit (if authenticated) -->
 {% if user.is_authenticated %}
 <div id="bio-modal"
@@ -1366,28 +2048,125 @@
 {% endif %}
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  let currentSimType = 'sip';
+  let currentRate = 13.5;
+  let currentHorizon = 15;
+
+  function setSimType(type) {
+    currentSimType = type;
+    document.getElementById('btn-sip').classList.toggle('active', type === 'sip');
+    document.getElementById('btn-lumpsum').classList.toggle('active', type === 'lumpsum');
+    const label = document.getElementById('sim-amount-label');
+    const slider = document.getElementById('sim-amount');
+
+    if (type === 'sip') {
+      label.innerText = 'Monthly Investment';
+      slider.min = 5000;
+      slider.max = 500000;
+      slider.step = 5000;
+      slider.value = 50000;
+    } else {
+      label.innerText = 'One-Time Lumpsum';
+      slider.min = 100000;
+      slider.max = 10000000;
+      slider.step = 50000;
+      slider.value = 1000000;
+    }
+    updateSimulator();
+  }
+
+  function selectStrategy(rate, el) {
+    currentRate = rate;
+    document.querySelectorAll('.strategy-option').forEach(opt => opt.classList.remove('active'));
+    el.classList.add('active');
+    updateSimulator();
+  }
+
+  function setHorizon(years, el) {
+    currentHorizon = years;
+    document.querySelectorAll('.horizon-pill').forEach(btn => btn.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('sim-years-val').innerText = years + ' Years';
+    updateSimulator();
+  }
+
+  function formatINR(val) {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(val);
+  }
+
+  function updateSimulator() {
+    const amountEl = document.getElementById('sim-amount');
+    if (!amountEl) return;
+    const amount = parseFloat(amountEl.value);
+    const amountValEl = document.getElementById('sim-amount-val');
+    amountValEl.innerText = formatINR(amount) + (currentSimType === 'sip' ? ' / mo' : '');
+
+    let totalInvested = 0;
+    let totalWealth = 0;
+    const r = currentRate / 100;
+    const n = currentHorizon;
+
+    if (currentSimType === 'sip') {
+      const monthlyRate = r / 12;
+      const totalMonths = n * 12;
+      totalInvested = amount * totalMonths;
+      totalWealth = amount * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate);
+    } else {
+      totalInvested = amount;
+      totalWealth = amount * Math.pow(1 + r, n);
+    }
+
+    const yieldGain = Math.max(0, totalWealth - totalInvested);
+    const pctInvested = Math.round((totalInvested / Math.max(1, totalWealth)) * 100);
+    const pctGain = 100 - pctInvested;
+
+    document.getElementById('res-total-wealth').innerText = formatINR(totalWealth);
+    document.getElementById('res-invested').innerText = formatINR(totalInvested);
+    document.getElementById('res-returns').innerText = formatINR(yieldGain);
+    document.getElementById('res-boost-tag').innerText = '🔥 +' + formatINR(yieldGain) + ' Capital Compounded';
+
+    document.getElementById('pct-invested').innerText = pctInvested + '%';
+    document.getElementById('pct-gain').innerText = pctGain + '%';
+    document.getElementById('bar-principal-fill').style.width = pctInvested + '%';
+    document.getElementById('bar-yield-fill').style.width = pctGain + '%';
+  }
+
+  function toggleFaq(cardEl) {
+    const isOpen = cardEl.classList.contains('open');
+    document.querySelectorAll('.faq-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) {
+      cardEl.classList.add('open');
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    updateSimulator();
+
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.remove('fade-up-enter');
           entry.target.classList.add('fade-up-enter-active');
-          
+
           setTimeout(() => {
             entry.target.classList.remove('fade-up-enter-active');
           }, 600);
-          
+
           obs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
 
-    const animElements = document.querySelectorAll('.compliance-section-wrapper .section-header, .compliance-card, .compliance-trust-bar');
+    const animElements = document.querySelectorAll('.compliance-section-wrapper .section-header, .compliance-card, .compliance-trust-bar, .wealth-simulator-wrapper .section-header, .sim-controls-card, .sim-results-card, .faq-section-wrapper .section-header, .faq-card');
     animElements.forEach((el, index) => {
       el.classList.add('fade-up-enter');
-      if (el.classList.contains('compliance-card')) {
-        el.style.transitionDelay = `${index * 0.12}s`;
-        setTimeout(() => el.style.transitionDelay = '0s', 600 + (index * 120));
+      if (el.classList.contains('compliance-card') || el.classList.contains('sim-controls-card') || el.classList.contains('sim-results-card') || el.classList.contains('faq-card')) {
+        el.style.transitionDelay = `${(index % 4) * 0.12}s`;
+        setTimeout(() => el.style.transitionDelay = '0s', 600 + ((index % 4) * 120));
       }
       observer.observe(el);
     });

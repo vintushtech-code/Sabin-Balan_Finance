@@ -105,3 +105,54 @@ class SuperUser(CustomUser):
         verbose_name = _('Super User')
         verbose_name_plural = _('Super Users')
 
+
+class FAQ(models.Model):
+    """
+    FAQ Model for managing Frequently Asked Questions on the home page.
+    Allows full CRUD operations via Django Admin Panel.
+    """
+    CATEGORY_CHOICES = (
+        ('general', 'General Advisory'),
+        ('wealth', 'Wealth Management'),
+        ('fiduciary', 'Fiduciary & Fees'),
+        ('investment', 'SIP & Investment Limits'),
+    )
+
+    question = models.CharField(
+        _('Question'),
+        max_length=300,
+        help_text=_("Enter the FAQ question text.")
+    )
+    answer = models.TextField(
+        _('Answer'),
+        help_text=_("Enter the detailed answer for this FAQ.")
+    )
+    category = models.CharField(
+        _('Category'),
+        max_length=50,
+        choices=CATEGORY_CHOICES,
+        default='general',
+        help_text=_("Category grouping for the FAQ item.")
+    )
+    order = models.PositiveIntegerField(
+        _('Display Order'),
+        default=0,
+        help_text=_("Numerical order sequence for display (lower numbers appear first).")
+    )
+    is_active = models.BooleanField(
+        _('Is Published'),
+        default=True,
+        help_text=_("Uncheck to hide this FAQ from the website.")
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('FAQ')
+        verbose_name_plural = _('FAQs')
+        ordering = ['order', 'created_at']
+
+    def __str__(self):
+        return self.question
+
+
