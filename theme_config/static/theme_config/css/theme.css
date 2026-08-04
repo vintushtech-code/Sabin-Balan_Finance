@@ -85,30 +85,17 @@ a:hover {
   opacity: 0.85;
 }
 
-/* Custom Scrollbar */
+/* Global Invisible Scrollbar (Hide scrollbar, allow scrolling) */
+html, body, * {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 0px !important;
-}
-
-::-webkit-scrollbar:horizontal {
   display: none !important;
+  width: 0 !important;
   height: 0 !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold);
+  background: transparent !important;
 }
 
 /* Application Main Section Container */
@@ -229,7 +216,7 @@ a:hover {
   max-width: 460px;
   box-shadow: var(--shadow-subtle);
   transition: var(--transition-smooth);
-  margin: 3rem auto;
+  margin: 7.5rem auto 3rem;
 }
 
 .card-container:hover {

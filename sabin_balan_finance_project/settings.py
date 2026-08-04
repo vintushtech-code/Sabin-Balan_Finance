@@ -7,7 +7,17 @@ from pathlib import Path
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import shutil
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Auto-sync generated image asset if present
+_gen_img = r"C:\Users\hp\.gemini\antigravity-ide\brain\1f0cc1a5-b4a9-4802-ae0c-59bc9a6b5caf\financial_advisors_team_1785824626454.png"
+_target_img = BASE_DIR / "photos" / "financial_advisors_team.png"
+if os.path.exists(_gen_img) and not os.path.exists(_target_img):
+    try:
+        shutil.copy(_gen_img, _target_img)
+    except Exception:
+        pass
 
 
 # Quick-start development settings - unsuitable for production
