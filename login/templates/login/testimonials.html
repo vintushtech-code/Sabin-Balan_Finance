@@ -288,7 +288,7 @@
 <!-- 1. HERO BANNER SECTION (EXACTLY SAME CODE AS HOME'S HERO SECTION BUT WITH CUSTOMIZED TESTIMONIALS TEXT & BACKGROUND IMAGE) -->
 <section class="hero-banner">
   <!-- Customized Background Image from photos folder -->
-  <img class="hero-video-bg" src="{% static 'testimonials_bg.png' %}" alt="Sabin Balan Global Partners & Leaders">
+  <img class="hero-video-bg" src="{% static 'testimonials_hero.png' %}" alt="Sabin Balan Global Partners & Leaders">
 
   <!-- Ambient Gold Glow Backdrop -->
   <div class="hero-glow-gold"></div>
@@ -372,8 +372,9 @@
         {% endif %}
 
         {% for item in col_items %}
-{% with avatar_url=item.avatar_file.url|default:''|escapejs %}
-<div class="leader-portrait-card" onclick="openReviewModal('{{ item.name|escapejs }}', '{{ item.role|escapejs }}', '{{ item.location|escapejs }}', '{{ item.quote|escapejs }}', '⭐⭐⭐⭐⭐', '{{ avatar_url }}', 'Verified Client Member')">
+        {% with avatar_url=item.avatar_file.url|default:''|escapejs %}
+        <div class="leader-portrait-card"
+          onclick="openReviewModal('{{ item.name|escapejs }}', '{{ item.role|escapejs }}', '{{ item.location|escapejs }}', '{{ item.quote|escapejs }}', '⭐⭐⭐⭐⭐', '{{ avatar_url }}', 'Verified Client Member')">
           {% if item.avatar_file %}
           <img src="{{ item.avatar_file.url }}" alt="{{ item.name }}">
           {% else %}
@@ -381,6 +382,7 @@
           {% endif %}
           <div class="portrait-hover-badge">{{ item.name }}</div>
         </div>
+        {% endwith %}
         {% endfor %}
       </div>
       {% endfor %}
