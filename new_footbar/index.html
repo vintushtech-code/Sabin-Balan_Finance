@@ -1,12 +1,22 @@
-{% load static %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'navfooter/css/wealthwise-footer.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthWise Footer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Spacer to push footer down for preview -->
+<div style="min-height: 50vh; background: #05100c;"></div>
 
 <footer class="wealthwise-footer">
     <div class="footer-bg-image">
         <!-- Background graphic of stacked golden Euro coins and golden bull statue -->
-        <img src="{% static 'navfooter/images/golden_bull_coins.jpg' %}" alt="Gold Coins and Bull">
+        <img src="C:/Users/USER/.gemini/antigravity/brain/f325820a-bf82-4acf-bbe8-b94f93774aea/gold_coins_bull_1785911498118.jpg" alt="Gold Coins and Bull">
     </div>
     
     <div class="footer-container">
@@ -15,48 +25,38 @@
             <!-- Col 1 -->
             <div class="footer-col brand-col">
                 <div class="brand-logo">
-                    <a href="{% if user.is_authenticated %}{% url 'login:home' %}{% else %}{% url 'login:login' %}{% endif %}" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-                        <div class="logo-svg-wrapper">
-                            {% if navbar_settings.logo_image_file %}
-                                <img src="{{ navbar_settings.logo_image_file.url }}" alt="Sabin Balan Finance Logo" style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
-                            {% elif navbar_settings.logo_image_url %}
-                                <img src="{{ navbar_settings.logo_image_url }}" alt="Sabin Balan Finance Logo" style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
-                            {% else %}
-                                <img src="{% static 'navfooter/images/shield_emblem_nobg.png' %}" alt="Sabin Balan Finance Logo" style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
-                            {% endif %}
-                        </div>
-                        <div class="brand-text">
-                            <h2 class="brand-title" style="font-size: 19px;">SABIN BALAN FINANCE</h2>
-                            <p class="brand-subtitle">BUILDING YOUR FUTURE</p>
-                        </div>
-                    </a>
+                    <div class="logo-svg-wrapper">
+                        <!-- Custom SVG for Golden Shield Logo -->
+                        <svg width="48" height="60" viewBox="0 0 48 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#C5A059" />
+                                    <stop offset="50%" stop-color="#E5C158" />
+                                    <stop offset="100%" stop-color="#8F6B29" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Crown -->
+                            <path d="M12 14L16 22L24 12L32 22L36 14L34 26H14L12 14Z" fill="url(#goldGradient)" />
+                            <!-- Shield -->
+                            <path d="M24 24L44 30V40C44 52 24 60 24 60C24 60 4 52 4 40V30L24 24Z" fill="none" stroke="url(#goldGradient)" stroke-width="2" />
+                            <path d="M24 27L41 32V40C41 50 24 57 24 57C24 57 7 50 7 40V32L24 27Z" fill="url(#goldGradient)" />
+                            <!-- Euro Symbol -->
+                            <text x="50%" y="70%" text-anchor="middle" fill="#05100c" font-size="22" font-family="sans-serif" font-weight="900">€</text>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <h2 class="brand-title">WEALTHWISE</h2>
+                        <p class="brand-subtitle">BUILDING YOUR FUTURE</p>
+                    </div>
                 </div>
                 <p class="brand-desc">Empowering you to make smarter financial decisions and build lasting wealth for a better tomorrow.</p>
                 <div class="gold-divider"></div>
                 <div class="social-icons">
-                    {% for link in social_links %}
-                        <a href="{{ link.url }}" aria-label="{{ link.get_platform_display }}" target="_blank" rel="noopener noreferrer">
-                            {% if link.platform == 'whatsapp' %}
-                                <i class="fa-brands fa-whatsapp"></i>
-                            {% elif link.platform == 'linkedin' %}
-                                <i class="fa-brands fa-linkedin-in"></i>
-                            {% elif link.platform == 'facebook' %}
-                                <i class="fa-brands fa-facebook-f"></i>
-                            {% elif link.platform == 'instagram' %}
-                                <i class="fa-brands fa-instagram"></i>
-                            {% elif link.platform == 'github' %}
-                                <i class="fa-brands fa-github"></i>
-                            {% else %}
-                                <i class="fa-solid fa-link"></i>
-                            {% endif %}
-                        </a>
-                    {% empty %}
-                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    {% endfor %}
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
 
@@ -77,12 +77,12 @@
             <div class="footer-col links-col">
                 <h3 class="col-title"><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
                 <ul>
-                    <li><a href="{% url 'login:home' %}">Home</a></li>
-                    <li><a href="{% url 'login:about' %}">About Us</a></li>
-                    <li><a href="{% url 'login:services' %}">Our Services</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Services</a></li>
                     <li><a href="#">Pricing</a></li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="{% url 'contactform:contact' %}">Contact Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
                     <li><a href="#">FAQs</a></li>
                 </ul>
             </div>
@@ -154,7 +154,7 @@
         <!-- BOTTOM SECTION -->
         <div class="footer-bottom">
             <div class="copyright">
-                © 2026 Sabin Balan Finance. All Rights Reserved.
+                © 2025 WealthWise. All Rights Reserved.
             </div>
             <div class="legal-links">
                 <a href="#"><i class="fa-solid fa-lock"></i> Privacy Policy</a>
@@ -172,11 +172,5 @@
     </div>
 </footer>
 
-<script>
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
-</script>
+</body>
+</html>
