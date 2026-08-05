@@ -948,17 +948,17 @@
     transform: translateY(0);
   }
 
-  /* Default Active Card (first card is active when container is not hovered) */
-  .team-members-accordion:not(:hover) .team-member-card:first-child {
+  /* Default Active Card (first visible card is active when container is not hovered) */
+  .team-members-accordion:not(:hover) .team-member-card.active-first {
     flex: 2.8;
     border-radius: 60px;
   }
 
-  .team-members-accordion:not(:hover) .team-member-card:first-child .team-member-image {
+  .team-members-accordion:not(:hover) .team-member-card.active-first .team-member-image {
     filter: brightness(1);
   }
 
-  .team-members-accordion:not(:hover) .team-member-card:first-child .team-member-overlay {
+  .team-members-accordion:not(:hover) .team-member-card.active-first .team-member-overlay {
     opacity: 1;
     transform: translateY(0);
   }
@@ -979,7 +979,7 @@
       border-radius: 40px;
     }
 
-    .team-members-accordion:not(:hover) .team-member-card:first-child {
+    .team-members-accordion:not(:hover) .team-member-card.active-first {
       flex: 2.2;
       border-radius: 40px;
     }
@@ -1010,6 +1010,99 @@
 
     .team-member-name {
       font-size: 1.2rem;
+    }
+  }
+
+  /* Team members carousel/slider transition classes */
+  .team-member-card.team-member-hidden {
+    flex: 0 0 0px !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    margin-right: -1.5rem !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Slider controls container */
+  .team-slider-controls {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .team-slider-nav-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--color-gold);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
+    padding: 0;
+  }
+
+  .team-slider-nav-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.7);
+    color: #ffffff;
+    transform: scale(1.08);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  }
+
+  .team-slider-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-subtext);
+    box-shadow: none;
+    transform: none;
+    background: transparent;
+  }
+
+  .team-slider-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .team-slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .team-slider-dot:hover {
+    background: rgba(212, 175, 55, 0.5);
+  }
+
+  .team-slider-dot.active {
+    background: var(--color-gold);
+    transform: scale(1.2);
+    box-shadow: 0 0 8px var(--color-gold);
+  }
+
+  @media (max-width: 768px) {
+    .team-member-card.team-member-hidden {
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      margin-bottom: -1.5rem !important;
+      margin-right: 0 !important;
     }
   }
 </style>
@@ -1297,43 +1390,43 @@
   </div>
 
   <div class="team-members-accordion">
-    <!-- Member 1: Sabin Balan -->
+    {% for member in team_members %}
     <div class="team-member-card">
-      <img class="team-member-image" src="{% static 'team_sabin.png' %}" alt="Sabin Balan - Founder & Managing Partner">
+      {% if member.image %}
+        {% if member.image.name == "team_sabin.png" or member.image.name == "about_showcase_team.png" or member.image.name == "financial_advisors_team.png" or member.image.name == "about_hero.png" or member.image.name == "home_hero.png" %}
+          {% get_static_prefix as static_url %}
+          <img class="team-member-image" src="{{ static_url }}{{ member.image.name }}" alt="{{ member.name }} - {{ member.role }}">
+        {% else %}
+          <img class="team-member-image" src="{{ member.image.url }}" alt="{{ member.name }} - {{ member.role }}">
+        {% endif %}
+      {% else %}
+        <img class="team-member-image" src="{% static 'financial_advisors_team.png' %}" alt="{{ member.name }} - {{ member.role }}">
+      {% endif %}
       <div class="team-member-overlay">
-        <h3 class="team-member-name">Sabin Balan</h3>
-        <p class="team-member-role">Founder & Managing Partner</p>
+        <h3 class="team-member-name">{{ member.name }}</h3>
+        <p class="team-member-role">{{ member.role }}</p>
       </div>
     </div>
+    {% empty %}
+    <div style="text-align: center; width: 100%; color: var(--color-subtext); padding: 3rem; background: var(--color-secondary); border-radius: var(--radius-lg); border: 1px dashed var(--color-border);">
+      No dynamic team members published yet. Add them in the Django Admin Panel.
+    </div>
+    {% endfor %}
+  </div>
 
-    <!-- Member 2: Vikram Malhotra -->
-    <div class="team-member-card">
-      <img class="team-member-image" src="{% static 'about_showcase_team.png' %}"
-        alt="Vikram Malhotra - Chief Investment Officer">
-      <div class="team-member-overlay">
-        <h3 class="team-member-name">Vikram Malhotra</h3>
-        <p class="team-member-role">Chief Investment Officer</p>
-      </div>
-    </div>
-
-    <!-- Member 3: Anjali Rao -->
-    <div class="team-member-card">
-      <img class="team-member-image" src="{% static 'financial_advisors_team.png' %}"
-        alt="Anjali Rao - Head of Wealth Management">
-      <div class="team-member-overlay">
-        <h3 class="team-member-name">Anjali Rao</h3>
-        <p class="team-member-role">Head of Wealth Management</p>
-      </div>
-    </div>
-
-    <!-- Member 4: Devendra Singh -->
-    <div class="team-member-card">
-      <img class="team-member-image" src="{% static 'about_hero.png' %}" alt="Devendra Singh - Fiduciary Tax Advisor">
-      <div class="team-member-overlay">
-        <h3 class="team-member-name">Devendra Singh</h3>
-        <p class="team-member-role">Fiduciary Tax Advisor</p>
-      </div>
-    </div>
+  <!-- Team slider controls -->
+  <div class="team-slider-controls" id="team-controls">
+    <button id="team-prev-btn" class="team-slider-nav-btn" aria-label="Previous Team Members">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <div class="team-slider-dots" id="team-dots"></div>
+    <button id="team-next-btn" class="team-slider-nav-btn" aria-label="Next Team Members">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
   </div>
 </section>
 
@@ -1413,4 +1506,125 @@
   </div>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".team-member-card");
+    const controls = document.getElementById("team-controls");
+    const dotsContainer = document.getElementById("team-dots");
+    const prevBtn = document.getElementById("team-prev-btn");
+    const nextBtn = document.getElementById("team-next-btn");
+
+    if (!cards || cards.length === 0) return;
+
+    let currentIdx = 0;
+    const visibleCount = 4;
+    const totalCount = cards.length;
+
+    function updateSlider() {
+      // 1. Update the visibility of the cards
+      cards.forEach((card, idx) => {
+        if (totalCount > visibleCount) {
+          if (idx >= currentIdx && idx < currentIdx + visibleCount) {
+            card.classList.remove("team-member-hidden");
+          } else {
+            card.classList.add("team-member-hidden");
+          }
+        } else {
+          card.classList.remove("team-member-hidden");
+        }
+
+        // Remove active-first from all cards
+        card.classList.remove("active-first");
+      });
+
+      // 2. Set the first visible card as active-first (expanded when accordion is not hovered)
+      const firstVisibleCard = cards[currentIdx];
+      if (firstVisibleCard) {
+        firstVisibleCard.classList.add("active-first");
+      }
+
+      // 3. Update the dot active states
+      if (totalCount > visibleCount) {
+        const dots = dotsContainer.querySelectorAll(".team-slider-dot");
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle("active", idx === currentIdx);
+        });
+
+        // 4. Update disabled state of navigation buttons
+        prevBtn.disabled = (currentIdx === 0);
+        nextBtn.disabled = (currentIdx === totalCount - visibleCount);
+      }
+    }
+
+    if (totalCount > visibleCount) {
+      // Show controls
+      controls.style.display = "flex";
+
+      // Generate navigation dots (totalCount - visibleCount + 1 dots)
+      const dotCount = totalCount - visibleCount + 1;
+      for (let i = 0; i < dotCount; i++) {
+        const dot = document.createElement("button");
+        dot.className = "team-slider-dot";
+        dot.setAttribute("aria-label", `Go to team members starting from ${i + 1}`);
+        dot.addEventListener("click", function () {
+          currentIdx = i;
+          updateSlider();
+        });
+        dotsContainer.appendChild(dot);
+      }
+
+      // Prev and Next Button Listeners
+      prevBtn.addEventListener("click", function () {
+        if (currentIdx > 0) {
+          currentIdx--;
+          updateSlider();
+        }
+      });
+
+      nextBtn.addEventListener("click", function () {
+        if (currentIdx < totalCount - visibleCount) {
+          currentIdx++;
+          updateSlider();
+        }
+      });
+
+      // Mobile touch swipe support
+      const accordion = document.querySelector(".team-members-accordion");
+      if (accordion) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        accordion.addEventListener("touchstart", function (e) {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        accordion.addEventListener("touchend", function (e) {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+          const swipeThreshold = 50; // pixels
+          if (touchStartX - touchEndX > swipeThreshold) {
+            // Swiped left -> Next
+            if (currentIdx < totalCount - visibleCount) {
+              currentIdx++;
+              updateSlider();
+            }
+          } else if (touchEndX - touchStartX > swipeThreshold) {
+            // Swiped right -> Prev
+            if (currentIdx > 0) {
+              currentIdx--;
+              updateSlider();
+            }
+          }
+        }
+      }
+    }
+
+    // Initialize slider state
+    updateSlider();
+  });
+</script>
 {% endblock %}
