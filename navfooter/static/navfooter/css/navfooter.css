@@ -65,7 +65,7 @@
   border-radius: 50%;
   padding: 2px;
   background: linear-gradient(135deg, #FFF9D2 0%, #F5D77F 25%, #D4AF37 50%, #8C671B 80%, #423007 100%);
-  box-shadow: 
+  box-shadow:
     0 6px 16px rgba(60, 45, 15, 0.28),
     inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
     inset 0 -1.5px 3px rgba(40, 30, 10, 0.45);
@@ -75,7 +75,7 @@
 
 .finance-circle-badge:hover {
   transform: scale(1.06);
-  box-shadow: 
+  box-shadow:
     0 8px 20px rgba(60, 45, 15, 0.38),
     inset 0 2px 3px rgba(255, 255, 255, 1);
 }
@@ -137,7 +137,7 @@
   height: 7px;
   border-radius: 50%;
   background: var(--color-gold);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .finance-connector-line {
@@ -151,18 +151,17 @@
   display: flex;
   align-items: center;
   position: relative;
-  background: linear-gradient(180deg, 
-    #FFF9D2 0%, 
-    #F5D77F 12%, 
-    #D4AF37 30%, 
-    #9E7924 50%, 
-    #C79D32 75%, 
-    #664E14 90%, 
-    #3D2D09 100%
-  );
+  background: linear-gradient(180deg,
+      #FFF9D2 0%,
+      #F5D77F 12%,
+      #D4AF37 30%,
+      #9E7924 50%,
+      #C79D32 75%,
+      #664E14 90%,
+      #3D2D09 100%);
   border-radius: 9999px;
   padding: 4.5px;
-  box-shadow: 
+  box-shadow:
     0 16px 36px rgba(45, 30, 10, 0.32),
     0 4px 10px rgba(0, 0, 0, 0.1),
     inset 0 2px 2px rgba(255, 255, 255, 0.95),
@@ -183,13 +182,18 @@
   pointer-events: none;
 }
 
-.finance-cap-left { left: 2px; }
-.finance-cap-right { right: 2px; }
+.finance-cap-left {
+  left: 2px;
+}
+
+.finance-cap-right {
+  right: 2px;
+}
 
 .finance-cap svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 /* Inner Content Area */
@@ -200,7 +204,7 @@
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 
+  box-shadow:
     inset 0 2px 4px rgba(255, 255, 255, 1),
     inset 0 -2px 5px rgba(160, 130, 70, 0.15);
   display: flex;
@@ -444,9 +448,17 @@
   color: #0A0D14;
 }
 
-.logout-form { margin: 0; }
-.btn-logout { color: var(--color-error); }
-.btn-logout:hover { background-color: var(--color-error-bg); }
+.logout-form {
+  margin: 0;
+}
+
+.btn-logout {
+  color: var(--color-error);
+}
+
+.btn-logout:hover {
+  background-color: var(--color-error-bg);
+}
 
 /* =====================================================
    New Luxury Footer Styling
@@ -467,7 +479,8 @@
   position: relative;
   width: 100%;
   max-width: 1400px;
-  background: #06110c; /* Deep dark green/black */
+  background: #06110c;
+  /* Deep dark green/black */
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   padding: 4rem 3rem 1.5rem 3rem;
@@ -510,7 +523,8 @@
   font-family: "Playfair Display", "Georgia", serif;
   font-size: 1.6rem;
   font-weight: 700;
-  color: #D4AF37; /* Gold */
+  color: #D4AF37;
+  /* Gold */
   letter-spacing: 0.08em;
   line-height: 1.1;
 }
@@ -523,7 +537,8 @@
 }
 
 .new-luxury-footer .footer-brand-desc {
-  color: #D4AF37; /* Was a0aec0 */
+  color: #D4AF37;
+  /* Was a0aec0 */
   font-size: 0.9rem;
   line-height: 1.6;
   margin-top: 1.5rem;
@@ -594,7 +609,8 @@
 }
 
 .new-luxury-footer .footer-link-list a {
-  color: #D4AF37; /* Was a0aec0 */
+  color: #D4AF37;
+  /* Was a0aec0 */
   text-decoration: none;
   font-size: 0.85rem;
   transition: opacity 0.3s ease;
@@ -615,7 +631,7 @@
 
 .new-luxury-footer .newsletter-input {
   width: 100%;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: 6px;
   padding: 0.75rem 3rem 0.75rem 1rem;
@@ -686,7 +702,10 @@
 .new-luxury-footer .footer-trust-pill-container::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 60px;
   border: 1px solid #D4AF37;
   -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
@@ -721,7 +740,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
   border: 2px solid rgba(212, 175, 55, 0.5);
   display: flex;
   align-items: center;
@@ -746,14 +765,15 @@
 }
 
 .new-luxury-footer .trust-text p {
-  color: #D4AF37; /* Was a0aec0 */
+  color: #D4AF37;
+  /* Was a0aec0 */
   font-size: 0.75rem;
   margin: 0;
 }
 
 /* Bottom Legal Bar */
 .new-luxury-footer .new-bottom-bar {
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 1.5rem;
   position: relative;
   z-index: 2;
@@ -768,7 +788,8 @@
 }
 
 .new-luxury-footer .copyright-text {
-  color: #D4AF37; /* Was a0aec0 */
+  color: #D4AF37;
+  /* Was a0aec0 */
   font-size: 0.8rem;
   margin: 0;
 }
@@ -791,7 +812,8 @@
 }
 
 .new-luxury-footer .footer-legal-links a {
-  color: #D4AF37; /* Was a0aec0 */
+  color: #D4AF37;
+  /* Was a0aec0 */
   text-decoration: none;
   font-size: 0.8rem;
   display: flex;
@@ -808,7 +830,7 @@
 .new-luxury-footer .legal-divider {
   width: 1px;
   height: 12px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .new-luxury-footer .security-status-bottom {
@@ -835,7 +857,8 @@
 }
 
 .new-luxury-footer .security-status-bottom .security-text strong {
-  color: #D4AF37; /* Was a0aec0 */
+  color: #D4AF37;
+  /* Was a0aec0 */
   font-size: 0.75rem;
   font-weight: 600;
 }
@@ -869,9 +892,12 @@
   .new-luxury-footer .footer-grid-container {
     grid-template-columns: 2fr 1fr 1fr 1.5fr;
   }
+
   .new-luxury-footer .footer-col:nth-child(4) {
-    display: none; /* Hide Resources col temporarily */
+    display: none;
+    /* Hide Resources col temporarily */
   }
+
   .new-luxury-footer .footer-bull-asset {
     right: -5%;
     width: 550px;
@@ -882,38 +908,52 @@
   .new-luxury-footer .footer-grid-container {
     grid-template-columns: 1fr 1fr;
   }
+
   .new-luxury-footer .footer-col:nth-child(4) {
-    display: block; /* Bring back Resources */
+    display: block;
+    /* Bring back Resources */
   }
+
   .new-luxury-footer .footer-col-brand {
-    grid-column: 1 / -1; /* Full width */
+    grid-column: 1 / -1;
+    /* Full width */
     padding-right: 0;
     text-align: center;
   }
+
   .new-luxury-footer .brand-logo-container {
     justify-content: center;
   }
+
   .new-luxury-footer .footer-social-group {
     justify-content: center;
   }
+
   .new-luxury-footer .footer-divider-gold {
     margin: 1.5rem auto;
   }
+
   .new-luxury-footer .footer-bull-asset {
-    display: none; /* Hide bull on smaller screens to avoid overlap */
+    display: none;
+    /* Hide bull on smaller screens to avoid overlap */
   }
+
   .new-luxury-footer .trust-pill-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
+
   .new-luxury-footer .trust-divider {
-    display: none; /* Remove vertical dividers in grid mode */
+    display: none;
+    /* Remove vertical dividers in grid mode */
   }
+
   .new-luxury-footer .footer-trust-pill-container {
     border-radius: 30px;
     padding: 2rem;
   }
+
   .new-luxury-footer .footer-trust-pill-container::before {
     mask-image: none;
     -webkit-mask-image: none;
@@ -926,17 +966,21 @@
     grid-template-columns: 1fr;
     text-align: center;
   }
+
   .new-luxury-footer .footer-col-title {
     justify-content: center;
   }
+
   .new-luxury-footer .footer-newsletter-form {
     margin: 1rem auto 0 auto;
   }
+
   .new-luxury-footer .footer-bottom-content {
     flex-direction: column;
     text-align: center;
     gap: 1.5rem;
   }
+
   .new-luxury-footer .security-status-bottom {
     justify-content: center;
   }
@@ -946,15 +990,18 @@
   .new-luxury-footer .finance-footer-extended {
     padding: 3rem 1.5rem 1.5rem 1.5rem;
   }
+
   .new-luxury-footer .trust-pill-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+
   .new-luxury-footer .footer-legal-links {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem 1rem;
   }
+
   .new-luxury-footer .legal-divider {
     display: none;
   }

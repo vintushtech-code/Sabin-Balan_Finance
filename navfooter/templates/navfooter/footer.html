@@ -1,6 +1,8 @@
 {% load static %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
 <link rel="stylesheet" href="{% static 'navfooter/css/wealthwise-footer.css' %}">
 
 <footer class="wealthwise-footer">
@@ -8,54 +10,61 @@
         <!-- Background graphic of stacked golden Euro coins and golden bull statue -->
         <img src="{% static 'navfooter/images/golden_bull_coins.jpg' %}" alt="Gold Coins and Bull">
     </div>
-    
+
     <div class="footer-container">
         <!-- TOP SECTION -->
         <div class="footer-top">
             <!-- Col 1 -->
             <div class="footer-col brand-col">
                 <div class="brand-logo">
-                    <a href="{% if user.is_authenticated %}{% url 'login:home' %}{% else %}{% url 'login:login' %}{% endif %}" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+                    <a href="{% if user.is_authenticated %}{% url 'login:home' %}{% else %}{% url 'login:login' %}{% endif %}"
+                        style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
                         <div class="logo-svg-wrapper">
                             {% if navbar_settings.logo_image_file %}
-                                <img src="{{ navbar_settings.logo_image_file.url }}" alt="Sabin Balan Finance Logo" style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
+                            <img src="{{ navbar_settings.logo_image_file.url }}" alt="Sabin Balan Finance Logo"
+                                style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
                             {% elif navbar_settings.logo_image_url %}
-                                <img src="{{ navbar_settings.logo_image_url }}" alt="Sabin Balan Finance Logo" style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
+                            <img src="{{ navbar_settings.logo_image_url }}" alt="Sabin Balan Finance Logo"
+                                style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
                             {% else %}
-                                <img src="{% static 'navfooter/images/shield_emblem_nobg.png' %}" alt="Sabin Balan Finance Logo" style="width: 50px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
+                            <img src="{% static 'navfooter/images/shield_emblem_nobg.png' %}"
+                                alt="Sabin Balan Finance Logo"
+                                style="width: 80px; height: auto; filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.4));">
                             {% endif %}
                         </div>
                         <div class="brand-text">
-                            <h2 class="brand-title" style="font-size: 19px;">SABIN BALAN FINANCE</h2>
+                            <h2 class="brand-title" style="font-size: 25px;">SABIN BALAN FINANCE</h2>
                             <p class="brand-subtitle">BUILDING YOUR FUTURE</p>
                         </div>
                     </a>
                 </div>
-                <p class="brand-desc">Empowering you to make smarter financial decisions and build lasting wealth for a better tomorrow.</p>
+                <p class="brand-desc">Empowering you to make smarter financial decisions and build lasting wealth for a
+                    better tomorrow.</p>
                 <div class="gold-divider"></div>
                 <div class="social-icons">
                     {% for link in social_links %}
-                        <a href="{{ link.url }}" aria-label="{{ link.get_platform_display }}" target="_blank" rel="noopener noreferrer">
-                            {% if link.platform == 'whatsapp' %}
-                                <i class="fa-brands fa-whatsapp"></i>
-                            {% elif link.platform == 'linkedin' %}
-                                <i class="fa-brands fa-linkedin-in"></i>
-                            {% elif link.platform == 'facebook' %}
-                                <i class="fa-brands fa-facebook-f"></i>
-                            {% elif link.platform == 'instagram' %}
-                                <i class="fa-brands fa-instagram"></i>
-                            {% elif link.platform == 'github' %}
-                                <i class="fa-brands fa-github"></i>
-                            {% else %}
-                                <i class="fa-solid fa-link"></i>
-                            {% endif %}
-                        </a>
+                    <a href="{{ link.url }}" aria-label="{{ link.get_platform_display }}" target="_blank"
+                        rel="noopener noreferrer">
+                        {% if link.platform == 'whatsapp' %}
+                        <i class="fa-brands fa-whatsapp"></i>
+                        {% elif link.platform == 'linkedin' %}
+                        <i class="fa-brands fa-linkedin-in"></i>
+                        {% elif link.platform == 'facebook' %}
+                        <i class="fa-brands fa-facebook-f"></i>
+                        {% elif link.platform == 'instagram' %}
+                        <i class="fa-brands fa-instagram"></i>
+                        {% elif link.platform == 'github' %}
+                        <i class="fa-brands fa-github"></i>
+                        {% else %}
+                        <i class="fa-solid fa-link"></i>
+                        {% endif %}
+                    </a>
                     {% empty %}
-                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                     {% endfor %}
                 </div>
             </div>
@@ -173,10 +182,10 @@
 </footer>
 
 <script>
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 </script>
