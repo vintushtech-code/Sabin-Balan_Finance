@@ -13,11 +13,47 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Auto-sync generated image asset if present
 _gen_img = r"C:\Users\hp\.gemini\antigravity-ide\brain\1f0cc1a5-b4a9-4802-ae0c-59bc9a6b5caf\financial_advisors_team_1785824626454.png"
 _target_img = BASE_DIR / "photos" / "financial_advisors_team.png"
+_about_img = BASE_DIR / "photos" / "about_showcase_team.png"
 if os.path.exists(_gen_img) and not os.path.exists(_target_img):
     try:
         shutil.copy(_gen_img, _target_img)
     except Exception:
         pass
+if os.path.exists(_target_img) and not os.path.exists(_about_img):
+    try:
+        shutil.copy(_target_img, _about_img)
+    except Exception:
+        pass
+_source_hero = BASE_DIR / "photos" / "hero (2).png"
+_about_hero = BASE_DIR / "photos" / "about_us_hero.png"
+_gen_about_hero = r"C:\Users\hp\.gemini\antigravity-ide\brain\e5c1b558-8424-4fc8-a645-bca14aa6e8e2\about_hero_1785908291091.png"
+_gen_sabin = r"C:\Users\hp\.gemini\antigravity-ide\brain\e5c1b558-8424-4fc8-a645-bca14aa6e8e2\team_sabin_balan_1785916780455.png"
+_target_sabin = BASE_DIR / "photos" / "team_sabin.png"
+if os.path.exists(_gen_about_hero):
+    try:
+        shutil.copy(_gen_about_hero, _about_hero)
+    except Exception:
+        pass
+if os.path.exists(_gen_sabin):
+    try:
+        shutil.copy(_gen_sabin, _target_sabin)
+    except Exception:
+        pass
+elif os.path.exists(_source_hero) and not os.path.exists(_about_hero):
+    try:
+        shutil.copy(_source_hero, _about_hero)
+    except Exception:
+        pass
+
+# Auto-migrate database modifications on server initialization
+try:
+    from django.core.management import call_command
+    call_command('makemigrations', 'login', interactive=False)
+    call_command('migrate', interactive=False)
+except Exception:
+    pass
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -143,3 +179,8 @@ EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.conso
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@sabinbalanfinance.com')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Media Files Configuration for User Uploaded Assets
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+

@@ -156,3 +156,48 @@ class FAQ(models.Model):
         return self.question
 
 
+class TeamMember(models.Model):
+    """
+    Model representing a Professional Wealth Advisor/Team Member.
+    Allows complete management (create, update, delete) from the Admin Panel.
+    """
+    name = models.CharField(
+        _('Name'),
+        max_length=150,
+        help_text=_("Full name of the team member.")
+    )
+    role = models.CharField(
+        _('Role/Designation'),
+        max_length=150,
+        help_text=_("Corporate title or professional role.")
+    )
+    image = models.ImageField(
+        _('Profile Image'),
+        upload_to='team/',
+        blank=True,
+        null=True,
+        help_text=_("Upload a high-quality portrait image. If empty, the default placeholder asset will be used.")
+    )
+    order = models.PositiveIntegerField(
+        _('Display Order'),
+        default=0,
+        help_text=_("Used to order items in the UI. Lower values appear first.")
+    )
+    is_active = models.BooleanField(
+        _('Is Active'),
+        default=True,
+        help_text=_("Uncheck to temporarily hide this member from the public layout.")
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('Team Member')
+        verbose_name_plural = _('Team Members')
+        ordering = ['order', 'name']
+
+    def __str__(self):
+        return self.name
+
+
+
