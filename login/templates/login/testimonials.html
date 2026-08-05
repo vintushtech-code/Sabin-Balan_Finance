@@ -372,8 +372,8 @@
         {% endif %}
 
         {% for item in col_items %}
-        <div class="leader-portrait-card"
-          onclick="openReviewModal('{{ item.name|escapejs }}', '{{ item.role|escapejs }}', '{{ item.location|escapejs }}', '{{ item.quote|escapejs }}', '⭐⭐⭐⭐⭐', {% if item.avatar_file %}'{{ item.avatar_file.url|escapejs }}'{% else %}''{% endif %}, 'Verified Client Member')">
+{% with avatar_url=item.avatar_file.url|default:''|escapejs %}
+<div class="leader-portrait-card" onclick="openReviewModal('{{ item.name|escapejs }}', '{{ item.role|escapejs }}', '{{ item.location|escapejs }}', '{{ item.quote|escapejs }}', '⭐⭐⭐⭐⭐', '{{ avatar_url }}', 'Verified Client Member')">
           {% if item.avatar_file %}
           <img src="{{ item.avatar_file.url }}" alt="{{ item.name }}">
           {% else %}
