@@ -367,14 +367,55 @@ class ServicesView(TemplateView):
 # --------------------------------------------------------------------------
 # 9. Testimonials Page
 # --------------------------------------------------------------------------
-class TestimonialsView(TemplateView):
+class TestimonialsView(View):
     """
     Publicly accessible Testimonials page (testimonials.html).
+    Renders an interactive leaders community UI and handles user review submissions.
     """
     template_name = 'login/testimonials.html'
 
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        from .forms import TestimonialForm
+        form = TestimonialForm(request.POST, request.FILES)
+        if form.is_valid():
+            testimonial = form.save(commit=False)
+            testimonial.is_active = False  # Requires administrator review
+            if not testimonial.avatar_file:
+                # Set blank so initials template badge is rendered
+                testimonial.avatar_image = ""
+            testimonial.save()
+            messages.success(request, "Your testimonial has been submitted successfully! It is now pending admin moderation.")
+            return redirect('login:testimonials')
+        
+        context = self.get_context_data()
+        context['testimonial_form'] = form
+        messages.error(request, "There was an error in your submission. Please check the fields and try again.")
+        return render(request, self.template_name, context)
+
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = {}
         context['page_title'] = "Client Testimonials — Sabin Balan Finance"
+        from .forms import TestimonialForm
+        context['testimonial_form'] = TestimonialForm()
+        
+        try:
+            from .models import Testimonial
+            testimonials_list = list(Testimonial.objects.filter(is_active=True).order_by('order', '-rating'))
+            context['testimonials'] = testimonials_list
+            
+            cols = [[] for _ in range(9)]
+            for idx, item in enumerate(testimonials_list):
+                cols[idx % 9].append(item)
+            context['testimonials_cols'] = cols
+        except Exception as e:
+            context['testimonials'] = []
+            context['testimonials_cols'] = [[] for _ in range(9)]
+
         return context
+
+
 

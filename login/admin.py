@@ -1,7 +1,19 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser, SuperUser, FAQ, TeamMember
+from .models import CustomUser, SuperUser, FAQ, TeamMember, Testimonial
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for Testimonial model to manage global client reviews.
+    """
+    list_display = ('name', 'role', 'location', 'category', 'rating', 'badge_theme', 'card_type', 'is_active', 'order')
+    list_editable = ('category', 'badge_theme', 'card_type', 'is_active', 'order')
+    list_filter = ('is_active', 'category', 'badge_theme', 'card_type', 'rating')
+    search_fields = ('name', 'role', 'location', 'quote')
+    ordering = ('order', '-rating')
+
 
 
 class CustomUserAdmin(UserAdmin):

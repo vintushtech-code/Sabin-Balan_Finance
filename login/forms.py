@@ -185,3 +185,23 @@ class CustomSetPasswordForm(SetPasswordForm):
                     'class': 'form-input',
                     'placeholder': 'Enter new password',
                 })
+
+
+from .models import Testimonial
+
+class TestimonialForm(forms.ModelForm):
+    class Meta:
+        model = Testimonial
+        fields = ['name', 'role', 'location', 'quote', 'rating', 'category', 'linkedin_url', 'avatar_file']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter your full name', 'required': True}),
+            'role': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'e.g. Fintech Entrepreneur / Portfolio Manager', 'required': True}),
+            'location': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'e.g. Zurich, NY, Mumbai', 'required': True}),
+            'quote': forms.Textarea(attrs={'class': 'form-input', 'placeholder': 'Write your testimonial review here...', 'rows': 4, 'required': True}),
+            'rating': forms.Select(choices=[(5, '⭐⭐⭐⭐⭐ (5/5)'), (4, '⭐⭐⭐⭐ (4/5)'), (3, '⭐⭐⭐ (3/5)'), (2, '⭐⭐ (2/5)'), (1, '⭐ (1/5)')], attrs={'class': 'form-input'}),
+            'category': forms.Select(attrs={'class': 'form-input'}),
+            'linkedin_url': forms.URLInput(attrs={'class': 'form-input', 'placeholder': 'https://linkedin.com/in/username (Optional)'}),
+            'avatar_file': forms.FileInput(attrs={'class': 'form-input', 'accept': 'image/*'}),
+        }
+
+
