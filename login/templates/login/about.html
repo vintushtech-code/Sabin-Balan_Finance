@@ -5,79 +5,1626 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+<style>
+  /* Independent About Us Hero Banner — Executive Aesthetic */
+  .about-hero-banner {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: transparent;
+    overflow: hidden;
+    overflow-x: hidden;
+    padding: 6.5rem 2rem 3.5rem 2rem;
+    margin-top: 0;
+    border-bottom: none;
+    box-sizing: border-box;
+  }
+
+  .about-hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .about-hero-glow-gold {
+    position: absolute;
+    top: -100px;
+    left: 20%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    z-index: 3;
+    background: radial-gradient(circle, rgba(245, 215, 127, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    animation: pulseGlow 6s ease-in-out infinite;
+  }
+
+  .about-hero-content-wrapper {
+    position: relative;
+    z-index: 10;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3.5rem;
+  }
+
+  .about-hero-left-section {
+    max-width: 720px;
+    width: 100%;
+    text-align: left;
+    margin-left: 0;
+    margin-top: 30px;
+  }
+
+  .about-hero-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1.25rem;
+    background: rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: var(--radius-pill);
+    color: var(--color-gold);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+  }
+
+  .about-hero-image-styled-title {
+    font-size: clamp(2.35rem, 5vw + 1rem, 4.25rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+  }
+
+  .about-hero-image-styled-subtitle {
+    font-size: 1.2rem;
+    color: rgba(241, 245, 249, 0.9);
+    max-width: 580px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Pill Search / Input Bar */
+  .about-hero-pill-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    border-radius: 9999px;
+    padding: 0.45rem 0.45rem 0.45rem 1.25rem;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .about-hero-pill-bar:focus-within {
+    transform: translateY(-2px);
+    background: #ffffff;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 3px rgba(236, 72, 153, 0.4);
+  }
+
+  .about-pill-left-content {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .about-pill-icon {
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(236, 72, 153, 0.12);
+    color: #db2777;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .about-pill-store-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0f172a;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+
+  .about-pill-divider {
+    color: #cbd5e1;
+    font-weight: 300;
+    font-size: 1.2rem;
+    user-select: none;
+  }
+
+  .about-pill-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.95rem;
+    color: #0f172a;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .about-pill-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .about-pill-submit-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    border: none;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.45);
+    transition: all 0.25s ease;
+  }
+
+  .about-pill-submit-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.65);
+  }
+
+  /* Metrics Bar — Glass Pill */
+  .about-metrics-ticker-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 920px;
+    margin: 0;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    backdrop-filter: blur(24px);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 12px rgba(212, 175, 55, 0.08);
+    transition: var(--transition-smooth);
+  }
+
+  .about-metrics-ticker-wrapper:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12), inset 0 0 16px rgba(212, 175, 55, 0.15);
+  }
+
+  .about-metric-item {
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .about-metric-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.15), transparent);
+  }
+
+  .about-metric-value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    color: #B45309;
+    background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #92400E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.05rem;
+    line-height: 1.2;
+  }
+
+  .about-metric-label {
+    font-size: 0.72rem;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* Dark Theme Overrides for Metrics Bar */
+  [data-theme='dark'] .about-metrics-ticker-wrapper {
+    background: rgba(6, 9, 16, 0.88);
+    border-color: rgba(212, 175, 55, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 14px rgba(212, 175, 55, 0.1);
+  }
+
+  [data-theme='dark'] .about-metrics-ticker-wrapper:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.7), inset 0 0 18px rgba(212, 175, 55, 0.18);
+  }
+
+  [data-theme='dark'] .about-metric-item:not(:last-child)::after {
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  }
+
+  [data-theme='dark'] .about-metric-value {
+    color: #FFD700;
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFF59D 35%, #FFD700 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+  }
+
+  [data-theme='dark'] .about-metric-label {
+    color: #E2E8F0;
+  }
+
+  /* User Welcome Command Banner */
+  .about-member-banner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 992px) {
+    .about-hero-banner {
+      padding: 6rem 2.5rem 3rem 2.5rem;
+    }
+
+    .about-hero-left-section {
+      max-width: 100%;
+    }
+
+    .about-metrics-ticker-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      border-radius: 1.5rem;
+      padding: 0.85rem 1.25rem;
+    }
+
+    .about-metric-item:nth-child(2)::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .about-hero-banner {
+      min-height: auto;
+      padding: 5.5rem 1.25rem 2rem 1.25rem;
+    }
+
+    .about-hero-pill-bar {
+      padding: 0.35rem 0.35rem 0.35rem 0.85rem;
+    }
+
+    .about-pill-store-name {
+      font-size: 0.85rem;
+    }
+
+    .about-metrics-ticker-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .about-metric-item::after {
+      display: none !important;
+    }
+  }
+
+  /* -------------------------------------------------------------
+     A BIT ABOUT US SECTION — Premium Editorial Aesthetic
+     ------------------------------------------------------------- */
+  .a-bit-about-us-wrapper {
+    width: 100%;
+    background: transparent;
+    border-bottom: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .a-bit-about-us-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .a-bit-about-us-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .a-bit-about-us-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  .a-bit-about-us-tag::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 1px;
+    background: var(--color-gold);
+  }
+
+  .a-bit-about-us-title {
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    font-weight: 800;
+    color: var(--color-text);
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+
+  [data-theme='light'] .a-bit-about-us-title {
+    color: #0f172a;
+  }
+
+  [data-theme='dark'] .a-bit-about-us-title {
+    color: #ffffff;
+  }
+
+  .a-bit-about-us-title span.highlight-gold {
+    color: var(--color-gold);
+    display: inline-block;
+  }
+
+  .a-bit-about-us-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--color-subtext);
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+  }
+
+  /* Key Values Row */
+  .a-bit-about-us-values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .a-bit-about-us-value-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .value-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold);
+    font-size: 1.15rem;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .a-bit-about-us-value-card:hover .value-icon-wrapper {
+    transform: scale(1.08);
+    background: rgba(212, 175, 55, 0.18);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 6px 16px rgba(212, 175, 55, 0.15);
+  }
+
+  .value-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text);
+  }
+
+  [data-theme='light'] .value-title {
+    color: #0f172a;
+  }
+
+  [data-theme='dark'] .value-title {
+    color: #ffffff;
+  }
+
+  .value-desc {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--color-subtext);
+  }
+
+  /* Mission Box at Bottom */
+  .a-bit-about-us-mission-card {
+    width: 100%;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .mission-icon-container {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold);
+    font-size: 1.75rem;
+  }
+
+  .mission-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .mission-title-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    font-family: var(--font-heading);
+  }
+
+  .mission-text-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-subtext);
+  }
+
+  /* Right Column (Image Container with Left Soft Blur Fade) */
+  .a-bit-about-us-right {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .a-bit-about-us-image-container {
+    position: relative;
+    width: 100%;
+    height: 580px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+  }
+
+  .a-bit-about-us-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Fade mask overlay to blend image into the page background on left side */
+  .a-bit-about-us-fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  [data-theme='light'] .a-bit-about-us-fade-overlay {
+    background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  [data-theme='dark'] .a-bit-about-us-fade-overlay {
+    background: linear-gradient(to right, var(--color-bg) 0%, rgba(6, 9, 16, 0) 100%);
+  }
+
+  /* Responsive styling */
+  @media (max-width: 992px) {
+    .a-bit-about-us-container {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      padding: 5rem 1.5rem;
+    }
+
+    .a-bit-about-us-right {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .a-bit-about-us-image-container {
+      height: 420px;
+    }
+
+    .a-bit-about-us-fade-overlay {
+      display: none;
+    }
+
+    .a-bit-about-us-values-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .a-bit-about-us-values-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .a-bit-about-us-mission-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.5rem;
+    }
+  }
+
+  /* Executive Showcase Section Styling (matching home.html) */
+  .executive-showcase-wrapper {
+    width: 100%;
+    background: transparent;
+    border-bottom: none;
+    margin: 2.5rem 0;
+  }
+
+  [data-theme='dark'] .executive-showcase-wrapper {
+    background: transparent;
+  }
+
+  .executive-showcase-container {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .showcase-left-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .showcase-bg-lines {
+    position: absolute;
+    top: 50%;
+    left: -100px;
+    transform: translateY(-50%);
+    width: 500px;
+    height: 400px;
+    pointer-events: none;
+    opacity: 0.12;
+    z-index: 1;
+  }
+
+  .showcase-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+    margin: 1.25rem 0 1.25rem 0;
+  }
+
+  .showcase-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-subtext);
+    line-height: 1.65;
+    margin-bottom: 2.25rem;
+    max-width: 480px;
+  }
+
+  .showcase-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.95rem 2.25rem;
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    border: 1px solid #FFD700;
+    border-radius: var(--radius-pill);
+    color: #0A0D14;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .showcase-cta-btn:hover {
+    background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 100%);
+    border-color: #FFF9C4;
+    color: #000000;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.5);
+  }
+
+  .showcase-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .showcase-main-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 28px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(212, 175, 55, 0.12);
+    display: block;
+  }
+
+  /* Floating Metallic Gold Pill Badges */
+  .floating-badge {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.4rem 0.65rem 0.75rem;
+    background: linear-gradient(135deg, rgba(245, 215, 127, 0.95) 0%, rgba(212, 175, 55, 0.95) 50%, rgba(160, 115, 20, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .floating-badge:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 16px 36px rgba(212, 175, 55, 0.4), inset 0 1.5px 3px rgba(255, 255, 255, 1);
+  }
+
+  .badge-icon-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(20, 15, 5, 0.85);
+    color: #F5D77F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .badge-text-label {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #1A1204;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .badge-financial-planning {
+    left: -28px;
+    top: 48%;
+    transform: translateY(-50%);
+  }
+
+  .badge-wealth-mgmt {
+    right: -24px;
+    top: 10%;
+  }
+
+  .badge-portfolio-growth {
+    left: 18%;
+    bottom: -18px;
+  }
+
+  @media (max-width: 992px) {
+    .executive-showcase-container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 4rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .executive-showcase-container {
+      padding: 3rem 1.25rem;
+    }
+
+    .floating-badge {
+      padding: 0.45rem 1rem 0.45rem 0.6rem;
+    }
+
+    .badge-text-label {
+      font-size: 0.8rem;
+    }
+
+    .badge-financial-planning {
+      left: -10px;
+    }
+
+    .badge-wealth-mgmt {
+      right: -10px;
+    }
+
+    .badge-portfolio-growth {
+      left: 10%;
+      bottom: -10px;
+    }
+  }
+
+  /* -------------------------------------------------------------
+     OUR TEAM MEMBERS SECTION — Accordion Hover Expansion UI
+     ------------------------------------------------------------- */
+  .team-members-wrapper {
+    width: 100%;
+    background: transparent;
+    border-bottom: none;
+    padding: 6rem 2rem;
+    box-sizing: border-box;
+  }
+
+  .team-members-header {
+    text-align: center;
+    margin-bottom: 4.5rem;
+  }
+
+  .team-members-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .team-members-title {
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    font-weight: 800;
+    color: var(--color-text);
+    letter-spacing: -0.015em;
+  }
+
+  [data-theme='light'] .team-members-title {
+    color: #0f172a;
+  }
+
+  [data-theme='dark'] .team-members-title {
+    color: #ffffff;
+  }
+
+  /* Accordion Layout */
+  .team-members-accordion {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 480px;
+    align-items: stretch;
+  }
+
+  .team-member-card {
+    flex: 1;
+    position: relative;
+    border-radius: 200px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.3, 1);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+    background: #000;
+  }
+
+  .team-member-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.3, 1);
+    filter: brightness(0.85);
+  }
+
+  .team-member-card:hover .team-member-image {
+    transform: scale(1.05);
+    filter: brightness(1);
+  }
+
+  /* Text Overlay */
+  .team-member-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    background: linear-gradient(to top, rgba(6, 9, 16, 0.95) 0%, rgba(6, 9, 16, 0.6) 50%, rgba(6, 9, 16, 0) 100%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+    pointer-events: none;
+    box-sizing: border-box;
+    z-index: 5;
+  }
+
+  .team-member-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+  }
+
+  .team-member-role {
+    font-size: 0.85rem;
+    color: var(--color-gold);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Hover Expansion */
+  .team-member-card:hover {
+    flex: 2.8;
+    border-radius: 60px;
+  }
+
+  .team-member-card:hover .team-member-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Default Active Card (first visible card is active when container is not hovered) */
+  .team-members-accordion:not(:hover) .team-member-card.active-first {
+    flex: 2.8;
+    border-radius: 60px;
+  }
+
+  .team-members-accordion:not(:hover) .team-member-card.active-first .team-member-image {
+    filter: brightness(1);
+  }
+
+  .team-members-accordion:not(:hover) .team-member-card.active-first .team-member-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .team-members-accordion {
+      height: 400px;
+      gap: 1rem;
+    }
+
+    .team-member-card {
+      border-radius: 120px;
+    }
+
+    .team-member-card:hover {
+      flex: 2.2;
+      border-radius: 40px;
+    }
+
+    .team-members-accordion:not(:hover) .team-member-card.active-first {
+      flex: 2.2;
+      border-radius: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team-members-accordion {
+      flex-direction: column;
+      height: auto;
+      gap: 1.5rem;
+    }
+
+    .team-member-card {
+      height: 220px;
+      flex: none !important;
+      border-radius: 30px !important;
+    }
+
+    .team-member-image {
+      filter: brightness(0.9) !important;
+    }
+
+    .team-member-overlay {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      padding: 1.5rem;
+    }
+
+    .team-member-name {
+      font-size: 1.2rem;
+    }
+  }
+
+  /* Team members carousel/slider transition classes */
+  .team-member-card.team-member-hidden {
+    flex: 0 0 0px !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    margin-right: -1.5rem !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Slider controls container */
+  .team-slider-controls {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .team-slider-nav-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--color-gold);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
+    padding: 0;
+  }
+
+  .team-slider-nav-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.7);
+    color: #ffffff;
+    transform: scale(1.08);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  }
+
+  .team-slider-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-subtext);
+    box-shadow: none;
+    transform: none;
+    background: transparent;
+  }
+
+  .team-slider-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .team-slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .team-slider-dot:hover {
+    background: rgba(212, 175, 55, 0.5);
+  }
+
+  .team-slider-dot.active {
+    background: var(--color-gold);
+    transform: scale(1.2);
+    box-shadow: 0 0 8px var(--color-gold);
+  }
+
+  @media (max-width: 768px) {
+    .team-member-card.team-member-hidden {
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      margin-bottom: -1.5rem !important;
+      margin-right: 0 !important;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="about-container" style="max-width: 900px; width: 100%; margin: 7.5rem auto 3rem;">
-  
-  <!-- Hero Section -->
-  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2.5rem 2rem; box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; text-align: center;">
-    <span class="provider-badge" style="margin-bottom: 0.75rem; display: inline-block;">
-      ⚡ Premier Financial Platform
-    </span>
-    <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--color-primary);">About <span class="highlight-text">Sabin Balan Finance</span></h1>
-    <p style="color: var(--color-subtext); font-size: 1.05rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">
-      Empowering individuals and enterprises with intelligent wealth management, automated budgeting, and bank-grade security protections.
-    </p>
+<!-- 1. INDEPENDENT HERO BANNER WITH BACKGROUND IMAGE -->
+<section class="about-hero-banner">
+  <img class="about-hero-video-bg" src="{% static 'about_hero.png' %}"
+    alt="About Sabin Balan Private Wealth & Advisory">
+
+  <div class="about-hero-content-wrapper">
+    <!-- Left Aligned Hero Structure -->
+    <div class="about-hero-left-section">
+      <div class="about-hero-pill-badge">
+        <span>✨ Pioneer Wealth & Advisory Services</span>
+      </div>
+
+      <h1 class="about-hero-image-styled-title">
+        Discover<br>
+        our financial<br>
+        <span class="highlight-text">heritage now!</span>
+      </h1>
+
+      <p class="about-hero-image-styled-subtitle">
+        With Sabin Balan Advisory, we craft wealth architectures with total security and transparency. Explore our
+        legacy of fiduciary service.
+      </p>
+
+      <form class="about-hero-pill-bar" action="{% url 'contactform:contact' %}" method="get">
+        <div class="about-pill-left-content">
+          <span class="about-pill-icon">💼</span>
+          <span class="about-pill-store-name">Sabin Balan</span>
+          <span class="about-pill-divider">|</span>
+          <input type="text" name="message" class="about-pill-input" placeholder="Enter your financial goal or query"
+            required>
+        </div>
+        <button type="submit" class="about-pill-submit-btn" aria-label="Submit query">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Live Financial Market Metrics Ticker -->
+    <div class="about-metrics-ticker-wrapper">
+      <div class="about-metric-item">
+        <div class="about-metric-value">25+ Yrs</div>
+        <div class="about-metric-label">Heritage of Trust</div>
+      </div>
+      <div class="about-metric-item">
+        <div class="about-metric-value">₹15,000+ Cr</div>
+        <div class="about-metric-label">Assets Under Advisory</div>
+      </div>
+      <div class="about-metric-item">
+        <div class="about-metric-value">99.4%</div>
+        <div class="about-metric-label">Client Retention</div>
+      </div>
+      <div class="about-metric-item">
+        <div class="about-metric-value">ISO 27001</div>
+        <div class="about-metric-label">Security Certified</div>
+      </div>
+    </div>
+
+    <!-- Authenticated Member Command Bar -->
+    {% if user.is_authenticated %}
+    <div class="about-member-banner">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div
+          style="width: 46px; height: 46px; border-radius: 50%; background: var(--color-gold); color: #0A0D14; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;">
+          {{ user.get_initials }}
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 1.05rem; color: var(--color-primary);">
+            Welcome Back, {{ user.get_display_name }}
+          </div>
+          <div style="font-size: 0.85rem; color: var(--color-subtext);">
+            Client Account #{{ user.id|stringformat:"05d" }} &bull; Provider: {{ user.auth_provider|title }}
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="btn btn-secondary" onclick="document.getElementById('bio-modal').style.display='flex'"
+          style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+          Edit Profile Bio
+        </button>
+        <form method="post" action="{% url 'login:logout' %}" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+            Sign Out
+          </button>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- A BIT ABOUT US SECTION -->
+<div class="a-bit-about-us-wrapper">
+  <div class="a-bit-about-us-container">
+    <div class="a-bit-about-us-left">
+      <div class="a-bit-about-us-tag">A Bit About Us</div>
+
+      <h2 class="a-bit-about-us-title">
+        Building Wealth.<br>
+        Safeguarding Futures.<br>
+        <span class="highlight-gold">Creating Legacies.</span>
+      </h2>
+
+      <p class="a-bit-about-us-subtitle">
+        At Sabin Balan Private Wealth & Advisory, we partner with individuals, families and businesses to build, protect
+        and transfer wealth with clarity, confidence and compassion.
+      </p>
+
+      <!-- Values Grid -->
+      <div class="a-bit-about-us-values-grid">
+        <!-- Card 1: Integrity -->
+        <div class="a-bit-about-us-value-card">
+          <div class="value-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 11 2 2 4-4"></path>
+            </svg>
+          </div>
+          <div class="value-title">Integrity</div>
+          <div class="value-desc">We act with honesty and uphold the highest standards.</div>
+        </div>
+
+        <!-- Card 2: Client First -->
+        <div class="a-bit-about-us-value-card">
+          <div class="value-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="value-title">Client First</div>
+          <div class="value-desc">Your goals, your priorities and your success come first.</div>
+        </div>
+
+        <!-- Card 3: Expertise -->
+        <div class="a-bit-about-us-value-card">
+          <div class="value-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+          </div>
+          <div class="value-title">Expertise</div>
+          <div class="value-desc">Decades of experience to guide you ahead.</div>
+        </div>
+
+        <!-- Card 4: Trust -->
+        <div class="a-bit-about-us-value-card">
+          <div class="value-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3">
+              </path>
+            </svg>
+          </div>
+          <div class="value-title">Trust</div>
+          <div class="value-desc">Long-term relationships built on trust and respect.</div>
+        </div>
+      </div>
+
+      <!-- Mission Card -->
+      <div class="a-bit-about-us-mission-card">
+        <div class="mission-icon-container">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 22h18"></path>
+            <path d="M6 18v-7"></path>
+            <path d="M10 18v-7"></path>
+            <path d="M14 18v-7"></path>
+            <path d="M18 18v-7"></path>
+            <path d="M12 2 2 7h20z"></path>
+          </svg>
+        </div>
+        <div class="mission-content">
+          <div class="mission-title-label">Our Mission</div>
+          <div class="mission-text-desc">To empower our clients with personalized financial strategies that create
+            lasting value and secure future generations.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="a-bit-about-us-right">
+      <div class="a-bit-about-us-image-container">
+        <div class="a-bit-about-us-fade-overlay"></div>
+        <img class="a-bit-about-us-img" src="{% static 'bit_about_us.png' %}"
+          alt="Sabin Balan Private Wealth Advisory Meeting">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. EXECUTIVE SHOWCASE SECTION -->
+<div class="executive-showcase-wrapper">
+  <section class="executive-showcase-container">
+    <!-- Background Chevron Geometry Graphic -->
+    <svg class="showcase-bg-lines" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-50 250 L150 150 L-50 50" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round"
+        stroke-linejoin="round" opacity="0.6" />
+      <path d="M0 300 L200 200 L0 100" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round"
+        stroke-linejoin="round" opacity="0.4" />
+      <path d="M50 350 L250 250 L50 150" stroke="var(--color-gold)" stroke-width="24" stroke-linecap="round"
+        stroke-linejoin="round" opacity="0.2" />
+    </svg>
+
+    <div class="showcase-left-content">
+      <div class="section-tag">Legacy & Expertise</div>
+      <h2 class="showcase-title">Crafting Bespoke Wealth Solutions Driven by <span class="highlight-text">Fiduciary
+          Trust</span></h2>
+      <p class="showcase-subtitle">
+        At Sabin Balan Finance, we place our clients' interests at the center of everything we do. Our team of veteran
+        advisors leverages advanced quantitative strategies to build and compound your capital.
+      </p>
+
+      <a href="{% url 'contactform:contact' %}" class="showcase-cta-btn">
+        <span>Connect Now</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <div class="showcase-image-wrapper">
+      <video class="showcase-main-img" autoplay loop muted playsinline>
+        <source src="{% static 'about_video.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Floating Gold Pill Badge 1: Fiduciary Trust -->
+      <div class="floating-badge badge-financial-planning">
+        <div class="badge-icon-circle">💼</div>
+        <span class="badge-text-label">Fiduciary Trust</span>
+      </div>
+
+      <!-- Floating Gold Pill Badge 2: Expert Guidance -->
+      <div class="floating-badge badge-wealth-mgmt">
+        <div class="badge-icon-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <span class="badge-text-label">Expert Guidance</span>
+      </div>
+
+      <!-- Floating Gold Pill Badge 3: Custom Solutions -->
+      <div class="floating-badge badge-portfolio-growth">
+        <div class="badge-icon-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+        </div>
+        <span class="badge-text-label">Custom Solutions</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- OUR PROFESSIONAL TEAM MEMBERS SECTION -->
+<section class="team-members-wrapper">
+  <div class="team-members-header">
+    <span class="team-members-tag">Our Team Members</span>
+    <h2 class="team-members-title">Meet Our <span class="highlight-text">Professional Advisors</span></h2>
   </div>
 
+  <div class="team-members-accordion">
+    {% for member in team_members %}
+    <div class="team-member-card">
+      {% if member.image %}
+        {% if member.image.name == "team_sabin.png" or member.image.name == "about_showcase_team.png" or member.image.name == "financial_advisors_team.png" or member.image.name == "about_hero.png" or member.image.name == "home_hero.png" %}
+          {% get_static_prefix as static_url %}
+          <img class="team-member-image" src="{{ static_url }}{{ member.image.name }}" alt="{{ member.name }} - {{ member.role }}">
+        {% else %}
+          <img class="team-member-image" src="{{ member.image.url }}" alt="{{ member.name }} - {{ member.role }}">
+        {% endif %}
+      {% else %}
+        <img class="team-member-image" src="{% static 'financial_advisors_team.png' %}" alt="{{ member.name }} - {{ member.role }}">
+      {% endif %}
+      <div class="team-member-overlay">
+        <h3 class="team-member-name">{{ member.name }}</h3>
+        <p class="team-member-role">{{ member.role }}</p>
+      </div>
+    </div>
+    {% empty %}
+    <div style="text-align: center; width: 100%; color: var(--color-subtext); padding: 3rem; background: var(--color-secondary); border-radius: var(--radius-lg); border: 1px dashed var(--color-border);">
+      No dynamic team members published yet. Add them in the Django Admin Panel.
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Team slider controls -->
+  <div class="team-slider-controls" id="team-controls">
+    <button id="team-prev-btn" class="team-slider-nav-btn" aria-label="Previous Team Members">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <div class="team-slider-dots" id="team-dots"></div>
+    <button id="team-next-btn" class="team-slider-nav-btn" aria-label="Next Team Members">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- 3. MISSION, VALUES & PLATFORM HIGHLIGHTS -->
+<div class="about-container"
+  style="max-width: 900px; width: 100%; margin: 1.5rem auto 3rem; padding: 0 1.5rem; box-sizing: border-box;">
   <!-- Mission & Core Values Grid -->
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; width: 100%;">
-    
-    <div class="card-container" style="max-width: 100%;">
+  <div
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; width: 100%;">
+
+    <div class="card-container" style="max-width: 100%; margin: 0;">
       <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
         🎯 Our Mission
       </h3>
       <p style="color: var(--color-subtext); font-size: 0.92rem; line-height: 1.6;">
-        To simplify complex financial workflows through elegant user experiences, real-time insights, and uncompromised privacy.
+        To simplify complex financial workflows through elegant user experiences, real-time insights, and uncompromised
+        privacy.
       </p>
     </div>
 
-    <div class="card-container" style="max-width: 100%;">
+    <div class="card-container" style="max-width: 100%; margin: 0;">
       <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
         🛡️ Bank-Grade Security
       </h3>
       <p style="color: var(--color-subtext); font-size: 0.92rem; line-height: 1.6;">
-        Built with 256-bit encryption standards, ORM SQL injection immunity, and custom brute-force rate-limiting defenses.
+        Built with 256-bit encryption standards, ORM SQL injection immunity, and custom brute-force rate-limiting
+        defenses.
       </p>
     </div>
 
-    <div class="card-container" style="max-width: 100%;">
+    <div class="card-container" style="max-width: 100%; margin: 0;">
       <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
         ⚙️ Modular Architecture
       </h3>
       <p style="color: var(--color-subtext); font-size: 0.92rem; line-height: 1.6;">
-        Engineered with isolated, decoupled Django micro-modules (<code>login</code>, <code>theme_config</code>, <code>navfooter</code>, <code>contactform</code>).
+        Engineered with isolated, decoupled Django micro-modules (<code>login</code>, <code>theme_config</code>,
+        <code>navfooter</code>, <code>contactform</code>).
       </p>
     </div>
 
   </div>
 
   <!-- Key Statistics Banner -->
-  <div class="profile-card" style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-subtle);">
-    <h3 style="font-size: 1.25rem; margin-bottom: 1.25rem; text-align: center;">Platform <span class="highlight-text">Highlights</span></h3>
-    
-    <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center;">
-      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+  <div class="profile-card"
+    style="background-color: var(--color-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-subtle);">
+    <h3 style="font-size: 1.25rem; margin-bottom: 1.25rem; text-align: center;">Platform <span
+        class="highlight-text">Highlights</span></h3>
+
+    <div class="info-grid"
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center;">
+      <div class="info-box"
+        style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
         <div style="font-size: 1.8rem; font-weight: 800; color: var(--color-primary);">99.99%</div>
-        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">Uptime Security</div>
+        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">
+          Uptime Security</div>
       </div>
 
-      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+      <div class="info-box"
+        style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
         <div style="font-size: 1.8rem; font-weight: 800; color: var(--color-primary);">256-Bit</div>
-        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">SSL Encryption</div>
+        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">
+          SSL Encryption</div>
       </div>
 
-      <div class="info-box" style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+      <div class="info-box"
+        style="background-color: var(--color-input-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
         <div style="font-size: 1.8rem; font-weight: 800; color: var(--color-primary);">Instant</div>
-        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">OAuth Authentication</div>
+        <div style="font-size: 0.85rem; color: var(--color-subtext); text-transform: uppercase; margin-top: 0.25rem;">
+          OAuth Authentication</div>
       </div>
     </div>
 
     <div style="display: flex; justify-content: center; margin-top: 1.5rem;">
-      <a href="{% url 'contactform:contact' %}" class="btn btn-primary" style="width: auto; padding: 0.75rem 2rem;">Get in Touch With Us</a>
+      <a href="{% url 'contactform:contact' %}" class="btn btn-primary" style="width: auto; padding: 0.75rem 2rem;">Get
+        in Touch With Us</a>
     </div>
   </div>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".team-member-card");
+    const controls = document.getElementById("team-controls");
+    const dotsContainer = document.getElementById("team-dots");
+    const prevBtn = document.getElementById("team-prev-btn");
+    const nextBtn = document.getElementById("team-next-btn");
+
+    if (!cards || cards.length === 0) return;
+
+    let currentIdx = 0;
+    const visibleCount = 4;
+    const totalCount = cards.length;
+
+    function updateSlider() {
+      // 1. Update the visibility of the cards
+      cards.forEach((card, idx) => {
+        if (totalCount > visibleCount) {
+          if (idx >= currentIdx && idx < currentIdx + visibleCount) {
+            card.classList.remove("team-member-hidden");
+          } else {
+            card.classList.add("team-member-hidden");
+          }
+        } else {
+          card.classList.remove("team-member-hidden");
+        }
+
+        // Remove active-first from all cards
+        card.classList.remove("active-first");
+      });
+
+      // 2. Set the first visible card as active-first (expanded when accordion is not hovered)
+      const firstVisibleCard = cards[currentIdx];
+      if (firstVisibleCard) {
+        firstVisibleCard.classList.add("active-first");
+      }
+
+      // 3. Update the dot active states
+      if (totalCount > visibleCount) {
+        const dots = dotsContainer.querySelectorAll(".team-slider-dot");
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle("active", idx === currentIdx);
+        });
+
+        // 4. Update disabled state of navigation buttons
+        prevBtn.disabled = (currentIdx === 0);
+        nextBtn.disabled = (currentIdx === totalCount - visibleCount);
+      }
+    }
+
+    if (totalCount > visibleCount) {
+      // Show controls
+      controls.style.display = "flex";
+
+      // Generate navigation dots (totalCount - visibleCount + 1 dots)
+      const dotCount = totalCount - visibleCount + 1;
+      for (let i = 0; i < dotCount; i++) {
+        const dot = document.createElement("button");
+        dot.className = "team-slider-dot";
+        dot.setAttribute("aria-label", `Go to team members starting from ${i + 1}`);
+        dot.addEventListener("click", function () {
+          currentIdx = i;
+          updateSlider();
+        });
+        dotsContainer.appendChild(dot);
+      }
+
+      // Prev and Next Button Listeners
+      prevBtn.addEventListener("click", function () {
+        if (currentIdx > 0) {
+          currentIdx--;
+          updateSlider();
+        }
+      });
+
+      nextBtn.addEventListener("click", function () {
+        if (currentIdx < totalCount - visibleCount) {
+          currentIdx++;
+          updateSlider();
+        }
+      });
+
+      // Mobile touch swipe support
+      const accordion = document.querySelector(".team-members-accordion");
+      if (accordion) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        accordion.addEventListener("touchstart", function (e) {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        accordion.addEventListener("touchend", function (e) {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+          const swipeThreshold = 50; // pixels
+          if (touchStartX - touchEndX > swipeThreshold) {
+            // Swiped left -> Next
+            if (currentIdx < totalCount - visibleCount) {
+              currentIdx++;
+              updateSlider();
+            }
+          } else if (touchEndX - touchStartX > swipeThreshold) {
+            // Swiped right -> Prev
+            if (currentIdx > 0) {
+              currentIdx--;
+              updateSlider();
+            }
+          }
+        }
+      }
+    }
+
+    // Initialize slider state
+    updateSlider();
+  });
+</script>
 {% endblock %}

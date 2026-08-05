@@ -299,7 +299,54 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = "About Us — Sabin Balan Finance"
+        
+        # Fetch active team members with auto-seeding if less than 5
+        try:
+            from .models import TeamMember
+            if TeamMember.objects.count() < 5:
+                TeamMember.objects.all().delete()
+                initial_members = [
+                    {
+                        "name": "Sabin Balan",
+                        "role": "Founder & Managing Partner",
+                        "order": 1,
+                        "image": "team_sabin.png"
+                    },
+                    {
+                        "name": "Vikram Malhotra",
+                        "role": "Chief Investment Officer",
+                        "order": 2,
+                        "image": "about_showcase_team.png"
+                    },
+                    {
+                        "name": "Anjali Rao",
+                        "role": "Head of Wealth Management",
+                        "order": 3,
+                        "image": "financial_advisors_team.png"
+                    },
+                    {
+                        "name": "Devendra Singh",
+                        "role": "Fiduciary Tax Advisor",
+                        "order": 4,
+                        "image": "about_hero.png"
+                    },
+                    {
+                        "name": "Meera Sen",
+                        "role": "Senior Portfolio Manager",
+                        "order": 5,
+                        "image": "home_hero.png"
+                    }
+                ]
+                for item in initial_members:
+                    TeamMember.objects.create(**item)
+            
+            context['team_members'] = TeamMember.objects.filter(is_active=True).order_by('order', 'name')
+        except Exception:
+            context['team_members'] = []
+
         return context
+
+
 
 
 # --------------------------------------------------------------------------

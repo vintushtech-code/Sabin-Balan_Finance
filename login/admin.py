@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser, SuperUser, FAQ
+from .models import CustomUser, SuperUser, FAQ, TeamMember
+
 
 class CustomUserAdmin(UserAdmin):
     """
@@ -52,6 +53,25 @@ class FAQAdmin(admin.ModelAdmin):
             'fields': ('question', 'answer', 'category', 'order', 'is_active')
         }),
     )
+
+
+@admin.register(TeamMember)
+class TeamMemberAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for TeamMember model to perform full CRUD operations.
+    Allows managing names, designations, images, order, and publishing status.
+    """
+    list_display = ('name', 'role', 'order', 'is_active', 'updated_at')
+    list_editable = ('role', 'order', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('name', 'role')
+    ordering = ('order', 'name')
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'role', 'image', 'order', 'is_active')
+        }),
+    )
+
 
 # Register models in admin panel
 admin.site.register(CustomUser, CustomUserAdmin)
