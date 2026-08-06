@@ -87,6 +87,12 @@ class ContactFormView(FormView):
     form_class = ContactForm
     success_url = reverse_lazy('contactform:success')
 
+    def get_initial(self):
+        initial = super().get_initial()
+        if 'message' in self.request.GET:
+            initial['message'] = self.request.GET.get('message')
+        return initial
+
     def dispatch(self, request, *args, **kwargs):
         # We apply rate limiting at dispatch to block abuse early
         ip = get_client_ip(request)

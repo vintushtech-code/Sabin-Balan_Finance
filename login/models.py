@@ -200,4 +200,54 @@ class TeamMember(models.Model):
         return self.name
 
 
+class Testimonial(models.Model):
+    """
+    Model representing Client Testimonials & Global Reviews.
+    Supports interactive galaxy positioning, verification badges, categories, and ratings.
+    """
+    CATEGORY_CHOICES = (
+        ('entrepreneur', 'Entrepreneurs'),
+        ('portfolio_manager', 'Portfolio Managers'),
+        ('saver', 'Long-term Savers'),
+        ('institutional', 'Institutional Investors'),
+    )
+
+    name = models.CharField(_('Client Name'), max_length=150)
+    role = models.CharField(_('Professional Title / Role'), max_length=150)
+    location = models.CharField(_('City / Region'), max_length=100, default='Global')
+    quote = models.TextField(_('Testimonial Quote'))
+    rating = models.PositiveSmallIntegerField(_('Star Rating (1-5)'), default=5)
+    category = models.CharField(_('Category'), max_length=50, choices=CATEGORY_CHOICES, default='entrepreneur')
+    avatar_image = models.CharField(_('Avatar Asset Name or URL'), max_length=255, blank=True, default='')
+    avatar_file = models.ImageField(_('Uploaded Avatar Photo'), upload_to='testimonials/avatars/', blank=True, null=True)
+    is_verified_linkedin = models.BooleanField(_('Verified via LinkedIn'), default=True)
+    linkedin_url = models.URLField(_('LinkedIn Profile URL'), blank=True, default='https://linkedin.com')
+    pos_x = models.FloatField(_('Map X Position (%)'), default=30.0, help_text=_("X percentage coordinate (0-100) on global map grid"))
+    pos_y = models.FloatField(_('Map Y Position (%)'), default=40.0, help_text=_("Y percentage coordinate (0-100) on global map grid"))
+    badge_theme = models.CharField(_('Glow Theme'), max_length=30, default='cyan', choices=[
+        ('cyan', 'Cyan Glow'),
+        ('emerald', 'Emerald Glow'),
+        ('amber', 'Amber/Gold Glow'),
+        ('violet', 'Violet Glow')
+    ])
+    card_type = models.CharField(_('Display Card Style'), max_length=30, default='bubble', choices=[
+        ('bubble', 'Glowing Organic Bubble'),
+        ('glass_card', 'Sleek Dark Glass Card'),
+        ('node_only', 'Compact Avatar Node'),
+    ])
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+    is_active = models.BooleanField(_('Is Active'), default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('Testimonial')
+        verbose_name_plural = _('Testimonials')
+        ordering = ['order', '-rating', 'name']
+
+    def __str__(self):
+        return f"{self.name} ({self.role})"
+
+
+
 

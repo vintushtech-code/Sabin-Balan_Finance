@@ -1,0 +1,441 @@
+/* ==========================================================================
+   EXECUTIVE TESTIMONIALS STYLESHEET (WAVY LEADERS GRID & MODALS)
+   Sabin Balan Finance — Adaptive Dark/Light Premium Theme
+   ========================================================================== */
+
+/* Page Outer Wrapper */
+.testimonials-galaxy-page {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   1. Leaders Wavy Grid Container (Exactly Matching the Attached Image)
+   -------------------------------------------------------------------------- */
+.leaders-wavy-wrapper {
+  width: 100%;
+  position: relative;
+  margin-bottom: 2.5rem;
+  overflow: visible;
+  padding: 2rem 0;
+}
+
+.leaders-wavy-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 1.25rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Wavy staggered columns offsets */
+.grid-col:nth-child(1) { transform: translateY(45px); }
+.grid-col:nth-child(2) { transform: translateY(-15px); }
+.grid-col:nth-child(3) { transform: translateY(25px); }
+.grid-col:nth-child(4) { transform: translateY(-40px); }
+.grid-col:nth-child(5) { transform: translateY(10px); }
+.grid-col:nth-child(6) { transform: translateY(-30px); }
+.grid-col:nth-child(7) { transform: translateY(35px); }
+.grid-col:nth-child(8) { transform: translateY(-10px); }
+.grid-col:nth-child(9) { transform: translateY(50px); }
+
+/* Grid helper structures */
+.grid-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.grid-placeholder {
+  height: 120px;
+  border-radius: 20px;
+  background: rgba(226, 232, 240, 0.25);
+  border: 1px dashed rgba(226, 232, 240, 0.4);
+}
+
+[data-theme='dark'] .grid-placeholder {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Interactive Portrait Card */
+.leader-portrait-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.06),
+    0 4px 10px rgba(0, 0, 0, 0.03);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.leader-portrait-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(85%) contrast(95%);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.leader-portrait-card:hover {
+  transform: scale(1.06) translateY(-5px);
+  border-color: var(--color-gold);
+  box-shadow: 
+    0 20px 40px rgba(212, 175, 55, 0.25),
+    0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.leader-portrait-card:hover img {
+  filter: grayscale(0%) contrast(100%);
+}
+
+/* Mini hover overlay badge label */
+.portrait-hover-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(10, 13, 20, 0.9) 0%, rgba(10, 13, 20, 0) 100%);
+  padding: 1.5rem 0.75rem 0.5rem;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.leader-portrait-card:hover .portrait-hover-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   2. Central Main Content Section
+   -------------------------------------------------------------------------- */
+.center-content-section {
+  text-align: center;
+  max-width: 820px;
+  margin: 1rem auto 3rem;
+  z-index: 10;
+}
+
+.testimonials-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1.25rem;
+  background: rgba(226, 232, 240, 0.7);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  border-radius: var(--radius-pill);
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(10px);
+}
+
+[data-theme='dark'] .testimonials-pill-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--color-gold);
+}
+
+.main-headline-bold {
+  font-size: clamp(2.25rem, 5vw, 3.85rem);
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.85rem;
+}
+
+.main-description-text {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: var(--color-subtext);
+  line-height: 1.6;
+  max-width: 660px;
+  margin: 0 auto 2.25rem;
+}
+
+/* Write Testimonial Action Button - Gold Gradient Home Page CTA Palette */
+.write-testimonial-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+  border: 1px solid #FFD700;
+  color: #0A0D14 !important;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.write-testimonial-btn:hover {
+  background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 100%);
+  border-color: #FFF9C4;
+  color: #000000 !important;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 35px rgba(255, 215, 0, 0.55), 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   3. Search and Category Filter Bar (Ultra-Premium Glassmorphism Dock)
+   -------------------------------------------------------------------------- */
+.search-filter-dock {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 840px;
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 1.6rem 2rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 4rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+[data-theme='dark'] .search-filter-dock {
+  background: rgba(13, 20, 36, 0.75);
+  border-color: rgba(212, 175, 55, 0.25);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.dock-search-box {
+  display: flex;
+  align-items: center;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 99px;
+  padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+}
+
+.dock-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--color-primary);
+  width: 100%;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.dock-search-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #0f172a;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dock-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.dock-filter-btn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-subtext);
+  padding: 0.4rem 1.1rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dock-filter-btn:hover {
+  border-color: var(--color-gold);
+  color: var(--color-primary);
+}
+
+.dock-filter-btn.active {
+  background: var(--color-gold);
+  color: #0f172a;
+  border-color: var(--color-gold);
+}
+
+/* --------------------------------------------------------------------------
+   4. Modals (Write Testimonial Modal & Review Detail Modal)
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-container {
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  max-width: 580px;
+  width: 100%;
+  padding: 2.5rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transform: scale(0.93);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+[data-theme='dark'] .modal-container {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+}
+
+.modal-overlay.active .modal-container {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-subtext);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   5. Form Inputs Inside Modal
+   -------------------------------------------------------------------------- */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.modal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.modal-form-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.modal-form-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-primary);
+  outline: none;
+  font-size: 0.92rem;
+  transition: all 0.25s ease;
+}
+
+.modal-form-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+}
+
+.modal-form-input::placeholder {
+  color: var(--color-subtext);
+  opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   6. Responsive Rules
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .leaders-wavy-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid-col:nth-child(6),
+  .grid-col:nth-child(7),
+  .grid-col:nth-child(8),
+  .grid-col:nth-child(9) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .leaders-wavy-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-col:nth-child(4),
+  .grid-col:nth-child(5) {
+    display: none;
+  }
+  .testimonials-galaxy-page {
+    padding: 1.5rem 1rem;
+  }
+  .modal-container {
+    padding: 1.75rem 1.25rem;
+  }
+}
