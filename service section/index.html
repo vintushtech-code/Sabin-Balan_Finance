@@ -1,1212 +1,41 @@
-{% extends 'theme_config/base.html' %}
-{% load static %}
-
-{% block title %}Sabin Balan Finance — Wealth & Institutional Advisory Services{% endblock %}
-
-{% block extra_css %}
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* 
-  Sabin Balan Finance — Dual Theme (Light & Dark Mode) Executive Services Architecture
-  Master Stylesheet for High-Impact Services Homepage UI
-*/
-
-/* ============================================================
-   DEFAULT LIGHT THEME VARIABLES (Default / data-theme="light")
-   ============================================================ */
-:root {
-    --color-bg-dark: #fcfcfd;
-    --color-bg-card: #ffffff;
-    --color-bg-card-hover: #f9f9fb;
-    --color-bg-alt: #f0f2f5;
-    --color-primary-gold: #c59b37;
-    --color-gold-light: #ab8222;
-    --color-gold-dark: #8c6812;
-    --color-gold-glow: rgba(197, 155, 55, 0.15);
-    
-    --color-text-main: #1f2937;
-    --color-heading-text: #111827;
-    --color-text-muted: #4b5563;
-    --color-text-dim: #6b7280;
-    
-    --color-border-subtle: #e5e7eb;
-    --color-border-gold: rgba(197, 155, 55, 0.4);
-    
-    --hero-overlay-bg: rgba(6, 8, 13, 0.5);
-    --hero-title-color: linear-gradient(180deg, #ffffff 0%, #e5e7eb 70%, #f5d77f 100%);
-    --hero-text-color: rgba(255, 255, 255, 0.85);
-    --hero-glow-bg: radial-gradient(circle, rgba(197, 155, 55, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
-    
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
-    --card-hover-shadow: 0 20px 40px rgba(26, 95, 95, 0.08), 0 0 20px rgba(214, 158, 46, 0.2);
-    --input-bg: #ffffff;
-    --input-border: #cbd5e1;
-    
-    --calc-box-bg: #ffffff;
-    --calc-result-bg: #fffbf0;
-    --cta-banner-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    --cta-banner-text: #ffffff;
-    
-    --header-bg: rgba(255, 255, 255, 0.9);
-    --header-border: #e2e8f0;
-    
-    --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    --font-sans: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    
-    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* ============================================================
-   DARK THEME OVERRIDES (data-theme="dark")
-   ============================================================ */
-[data-theme="dark"] {
-    --color-bg-dark: #06080d;
-    --color-bg-card: #0d141d;
-    --color-bg-card-hover: #121a26;
-    --color-bg-alt: #0a0f17;
-    --color-primary-gold: #d69e2e;
-    --color-gold-light: #f5d77f;
-    --color-gold-dark: #b7791f;
-    --color-gold-glow: rgba(214, 158, 46, 0.25);
-    
-    --color-text-main: #f3f4f6;
-    --color-heading-text: #ffffff;
-    --color-text-muted: #9ca3af;
-    --color-text-dim: #6b7280;
-    
-    --color-border-subtle: rgba(255, 255, 255, 0.08);
-    --color-border-gold: rgba(214, 158, 46, 0.3);
-    
-    --hero-overlay-bg: rgba(6, 8, 13, 0.5);
-    --hero-title-color: linear-gradient(180deg, #ffffff 0%, #e5e7eb 70%, #f5d77f 100%);
-    --hero-text-color: rgba(255, 255, 255, 0.85);
-    --hero-glow-bg: radial-gradient(circle, rgba(214, 158, 46, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
-    
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(214, 158, 46, 0.25);
-    --input-bg: rgba(255, 255, 255, 0.05);
-    --input-border: rgba(255, 255, 255, 0.08);
-    
-    --calc-box-bg: #0d141d;
-    --calc-result-bg: rgba(214, 158, 46, 0.06);
-    --cta-banner-bg: linear-gradient(135deg, #0d141d 0%, #111a26 100%);
-    --cta-banner-text: #ffffff;
-    
-    --header-bg: rgba(6, 8, 13, 0.9);
-    --header-border: rgba(255, 255, 255, 0.08);
-}
-
-/* Reset & Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-body);
-    color: var(--color-text-main);
-    background-color: var(--color-bg-dark);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 4%;
-}
-
-/* Typography Base */
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    color: var(--color-heading-text);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-}
-
-p {
-    color: var(--color-text-muted);
-}
-
-a {
-    text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-/* Buttons */
-.btn-gold {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #f5d77f 0%, var(--color-primary-gold) 50%, var(--color-gold-light) 100%);
-    color: #06080d;
-    padding: 16px 36px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 20px var(--color-gold-glow);
-    border: none;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-.btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(214, 158, 46, 0.45);
-    background: linear-gradient(135deg, #ffffff 0%, #f5d77f 50%, var(--color-primary-gold) 100%);
-}
-
-.btn-gold-sm {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f5d77f 0%, var(--color-primary-gold) 100%);
-    color: #06080d;
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 12px var(--color-gold-glow);
-    border: none;
-    cursor: pointer;
-}
-.btn-gold-sm:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(214, 158, 46, 0.4);
-}
-
-.btn-glass {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: var(--input-bg);
-    backdrop-filter: blur(10px);
-    color: var(--color-heading-text);
-    padding: 16px 36px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border: 1px solid var(--input-border);
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-.btn-glass:hover {
-    background: var(--color-bg-card-hover);
-    border-color: var(--color-primary-gold);
-    color: var(--color-gold-light);
-    transform: translateY(-2px);
-}
-
-/* Theme Toggle Button */
-.btn-theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-heading-text);
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition-fast);
-}
-.btn-theme-toggle:hover {
-    border-color: var(--color-primary-gold);
-    color: var(--color-primary-gold);
-    transform: translateY(-1px);
-}
-
-/* Floating Theme Switcher Badge */
-.floating-theme-toggle {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 999;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-gold);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    border-radius: 30px;
-    padding: 6px 14px;
-}
-
-/* Header */
-.main-header {
-    padding: 20px 0;
-    background-color: var(--header-bg);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid var(--header-border);
-    transition: var(--transition-smooth);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h1 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    background: linear-gradient(135deg, var(--color-heading-text) 60%, var(--color-gold-light) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 28px;
-}
-
-.main-nav a {
-    color: var(--color-text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-}
-.main-nav a:hover, .main-nav a.active {
-    color: var(--color-gold-light);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-.contact-info {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-}
-
-/* Hero Section with Video Background */
-.hero-video-section {
-    position: relative;
-    width: 100%;
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 100px 0 60px;
-    background: url("{% static 'login/images/hero_services.jpg' %}") center/cover no-repeat;
-}
-
-.hero-video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--hero-overlay-bg);
-    z-index: 2;
-    transition: background 0.4s ease;
-}
-
-.hero-glow-gold {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 700px;
-    height: 400px;
-    background: var(--hero-glow-bg);
-    filter: blur(80px);
-    z-index: 3;
-    pointer-events: none;
-}
-
-.hero-container {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-}
-
-.hero-content {
-    max-width: 960px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(214, 158, 46, 0.12);
-    border: 1px solid var(--color-border-gold);
-    color: var(--color-gold-light);
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
-    backdrop-filter: blur(8px);
-}
-
-.hero-content h1 {
-    font-size: 4.2rem;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    background: var(--hero-title-color);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-content p {
-    font-size: 1.25rem;
-    color: var(--hero-text-color);
-    margin: 0 auto 40px auto;
-    max-width: 840px;
-    line-height: 1.7;
-}
-
-.hero-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-/* Stats Bar Box Section */
-.stats-bar-section {
-    padding: 40px 0;
-    background: var(--color-bg-dark);
-    position: relative;
-    z-index: 15;
-    margin-top: -30px;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-}
-
-.stat-box {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    padding: 28px 20px;
-    text-align: center;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition-smooth);
-}
-.stat-box:hover {
-    border-color: var(--color-border-gold);
-    transform: translateY(-4px);
-    box-shadow: var(--card-hover-shadow);
-}
-
-.stat-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-
-.stat-number {
-    font-family: var(--font-sans);
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: var(--color-heading-text);
-    line-height: 1;
-    margin-bottom: 8px;
-    letter-spacing: -1px;
-}
-
-.stat-label {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-heading-text);
-    letter-spacing: 0.5px;
-}
-
-.stat-sub {
-    font-size: 0.78rem;
-    color: var(--color-text-dim);
-    margin-top: 4px;
-}
-
-/* Section Header Shared */
-.section-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.section-header .subtitle {
-    color: var(--color-primary-gold);
-    font-family: var(--font-sans);
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    font-size: 0.85rem;
-    margin-bottom: 12px;
-}
-
-.section-header h2 {
-    font-size: 3.2rem;
-    margin-bottom: 16px;
-    color: var(--color-heading-text);
-}
-
-.section-header .header-description {
-    max-width: 750px;
-    margin: 16px auto 0 auto;
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-}
-
-.divider {
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--color-primary-gold), transparent);
-    margin: 0 auto;
-}
-
-/* Services Section */
-.services-section {
-    padding: 80px 0;
-    background-color: var(--color-bg-dark);
-}
-
-/* Filter & Search Box Bar */
-.filter-search-bar {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 44px;
-    flex-wrap: wrap;
-    gap: 16px;
-    box-shadow: var(--card-shadow);
-}
-
-.filter-pills {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.filter-pill {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-text-muted);
-    padding: 8px 18px;
-    border-radius: 25px;
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition-fast);
-}
-.filter-pill:hover, .filter-pill.active {
-    background: rgba(214, 158, 46, 0.15);
-    color: var(--color-gold-light);
-    border-color: var(--color-border-gold);
-}
-
-.search-input-box {
-    position: relative;
-    min-width: 280px;
-}
-.search-input-box .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-text-dim);
-    font-size: 0.9rem;
-}
-.search-input-box input {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-heading-text);
-    padding: 9px 16px 9px 38px;
-    border-radius: 25px;
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    outline: none;
-    transition: var(--transition-fast);
-}
-.search-input-box input:focus {
-    border-color: var(--color-primary-gold);
-}
-
-/* Services Grid (Box Form) */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
-}
-
-.service-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition-smooth);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--color-primary-gold), transparent);
-    opacity: 0;
-    transition: var(--transition-smooth);
-}
-.service-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--color-border-gold);
-    box-shadow: var(--card-hover-shadow);
-}
-.service-card:hover::before {
-    opacity: 1;
-}
-
-.card-image {
-    height: 200px;
-    position: relative;
-    overflow: hidden;
-}
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-.service-card:hover .card-image img {
-    transform: scale(1.08);
-}
-.overlay-gradient {
-    display: none;
-}
-
-.card-badge {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    background: var(--color-heading-text);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--color-heading-text);
-    color: var(--color-bg-card);
-    font-family: var(--font-sans);
-    font-size: 0.68rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-}
-
-.card-content {
-    padding: 24px 22px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.card-content h3 {
-    font-family: var(--font-sans);
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-    line-height: 1.25;
-    color: var(--color-heading-text);
-}
-
-.card-content p {
-    font-size: 0.88rem;
-    color: var(--color-text-muted);
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-.features-list {
-    list-style: none;
-    margin-bottom: 24px;
-    flex-grow: 1;
-}
-.features-list li {
-    font-size: 0.84rem;
-    color: var(--color-text-main);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.features-list li .check {
-    color: var(--color-gold-light);
-    font-weight: 700;
-    font-size: 0.85rem;
-}
-
-.card-footer-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 16px;
-    border-top: 1px solid var(--color-border-subtle);
-    margin-top: auto;
-}
-
-.metric-pill {
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    color: var(--color-gold-light);
-    background: rgba(214, 158, 46, 0.1);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.btn-card-action {
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--color-heading-text);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition-fast);
-}
-.btn-card-action:hover {
-    color: var(--color-primary-gold);
-}
-.btn-card-action .arrow {
-    transition: transform 0.3s ease;
-}
-.btn-card-action:hover .arrow {
-    transform: translateX(4px);
-}
-
-/* Recommendation Calculator Section */
-.calculator-section {
-    padding: 80px 0;
-    background: var(--color-bg-alt);
-    border-top: 1px solid var(--color-border-subtle);
-    border-bottom: 1px solid var(--color-border-subtle);
-}
-
-.calc-box {
-    background: var(--calc-box-bg);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 20px;
-    padding: 44px;
-    box-shadow: var(--card-shadow);
-}
-
-.calc-header {
-    text-align: center;
-    margin-bottom: 36px;
-}
-.calc-badge {
-    color: var(--color-primary-gold);
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    display: inline-block;
-    margin-bottom: 10px;
-}
-.calc-header h2 {
-    font-size: 2.6rem;
-    margin-bottom: 10px;
-    color: var(--color-heading-text);
-}
-
-.calc-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
-    align-items: center;
-}
-
-.calc-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.input-group label {
-    display: block;
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-heading-text);
-    margin-bottom: 8px;
-}
-.input-group select {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-heading-text);
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    outline: none;
-    cursor: pointer;
-}
-.input-group select option {
-    background: var(--color-bg-card);
-    color: var(--color-heading-text);
-}
-
-.calc-result {
-    background: var(--calc-result-bg);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 14px;
-    padding: 30px;
-}
-.result-badge {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--color-gold-light);
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-}
-.calc-result h4 {
-    font-size: 1.6rem;
-    color: var(--color-heading-text);
-    margin-bottom: 12px;
-}
-.calc-result p {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin-bottom: 16px;
-}
-.rec-features {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.85rem;
-    color: var(--color-gold-light);
-    font-weight: 500;
-}
-
-/* 4-Step Advisory Process Box Grid */
-.process-section {
-    padding: 90px 0;
-    background: var(--color-bg-dark);
-}
-
-.process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-}
-
-.process-box {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    padding: 32px 24px;
-    position: relative;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition-smooth);
-}
-.process-box:hover {
-    border-color: var(--color-border-gold);
-    transform: translateY(-6px);
-    box-shadow: var(--card-hover-shadow);
-}
-
-.process-step-num {
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-primary-gold);
-    opacity: 0.4;
-    line-height: 1;
-    margin-bottom: 12px;
-}
-
-.process-title {
-    font-size: 1.4rem;
-    color: var(--color-heading-text);
-    margin-bottom: 12px;
-}
-
-.process-desc {
-    font-size: 0.88rem;
-    color: var(--color-text-muted);
-    line-height: 1.6;
-}
-
-/* Client Success Spotlight Box */
-.spotlight-section {
-    padding: 90px 0;
-    background: var(--color-bg-alt);
-}
-
-.spotlight-box {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 24px;
-    overflow: hidden;
-    display: flex;
-    box-shadow: var(--card-shadow);
-}
-
-.spotlight-image {
-    flex: 0 0 42%;
-    position: relative;
-}
-.spotlight-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.spotlight-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent 50%, var(--color-bg-card) 100%);
-}
-
-.spotlight-content {
-    flex: 1;
-    padding: 50px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.spotlight-tag {
-    color: var(--color-primary-gold);
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-}
-
-.spotlight-content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: var(--color-heading-text);
-}
-
-.spotlight-quote {
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--color-text-main);
-    margin-bottom: 30px;
-    line-height: 1.7;
-}
-
-.spotlight-metrics {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.spot-metric {
-    display: flex;
-    flex-direction: column;
-}
-.spot-metric .m-val {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-gold-light);
-}
-.spot-metric .m-lbl {
-    font-size: 0.78rem;
-    color: var(--color-text-muted);
-}
-
-/* Executive Consultation Banner */
-.cta-banner-section {
-    padding: 90px 0;
-    background: var(--color-bg-dark);
-}
-
-.cta-banner-box {
-    background: var(--cta-banner-bg);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 24px;
-    padding: 60px 40px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
-
-.cta-badge {
-    color: #f5d77f;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    display: inline-block;
-    margin-bottom: 12px;
-}
-
-.cta-banner-box h2 {
-    font-size: 3rem;
-    margin-bottom: 16px;
-    color: #ffffff;
-}
-
-.cta-banner-box p {
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto 36px auto;
-    color: #cbd5e1;
-}
-
-.consultation-form {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.form-row {
-    display: flex;
-    gap: 16px;
-}
-.form-row input, .form-row select {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    padding: 14px 18px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    outline: none;
-}
-.form-row input::placeholder {
-    color: #94a3b8;
-}
-.form-row select option {
-    background: #0d141d;
-    color: #ffffff;
-}
-
-/* Footer Section */
-.main-footer {
-    background-color: #040609;
-    color: var(--color-text-main);
-    padding: 80px 0 40px;
-    border-top: 1px solid var(--color-border-subtle);
-}
-
-.footer-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-.footer-header h2 {
-    color: #ffffff;
-    font-size: 2.8rem;
-}
-
-.footer-icons-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.footer-icon-item .icon-circle {
-    width: 70px;
-    height: 70px;
-    background: rgba(214, 158, 46, 0.1);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    margin: 0 auto 16px;
-    color: #f5d77f;
-}
-
-.footer-icon-item p {
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 30px;
-    text-align: center;
-    color: #94a3b8;
-    font-size: 0.82rem;
-}
-.footer-bottom p {
-    margin-bottom: 12px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Modal Overlay */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-.modal-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.modal-container {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 20px;
-    max-width: 680px;
-    width: 90%;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 36px;
-    position: relative;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    color: var(--color-text-main);
-}
-
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    color: var(--color-text-muted);
-    font-size: 1.8rem;
-    cursor: pointer;
-    line-height: 1;
-}
-.modal-close:hover {
-    color: var(--color-gold-light);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1200px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .process-grid, .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 992px) {
-    .hero-content h1 {
-        font-size: 3.2rem;
-    }
-    .calc-grid, .spotlight-box {
-        grid-template-columns: 1fr;
-        flex-direction: column;
-    }
-    .spotlight-image {
-        height: 280px;
-    }
-    .main-nav {
-        display: none;
-    }
-    .footer-icons-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .services-grid, .process-grid, .stats-grid, .footer-icons-grid {
-        grid-template-columns: 1fr;
-    }
-    .hero-content h1 {
-        font-size: 2.4rem;
-    }
-    .form-row {
-        flex-direction: column;
-    }
-    .filter-search-bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .search-input-box {
-        min-width: 100%;
-    }
-}
-
-</style>
-{% endblock %}
-
-{% block content %}
-
-    
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabin Balan Finance — Institutional & Bespoke Wealth Services</title>
+    <meta name="description" content="Elevate your financial trajectory with bespoke advisory services designed for elite individuals, family offices, and institutions.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Sabin Balan Finance</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#" class="active">WEALTH SERVICES</a></li>
+                    <li><a href="#">RETIREMENT PLANNING</a></li>
+                    <li><a href="#">CORPORATE & LEGACY</a></li>
+                    <li><a href="#">INSIGHTS</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="contact-info">
+                    <span>(844) 1800 700 999</span>
+                </div>
+                <a href="#consultation" class="btn-gold-sm">CONSULTATION</a>
+            </div>
+        </div>
+    </header>
 
 
     <!-- Hero Video Section -->
@@ -1302,7 +131,7 @@ a {
                 <!-- Box 1 -->
                 <article class="service-card" data-category="wealth tax">
                     <div class="card-image">
-                        <img src="{% static 'login/images/card_1.jpg' %}" alt="Bespoke Financial Architecture">
+                        <img src="assets/card_1.jpg" alt="Bespoke Financial Architecture">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">WEALTH ARCHITECTURE</span>
                     </div>
@@ -1327,7 +156,7 @@ a {
                 <!-- Box 2 -->
                 <article class="service-card" data-category="portfolio wealth">
                     <div class="card-image">
-                        <img src="{% static 'login/images/card_2.jpg' %}" alt="Active Wealth Cultivation">
+                        <img src="assets/card_2.jpg" alt="Active Wealth Cultivation">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">PORTFOLIO GROWTH</span>
                     </div>
@@ -1352,7 +181,7 @@ a {
                 <!-- Box 3 -->
                 <article class="service-card" data-category="retirement wealth">
                     <div class="card-image">
-                        <img src="{% static 'login/images/card_3.jpg' %}" alt="Optimized Retirement Trajectories">
+                        <img src="assets/card_3.jpg" alt="Optimized Retirement Trajectories">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">RETIREMENT & LONGEVITY</span>
                     </div>
@@ -1377,7 +206,7 @@ a {
                 <!-- Box 4 -->
                 <article class="service-card" data-category="legacy wealth">
                     <div class="card-image">
-                        <img src="{% static 'login/images/service_4.jpg' %}" alt="Strategic Corporate & Legacy Counsel">
+                        <img src="assets/service_4.jpg" alt="Strategic Corporate & Legacy Counsel">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">CORPORATE & SUCCESSION</span>
                     </div>
@@ -1402,7 +231,7 @@ a {
                 <!-- Box 5 -->
                 <article class="service-card" data-category="tax wealth">
                     <div class="card-image">
-                        <img src="{% static 'login/images/service_1.jpg' %}" alt="Tax Mitigation & Cross-Border Advisory">
+                        <img src="assets/service_1.jpg" alt="Tax Mitigation & Cross-Border Advisory">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">TAX & ESTATE SHIELDING</span>
                     </div>
@@ -1427,7 +256,7 @@ a {
                 <!-- Box 6 -->
                 <article class="service-card" data-category="portfolio legacy">
                     <div class="card-image">
-                        <img src="{% static 'login/images/service_3.jpg' %}" alt="Private Equity & Alternative Assets">
+                        <img src="assets/service_3.jpg" alt="Private Equity & Alternative Assets">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">ALTERNATIVE VENTURES</span>
                     </div>
@@ -1452,7 +281,7 @@ a {
                 <!-- Box 7 -->
                 <article class="service-card" data-category="advisory">
                     <div class="card-image">
-                        <img src="{% static 'login/images/anti_poverty.jpg' %}" alt="Corporate Finance Advisory">
+                        <img src="assets/anti_poverty.jpg" alt="Corporate Finance Advisory">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">FINANCE ADVISORY</span>
                     </div>
@@ -1477,7 +306,7 @@ a {
                 <!-- Box 8 -->
                 <article class="service-card" data-category="impact legacy">
                     <div class="card-image">
-                        <img src="{% static 'login/images/family_programs.jpg' %}" alt="Family & Youth Engagement">
+                        <img src="assets/family_programs.jpg" alt="Family & Youth Engagement">
                         <div class="overlay-gradient"></div>
                         <span class="card-badge">COMMUNITY & YOUTH</span>
                     </div>
@@ -1589,7 +418,7 @@ a {
         <div class="container">
             <div class="spotlight-box">
                 <div class="spotlight-image">
-                    <img src="{% static 'login/images/service_2.jpg' %}" alt="Senior Wealth Managing Director">
+                    <img src="assets/service_2.jpg" alt="Senior Wealth Managing Director">
                     <div class="spotlight-overlay"></div>
                 </div>
                 <div class="spotlight-content">
@@ -1648,7 +477,36 @@ a {
         </div>
     </section>
 
-    
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-header">
+                <h2>Your Future, Fully Preserved</h2>
+            </div>
+            <div class="footer-icons-grid">
+                <div class="footer-icon-item">
+                    <div class="icon-circle">📈</div>
+                    <p>Asset Growth</p>
+                </div>
+                <div class="footer-icon-item">
+                    <div class="icon-circle">🏛️</div>
+                    <p>Succession Planning</p>
+                </div>
+                <div class="footer-icon-item">
+                    <div class="icon-circle">🛡️</div>
+                    <p>Asset Protection</p>
+                </div>
+                <div class="footer-icon-item">
+                    <div class="icon-circle">💰</div>
+                    <p>Emergency Reserves</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Sabin Balan Finance is a registered investment advisory institution. Information presented is for institutional and accredited investor educational purposes only. Past performance is not indicative of future market returns.</p>
+                <p>© 2026 Sabin Balan Finance. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Interactive Service Detail Modal -->
     <div class="modal-overlay" id="service-modal">
@@ -1867,5 +725,5 @@ a {
             }
         }
     </script>
-
-{% endblock %}
+</body>
+</html>
