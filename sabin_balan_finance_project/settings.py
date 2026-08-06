@@ -46,8 +46,6 @@ elif os.path.exists(_source_hero) and not os.path.exists(_about_hero):
         pass
 
 # Testimonials Futuristic UI Image Auto-Sync
-_gen_bg = r"C:\Users\hp\.gemini\antigravity-ide\brain\b4ad1d09-66d5-4ecf-8691-671aab032abc\testimonials_galaxy_bg_1785933219888.png"
-_target_bg = BASE_DIR / "photos" / "testimonials_bg.png"
 _gen_emily = r"C:\Users\hp\.gemini\antigravity-ide\brain\b4ad1d09-66d5-4ecf-8691-671aab032abc\avatar_emily_carter_1785933234781.png"
 _target_emily = BASE_DIR / "photos" / "avatar_emily.png"
 _gen_david = r"C:\Users\hp\.gemini\antigravity-ide\brain\b4ad1d09-66d5-4ecf-8691-671aab032abc\avatar_david_chen_1785933252015.png"
@@ -62,24 +60,28 @@ _gen_leader3 = r"C:\Users\hp\.gemini\antigravity-ide\brain\b4ad1d09-66d5-4ecf-86
 _target_leader3 = BASE_DIR / "photos" / "avatar_leader3.png"
 _gen_leader4 = r"C:\Users\hp\.gemini\antigravity-ide\brain\b4ad1d09-66d5-4ecf-8691-671aab032abc\avatar_leader_4_1785934523248.png"
 _target_leader4 = BASE_DIR / "photos" / "avatar_leader4.png"
-_gen_testimonials_hero = r"C:\Users\hp\.gemini\antigravity-ide\brain\b4ad1d09-66d5-4ecf-8691-671aab032abc\testimonials_hero_1785934766289.png"
-_target_testimonials_hero = BASE_DIR / "photos" / "testimonials_hero.png"
 
 for src, dst in [
-    (_gen_bg, _target_bg), 
     (_gen_emily, _target_emily), 
     (_gen_david, _target_david),
     (_gen_leader1, _target_leader1),
     (_gen_leader2, _target_leader2),
     (_gen_leader3, _target_leader3),
-    (_gen_leader4, _target_leader4),
-    (_gen_testimonials_hero, _target_testimonials_hero)
+    (_gen_leader4, _target_leader4)
 ]:
     if os.path.exists(src):
         try:
             shutil.copy(src, dst)
         except Exception:
             pass
+
+_home_hero = BASE_DIR / "photos" / "home_hero.png"
+_contact_hero = BASE_DIR / "photos" / "contact_hero.png"
+if os.path.exists(_home_hero) and not os.path.exists(_contact_hero):
+    try:
+        shutil.copy(_home_hero, _contact_hero)
+    except Exception:
+        pass
 
 # Auto-migrate database modifications on server initialization
 try:
@@ -212,7 +214,7 @@ LOGOUT_REDIRECT_URL = 'login:login'
 
 # Email Configuration (Prints password reset links to terminal in dev mode)
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@sabinbalanfinance.com')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@guardiantreefp.com')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

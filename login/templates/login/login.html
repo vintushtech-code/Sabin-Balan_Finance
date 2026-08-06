@@ -1,7 +1,7 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
-{% block title %}Sign In — Sabin Balan Client Portal{% endblock %}
+{% block title %}Sign In — GuardianTree FP Client Portal{% endblock %}
 
 {% block navbar %}{% endblock %}
 {% block footer %}{% endblock %}
@@ -11,11 +11,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="auth-split-wrapper" style="display: flex; width: 100%; min-height: 100vh; background: var(--color-bg);">
+<div class="auth-split-wrapper-fullscreen">
 
   <!-- Left Side: Financial Hero Image & Brand Overlay -->
-  <div class="auth-split-image"
-    style="flex: 1; min-height: 100vh; background-image: linear-gradient(180deg, rgba(6, 8, 13, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%), url('https://images.unsplash.com/photo-1561514958-6ed1d8a74060?q=80&w=1200&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 4rem; position: relative;">
+  <div class="auth-split-image-fullscreen" style="background-image: url('{% static 'login.png' %}');">
     <div class="auth-image-content" style="position: relative; z-index: 10; max-width: 540px; color: #ffffff;">
       <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">
         🛡️ Bank-Grade 256-Bit Protection
@@ -24,13 +23,13 @@
         Master Your Wealth with <span class="highlight-text">Institutional Intelligence</span>
       </h2>
       <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
-        Access real-time portfolio analytics, quantitative advisory, and seamless wealth control with Sabin Balan Finance.
+        Access real-time portfolio analytics, quantitative advisory, and seamless wealth control with GuardianTree FP.
       </p>
     </div>
   </div>
 
   <!-- Right Side: Login Form Column -->
-  <div class="auth-split-form" style="flex: 0 0 520px; max-width: 520px; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 3rem; background: var(--color-secondary);">
+  <div class="auth-split-form-fullscreen">
     <div class="auth-header" style="text-align: left; margin-bottom: 2rem;">
       <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--color-gold); font-size: 1.3rem; margin-bottom: 1rem;">
         🔐

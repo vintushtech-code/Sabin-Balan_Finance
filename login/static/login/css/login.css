@@ -319,7 +319,10 @@
 
 .auth-image-overlay {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.85) 100%);
   display: flex;
   align-items: flex-end;
@@ -370,10 +373,70 @@
     flex-direction: column;
     max-width: 480px;
   }
+
   .auth-split-image {
     min-height: 220px;
   }
+
   .auth-image-content h2 {
     font-size: 1.3rem;
+  }
+}
+
+/* Fullscreen Equal 50/50 Split Screen Layout */
+.auth-split-wrapper-fullscreen {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.auth-split-image-fullscreen {
+  flex: 0 0 50%;
+  width: 50%;
+  max-width: 50%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-start;
+  padding: 4rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.auth-split-form-fullscreen {
+  flex: 0 0 50%;
+  width: 50%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3.5rem 4rem;
+  background: var(--color-secondary);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+@media (max-width: 992px) {
+  .auth-split-wrapper-fullscreen {
+    flex-direction: column;
+  }
+
+  .auth-split-image-fullscreen,
+  .auth-split-form-fullscreen {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .auth-split-image-fullscreen {
+    min-height: 40vh;
+    padding: 2.5rem;
+  }
+
+  .auth-split-form-fullscreen {
+    min-height: auto;
+    padding: 2.5rem 2rem;
   }
 }
