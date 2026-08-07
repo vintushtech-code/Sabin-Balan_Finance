@@ -227,46 +227,28 @@ class HomeView(TemplateView):
             if not FAQ.objects.exists():
                 initial_faqs = [
                     {
-                        "question": "What is Financial Planning?",
-                        "answer": "Financial planning is a comprehensive, quantitative roadmap designed to evaluate your current net worth, streamline cash flows, manage tax liabilities, and build systematic multi-asset allocation strategies tailored to achieve your short- and long-term financial goals.",
+                        "question": "How does Sabin Balan Finance create a customized financial advisory plan?",
+                        "answer": "Our financial advisory process begins with a comprehensive quantitative analysis of your current net worth, cash flow dynamics, risk tolerance, and tax profile. We design bespoke multi-asset allocation strategies and actionable roadmaps to align your wealth with your short- and long-term life objectives.",
                         "category": "general",
                         "order": 1,
                     },
                     {
-                        "question": "What is Wealth Management?",
-                        "answer": "Wealth management combines institutional-grade financial advisory, customized multi-asset portfolio structuring, family office services, tax optimization, and estate planning into a single integrated fiduciary relationship designed to compound and preserve capital across generations.",
+                        "question": "What is the difference between Wealth Management and Financial Advisory?",
+                        "answer": "While financial advisory focuses on goal-based budgeting, risk management, and strategic asset allocation, wealth management provides an all-inclusive institutional service encompassing multi-asset portfolio management, estate planning, tax optimization, and family office solutions for capital growth and legacy preservation.",
                         "category": "wealth",
                         "order": 2,
                     },
                     {
-                        "question": "How do you charge for your advisory services?",
-                        "answer": "We operate strictly under a conflict-free fiduciary framework with zero hidden broker commissions or product kickbacks. We charge a transparent, fee-only advisory structure calculated as a flat percentage of Assets Under Management (AUM) or a fixed retainer.",
+                        "question": "How do you ensure conflict-free advisory and fee transparency?",
+                        "answer": "We operate under a strict fee-only fiduciary model with zero hidden broker commissions, kickbacks, or product markups. Our advisory desk charges a transparent, upfront retainer or fixed AUM fee, ensuring our guidance is 100% aligned with your best financial interests.",
                         "category": "fiduciary",
                         "order": 3,
-                    },
-                    {
-                        "question": "Do I need ₹1 lakh to start investing?",
-                        "answer": "Not at all. While our private wealth desks serve high-net-worth individuals and family offices, our systematic investment plans (SIPs) and quantitative advisory models allow investors to start compounding capital with as little as ₹5,000 per month.",
-                        "category": "investment",
-                        "order": 4,
-                    },
-                    {
-                        "question": "Can salaried employees invest with Sabin Balan Finance?",
-                        "answer": "Absolutely. We specialize in structuring tax-optimized, automated SIP portfolios specifically for working professionals, salaried employees, and corporate executives looking to accelerate their financial independence and compound monthly income into long-term wealth.",
-                        "category": "investment",
-                        "order": 5,
-                    },
-                    {
-                        "question": "How are my assets protected and secured?",
-                        "answer": "All securities and capital remain directly under your custody with SEBI-registered depositories (NSDL/CDSL). We provide advisory intelligence, while your portfolio is secured with bank-grade 256-bit encryption and ISO 27001 data vaults.",
-                        "category": "fiduciary",
-                        "order": 6,
                     },
                 ]
                 for item in initial_faqs:
                     FAQ.objects.create(**item)
 
-            context['faqs'] = FAQ.objects.filter(is_active=True).order_by('order', 'created_at')
+            context['faqs'] = FAQ.objects.filter(is_active=True).order_by('order', 'created_at')[:3]
         except Exception:
             context['faqs'] = []
 
