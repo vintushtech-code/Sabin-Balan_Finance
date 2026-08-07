@@ -270,6 +270,13 @@ class HomeView(TemplateView):
         except Exception:
             context['faqs'] = []
 
+        # Fetch Top 3 Active Testimonials for Home Page Preview Section
+        try:
+            from .models import Testimonial
+            context['testimonials'] = Testimonial.objects.filter(is_active=True).order_by('order', '-rating')[:3]
+        except Exception:
+            context['testimonials'] = []
+
         return context
 
     def post(self, request, *args, **kwargs):
