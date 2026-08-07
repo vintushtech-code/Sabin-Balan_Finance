@@ -244,11 +244,29 @@ class HomeView(TemplateView):
                         "category": "fiduciary",
                         "order": 3,
                     },
+                    {
+                        "question": "What minimum portfolio size or investment amount is required to get started?",
+                        "answer": "We offer flexible entry tiers across our advisory desks. While our institutional private wealth team handles high-net-worth portfolios, individual investors can start building automated, quantitative SIP portfolios with a minimum monthly contribution of ₹5,000.",
+                        "category": "investment",
+                        "order": 4,
+                    },
+                    {
+                        "question": "How does financial advisory assist with tax planning and optimization?",
+                        "answer": "Our advisory desk structures tax-efficient portfolios utilizing loss harvesting, capital gains tax balancing, tax-advantaged rebalancing, and optimal instrument selection (such as ELSS, Sovereign Gold Bonds, and direct growth strategies) to maximize your post-tax returns.",
+                        "category": "investment",
+                        "order": 5,
+                    },
+                    {
+                        "question": "How are my invested capital and personal financial data secured?",
+                        "answer": "Your securities and funds remain directly under your custody with SEBI-registered depositories (NSDL/CDSL). We provide advisory intelligence without taking direct custody of your assets, while all platform interactions are protected using bank-grade 256-bit encryption and ISO-27001 compliant security.",
+                        "category": "fiduciary",
+                        "order": 6,
+                    },
                 ]
                 for item in initial_faqs:
                     FAQ.objects.create(**item)
 
-            context['faqs'] = FAQ.objects.filter(is_active=True).order_by('order', 'created_at')[:3]
+            context['faqs'] = FAQ.objects.filter(is_active=True).order_by('order', 'created_at')[:6]
         except Exception:
             context['faqs'] = []
 
