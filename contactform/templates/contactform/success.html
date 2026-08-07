@@ -6,16 +6,16 @@
 {% block content %}
 <div class="auth-split-wrapper" style="display: flex; width: 100%; min-height: 100vh; background: var(--color-bg);">
   
-  <!-- Left Side: Unsplash Hero Image & Brand Overlay -->
-  <div class="auth-split-image" style="flex: 1; min-height: 100vh; background-image: linear-gradient(180deg, rgba(6, 8, 13, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 4rem; position: relative;">
+  <!-- Left Side: Message Dispatched Full Quality Hero Image & Brand Overlay -->
+  <div class="auth-split-image" style="flex: 1; min-height: 100vh; background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(10, 13, 20, 0.75) 100%), url('{% static 'message_dispatched.png' %}'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 4rem; position: relative;">
     <div class="auth-image-content" style="position: relative; z-index: 10; max-width: 540px; color: #ffffff;">
-      <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">
+      <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem; background: rgba(10, 13, 20, 0.75); backdrop-filter: blur(12px); border: 1.5px solid rgba(212, 175, 55, 0.5); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
         ✉️ Message Dispatched
       </span>
-      <h2 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff;">
+      <h2 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">
         Thank You for Reaching Out
       </h2>
-      <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+      <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.95); line-height: 1.6; text-shadow: 0 2px 8px rgba(0,0,0,0.6);">
         Our senior chartered advisory team will review your requirements and respond to your inquiry within 24 hours.
       </p>
     </div>
