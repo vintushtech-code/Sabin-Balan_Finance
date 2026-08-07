@@ -269,6 +269,20 @@
   transition: transform 0.25s ease, fill 0.25s ease, filter 0.25s ease;
 }
 
+/* Dark Mode Navbar Icon & Label Refinements — Eliminates White Overlay for Crisp Visibility */
+[data-theme='dark'] .finance-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75));
+}
+
+[data-theme='dark'] .finance-nav-item:hover .finance-icon,
+[data-theme='dark'] .finance-nav-item.active .finance-icon {
+  filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.7)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+[data-theme='dark'] .finance-label {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
 .finance-label {
   font-size: 0.66rem;
   font-weight: 800;
