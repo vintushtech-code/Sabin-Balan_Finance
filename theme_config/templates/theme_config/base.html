@@ -41,19 +41,54 @@
     {% render_navbar brand_name="GuardianTree FP" brand_short="GTFP" %}
   {% endblock %}
 
+  <!-- Floating Global Messages & Toast Alerts Container (Positioned Just Below Navbar) -->
+  {% if messages %}
+    <div class="toast-messages-container" id="toast-messages-container">
+      {% for message in messages %}
+        <div class="toast-message-item alert-{{ message.tags|default:'info' }}" role="alert">
+          <div class="toast-message-content">
+            {% if 'success' in message.tags %}
+              <span class="toast-icon">✓</span>
+            {% elif 'error' in message.tags or 'danger' in message.tags %}
+              <span class="toast-icon">✕</span>
+            {% else %}
+              <span class="toast-icon">ℹ</span>
+            {% endif %}
+            <span class="toast-text">{{ message }}</span>
+          </div>
+          <button type="button" class="toast-close-btn" onclick="dismissToast(this.parentElement)" aria-label="Close notification">&times;</button>
+          <div class="toast-progress-bar"></div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.toast-message-item');
+        toasts.forEach(function(toast) {
+          setTimeout(function() {
+            dismissToast(toast);
+          }, 3000);
+        });
+      });
+
+      function dismissToast(toastEl) {
+        if (!toastEl || toastEl.classList.contains('dismissing')) return;
+        toastEl.classList.add('dismissing');
+        toastEl.style.animation = 'toastSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        setTimeout(function() {
+          if (toastEl.parentElement && toastEl.parentElement.querySelectorAll('.toast-message-item').length === 1) {
+            toastEl.parentElement.remove();
+          } else {
+            toastEl.remove();
+          }
+        }, 400);
+      }
+    </script>
+  {% endif %}
+
   <!-- Application Main Content Area -->
   <main class="app-container">
-    {% if messages %}
-      <div class="messages-wrapper">
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">
-            <span>{{ message }}</span>
-            <button type="button" onclick="this.parentElement.remove()" style="background:none; border:none; color:currentColor; cursor:pointer; font-weight:bold; font-size:1.1rem; margin-left:1rem;">&times;</button>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-
     {% block content %}
     {% endblock %}
   </main>

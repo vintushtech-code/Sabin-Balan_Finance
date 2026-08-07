@@ -248,6 +248,18 @@ class Testimonial(models.Model):
     def __str__(self):
         return f"{self.name} ({self.role})"
 
+    @property
+    def get_avatar_url(self):
+        """Safely retrieves avatar URL from uploaded file, image path string, or empty string."""
+        if self.avatar_file:
+            try:
+                return self.avatar_file.url
+            except ValueError:
+                pass
+        if self.avatar_image:
+            return self.avatar_image
+        return ''
+
 
 
 
