@@ -19,7 +19,7 @@
       style.textContent = "{{ THEME_CSS_VARIABLES|escapejs }}";
       document.head.appendChild(style);
 
-      // Check saved theme preference (Default: Dark Mode for Jio BlackRock Midnight Onyx & Gold theme)
+      // Check saved theme preference (Default: Dark Mode)
       const savedTheme = localStorage.getItem('bf-theme');
       if (savedTheme === 'light') {
         document.documentElement.removeAttribute('data-theme');

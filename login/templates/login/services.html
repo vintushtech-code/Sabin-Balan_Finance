@@ -62,43 +62,43 @@
 }
 
 /* ============================================================
-   DARK THEME OVERRIDES (data-theme="dark")
+   DARK THEME OVERRIDES (data-theme="dark") — Solid Dark Emerald Green & Gold
    ============================================================ */
 [data-theme="dark"] {
-    --color-bg-dark: #06080d;
-    --color-bg-card: #0d141d;
-    --color-bg-card-hover: #121a26;
-    --color-bg-alt: #0a0f17;
-    --color-primary-gold: #d69e2e;
-    --color-gold-light: #f5d77f;
-    --color-gold-dark: #b7791f;
-    --color-gold-glow: rgba(214, 158, 46, 0.25);
+    --color-bg-dark: #050B08;
+    --color-bg-card: #0B1B13;
+    --color-bg-card-hover: #0F261B;
+    --color-bg-alt: #07120C;
+    --color-primary-gold: #C5A059;
+    --color-gold-light: #E5C158;
+    --color-gold-dark: #8F6B29;
+    --color-gold-glow: rgba(197, 160, 89, 0.25);
     
-    --color-text-main: #f3f4f6;
+    --color-text-main: #ffffff;
     --color-heading-text: #ffffff;
-    --color-text-muted: #9ca3af;
-    --color-text-dim: #6b7280;
+    --color-text-muted: #c8d6ce;
+    --color-text-dim: #9eb2a7;
     
-    --color-border-subtle: rgba(255, 255, 255, 0.08);
-    --color-border-gold: rgba(214, 158, 46, 0.3);
+    --color-border-subtle: rgba(197, 160, 89, 0.2);
+    --color-border-gold: rgba(197, 160, 89, 0.35);
     
-    --hero-overlay-bg: rgba(6, 8, 13, 0.5);
-    --hero-title-color: linear-gradient(180deg, #ffffff 0%, #e5e7eb 70%, #f5d77f 100%);
-    --hero-text-color: rgba(255, 255, 255, 0.85);
-    --hero-glow-bg: radial-gradient(circle, rgba(214, 158, 46, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+    --hero-overlay-bg: rgba(5, 11, 8, 0.65);
+    --hero-title-color: linear-gradient(180deg, #ffffff 0%, #c8d6ce 70%, #E5C158 100%);
+    --hero-text-color: rgba(255, 255, 255, 0.9);
+    --hero-glow-bg: radial-gradient(circle, rgba(197, 160, 89, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
     
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(214, 158, 46, 0.25);
-    --input-bg: rgba(255, 255, 255, 0.05);
-    --input-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(197, 160, 89, 0.2);
+    --input-bg: #07120C;
+    --input-border: rgba(197, 160, 89, 0.22);
     
-    --calc-box-bg: #0d141d;
-    --calc-result-bg: rgba(214, 158, 46, 0.06);
-    --cta-banner-bg: linear-gradient(135deg, #0d141d 0%, #111a26 100%);
+    --calc-box-bg: #0B1B13;
+    --calc-result-bg: rgba(197, 160, 89, 0.1);
+    --cta-banner-bg: linear-gradient(135deg, #091710 0%, #040806 100%);
     --cta-banner-text: #ffffff;
     
-    --header-bg: rgba(6, 8, 13, 0.9);
-    --header-border: rgba(255, 255, 255, 0.08);
+    --header-bg: rgba(5, 11, 8, 0.9);
+    --header-border: rgba(197, 160, 89, 0.2);
 }
 
 /* Reset & Base Styles */
@@ -320,7 +320,7 @@ a {
     justify-content: center;
     overflow: hidden;
     padding: 100px 0 60px;
-    background: url("{% static 'login/images/hero_services.jpg' %}") center/cover no-repeat;
+    background: url("../assets/hero_services.jpg") center/cover no-repeat;
 }
 
 .hero-video-bg {

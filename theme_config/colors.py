@@ -1,53 +1,58 @@
 """
-Central Color Palette Configuration Module — Jio BlackRock Executive Styling
+Central Color Palette Configuration Module — WealthWise Executive Styling
 =============================================================================
 
 This file centralizes all theme colors for the entire application.
-Changing a single variable or palette value here updates the UI globally
-across all apps (login, landing, navigation, buttons, cards, inputs).
-
-The colors are exposed via context processor to CSS custom properties (--color-*).
-Supports both Light Theme and Dark Theme (activated via data-theme="dark" on <html>).
+Exposes CSS custom properties (--color-*) for both Light Theme (:root)
+and Dark Theme ([data-theme='dark']), using the Dark Emerald Green & Gold
+footer palette for dark mode.
 """
 
 # ============================================================
-# NAMED COLOR CONSTANTS (Palette Color Definitions)
+# LIGHT THEME NAMED COLOR CONSTANTS
 # ============================================================
 
-DEEP_ROYAL_PURPLE = "#000000" # Primary headings & text (Deep Royal Purple)
-WARM_PEACH_CREAM = "#FFFFFF"        # Containers & Cards background (Soft White)
-SOFT_LAVENDER = "#F8FAFC"           # Page Body Background (Clean Neutral White)
-COOL_SLATE_GRAY = "#475569"         # Subtext, labels & secondary text (Cool Slate Gray)
+DEEP_ROYAL_PURPLE = "#000000"       # Primary headings & text
+WARM_PEACH_CREAM = "#FFFFFF"        # Containers & Cards background
+SOFT_LAVENDER = "#F8FAFC"           # Page Body Background
+COOL_SLATE_GRAY = "#475569"         # Subtext & labels
 SOFT_LAVENDER_BORDER = "#E2E8F0"    # Subtle Gray Border
-VIBRANT_VIOLET = "#F1F5F9"          # Primary hover state (Neutral Hover)
-ULTRA_SOFT_PURPLE = "#F1F5F9"      # Form input fields background (Clean Input BG)
-FOREST_GREEN = "#15803D"            # Success notification text (Forest Green)
-SOFT_MINT = "#F0FDF4"               # Success alert pill background (Soft Mint)
-DEEP_CRIMSON = "#B91C1C"            # Error alert text (Deep Crimson)
-SOFT_ROSE = "#FEF2F2"              # Error alert pill background (Soft Rose)
+VIBRANT_VIOLET = "#F1F5F9"          # Primary hover state
+ULTRA_SOFT_PURPLE = "#F1F5F9"      # Form input fields background
+FOREST_GREEN = "#15803D"            # Success notification text
+SOFT_MINT = "#F0FDF4"               # Success alert pill background
+DEEP_CRIMSON = "#B91C1C"            # Error alert text
+SOFT_ROSE = "#FEF2F2"              # Error alert pill background
 GOLDEN_AMBER = "#F59E0B"          # Golden Amber Accent
 BRIGHT_CYAN = "#06B6D4"           # Bright Cyan Blue
 
-# Dark Theme Named Color Constants
-CRISP_SILVER_WHITE = "#F8FAFC"      # Primary text & CTA (Crisp Silver-White)
-DEEP_OBSIDIAN_NAVY = "#0F172A"      # Card & Surface background (Deep Obsidian Navy)
-MIDNIGHT_ONYX = "#06080D"           # Page Background (Ultra-Deep Midnight Onyx)
-MUTED_SILVER_GREY = "#94A3B8"     # Subtext (Muted Silver-Grey)
-SUBTLE_GLASS_BORDER = "rgba(255, 255, 255, 0.1)" # Subtle glass border
-LIGHT_CTA_HOVER = "#E2E8F0"        # CTA hover
-DARK_INPUT_BG = "#1E293B"         # Input fields background
-EMERALD_GREEN = "#34D399"         # Success text (Emerald Green)
+# ============================================================
+# DARK THEME NAMED COLOR CONSTANTS (Solid Dark Emerald & Gold Theme)
+# ============================================================
+
+CRISP_SILVER_WHITE = "#FFFFFF"       # Primary text
+DEEP_EMERALD_CARD = "#0B1B13"        # Solid Dark Emerald Surface & Card background
+DEEP_EMERALD_BG = "#050B08"          # Solid Ultra-Dark Emerald Page background
+MIDNIGHT_EMERALD_BG = "#040806"      # Deepest Dark Emerald background
+MUTED_EMERALD_SUBTEXT = "#c8d6ce"    # Subtext (Muted Emerald-Silver)
+EMERALD_GLASS_BORDER = "rgba(197, 160, 89, 0.25)" # Gold subtle border
+EMERALD_PRIMARY_HOVER = "#0F261B"    # Hover state
+EMERALD_INPUT_BG = "#07120C"         # Solid Dark Input fields background
+EMERALD_GREEN = "#34D399"           # Success text
 EMERALD_PILL_BG = "rgba(16, 185, 129, 0.15)" # Success pill bg
-BRIGHT_RED = "#F87171"            # Error text
+BRIGHT_RED = "#F87171"               # Error text
 RED_PILL_BG = "rgba(239, 68, 68, 0.15)" # Error pill bg
-GOLD_ACCENT_GLOW = "#F5D77F"      # Gold accent glow
-CYAN_GLOW = "#00F2FE"            # Cyan glow accent
+GOLD_ACCENT = "#C5A059"              # Gold accent
+GOLD_LIGHT = "#E5C158"               # Gold light accent
+GOLD_DARK = "#8F6B29"                # Gold dark accent
+EMERALD_GLOW = "#34D399"             # Emerald glow accent
 
 
 # ============================================================
-# LIGHT THEME PALETTE ASSIGNMENTS
+# PALETTE ASSIGNMENTS
 # ============================================================
 
+# Light Theme
 COLOR_PRIMARY = DEEP_ROYAL_PURPLE
 COLOR_SECONDARY = WARM_PEACH_CREAM
 COLOR_BG = SOFT_LAVENDER
@@ -62,24 +67,20 @@ COLOR_ERROR_BG = SOFT_ROSE
 COLOR_GOLD = GOLDEN_AMBER
 COLOR_CYAN = BRIGHT_CYAN
 
-
-# ============================================================
-# DARK THEME PALETTE ASSIGNMENTS
-# ============================================================
-
+# Dark Theme (Solid Dark Emerald Green & Gold)
 DARK_COLOR_PRIMARY = CRISP_SILVER_WHITE
-DARK_COLOR_SECONDARY = DEEP_OBSIDIAN_NAVY
-DARK_COLOR_BG = MIDNIGHT_ONYX
-DARK_COLOR_TEXT_SUB = MUTED_SILVER_GREY
-DARK_COLOR_BORDER = SUBTLE_GLASS_BORDER
-DARK_COLOR_PRIMARY_HOVER = LIGHT_CTA_HOVER
-DARK_COLOR_INPUT_BG = DARK_INPUT_BG
+DARK_COLOR_SECONDARY = DEEP_EMERALD_CARD
+DARK_COLOR_BG = DEEP_EMERALD_BG
+DARK_COLOR_TEXT_SUB = MUTED_EMERALD_SUBTEXT
+DARK_COLOR_BORDER = EMERALD_GLASS_BORDER
+DARK_COLOR_PRIMARY_HOVER = EMERALD_PRIMARY_HOVER
+DARK_COLOR_INPUT_BG = EMERALD_INPUT_BG
 DARK_COLOR_SUCCESS = EMERALD_GREEN
 DARK_COLOR_SUCCESS_BG = EMERALD_PILL_BG
 DARK_COLOR_ERROR = BRIGHT_RED
 DARK_COLOR_ERROR_BG = RED_PILL_BG
-DARK_COLOR_GOLD = GOLD_ACCENT_GLOW
-DARK_COLOR_CYAN = CYAN_GLOW
+DARK_COLOR_GOLD = GOLD_ACCENT
+DARK_COLOR_CYAN = EMERALD_GLOW
 
 
 THEME_PALETTE = {
@@ -117,6 +118,7 @@ THEME_PALETTE = {
 def get_css_variables():
     """
     Generates CSS custom property declarations for both light and dark themes.
+    Dark theme uses the Solid Dark Emerald Green & Gold palette.
     """
     light_vars = [
         f"--color-primary: {COLOR_PRIMARY};",
@@ -158,19 +160,22 @@ def get_css_variables():
         f"--color-error: {DARK_COLOR_ERROR};",
         f"--color-error-bg: {DARK_COLOR_ERROR_BG};",
         f"--color-error-border: rgba(248, 113, 113, 0.25);",
-        f"--color-info: #38bdf8;",
-        f"--color-info-bg: rgba(56, 189, 248, 0.15);",
-        f"--color-info-border: rgba(56, 189, 248, 0.25);",
-        f"--color-focus-ring: rgba(248, 250, 252, 0.12);",
-        f"--color-avatar-shadow: rgba(0, 0, 0, 0.4);",
+        f"--color-info: #34D399;",
+        f"--color-info-bg: rgba(52, 211, 153, 0.15);",
+        f"--color-info-border: rgba(52, 211, 153, 0.25);",
+        f"--color-focus-ring: rgba(197, 160, 89, 0.3);",
+        f"--color-avatar-shadow: rgba(0, 0, 0, 0.5);",
         f"--color-gold: {DARK_COLOR_GOLD};",
         f"--color-cyan: {DARK_COLOR_CYAN};",
-        f"--color-glass-bg: rgba(15, 23, 42, 0.75);",
-        f"--color-glass-border: rgba(255, 255, 255, 0.12);",
-        f"--color-body-gradient: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.15) 0%, rgba(6, 8, 13, 0.95) 70%), linear-gradient(180deg, #0A0D14 0%, #06080D 100%);",
+        f"--color-glass-bg: rgba(11, 27, 19, 0.85);",
+        f"--color-glass-border: rgba(197, 160, 89, 0.22);",
+        f"--color-body-gradient: radial-gradient(circle at 50% 10%, rgba(197, 160, 89, 0.08) 0%, rgba(5, 11, 8, 0.98) 75%), linear-gradient(180deg, #091710 0%, #040806 100%);",
     ]
 
     light_str = "\n  ".join(light_vars)
     dark_str = "\n  ".join(dark_vars)
 
     return f":root {{\n  {light_str}\n}}\n\n[data-theme='dark'] {{\n  {dark_str}\n}}"
+
+
+
