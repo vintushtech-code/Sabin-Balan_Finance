@@ -270,10 +270,10 @@ class HomeView(TemplateView):
         except Exception:
             context['faqs'] = []
 
-        # Fetch Top 3 Active Testimonials for Home Page Preview Section
+        # Fetch Top 3 Active Testimonials for Home Page Preview Section (Safe Query)
         try:
             from .models import Testimonial
-            context['testimonials'] = Testimonial.objects.filter(is_active=True).order_by('order', '-rating')[:3]
+            context['testimonials'] = list(Testimonial.objects.filter(is_active=True).order_by('order', '-rating')[:3])
         except Exception:
             context['testimonials'] = []
 
