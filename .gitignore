@@ -24,3 +24,4 @@ db.sqlite3
 
 # Static Files Build Directory
 staticfiles/
+db.sqlite3
