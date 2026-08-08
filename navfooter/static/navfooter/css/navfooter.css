@@ -901,6 +901,176 @@
   z-index: 101;
 }
 
+/* =====================================================
+   Navbar Mobile Responsiveness
+   ===================================================== */
+
+/* Tablet / large phone (≤ 900px) */
+@media (max-width: 900px) {
+  .finance-navbar-wrapper {
+    padding: 0.6rem 0.75rem 0.3rem 0.75rem;
+  }
+
+  .finance-navbar-container {
+    max-width: 100%;
+  }
+
+  /* Shrink the left badge */
+  .finance-circle-badge {
+    width: 48px;
+    height: 48px;
+  }
+
+  .finance-badge-text {
+    font-size: 0.58rem;
+  }
+
+  /* Connector thinner */
+  .finance-connector {
+    margin: 0 0.35rem;
+  }
+
+  .finance-connector-line {
+    width: 14px;
+  }
+
+  /* Shrink the pill height */
+  .finance-pill {
+    height: 62px;
+  }
+
+  /* Smaller icons & labels */
+  .finance-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .finance-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+  }
+
+  .finance-nav-section-left {
+    padding-left: 1.4rem;
+    padding-right: 2.5rem;
+  }
+
+  .finance-nav-section-right {
+    padding-left: 2.5rem;
+    padding-right: 1.4rem;
+  }
+
+  /* Shrink centre emblem */
+  .finance-emblem-wrapper {
+    width: 90px;
+    height: 100px;
+  }
+}
+
+/* Mobile (≤ 640px) — hide labels, keep icons */
+@media (max-width: 640px) {
+  .finance-navbar-wrapper {
+    padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+  }
+
+  /* Hide the left badge text below the coin */
+  .finance-badge-text {
+    display: none;
+  }
+
+  /* Hide the connector */
+  .finance-connector {
+    display: none;
+  }
+
+  /* Make pill fill remaining space */
+  .finance-pill {
+    height: 56px;
+    flex: 1;
+  }
+
+  /* Hide nav text labels — show icons only */
+  .finance-label {
+    display: none;
+  }
+
+  .finance-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .finance-nav-item {
+    padding: 0.2rem 0.45rem;
+  }
+
+  .finance-nav-section-left {
+    padding-left: 1rem;
+    padding-right: 2rem;
+  }
+
+  .finance-nav-section-right {
+    padding-left: 2rem;
+    padding-right: 1rem;
+  }
+
+  /* Smaller emblem */
+  .finance-emblem-wrapper {
+    width: 70px;
+    height: 80px;
+  }
+
+  /* Shrink badge circle */
+  .finance-circle-badge {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Very small phones (≤ 420px) — hide badge entirely, pill takes full width */
+@media (max-width: 420px) {
+  .finance-left-badge-group {
+    display: none;
+  }
+
+  .finance-pill {
+    height: 52px;
+  }
+
+  .finance-nav-item {
+    padding: 0.15rem 0.3rem;
+  }
+
+  .finance-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .finance-nav-section-left {
+    padding-left: 0.8rem;
+    padding-right: 1.5rem;
+  }
+
+  .finance-nav-section-right {
+    padding-left: 1.5rem;
+    padding-right: 0.8rem;
+  }
+
+  .finance-emblem-wrapper {
+    width: 60px;
+    height: 68px;
+  }
+
+  /* Dropdown: full width on tiny screens */
+  .user-dropdown-menu {
+    right: -30px;
+    width: 220px;
+  }
+}
+
+/* =====================================================
+   Footer Responsiveness
+   ===================================================== */
+
 /* Responsiveness */
 @media (max-width: 1300px) {
   .new-luxury-footer .footer-grid-container {
