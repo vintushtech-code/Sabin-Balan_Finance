@@ -398,11 +398,17 @@
       Learn why professionals trust our wealth management solutions to secure and compound their financial futures.
     </p>
 
-    <!-- Write Your Own Testimonial CTA Button (Matching Home Page CTA Color Coding) -->
-    <button class="write-testimonial-btn" onclick="openWriteModal()">
-      <span>Write Your Own Testimonial</span>
-      <span>→</span>
-    </button>
+    <!-- Write Your Own Testimonial CTA Button & Schedule Consultation -->
+    <div style="display: flex; gap: 1.25rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem;">
+      <a href="{% url 'login:consultation' %}" class="btn-gold-lg-glow" style="text-decoration: none;">
+        <span>Book a Private Consultation</span>
+        <span>&rarr;</span>
+      </a>
+      <button class="btn-testimonial-secondary" onclick="openWriteModal()">
+        <span>Write Your Own Testimonial</span>
+        <span>&rarr;</span>
+      </button>
+    </div>
   </div>
 
   <!-- Search & Category Filter Dock -->

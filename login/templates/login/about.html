@@ -1497,9 +1497,14 @@
       </div>
     </div>
 
-    <div style="display: flex; justify-content: center; margin-top: 1.5rem;">
-      <a href="{% url 'contactform:contact' %}" class="btn btn-primary" style="width: auto; padding: 0.75rem 2rem;">Get
-        in Touch With Us</a>
+    <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+      <a href="{% url 'login:consultation' %}" class="btn btn-gold" style="width: auto; padding: 0.85rem 2.25rem; background: linear-gradient(135deg, #0B192C, #1E293B); border: 1px solid #D4AF37; color: #FFF9D2; border-radius: var(--radius-pill); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; box-shadow: 0 8px 24px rgba(11, 25, 44, 0.3);">
+        <i class="fa-regular fa-calendar-check"></i>
+        <span>Schedule a Private Consultation</span>
+      </a>
+      <a href="{% url 'contactform:contact' %}" class="btn btn-secondary" style="width: auto; padding: 0.85rem 2rem; text-decoration: none; border-radius: var(--radius-pill); display: inline-flex; align-items: center; gap: 0.5rem;">
+        <span>Get in Touch With Us</span>
+      </a>
     </div>
   </div>
 

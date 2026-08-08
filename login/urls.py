@@ -19,6 +19,13 @@ urlpatterns = [
     path('services/', views.ServicesView.as_view(), name='services'),
     path('testimonials/', views.TestimonialsView.as_view(), name='testimonials'),
 
+    # Dedicated Private Wealth Consultation & Tracking Routes
+    path('consultation/', views.ConsultationView.as_view(), name='consultation'),
+    path('book-consultation/', views.ConsultationView.as_view(), name='book_consultation'),
+    path('consultation/track/', views.ConsultationView.as_view(), name='consultation_track'),
+    path('consultation/api/slots/', views.ConsultationSlotsAPIView.as_view(), name='consultation_slots_api'),
+    path('consultation/api/track/', views.ConsultationTrackAPIView.as_view(), name='consultation_track_api'),
+
     # Core Authentication Routes
     path('login/', views.LoginView.as_view(), name='login'),
     path('signup/', views.SignupView.as_view(), name='signup'),

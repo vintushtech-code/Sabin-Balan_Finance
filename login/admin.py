@@ -1,7 +1,84 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser, SuperUser, FAQ, TeamMember, Testimonial
+from .models import CustomUser, SuperUser, FAQ, TeamMember, Testimonial, ConsultationBooking
+
+@admin.register(ConsultationBooking)
+class ConsultationBookingAdmin(admin.ModelAdmin):
+    """
+    Comprehensive Executive Admin Panel for Private Wealth Consultation Bookings.
+    Provides complete visibility, filtering, search, status management, and audit tracking.
+    """
+    list_display = (
+        'reference_key', 'client_name', 'service', 'duration_minutes',
+        'consultation_date', 'consultation_time', 'status', 'payment_status', 'created_at'
+    )
+    list_editable = ('status', 'payment_status')
+    list_filter = (
+        'status', 'payment_status', 'service', 'duration_minutes',
+        'consultation_date', 'preferred_comm', 'created_at'
+    )
+    search_fields = ('reference_key', 'client_name', 'email', 'phone', 'subject', 'message')
+    date_hierarchy = 'consultation_date'
+    ordering = ('-consultation_date', '-consultation_time', '-created_at')
+    readonly_fields = ('reference_key', 'end_time', 'ip_address', 'created_at', 'updated_at')
+    
+    fieldsets = (
+        (_('Booking Identification & Client'), {
+            'fields': (
+                'reference_key', 'client_name', 'email', 'phone', 'ip_address'
+            )
+        }),
+        (_('Consultation Schedule & Mode'), {
+            'fields': (
+                'service', 'duration_minutes', 'consultation_date',
+                'consultation_time', 'end_time', 'preferred_comm'
+            )
+        }),
+        (_('Status & Fiduciary Review'), {
+            'fields': (
+                'status', 'payment_status', 'admin_notes'
+            )
+        }),
+        (_('Rescheduling Audit History'), {
+            'classes': ('collapse',),
+            'fields': (
+                'previous_date', 'previous_time', 'rescheduled_reason'
+            )
+        }),
+        (_('Client Requirements & Scope'), {
+            'fields': (
+                'subject', 'message'
+            )
+        }),
+        (_('System Timestamps'), {
+            'classes': ('collapse',),
+            'fields': ('created_at', 'updated_at')
+        }),
+    )
+
+    actions = ['action_confirm_booking', 'action_mark_paid', 'action_mark_completed', 'action_cancel_booking']
+
+    @admin.action(description=_("Confirm selected consultation requests"))
+    def action_confirm_booking(self, request, queryset):
+        count = queryset.update(status='confirmed')
+        self.message_user(request, f"{count} consultation booking(s) marked as Confirmed.")
+
+    @admin.action(description=_("Mark payment as received for selected bookings"))
+    def action_mark_paid(self, request, queryset):
+        count = queryset.update(payment_status='completed', status='paid')
+        self.message_user(request, f"{count} booking(s) marked as Paid / Confirmed.")
+
+    @admin.action(description=_("Mark selected consultations as completed"))
+    def action_mark_completed(self, request, queryset):
+        count = queryset.update(status='completed')
+        self.message_user(request, f"{count} consultation(s) marked as Completed.")
+
+    @admin.action(description=_("Cancel selected consultation bookings"))
+    def action_cancel_booking(self, request, queryset):
+        count = queryset.update(status='cancelled')
+        self.message_user(request, f"{count} consultation(s) marked as Cancelled.")
+
 
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
@@ -96,4 +173,5 @@ try:
         f.write('Loaded successfully')
 except Exception:
     pass
+
 

@@ -425,4 +425,493 @@ class TestimonialsView(View):
         return context
 
 
+# --------------------------------------------------------------------------
+# 10. Private Wealth Consultation Booking & Tracking Flow
+# --------------------------------------------------------------------------
+import datetime
+from django.http import JsonResponse
+from django.utils import timezone
+
+
+class ConsultationView(View):
+    """
+    Dedicated Private Wealth Management Consultation Booking Page (consultation.html).
+    Renders luxury two-column scheduling dashboard, handles booking requests,
+    generates 10-character alphanumeric reference keys, and supports live tracking lookup.
+    """
+    template_name = 'login/consultation.html'
+
+    def _seed_sample_bookings(self):
+        """Auto-seeds initial sample bookings if empty for immediate tracking demonstrations."""
+        try:
+            from .models import ConsultationBooking
+            if ConsultationBooking.objects.count() == 0:
+                today = datetime.date.today()
+                # Calculate next Tuesday and Wednesday
+                days_ahead = (1 - today.weekday()) % 7  # Next Tuesday
+                if days_ahead == 0:
+                    days_ahead = 7
+                next_tuesday = today + datetime.timedelta(days=days_ahead)
+                next_wednesday = next_tuesday + datetime.timedelta(days=1)
+                last_week = today - datetime.timedelta(days=7)
+
+                # Sample 1: The flagship reference key from prompt (GT7K4M9P2X)
+                ConsultationBooking.objects.create(
+                    reference_key="GT7K4M9P2X",
+                    client_name="Eleanor Vance",
+                    email="eleanor.vance@vancestrategies.com",
+                    phone="+1 (555) 782-9014",
+                    service="investment",
+                    duration_minutes=45,
+                    consultation_date=next_tuesday,
+                    consultation_time=datetime.time(10, 0),
+                    end_time=datetime.time(10, 45),
+                    subject="Multi-Asset Strategic Asset Allocation & Family Office Advisory",
+                    message="Discussing sovereign bond hedging, direct private equity allocations, and wealth preservation frameworks.",
+                    preferred_comm="video_call",
+                    status="confirmed",
+                    payment_status="completed",
+                    admin_notes="Assigned to Vikram Malhotra (CIO). Client portfolio scope > $15M."
+                )
+
+                # Sample 2: Rescheduled booking with clear previous vs updated schedule comparison
+                ConsultationBooking.objects.create(
+                    reference_key="BF3N8Q1Z7Y",
+                    client_name="Alexander Morgan",
+                    email="a.morgan@morganholdings.co",
+                    phone="+44 20 7946 0912",
+                    service="wealth_management",
+                    duration_minutes=60,
+                    consultation_date=next_wednesday,
+                    consultation_time=datetime.time(11, 0),
+                    end_time=datetime.time(12, 0),
+                    previous_date=next_tuesday,
+                    previous_time=datetime.time(10, 0),
+                    rescheduled_reason="Rescheduled by Managing Partner to incorporate updated Q3 fiscal macroeconomic audit reports.",
+                    subject="Global Estate & Cross-Border Wealth Transfer Structuring",
+                    message="Structuring revocable trusts and multi-jurisdiction capital shielding.",
+                    preferred_comm="in_person",
+                    status="rescheduled",
+                    payment_status="completed",
+                    admin_notes="Rescheduled with client consent. Boardroom 4A booked."
+                )
+
+                # Sample 3: Newly received consultation request
+                ConsultationBooking.objects.create(
+                    reference_key="PW9K2M4X7V",
+                    client_name="David Sterling",
+                    email="david.sterling@sterlingcap.org",
+                    phone="+1 (555) 438-1192",
+                    service="financial_planning",
+                    duration_minutes=30,
+                    consultation_date=next_tuesday,
+                    consultation_time=datetime.time(14, 0),
+                    end_time=datetime.time(14, 30),
+                    subject="Retirement & Fixed Income Liquidity Strategy",
+                    message="Evaluating tax-sheltered annuities and sovereign gold allocation limits.",
+                    preferred_comm="video_call",
+                    status="received",
+                    payment_status="pending",
+                    admin_notes="Under initial fiduciary suitability review."
+                )
+        except Exception:
+            pass
+
+    def get(self, request, *args, **kwargs):
+        self._seed_sample_bookings()
+        from .forms import ConsultationBookingForm, BookingTrackingLookupForm
+        from .models import ConsultationBooking
+
+        # Determine default consultation date (Next Business Day: Mon-Fri)
+        today = datetime.date.today()
+        default_date = today + datetime.timedelta(days=1)
+        while default_date.weekday() in (5, 6):  # Skip Sat, Sun
+            default_date += datetime.timedelta(days=1)
+
+        # Check if reference key was queried via GET parameter
+        lookup_key = request.GET.get('key', '').strip().upper()
+        confirmed_key = request.GET.get('confirmed_key', '').strip().upper()
+        
+        tracked_booking = None
+        if lookup_key:
+            tracked_booking = ConsultationBooking.objects.filter(reference_key=lookup_key).first()
+        elif confirmed_key:
+            tracked_booking = ConsultationBooking.objects.filter(reference_key=confirmed_key).first()
+
+        booking_form = ConsultationBookingForm(initial={
+            'consultation_date': default_date,
+            'duration_minutes': 45,
+            'service': 'investment',
+            'preferred_comm': 'video_call',
+        })
+        track_form = BookingTrackingLookupForm(initial={'reference_key': lookup_key})
+
+        context = {
+            'page_title': 'Book Your Consultation — Private Wealth Advisory | Sabin Balan Finance',
+            'booking_form': booking_form,
+            'track_form': track_form,
+            'default_date': default_date.strftime('%Y-%m-%d'),
+            'default_date_display': default_date.strftime('%A, %d %B %Y'),
+            'default_duration': 45,
+            'tracked_booking': tracked_booking,
+            'lookup_key': lookup_key,
+            'confirmed_key': confirmed_key,
+            'service_choices': ConsultationBooking.SERVICE_CHOICES,
+            'duration_choices': ConsultationBooking.DURATION_CHOICES,
+            'comm_choices': ConsultationBooking.COMM_CHOICES,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        self._seed_sample_bookings()
+        from .forms import ConsultationBookingForm, BookingTrackingLookupForm
+        from .models import ConsultationBooking
+
+        action = request.POST.get('form_action', 'book')
+        is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.POST.get('ajax') == '1'
+
+        if action == 'track':
+            key = request.POST.get('reference_key', '').strip().upper()
+            tracked_booking = ConsultationBooking.objects.filter(reference_key=key).first()
+            if is_ajax:
+                if tracked_booking:
+                    return JsonResponse({
+                        'status': 'success',
+                        'data': self._serialize_booking(tracked_booking)
+                    })
+                return JsonResponse({
+                    'status': 'error',
+                    'message': f"No consultation found for reference key '{key}'. Please verify your 10-character key."
+                }, status=404)
+            
+            # Non-AJAX fallback
+            return redirect(f"{reverse('login:consultation')}?key={key}#track-section")
+
+        # Booking submission flow
+        form = ConsultationBookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.ip_address = request.META.get('REMOTE_ADDR')
+            booking.status = 'received'
+            booking.payment_status = 'pending'
+            booking.save()
+
+            if is_ajax:
+                return JsonResponse({
+                    'status': 'success',
+                    'reference_key': booking.reference_key,
+                    'client_name': booking.client_name,
+                    'email': booking.email,
+                    'service': booking.get_service_display(),
+                    'duration': booking.duration_minutes,
+                    'duration_label': booking.duration_label,
+                    'date': booking.consultation_date.strftime("%A, %d %B %Y"),
+                    'time': booking.consultation_time.strftime("%I:%M %p"),
+                    'end_time': booking.end_time.strftime("%I:%M %p") if booking.end_time else "",
+                    'message': "Your consultation request has been successfully received.",
+                    'data': self._serialize_booking(booking)
+                })
+
+            messages.success(request, f"Your consultation has been booked! Your reference key is {booking.reference_key}.")
+            return redirect(f"{reverse('login:consultation')}?confirmed_key={booking.reference_key}#confirmation-card")
+
+        # Form Errors
+        if is_ajax:
+            errors_dict = {field: [str(e) for e in errs] for field, errs in form.errors.items()}
+            return JsonResponse({
+                'status': 'error',
+                'errors': errors_dict,
+                'message': "Please correct the highlighted fields and select an available time slot."
+            }, status=400)
+
+        messages.error(request, "There was an error in your consultation booking. Please check the fields and try again.")
+        context = {
+            'page_title': 'Book Your Consultation — Private Wealth Advisory | Sabin Balan Finance',
+            'booking_form': form,
+            'track_form': BookingTrackingLookupForm(),
+            'default_date': request.POST.get('consultation_date', ''),
+            'default_duration': int(request.POST.get('duration_minutes', 45)),
+            'service_choices': ConsultationBooking.SERVICE_CHOICES,
+            'duration_choices': ConsultationBooking.DURATION_CHOICES,
+            'comm_choices': ConsultationBooking.COMM_CHOICES,
+        }
+        return render(request, self.template_name, context)
+
+    def _serialize_booking(self, b):
+        return {
+            'reference_key': b.reference_key,
+            'client_name': b.client_name,
+            'email': b.email,
+            'phone': b.phone,
+            'service': b.get_service_display(),
+            'duration_minutes': b.duration_minutes,
+            'duration_label': b.duration_label,
+            'consultation_date': b.consultation_date.strftime("%A, %d %B %Y"),
+            'consultation_time': b.consultation_time.strftime("%I:%M %p"),
+            'end_time': b.end_time.strftime("%I:%M %p") if b.end_time else "",
+            'preferred_comm': b.get_preferred_comm_display(),
+            'status': b.status,
+            'status_label': b.get_status_display(),
+            'status_badge': b.status_badge_class,
+            'payment_status': b.get_payment_status_display(),
+            'is_rescheduled': b.status == 'rescheduled' or bool(b.previous_date),
+            'previous_date': b.previous_date.strftime("%A, %d %B %Y") if b.previous_date else "",
+            'previous_time': b.previous_time.strftime("%I:%M %p") if b.previous_time else "",
+            'previous_schedule': f"{b.previous_date.strftime('%A, %d %B %Y')} — {b.previous_time.strftime('%I:%M %p')}" if b.previous_date and b.previous_time else "",
+            'updated_schedule': f"{b.consultation_date.strftime('%A, %d %B %Y')} — {b.consultation_time.strftime('%I:%M %p')}",
+            'rescheduled_reason': b.rescheduled_reason,
+            'subject': b.subject,
+            'message': b.message,
+            'created_at': b.created_at.strftime("%d %B %Y at %I:%M %p"),
+        }
+
+
+class ConsultationSlotsAPIView(View):
+    """
+    Dynamic Time Slot Calculation API.
+    Calculates exact available slots between 09:00 AM and 06:00 PM (Monday-Friday)
+    respecting:
+    - Selected duration (30, 45, 60 minutes)
+    - 15-minute mandatory buffer between meetings
+    - Existing database bookings
+    - Past time cutoff if querying today
+    - Hard stop at 6:00 PM (no consultation extends beyond 18:00)
+    """
+    def get(self, request, *args, **kwargs):
+        from .models import ConsultationBooking
+
+        date_str = request.GET.get('date')
+        try:
+            duration = int(request.GET.get('duration', 45))
+            if duration not in (30, 45, 60):
+                duration = 45
+        except (ValueError, TypeError):
+            duration = 45
+
+        if not date_str:
+            return JsonResponse({'status': 'error', 'message': 'Date parameter is required.'}, status=400)
+
+        try:
+            target_date = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+        except ValueError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid date format (expected YYYY-MM-DD).'}, status=400)
+
+        today = datetime.date.today()
+        if target_date < today:
+            return JsonResponse({
+                'status': 'error',
+                'date': date_str,
+                'message': 'Consultations cannot be scheduled for past dates.',
+                'slots': []
+            })
+
+        # Weekend Check (Saturday = 5, Sunday = 6)
+        if target_date.weekday() in (5, 6):
+            return JsonResponse({
+                'status': 'weekend',
+                'date': date_str,
+                'message': 'Private Wealth Advisory is closed on weekends (Monday–Friday, 9:00 AM–6:00 PM).',
+                'slots': []
+            })
+
+        # Working hours definition (9:00 AM to 6:00 PM)
+        # In minutes from 00:00:
+        OPEN_MINUTES = 9 * 60   # 540 (09:00 AM)
+        CLOSE_MINUTES = 18 * 60 # 1080 (06:00 PM)
+        BUFFER_MINUTES = 15     # Required 15-minute transition gap
+
+        # Fetch existing active bookings for this date
+        existing_bookings = ConsultationBooking.objects.filter(
+            consultation_date=target_date
+        ).exclude(status='cancelled')
+
+        existing_intervals = []
+        for b in existing_bookings:
+            b_start_min = b.consultation_time.hour * 60 + b.consultation_time.minute
+            b_dur = b.duration_minutes or 45
+            b_end_min = b_start_min + b_dur
+            existing_intervals.append({
+                'start': b_start_min,
+                'end': b_end_min,
+                'ref': b.reference_key,
+                'name': b.client_name
+            })
+
+        # Now generate discrete possible candidate time slots
+        # We step by 15 minutes between 09:00 and (18:00 - duration)
+        # Note: If duration=30: 9:00, 9:45, 10:30, 11:15... or step by 15m
+        step = 15
+        now = datetime.datetime.now()
+        is_today = (target_date == today)
+        current_minute_today = now.hour * 60 + now.minute
+
+        slots = []
+        current_start = OPEN_MINUTES
+
+        while current_start + duration <= CLOSE_MINUTES:
+            slot_end = current_start + duration
+            
+            # Check if this slot start time is already in the past (if booking today)
+            is_past_time = is_today and (current_start <= current_minute_today + 30)  # 30 min advance notice
+            
+            # Check conflict with existing bookings (including 15-minute gap)
+            # A slot [current_start, slot_end] conflicts with booking [b.start, b.end]
+            # if current_start < b.end + 15 AND slot_end + 15 > b.start
+            conflict = False
+            conflict_reason = ""
+
+            for b_int in existing_intervals:
+                blocked_start = b_int['start'] - BUFFER_MINUTES
+                blocked_end = b_int['end'] + BUFFER_MINUTES
+                
+                # Check overlap between [current_start, slot_end] and [blocked_start, blocked_end]
+                if current_start < blocked_end and slot_end > blocked_start:
+                    conflict = True
+                    b_start_str = f"{b_int['start'] // 60:02d}:{b_int['start'] % 60:02d}"
+                    conflict_reason = f"Reserved (Advisory buffer)"
+                    break
+
+            start_hour = current_start // 60
+            start_min = current_start % 60
+            end_hour = slot_end // 60
+            end_min = slot_end % 60
+
+            start_time_obj = datetime.time(start_hour, start_min)
+            end_time_obj = datetime.time(end_hour, end_min)
+
+            time_24 = f"{start_hour:02d}:{start_min:02d}"
+            time_display = start_time_obj.strftime("%I:%M %p")
+            end_display = end_time_obj.strftime("%I:%M %p")
+
+            is_available = not is_past_time and not conflict
+
+            slots.append({
+                'time': time_24,
+                'time_display': time_display,
+                'end_time': f"{end_hour:02d}:{end_min:02d}",
+                'end_time_display': end_display,
+                'duration': duration,
+                'is_available': is_available,
+                'is_past': is_past_time,
+                'is_booked': conflict,
+                'reason': conflict_reason if conflict else ('Past time' if is_past_time else 'Available')
+            })
+
+            # Advance by step (15 minutes) to offer flexible starting intervals
+            current_start += step
+
+        return JsonResponse({
+            'status': 'success',
+            'date': date_str,
+            'date_display': target_date.strftime("%A, %d %B %Y"),
+            'duration': duration,
+            'total_slots': len(slots),
+            'available_count': sum(1 for s in slots if s['is_available']),
+            'slots': slots
+        })
+
+
+class ConsultationTrackAPIView(View):
+    """
+    API endpoint for Real-Time Consultation Tracking.
+    Returns complete consultation lifecycle, status indicators, and
+    previous vs updated scheduling comparison if the booking was rescheduled.
+    """
+    def get(self, request, *args, **kwargs):
+        from .models import ConsultationBooking
+        key = request.GET.get('key', '').strip().upper()
+        if not key or len(key) != 10:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Please provide a valid 10-character reference key (e.g., GT7K4M9P2X).'
+            }, status=400)
+
+        booking = ConsultationBooking.objects.filter(reference_key=key).first()
+        if not booking:
+            return JsonResponse({
+                'status': 'error',
+                'message': f"No consultation record was found matching reference key '{key}'. Please double-check your reference key and try again."
+            }, status=404)
+
+        # Build timeline states
+        # Possible statuses: received, under_review, confirmed, paid, payment_pending, rescheduled, completed, cancelled
+        timeline = [
+            {
+                'step': 1,
+                'code': 'received',
+                'title': 'Request Submitted',
+                'description': 'Consultation request securely received and queued.',
+                'state': 'completed'
+            },
+            {
+                'step': 2,
+                'code': 'under_review',
+                'title': 'Under Review',
+                'description': 'Advisory desk reviewing scope & advisor allocation.',
+                'state': 'completed' if booking.status in ('confirmed', 'paid', 'rescheduled', 'completed') else ('active' if booking.status in ('received', 'under_review', 'payment_pending') else 'pending')
+            },
+            {
+                'step': 3,
+                'code': 'confirmed',
+                'title': 'Confirmed',
+                'description': 'Boardroom & Senior Wealth Advisor locked in calendar.',
+                'state': 'completed' if booking.status in ('paid', 'completed') else ('active' if booking.status in ('confirmed', 'rescheduled') else 'pending')
+            },
+            {
+                'step': 4,
+                'code': 'paid',
+                'title': 'Payment Completed',
+                'description': 'Retainer/fiduciary fee verified or waived.',
+                'state': 'completed' if booking.status == 'completed' or booking.payment_status in ('completed', 'waived') else ('active' if booking.status == 'paid' else 'pending')
+            },
+            {
+                'step': 5,
+                'code': 'completed',
+                'title': 'Consultation Completed',
+                'description': 'Strategic briefing & executive advisory concluded.',
+                'state': 'completed' if booking.status == 'completed' else 'pending'
+            }
+        ]
+
+        if booking.status == 'cancelled':
+            for t in timeline:
+                if t['code'] != 'received':
+                    t['state'] = 'cancelled'
+
+        data = {
+            'reference_key': booking.reference_key,
+            'client_name': booking.client_name,
+            'email': booking.email,
+            'phone': booking.phone,
+            'service': booking.get_service_display(),
+            'duration_minutes': booking.duration_minutes,
+            'duration_label': booking.duration_label,
+            'consultation_date': booking.consultation_date.strftime("%A, %d %B %Y"),
+            'consultation_time': booking.consultation_time.strftime("%I:%M %p"),
+            'end_time': booking.end_time.strftime("%I:%M %p") if booking.end_time else "",
+            'preferred_comm': booking.get_preferred_comm_display(),
+            'status': booking.status,
+            'status_label': booking.get_status_display(),
+            'status_badge': booking.status_badge_class,
+            'payment_status': booking.get_payment_status_display(),
+            'is_rescheduled': booking.status == 'rescheduled' or bool(booking.previous_date),
+            'previous_date': booking.previous_date.strftime("%A, %d %B %Y") if booking.previous_date else "",
+            'previous_time': booking.previous_time.strftime("%I:%M %p") if booking.previous_time else "",
+            'previous_schedule': f"{booking.previous_date.strftime('%A, %d %B %Y')} — {booking.previous_time.strftime('%I:%M %p')}" if booking.previous_date and booking.previous_time else "",
+            'updated_schedule': f"{booking.consultation_date.strftime('%A, %d %B %Y')} — {booking.consultation_time.strftime('%I:%M %p')}",
+            'rescheduled_reason': booking.rescheduled_reason,
+            'subject': booking.subject,
+            'message': booking.message,
+            'admin_notes': booking.admin_notes if request.user.is_staff else "",
+            'created_at': booking.created_at.strftime("%d %B %Y at %I:%M %p"),
+            'timeline': timeline,
+        }
+
+        return JsonResponse({
+            'status': 'success',
+            'data': data
+        })
+
+
+
 
