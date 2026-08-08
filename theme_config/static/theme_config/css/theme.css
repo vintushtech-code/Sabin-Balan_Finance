@@ -495,13 +495,271 @@ textarea.form-input {
   50% { opacity: 0.8; }
 }
 
-/* Responsive Rules */
-@media (max-width: 992px) {
-  .section-title { font-size: 2rem; }
-  .section-container { padding: 3.5rem 1.25rem; }
+/* ==========================================================================
+   MASTER RESPONSIVE SYSTEM & CSS MEDIA QUERIES FRAMEWORK
+   Covers: Ultrawide, Desktops, Laptops, Tablets, Phablets, Compact Phones
+   ========================================================================== */
+
+/* 1. Fluid Media & Resets */
+img, video, iframe, embed, object, svg {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
 }
 
+/* 2. Fluid Full-Bleed Edge-to-Edge Layout Containers */
+.container,
+.section-container,
+.hero-banner,
+.hero-content-wrapper,
+.app-container,
+.executive-showcase-wrapper,
+.executive-showcase-container,
+.lead-gen-container,
+.simulator-layout,
+.wealth-simulator-wrapper,
+.contact-preview-wrapper,
+.contact-preview-card,
+.calculator-container,
+.about-hero-container,
+.contact-layout-grid,
+.services-hero-banner,
+.services-grid,
+.services-cards-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   BREAKPOINT 1: Ultrawide & Super Ultrawide Monitors (34" - 49"+ | 1921px+)
+   Resolutions: 3440x1440, 5120x2160, 5120x2880
+   ========================================================================== */
+@media (min-width: 1921px) {
+  .container,
+  .section-container,
+  .hero-content-wrapper,
+  .app-container,
+  .executive-showcase-container,
+  .lead-gen-container,
+  .simulator-layout,
+  .contact-preview-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .section-container {
+    padding: 6.5rem 5%;
+  }
+
+  .section-title {
+    font-size: clamp(2.75rem, 3.5vw, 4.5rem);
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 2: Standard Desktop Monitors (19" - 32" | 1441px to 1920px)
+   Resolutions: 1920x1080, 2560x1440, 3840x2160
+   ========================================================================== */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .section-container {
+    padding: 5.5rem 2.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 3.2vw, 3.5rem);
+  }
+
+  .grid-3col {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .grid-4col {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 3: Compact & Standard Laptops (11.0" - 17.3" | 1025px to 1440px)
+   Resolutions: 1366x768, 1920x1080 (scaled), 2560x1600, 2560x1440
+   ========================================================================== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .section-container {
+    padding: 4.5rem 2rem;
+  }
+
+  .section-title {
+    font-size: clamp(2.2rem, 3vw, 3rem);
+  }
+
+  .grid-2col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+
+  .grid-3col {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .grid-4col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 4: Standard & Large Tablets (9.7" - 12.9" | 769px to 1024px)
+   Resolutions: 1536x2048, 1600x2560, 2048x2732
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .section-container {
+    padding: 3.75rem 1.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.85rem, 4vw, 2.5rem);
+  }
+
+  /* Adapt Grids on Tablets: Multi-column layouts stack to 2 columns */
+  .grid-2col,
+  .grid-3col,
+  .grid-4col,
+  .services-grid,
+  .services-cards-grid,
+  .team-grid,
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  .executive-showcase-container,
+  .lead-gen-container,
+  .simulator-layout,
+  .contact-preview-card,
+  .calculator-container,
+  .about-hero-container,
+  .contact-layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+
+  .flex-row-responsive {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .card-container {
+    max-width: 92%;
+    margin-top: 6rem;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 5: Small Tablets & Large Phones / Phablets (5.5" - 9.0" | 577px to 768px)
+   Resolutions: 800x1280, 1200x1920, 1080x2400, 1170x2532
+   ========================================================================== */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+
+  .section-container {
+    padding: 3rem 1.25rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.65rem, 5vw, 2.15rem) !important;
+  }
+
+  .section-subtitle {
+    font-size: 0.98rem !important;
+  }
+
+  /* Multi-column layouts stack to single column on Phablets/Small Tablets */
+  .grid-2col,
+  .grid-3col,
+  .grid-4col,
+  .grid-auto-fit,
+  .services-grid,
+  .services-cards-grid,
+  .team-grid,
+  .stats-grid,
+  .strategy-selector-grid,
+  .result-breakdown-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Touch-friendly interactive targets (min 44x44px) */
+  .btn,
+  button,
+  a.btn,
+  .form-input,
+  select.form-input {
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+
+  .btn {
+    width: 100% !important;
+    justify-content: center;
+  }
+
+  .toast-messages-container {
+    top: 75px;
+    width: 94%;
+  }
+
+  .modal-container {
+    padding: 1.5rem 1rem !important;
+    max-width: 96% !important;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 6: Standard Phones (4.0" - 5.5" | 376px to 576px)
+   Resolutions: 720x1280, 750x1334, 1080x1920
+   ========================================================================== */
 @media (max-width: 576px) {
-  .card-container { padding: 2rem 1.25rem; border-radius: var(--radius-lg); }
-  .btn { width: 100%; }
+  html {
+    font-size: 14.5px;
+  }
+
+  .section-container {
+    padding: 2.25rem 1rem !important;
+  }
+
+  .card-container {
+    padding: 1.75rem 1rem !important;
+    margin-top: 5.5rem !important;
+    border-radius: var(--radius-lg) !important;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 7: Early / Compact Phones (2.5" - 4.0" | max-width: 375px)
+   Resolutions: 320x480, 640x1136
+   ========================================================================== */
+@media (max-width: 375px) {
+  html {
+    font-size: 14px;
+  }
+
+  .section-container {
+    padding: 1.75rem 0.85rem !important;
+  }
+
+  .section-title {
+    font-size: 1.45rem !important;
+  }
+
+  .card-container {
+    padding: 1.25rem 0.85rem !important;
+    border-radius: var(--radius-md) !important;
+  }
 }
