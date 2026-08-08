@@ -302,6 +302,66 @@
 
     </div>
 
+    <!-- Mobile Hamburger Toggle Button (visible on mobile / tablet <= 1024px) -->
+    <button class="finance-hamburger-toggle" id="finance-hamburger-toggle" onclick="toggleMobileDrawer(event)" aria-label="Toggle Navigation Menu">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile Navigation Drawer Overlay -->
+  <div class="finance-mobile-drawer-overlay" id="finance-mobile-drawer-overlay" onclick="toggleMobileDrawer(event)" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:1003;"></div>
+
+  <!-- Off-Canvas Mobile Drawer Navigation -->
+  <div class="finance-mobile-drawer" id="finance-mobile-drawer">
+    <div class="finance-mobile-drawer-header">
+      <span class="finance-mobile-brand-title">Sabin Balan Finance</span>
+      <button class="finance-mobile-close-btn" onclick="toggleMobileDrawer(event)" aria-label="Close menu">&times;</button>
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="mobile-user-profile">
+      <span class="mobile-user-name">{{ user.username }}</span>
+      <span class="mobile-user-email">{{ user.email|default:"" }}</span>
+    </div>
+    {% endif %}
+
+    <div class="finance-mobile-nav-links">
+      <a href="{% url 'login:home' %}" class="mobile-nav-link {% if request.resolver_match.view_name == 'login:home' or request.path == '/' %}active{% endif %}">
+        <span class="mobile-nav-icon">🏠</span> Home
+      </a>
+      <a href="{% url 'login:about' %}" class="mobile-nav-link {% if 'about' in request.path %}active{% endif %}">
+        <span class="mobile-nav-icon">ℹ️</span> About Us
+      </a>
+      <a href="{% url 'login:services' %}" class="mobile-nav-link {% if 'services' in request.path %}active{% endif %}">
+        <span class="mobile-nav-icon">💼</span> Services
+      </a>
+      <a href="{% url 'contactform:contact' %}" class="mobile-nav-link {% if 'contact' in request.path %}active{% endif %}">
+        <span class="mobile-nav-icon">📞</span> Contact Us
+      </a>
+      <a href="{% url 'login:testimonials' %}" class="mobile-nav-link {% if 'testimonials' in request.path %}active{% endif %}">
+        <span class="mobile-nav-icon">⭐</span> Testimonials
+      </a>
+
+      <div class="mobile-nav-divider"></div>
+
+      <button class="mobile-nav-link mobile-theme-btn" onclick="toggleTheme();">
+        <span>Theme Toggle</span> <span id="mobile-theme-icon">🌙</span>
+      </button>
+
+      {% if user.is_authenticated %}
+      <a href="{% url 'login:home' %}" class="mobile-nav-link mobile-btn-highlight">Client Portal</a>
+      <form action="{% url 'login:logout' %}" method="post" style="width:100%; margin-top:0.5rem;">
+        {% csrf_token %}
+        <button type="submit" class="mobile-nav-link mobile-btn-logout">Logout</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login:login' %}" class="mobile-nav-link">Sign In</a>
+      <a href="{% url 'login:signup' %}" class="mobile-nav-link mobile-btn-highlight">Create Account</a>
+      {% endif %}
+    </div>
   </div>
 </div>
 
@@ -352,6 +412,26 @@
     const dropdown = document.getElementById('user-dropdown-menu');
     if (dropdown) {
       dropdown.classList.toggle('show');
+    }
+  }
+
+  function toggleMobileDrawer(event) {
+    if (event) event.stopPropagation();
+    const drawer = document.getElementById('finance-mobile-drawer');
+    const toggle = document.getElementById('finance-hamburger-toggle');
+    const overlay = document.getElementById('finance-mobile-drawer-overlay');
+
+    if (drawer) drawer.classList.toggle('open');
+    if (toggle) toggle.classList.toggle('active');
+
+    if (overlay) {
+      if (drawer && drawer.classList.contains('open')) {
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      } else {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
     }
   }
 
