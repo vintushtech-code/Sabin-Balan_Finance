@@ -405,6 +405,77 @@
     flex-shrink: 0;
   }
 
+  /* VIP Consultation Booking Card — Adaptive Light/Dark Theme */
+  .vip-consultation-card {
+    margin-top: 1.5rem;
+    padding: 1.65rem 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(254, 252, 246, 0.98));
+    border: 1.5px solid rgba(212, 175, 55, 0.5);
+    border-radius: var(--radius-lg, 16px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vip-consultation-card:hover {
+    border-color: rgba(212, 175, 55, 0.8);
+    box-shadow: 0 14px 36px rgba(212, 175, 55, 0.22), 0 6px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .vip-card-eyebrow {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #B45309;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .vip-card-title {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: var(--color-primary, #000000);
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+    font-family: var(--font-heading);
+  }
+
+  .vip-card-desc {
+    font-size: 0.84rem;
+    color: var(--color-subtext, #475569);
+    margin-bottom: 1.15rem;
+    line-height: 1.55;
+  }
+
+  /* Dark Theme Overrides for VIP Consultation Card */
+  [data-theme='dark'] .vip-consultation-card {
+    background: linear-gradient(135deg, rgba(11, 27, 19, 0.95), rgba(7, 18, 12, 0.98));
+    border: 1.5px solid rgba(197, 160, 89, 0.45);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(197, 160, 89, 0.12);
+  }
+
+  [data-theme='dark'] .vip-consultation-card:hover {
+    border-color: rgba(197, 160, 89, 0.75);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(197, 160, 89, 0.2);
+  }
+
+  [data-theme='dark'] .vip-card-eyebrow {
+    color: #FFD700;
+  }
+
+  [data-theme='dark'] .vip-card-title {
+    color: #FFFFFF;
+  }
+
+  [data-theme='dark'] .vip-card-desc {
+    color: #c8d6ce;
+  }
+
   @media (max-width: 992px) {
     .contact-page-wrapper {
       padding-top: 4rem;
@@ -598,6 +669,22 @@
             <div style="font-size: 0.9rem; color: var(--color-subtext);">Registered Financial Advisory Entity &bull;
               256-bit Encrypted Vault</div>
           </div>
+        </div>
+
+        <!-- VIP Consultation Booking Card -->
+        <div class="vip-consultation-card">
+          <div class="vip-card-eyebrow">
+            <span>PREFER A SCHEDULED SESSION?</span>
+          </div>
+          <div class="vip-card-title">
+            Book a 1-on-1 Private Wealth Consultation
+          </div>
+          <p class="vip-card-desc">
+            Select your exact date, consultation duration, and dynamic available time slot on our private advisory calendar.
+          </p>
+          <a href="{% url 'login:consultation' %}" class="btn-gold-lg-glow" style="display: inline-flex; width: 100%; justify-content: center; text-decoration: none; padding: 0.8rem 1.25rem; font-size: 0.92rem;">
+            <span>Open Consultation Calendar &rarr;</span>
+          </a>
         </div>
       </div>
     </div>

@@ -20,21 +20,21 @@
    DEFAULT LIGHT THEME VARIABLES (Default / data-theme="light")
    ============================================================ */
     :root {
-        --color-bg-dark: #fcfcfd;
-        --color-bg-card: #ffffff;
-        --color-bg-card-hover: #f9f9fb;
-        --color-bg-alt: #f0f2f5;
+        --color-bg-dark: var(--color-bg, #F8FAFC);
+        --color-bg-card: transparent;
+        --color-bg-card-hover: rgba(0, 0, 0, 0.02);
+        --color-bg-alt: transparent;
         --color-primary-gold: #c59b37;
         --color-gold-light: #ab8222;
         --color-gold-dark: #8c6812;
         --color-gold-glow: rgba(197, 155, 55, 0.15);
 
-        --color-text-main: #1f2937;
-        --color-heading-text: #111827;
-        --color-text-muted: #4b5563;
-        --color-text-dim: #6b7280;
+        --color-text-main: var(--color-primary, #1f2937);
+        --color-heading-text: var(--color-primary, #111827);
+        --color-text-muted: var(--color-subtext, #4b5563);
+        --color-text-dim: var(--color-subtext, #6b7280);
 
-        --color-border-subtle: #e5e7eb;
+        --color-border-subtle: var(--color-border, #e5e7eb);
         --color-border-gold: rgba(197, 155, 55, 0.4);
 
         --hero-overlay-bg: rgba(6, 8, 13, 0.5);
@@ -42,15 +42,15 @@
         --hero-text-color: rgba(255, 255, 255, 0.85);
         --hero-glow-bg: radial-gradient(circle, rgba(197, 155, 55, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
 
-        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
-        --card-hover-shadow: 0 20px 40px rgba(26, 95, 95, 0.08), 0 0 20px rgba(214, 158, 46, 0.2);
-        --input-bg: #ffffff;
-        --input-border: #cbd5e1;
+        --card-shadow: none;
+        --card-hover-shadow: 0 10px 30px rgba(197, 155, 55, 0.15);
+        --input-bg: var(--color-input-bg, #ffffff);
+        --input-border: var(--color-border, #cbd5e1);
 
-        --calc-box-bg: #ffffff;
-        --calc-result-bg: #fffbf0;
-        --cta-banner-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        --cta-banner-text: #ffffff;
+        --calc-box-bg: transparent;
+        --calc-result-bg: rgba(214, 158, 46, 0.05);
+        --cta-banner-bg: transparent;
+        --cta-banner-text: var(--color-primary, #ffffff);
 
         --header-bg: rgba(255, 255, 255, 0.9);
         --header-border: #e2e8f0;
@@ -67,21 +67,21 @@
    DARK THEME OVERRIDES (data-theme="dark")
    ============================================================ */
     [data-theme="dark"] {
-        --color-bg-dark: #06080d;
-        --color-bg-card: #0d141d;
-        --color-bg-card-hover: #121a26;
-        --color-bg-alt: #0a0f17;
+        --color-bg-dark: var(--color-bg, #050B08);
+        --color-bg-card: transparent;
+        --color-bg-card-hover: rgba(255, 255, 255, 0.02);
+        --color-bg-alt: transparent;
         --color-primary-gold: #d69e2e;
         --color-gold-light: #f5d77f;
         --color-gold-dark: #b7791f;
         --color-gold-glow: rgba(214, 158, 46, 0.25);
 
-        --color-text-main: #f3f4f6;
-        --color-heading-text: #ffffff;
-        --color-text-muted: #9ca3af;
-        --color-text-dim: #6b7280;
+        --color-text-main: var(--color-primary, #f3f4f6);
+        --color-heading-text: var(--color-primary, #ffffff);
+        --color-text-muted: var(--color-subtext, #9ca3af);
+        --color-text-dim: var(--color-subtext, #6b7280);
 
-        --color-border-subtle: rgba(255, 255, 255, 0.08);
+        --color-border-subtle: var(--color-border, rgba(255, 255, 255, 0.08));
         --color-border-gold: rgba(214, 158, 46, 0.3);
 
         --hero-overlay-bg: rgba(6, 8, 13, 0.5);
@@ -89,15 +89,15 @@
         --hero-text-color: rgba(255, 255, 255, 0.85);
         --hero-glow-bg: radial-gradient(circle, rgba(214, 158, 46, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
 
-        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        --card-shadow: none;
         --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(214, 158, 46, 0.25);
-        --input-bg: rgba(255, 255, 255, 0.05);
-        --input-border: rgba(255, 255, 255, 0.08);
+        --input-bg: var(--color-input-bg, rgba(255, 255, 255, 0.05));
+        --input-border: var(--color-border, rgba(255, 255, 255, 0.08));
 
-        --calc-box-bg: #0d141d;
-        --calc-result-bg: rgba(214, 158, 46, 0.06);
-        --cta-banner-bg: linear-gradient(135deg, #0d141d 0%, #111a26 100%);
-        --cta-banner-text: #ffffff;
+        --calc-box-bg: transparent;
+        --calc-result-bg: rgba(214, 158, 46, 0.08);
+        --cta-banner-bg: transparent;
+        --cta-banner-text: var(--color-primary, #ffffff);
 
         --header-bg: rgba(6, 8, 13, 0.9);
         --header-border: rgba(255, 255, 255, 0.08);
@@ -455,7 +455,7 @@
     .hero-pill-bar:focus-within {
         transform: translateY(-2px);
         background: #ffffff;
-        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 3px rgba(236, 72, 153, 0.4);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 0 0 3px var(--color-focus-ring, rgba(212, 175, 55, 0.3));
     }
 
     .pill-left-content {
@@ -471,8 +471,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(236, 72, 153, 0.12);
-        color: #db2777;
+        background: rgba(212, 175, 55, 0.15);
+        color: var(--color-primary-gold, #c59b37);
         width: 34px;
         height: 34px;
         border-radius: 8px;
@@ -512,21 +512,22 @@
         width: 44px;
         height: 44px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
         border: none;
-        color: #ffffff;
+        color: #0A0D14;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         flex-shrink: 0;
-        box-shadow: 0 4px 14px rgba(236, 72, 153, 0.45);
+        box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
         transition: all 0.25s ease;
     }
 
     .pill-submit-btn:hover {
         transform: scale(1.08);
-        box-shadow: 0 6px 20px rgba(236, 72, 153, 0.65);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 100%);
     }
 
     /* Metrics Ticker Wrapper */
@@ -862,10 +863,10 @@
         position: absolute;
         top: 14px;
         left: 14px;
-        background: var(--color-heading-text);
+        
         backdrop-filter: blur(8px);
         border: 1px solid var(--color-heading-text);
-        color: var(--color-bg-card);
+       
         font-family: var(--font-sans);
         font-size: 0.68rem;
         font-weight: 700;
@@ -2043,7 +2044,7 @@
         <div class="calc-box">
             <div class="calc-header">
                 <span class="calc-badge">⚡ INTERACTIVE ADVISORY FINDER</span>
-                <h2>Find Your Tailored Advisory Blueprint</h2>
+                <h2>Find Your Tailored <span class="highlight-text">Advisory Blueprint</span></h2>
                 <p>Select your profile parameters to immediately identify the optimal wealth management framework for
                     your goals.</p>
             </div>
@@ -2092,7 +2093,7 @@
     <div class="container">
         <header class="section-header">
             <p class="subtitle">METHODOLOGY OF EXCELLENCE</p>
-            <h2>Our 4-Step Advisory Process</h2>
+            <h2>Our 4-Step <span class="highlight-text">Advisory Process</span></h2>
             <div class="divider"></div>
         </header>
 
@@ -2135,7 +2136,7 @@
             </div>
             <div class="spotlight-content">
                 <div class="spotlight-tag">CASE STUDY SPOTLIGHT</div>
-                <h2>Legacy Wealth Preservation & Tax Restructuring</h2>
+                <h2>Legacy Wealth Preservation <span class="highlight-text">& Tax Restructuring</span></h2>
                 <p class="spotlight-quote">"We recently assisted an international family office in restructuring their
                     $45M global asset portfolio, resulting in an immediate 38% reduction in annual tax exposure and
                     establishing an enduring philanthropic trust."</p>
@@ -2168,26 +2169,24 @@
         <div class="cta-banner-box">
             <div class="cta-glow"></div>
             <span class="cta-badge">CONFIDENTIAL ADVISORY MANDATE</span>
-            <h2>Architect Your Generational Legacy</h2>
-            <p>Connect directly with our Senior Managing Partners for a private, zero-commitment advisory evaluation.
-            </p>
+            <h2>Book Your Private Advisory Consultation</h2>
+            <p>Connect directly with our Senior Managing Partners for a private, zero-commitment advisory evaluation.</p>
 
-            <form class="consultation-form"
-                onsubmit="event.preventDefault(); alert('Thank you for requesting a private advisory consultation. A Senior Managing Partner will reach out to you within 24 hours.');">
+            <form class="consultation-form" method="get" action="{% url 'login:consultation' %}">
                 <div class="form-row">
-                    <input type="text" placeholder="Full Name" required />
-                    <input type="email" placeholder="Corporate or Private Email" required />
+                    <input type="text" name="client_name" placeholder="Full Name" />
+                    <input type="email" name="email" placeholder="Corporate or Private Email" />
                 </div>
                 <div class="form-row">
-                    <select required>
+                    <select name="service" required>
                         <option value="" disabled selected>Select Primary Service Mandate</option>
-                        <option value="wealth">Bespoke Financial Architecture ($1M+)</option>
-                        <option value="portfolio">Active Portfolio Management</option>
-                        <option value="retirement">Retirement & Pension Trajectories</option>
-                        <option value="corporate">Corporate Succession & Legacy</option>
-                        <option value="tax">Tax Mitigation & Estate Shielding</option>
+                        <option value="financial_planning">Comprehensive Financial Planning</option>
+                        <option value="investment">Investment & Multi-Asset Portfolio Strategy</option>
+                        <option value="retirement">Retirement & Legacy Structuring</option>
+                        <option value="wealth_management">Private Wealth Management & Family Office</option>
+                        <option value="tax_planning">Tax Optimization & Fiscal Structuring</option>
                     </select>
-                    <button type="submit" class="btn-gold">SUBMIT MANDATE REQUEST</button>
+                    <button type="submit" class="btn-gold">BOOK CONSULTATION</button>
                 </div>
             </form>
         </div>
@@ -2621,7 +2620,7 @@
                     ${detail.deliverables.map(item => `<li style="color: var(--color-text-main); margin-bottom: 10px; font-size: 0.95rem;"><span style="color: var(--color-gold-light); margin-right: 8px;">✓</span> ${item}</li>`).join('')}
                 </ul>
                 <div style="text-align: right;">
-                    <a href="#consultation" class="btn-gold-sm" onclick="closeModal()" style="display: inline-block;">SCHEDULE CONSULTATION FOR THIS SERVICE</a>
+                    <a href="{% url 'login:consultation' %}" class="btn-gold-sm" style="display: inline-block; text-decoration: none; padding: 0.75rem 1.75rem; background: linear-gradient(135deg, #0B192C, #1E293B); border: 1px solid #D4AF37; color: #FFF9D2; border-radius: var(--radius-pill); font-weight: 700;">BOOK CONSULTATION FOR THIS SERVICE &rarr;</a>
                 </div>
             `;
         document.getElementById('service-modal').classList.add('active');
@@ -2637,31 +2636,139 @@
         }
     });
 
+    function getConsultationRecommendation(profile, objective) {
+        const recommendation = {
+            service: 'financial_planning',
+            label: 'Comprehensive Financial Planning',
+            subject: 'Wealth Architecture & Advisory Blueprint',
+            message: 'Request an advisory session focused on portfolio architecture, tax-efficient wealth transfer, and long-term capital preservation.',
+            title: 'Bespoke Wealth Architecture & Tax Shield',
+            desc: 'Our foundational comprehensive mandate integrating asset allocation, cash flow optimization, and tax-efficient distribution.',
+            features: [
+                '1-on-1 Managing Partner',
+                'Quarterly Financial Audit',
+                'Bespoke Asset Allocation'
+            ]
+        };
+
+        if (profile === 'fo' || objective === 'tax') {
+            recommendation.service = 'tax_planning';
+            recommendation.label = 'Tax Optimization & Fiscal Structuring';
+            recommendation.subject = 'Family Office Trust & Tax Shield Strategy';
+            recommendation.message = 'Request an advisory session focused on cross-border trust structuring, dynasty trust design, and tax mitigation strategies.';
+            recommendation.title = 'Family Office Sovereign Trust & Tax Shield';
+            recommendation.desc = 'Tailored for multi-generational holdings and family offices requiring cross-border trust structuring, tax elimination strategies, and legacy governance.';
+            recommendation.features = [
+                'Dedicated Senior Family Officer',
+                'Irrevocable Dynasty Trust',
+                'Offshore Sovereign Defense'
+            ];
+        } else if (objective === 'growth') {
+            recommendation.service = 'investment';
+            recommendation.label = 'Investment & Multi-Asset Portfolio Strategy';
+            recommendation.subject = 'Active Multi-Asset Growth Advisory';
+            recommendation.message = 'Request an advisory session focused on private equity access, multi-asset growth allocation, and quantitative risk management.';
+            recommendation.title = 'Active Multi-Asset Portfolio Cultivation';
+            recommendation.desc = 'Optimized for aggressive capital growth using quantitative equity models, private equity syndicates, and structured high-yield debt.';
+            recommendation.features = [
+                'Private Market Co-Investment',
+                'Algorithmic Downside Buffer',
+                'Real-Time Portfolio Portal'
+            ];
+        } else if (objective === 'succession' || profile === 'corp') {
+            recommendation.service = 'wealth_management';
+            recommendation.label = 'Private Wealth Management & Family Office';
+            recommendation.subject = 'Corporate Succession & Legacy Advisory';
+            recommendation.message = 'Request an advisory session focused on succession planning, founder liquidity, and family office governance.';
+            recommendation.title = 'Corporate Succession & Founder Liquidity Mandate';
+            recommendation.desc = 'Engineered for business founders preparing for M&A exit, phantom equity distribution, and successor leadership transition.';
+            recommendation.features = [
+                'M&A Valuation & Exit Strategy',
+                'Executive Equity Phantom Plan',
+                'Heir Leadership Bootcamp'
+            ];
+        } else if (objective === 'preservation') {
+            recommendation.service = 'fixed_deposit';
+            recommendation.label = 'Fixed Deposit & High-Yield Preservation';
+            recommendation.subject = 'Preservation & Structured Wealth Protection';
+            recommendation.message = 'Request an advisory session focused on capital preservation, high-yield preservation instruments, and wealth protection protocols.';
+            recommendation.title = 'Preservation & Wealth Protection Blueprint';
+            recommendation.desc = 'Designed for clients prioritizing capital preservation, risk reduction, and structured wealth protection across market cycles.';
+            recommendation.features = [
+                'Preservation Strategy Design',
+                'Risk-Shielded Allocation',
+                'Tax-Efficient Capital Defense'
+            ];
+        }
+
+        return recommendation;
+    }
+
+    function getConsultationUrl(recommendation) {
+        const baseUrl = "{% url 'login:consultation' %}";
+        const params = new URLSearchParams();
+        params.set('service', recommendation.service);
+        params.set('subject', recommendation.subject);
+        params.set('message', recommendation.message);
+        return `${baseUrl}?${params.toString()}`;
+    }
+
+    function openModal(key) {
+        const detail = serviceDetails[key];
+        if (!detail) return;
+        const modalBody = document.getElementById('modal-body-content');
+        const serviceMap = {
+            architecture: 'investment',
+            portfolio: 'investment',
+            retirement: 'retirement',
+            legacy: 'wealth_management',
+            tax: 'tax_planning',
+            alternatives: 'investment',
+            advisory: 'general',
+            family: 'wealth_management'
+        };
+        const serviceKey = serviceMap[key] || 'financial_planning';
+        const consultationUrl = `{% url 'login:consultation' %}?service=${serviceKey}`;
+        modalBody.innerHTML = `
+                <span class="card-badge" style="margin-bottom: 12px; display: inline-block;">${detail.badge}</span>
+                <h2 style="font-size: 2.2rem; font-family: var(--font-heading); margin-bottom: 16px; color: var(--color-heading-text);">${detail.title}</h2>
+                <p style="color: var(--color-text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px;">${detail.desc}</p>
+                <h4 style="color: var(--color-gold-light); font-size: 1rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">Key Advisory Deliverables:</h4>
+                <ul style="list-style: none; margin-bottom: 30px;">
+                    ${detail.deliverables.map(item => `<li style="color: var(--color-text-main); margin-bottom: 10px; font-size: 0.95rem;"><span style="color: var(--color-gold-light); margin-right: 8px;">✓</span> ${item}</li>`).join('')}
+                </ul>
+                <div style="text-align: right;">
+                    <a href="${consultationUrl}" class="btn-gold-sm" style="display: inline-block; text-decoration: none; padding: 0.75rem 1.75rem; background: linear-gradient(135deg, #0B192C, #1E293B); border: 1px solid #D4AF37; color: #FFF9D2; border-radius: var(--radius-pill); font-weight: 700;">BOOK CONSULTATION FOR THIS SERVICE →</a>
+                </div>
+            `;
+        document.getElementById('service-modal').classList.add('active');
+    }
+
     function calculateRecommendation() {
         const profile = document.getElementById('calc-profile').value;
         const obj = document.getElementById('calc-objective').value;
         const titleEl = document.getElementById('rec-title');
         const descEl = document.getElementById('rec-desc');
         const featsEl = document.getElementById('rec-features');
+        const serviceLabelEl = document.getElementById('rec-service-label');
+        const buttonLink = document.getElementById('apply-advisory-link');
 
-        if (profile === 'fo' || obj === 'tax') {
-            titleEl.innerText = "Family Office Sovereign Trust & Tax Shield";
-            descEl.innerText = "Tailored for multi-generational holdings and family offices requiring cross-border trust structuring, tax elimination strategies, and legacy governance.";
-            featsEl.innerHTML = "<span>• Dedicated Senior Family Officer</span><span>• Irrevocable Dynasty Trust</span><span>• Offshore Sovereign Defense</span>";
-        } else if (obj === 'growth') {
-            titleEl.innerText = "Active Multi-Asset Portfolio Cultivation";
-            descEl.innerText = "Optimized for aggressive capital growth using quantitative equity models, private equity syndicates, and structured high-yield debt.";
-            featsEl.innerHTML = "<span>• Private Market Co-Investment</span><span>• Algorithmic Downside Buffer</span><span>• Real-Time Portfolio Portal</span>";
-        } else if (obj === 'succession' || profile === 'corp') {
-            titleEl.innerText = "Corporate Succession & Founder Liquidity Mandate";
-            descEl.innerText = "Engineered for business founders preparing for M&A exit, phantom equity distribution, and successor leadership transition.";
-            featsEl.innerHTML = "<span>• M&A Valuation & Exit Strategy</span><span>• Executive Equity Phantom Plan</span><span>• Heir Leadership Bootcamp</span>";
-        } else {
-            titleEl.innerText = "Bespoke Wealth Architecture Plan";
-            descEl.innerText = "Our foundational comprehensive mandate integrating asset allocation, cash flow optimization, and tax-efficient distribution.";
-            featsEl.innerHTML = "<span>• 1-on-1 Managing Partner</span><span>• Quarterly Financial Audit</span><span>• Bespoke Asset Allocation</span>";
+        const recommendation = getConsultationRecommendation(profile, obj);
+
+        titleEl.innerText = recommendation.title;
+        descEl.innerText = recommendation.desc;
+        featsEl.innerHTML = recommendation.features.map(feature => `<span>• ${feature}</span>`).join('');
+        if (serviceLabelEl) {
+            serviceLabelEl.innerText = `Recommended Service: ${recommendation.label}`;
+        }
+        if (buttonLink) {
+            buttonLink.href = getConsultationUrl(recommendation);
         }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        calculateRecommendation();
+    });
 </script>
 
 {% endblock %}
