@@ -138,22 +138,25 @@
 .testimonials-pill-badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 1.25rem;
-  background: rgba(226, 232, 240, 0.7);
-  border: 1px solid rgba(203, 213, 225, 0.8);
+  gap: 0.5rem;
+  padding: 0.45rem 1.25rem;
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: var(--radius-pill);
-  color: #475569;
-  font-size: 0.82rem;
+  color: var(--color-gold, #B45309);
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 1.25rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
   backdrop-filter: blur(10px);
 }
 
 [data-theme='dark'] .testimonials-pill-badge {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.08);
-  color: var(--color-gold);
+  background: rgba(197, 160, 89, 0.15);
+  border-color: rgba(197, 160, 89, 0.4);
+  color: #FFD700;
 }
 
 .main-headline-bold {
@@ -173,6 +176,46 @@
   margin: 0 auto 2.25rem;
 }
 
+/* Secondary Action Button — Adaptive Theme Outline */
+.btn-testimonial-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.25rem;
+  background: var(--color-secondary, #FFFFFF);
+  border: 1.5px solid var(--color-border, #E2E8F0);
+  color: var(--color-primary, #000000);
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  box-shadow: var(--shadow-subtle);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.btn-testimonial-secondary:hover {
+  border-color: var(--color-gold, #D4AF37);
+  background: rgba(212, 175, 55, 0.12);
+  color: #8C671B;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.18);
+}
+
+[data-theme='dark'] .btn-testimonial-secondary {
+  background: #0B1B13;
+  border-color: rgba(197, 160, 89, 0.35);
+  color: #FFFFFF;
+}
+
+[data-theme='dark'] .btn-testimonial-secondary:hover {
+  background: rgba(197, 160, 89, 0.2);
+  border-color: #FFD700;
+  color: #FFD700;
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
+}
+
 /* Write Testimonial Action Button - Gold Gradient Home Page CTA Palette */
 .write-testimonial-btn {
   display: inline-flex;
@@ -187,7 +230,7 @@
   font-weight: 800;
   border-radius: var(--radius-pill);
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   letter-spacing: -0.01em;
@@ -198,7 +241,7 @@
   border-color: #FFF9C4;
   color: #000000 !important;
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 14px 35px rgba(255, 215, 0, 0.55), 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.55), 0 0 25px rgba(255, 215, 0, 0.4);
 }
 
 /* --------------------------------------------------------------------------

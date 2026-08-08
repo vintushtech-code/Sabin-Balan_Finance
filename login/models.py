@@ -261,5 +261,174 @@ class Testimonial(models.Model):
         return ''
 
 
+class ConsultationBooking(models.Model):
+    """
+    Model representing Private Wealth Management & Financial Advisory Bookings.
+    Includes unique 10-character reference key, dynamic scheduling buffers,
+    status workflows, and admin rescheduling tracking with before/after comparison.
+    """
+    SERVICE_CHOICES = (
+        ('financial_planning', 'Comprehensive Financial Planning'),
+        ('investment', 'Investment & Multi-Asset Portfolio Strategy'),
+        ('fixed_deposit', 'Fixed Deposit & High-Yield Preservation'),
+        ('wealth_management', 'Private Wealth Management & Family Office'),
+        ('retirement', 'Retirement & Legacy Structuring'),
+        ('tax_planning', 'Tax Optimization & Fiscal Structuring'),
+        ('portfolio_review', 'Institutional Portfolio Diagnostic & Health Check'),
+        ('general', 'General Advisory & Wealth Strategy'),
+        ('other', 'Bespoke Executive Financial Advisory'),
+    )
+
+    DURATION_CHOICES = (
+        (30, '30 Minutes — Focused Consultation'),
+        (45, '45 Minutes — Strategic Consultation'),
+        (60, '60 Minutes — Comprehensive Consultation'),
+    )
+
+    COMM_CHOICES = (
+        ('video_call', 'Secure Video Conference (Zoom / Google Meet)'),
+        ('in_person', 'In-Person Executive Desk (Main Office)'),
+        ('phone', 'Direct Private Phone Call'),
+        ('email', 'Written Strategic Advisory Briefing'),
+    )
+
+    STATUS_CHOICES = (
+        ('received', 'Booking Received'),
+        ('under_review', 'Pending Confirmation / Under Review'),
+        ('confirmed', 'Confirmed'),
+        ('paid', 'Paid / Confirmed'),
+        ('payment_pending', 'Payment Pending'),
+        ('rescheduled', 'Rescheduled'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    )
+
+    PAYMENT_CHOICES = (
+        ('pending', 'Payment Pending'),
+        ('completed', 'Payment Received'),
+        ('waived', 'Complimentary / Executive Waiver'),
+        ('refunded', 'Refunded'),
+    )
+
+    reference_key = models.CharField(
+        _('Reference Key'),
+        max_length=10,
+        unique=True,
+        db_index=True,
+        help_text=_("Unique 10-character alphanumeric tracking key (e.g., GT7K4M9P2X).")
+    )
+    client_name = models.CharField(_('Client Name'), max_length=150)
+    email = models.EmailField(_('Email Address'))
+    phone = models.CharField(_('Phone Number'), max_length=30)
+    service = models.CharField(_('Consultation Service'), max_length=50, choices=SERVICE_CHOICES, default='financial_planning')
+    duration_minutes = models.PositiveIntegerField(_('Duration (Minutes)'), choices=DURATION_CHOICES, default=45)
+    consultation_date = models.DateField(_('Consultation Date'))
+    consultation_time = models.TimeField(_('Consultation Start Time'))
+    end_time = models.TimeField(_('Consultation End Time'), blank=True, null=True)
+    
+    subject = models.CharField(_('Subject / Purpose'), max_length=255, blank=True, default='')
+    message = models.TextField(_('Requirements / Message'), blank=True, default='')
+    preferred_comm = models.CharField(
+        _('Preferred Communication Method'),
+        max_length=30,
+        choices=COMM_CHOICES,
+        default='video_call'
+    )
+    
+    status = models.CharField(
+        _('Booking Status'),
+        max_length=30,
+        choices=STATUS_CHOICES,
+        default='received'
+    )
+    payment_status = models.CharField(
+        _('Payment Status'),
+        max_length=30,
+        choices=PAYMENT_CHOICES,
+        default='pending'
+    )
+    
+    admin_notes = models.TextField(_('Advisor / Admin Internal Notes'), blank=True, default='')
+    
+    # Rescheduling Audit Log Fields
+    previous_date = models.DateField(_('Previous Consultation Date'), null=True, blank=True)
+    previous_time = models.TimeField(_('Previous Consultation Time'), null=True, blank=True)
+    rescheduled_reason = models.TextField(_('Rescheduling Reason / Note'), blank=True, default='')
+
+    ip_address = models.GenericIPAddressField(_('Client IP Address'), blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('Consultation Booking')
+        verbose_name_plural = _('Consultation Bookings')
+        ordering = ['-consultation_date', '-consultation_time', '-created_at']
+
+    def __str__(self):
+        return f"[{self.reference_key}] {self.client_name} — {self.get_service_display()} ({self.consultation_date} at {self.consultation_time.strftime('%I:%M %p')})"
+
+    @staticmethod
+    def generate_unique_reference_key():
+        """
+        Generates a crisp, 10-character alphanumeric booking reference key
+        (e.g., GT7K4M9P2X) excluding ambiguous letters/numbers (0, O, 1, I, L).
+        """
+        import secrets
+        alphabet = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
+        while True:
+            key = "".join(secrets.choice(alphabet) for _ in range(10))
+            if not ConsultationBooking.objects.filter(reference_key=key).exists():
+                return key
+
+    def save(self, *args, **kwargs):
+        import datetime
+        if not self.reference_key:
+            self.reference_key = ConsultationBooking.generate_unique_reference_key()
+
+        # Automatically calculate end_time based on consultation_time + duration_minutes
+        if self.consultation_time and self.duration_minutes:
+            base_datetime = datetime.datetime.combine(datetime.date.today(), self.consultation_time)
+            end_datetime = base_datetime + datetime.timedelta(minutes=self.duration_minutes)
+            self.end_time = end_datetime.time()
+
+        # Rescheduling detection when updated via admin
+        if self.pk:
+            orig = ConsultationBooking.objects.filter(pk=self.pk).first()
+            if orig:
+                date_changed = orig.consultation_date != self.consultation_date
+                time_changed = orig.consultation_time != self.consultation_time
+                if date_changed or time_changed:
+                    self.previous_date = orig.consultation_date
+                    self.previous_time = orig.consultation_time
+                    if self.status not in ['cancelled', 'completed']:
+                        self.status = 'rescheduled'
+
+        super().save(*args, **kwargs)
+
+    @property
+    def duration_label(self):
+        labels = {
+            30: '30 Minutes (Focused Consultation)',
+            45: '45 Minutes (Strategic Consultation)',
+            60: '60 Minutes (Comprehensive Consultation)',
+        }
+        return labels.get(self.duration_minutes, f'{self.duration_minutes} Minutes')
+
+    @property
+    def status_badge_class(self):
+        mapping = {
+            'received': 'badge-info',
+            'under_review': 'badge-warning',
+            'confirmed': 'badge-success',
+            'paid': 'badge-gold',
+            'payment_pending': 'badge-warning',
+            'rescheduled': 'badge-orange',
+            'completed': 'badge-primary',
+            'cancelled': 'badge-danger',
+        }
+        return mapping.get(self.status, 'badge-secondary')
+
+
+
 
 

@@ -374,6 +374,35 @@ body.light-theme .toast-message-item {
   opacity: 1 !important;
 }
 
+/* Executive Golden Button with Radiant Glow */
+.btn-gold-lg-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.25rem;
+  background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+  border: 1px solid #FFD700;
+  border-radius: var(--radius-pill, 9999px);
+  color: #0A0D14 !important;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-gold-lg-glow:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, #FFF9C4 0%, #FFD700 100%);
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.55), 0 0 25px rgba(255, 215, 0, 0.4);
+  color: #000000 !important;
+}
+
+.btn-gold-lg-glow span {
+  color: inherit;
+}
+
 .btn-secondary {
   background-color: var(--color-secondary);
   color: var(--color-primary);

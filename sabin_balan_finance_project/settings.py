@@ -83,7 +83,32 @@ if os.path.exists(_home_hero) and not os.path.exists(_contact_hero):
     except Exception:
         pass
 
-# Auto-migrate database modifications on server initialization
+# Consultation Hero Image Auto-Sync
+_gen_consult_hero = r"C:\Users\hp\.gemini\antigravity-ide\brain\5abf28c0-b259-4695-aba7-e4606bf432bc\consultation_intro_hero_1786171559193.png"
+_target_consult_hero = BASE_DIR / "photos" / "consultation_intro.png"
+if os.path.exists(_gen_consult_hero):
+    try:
+        shutil.copy(_gen_consult_hero, _target_consult_hero)
+    except Exception:
+        pass
+
+# Auto-migrate database modifications & repair SQLite schemas on server initialization
+try:
+    import sqlite3
+    db_path = BASE_DIR / 'db.sqlite3'
+    if os.path.exists(db_path):
+        conn = sqlite3.connect(str(db_path))
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA table_info(login_consultationbooking);")
+        cols = [row[1] for row in cursor.fetchall()]
+        if cols and 'reference_key' not in cols:
+            cursor.execute("DROP TABLE IF EXISTS login_consultationbooking;")
+            cursor.execute("DELETE FROM django_migrations WHERE app='login' AND name LIKE '%consultationbooking%';")
+            conn.commit()
+        conn.close()
+except Exception:
+    pass
+
 try:
     from django.core.management import call_command
     call_command('makemigrations', 'login', interactive=False)
