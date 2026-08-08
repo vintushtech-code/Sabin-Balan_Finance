@@ -7,1882 +7,2612 @@
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 <style>
-/* 
+    /* 
   Sabin Balan Finance — Dual Theme (Light & Dark Mode) Executive Services Architecture
   Master Stylesheet for High-Impact Services Homepage UI
 */
 
-/* ============================================================
+    /* ============================================================
    DEFAULT LIGHT THEME VARIABLES (Default / data-theme="light")
    ============================================================ */
-:root {
-    --color-bg-dark: #fcfcfd;
-    --color-bg-card: #ffffff;
-    --color-bg-card-hover: #f9f9fb;
-    --color-bg-alt: #f0f2f5;
-    --color-primary-gold: #c59b37;
-    --color-gold-light: #ab8222;
-    --color-gold-dark: #8c6812;
-    --color-gold-glow: rgba(197, 155, 55, 0.15);
+    :root {
+        --color-bg-dark: #fcfcfd;
+        --color-bg-card: #ffffff;
+        --color-bg-card-hover: #f9f9fb;
+        --color-bg-alt: #f0f2f5;
+        --color-primary-gold: #c59b37;
+        --color-gold-light: #ab8222;
+        --color-gold-dark: #8c6812;
+        --color-gold-glow: rgba(197, 155, 55, 0.15);
 
-    --color-text-main: #1f2937;
-    --color-heading-text: #111827;
-    --color-text-muted: #4b5563;
-    --color-text-dim: #6b7280;
+        --color-text-main: #1f2937;
+        --color-heading-text: #111827;
+        --color-text-muted: #4b5563;
+        --color-text-dim: #6b7280;
 
-    --color-border-subtle: #e5e7eb;
-    --color-border-gold: rgba(197, 155, 55, 0.4);
+        --color-border-subtle: #e5e7eb;
+        --color-border-gold: rgba(197, 155, 55, 0.4);
 
-    --hero-overlay-bg: rgba(6, 8, 13, 0.5);
-    --hero-title-color: linear-gradient(180deg, #ffffff 0%, #e5e7eb 70%, #f5d77f 100%);
-    --hero-text-color: rgba(255, 255, 255, 0.85);
-    --hero-glow-bg: radial-gradient(circle, rgba(197, 155, 55, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+        --hero-overlay-bg: rgba(6, 8, 13, 0.5);
+        --hero-title-color: linear-gradient(180deg, #ffffff 0%, #e5e7eb 70%, #f5d77f 100%);
+        --hero-text-color: rgba(255, 255, 255, 0.85);
+        --hero-glow-bg: radial-gradient(circle, rgba(197, 155, 55, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
 
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
-    --card-hover-shadow: 0 20px 40px rgba(26, 95, 95, 0.08), 0 0 20px rgba(214, 158, 46, 0.2);
-    --input-bg: #ffffff;
-    --input-border: #cbd5e1;
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+        --card-hover-shadow: 0 20px 40px rgba(26, 95, 95, 0.08), 0 0 20px rgba(214, 158, 46, 0.2);
+        --input-bg: #ffffff;
+        --input-border: #cbd5e1;
 
-    --calc-box-bg: #ffffff;
-    --calc-result-bg: #fffbf0;
-    --cta-banner-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    --cta-banner-text: #ffffff;
+        --calc-box-bg: #ffffff;
+        --calc-result-bg: #fffbf0;
+        --cta-banner-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        --cta-banner-text: #ffffff;
 
-    --header-bg: rgba(255, 255, 255, 0.9);
-    --header-border: #e2e8f0;
+        --header-bg: rgba(255, 255, 255, 0.9);
+        --header-border: #e2e8f0;
 
-    --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    --font-sans: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
+        --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        --font-sans: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        --font-body: 'Inter', sans-serif;
 
-    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
+        --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-/* ============================================================
-   DARK THEME OVERRIDES (data-theme="dark") — Solid Dark Emerald Green & Gold
+    /* ============================================================
+   DARK THEME OVERRIDES (data-theme="dark")
    ============================================================ */
-[data-theme="dark"] {
-    --color-bg-dark: #050B08;
-    --color-bg-card: #0B1B13;
-    --color-bg-card-hover: #0F261B;
-    --color-bg-alt: #07120C;
-    --color-primary-gold: #C5A059;
-    --color-gold-light: #E5C158;
-    --color-gold-dark: #8F6B29;
-    --color-gold-glow: rgba(197, 160, 89, 0.25);
-    
-    --color-text-main: #ffffff;
-    --color-heading-text: #ffffff;
-    --color-text-muted: #c8d6ce;
-    --color-text-dim: #9eb2a7;
-    
-    --color-border-subtle: rgba(197, 160, 89, 0.2);
-    --color-border-gold: rgba(197, 160, 89, 0.35);
-    
-    --hero-overlay-bg: rgba(5, 11, 8, 0.65);
-    --hero-title-color: linear-gradient(180deg, #ffffff 0%, #c8d6ce 70%, #E5C158 100%);
-    --hero-text-color: rgba(255, 255, 255, 0.9);
-    --hero-glow-bg: radial-gradient(circle, rgba(197, 160, 89, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-    
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(197, 160, 89, 0.2);
-    --input-bg: #07120C;
-    --input-border: rgba(197, 160, 89, 0.22);
-    
-    --calc-box-bg: #0B1B13;
-    --calc-result-bg: rgba(197, 160, 89, 0.1);
-    --cta-banner-bg: linear-gradient(135deg, #091710 0%, #040806 100%);
-    --cta-banner-text: #ffffff;
-    
-    --header-bg: rgba(5, 11, 8, 0.9);
-    --header-border: rgba(197, 160, 89, 0.2);
-}
-
-/* Reset & Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-body);
-    color: var(--color-text-main);
-    background-color: var(--color-bg-dark);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 4%;
-}
-
-/* Typography Base */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--font-heading);
-    color: var(--color-heading-text);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-}
-
-p {
-    color: var(--color-text-muted);
-}
-
-a {
-    text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-/* Buttons */
-.btn-gold {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #f5d77f 0%, var(--color-primary-gold) 50%, var(--color-gold-light) 100%);
-    color: #06080d;
-    padding: 16px 36px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 20px var(--color-gold-glow);
-    border: none;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-
-.btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(214, 158, 46, 0.45);
-    background: linear-gradient(135deg, #ffffff 0%, #f5d77f 50%, var(--color-primary-gold) 100%);
-}
-
-.btn-gold-sm {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f5d77f 0%, var(--color-primary-gold) 100%);
-    color: #06080d;
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 12px var(--color-gold-glow);
-    border: none;
-    cursor: pointer;
-}
-
-.btn-gold-sm:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(214, 158, 46, 0.4);
-}
-
-.btn-glass {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: var(--input-bg);
-    backdrop-filter: blur(10px);
-    color: var(--color-heading-text);
-    padding: 16px 36px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border: 1px solid var(--input-border);
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-
-.btn-glass:hover {
-    background: var(--color-bg-card-hover);
-    border-color: var(--color-primary-gold);
-    color: var(--color-gold-light);
-    transform: translateY(-2px);
-}
-
-/* Theme Toggle Button */
-.btn-theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-heading-text);
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition-fast);
-}
-
-.btn-theme-toggle:hover {
-    border-color: var(--color-primary-gold);
-    color: var(--color-primary-gold);
-    transform: translateY(-1px);
-}
-
-/* Floating Theme Switcher Badge */
-.floating-theme-toggle {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 999;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-gold);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border-radius: 30px;
-    padding: 6px 14px;
-}
-
-/* Header */
-.main-header {
-    padding: 20px 0;
-    background-color: var(--header-bg);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid var(--header-border);
-    transition: var(--transition-smooth);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h1 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    background: linear-gradient(135deg, var(--color-heading-text) 60%, var(--color-gold-light) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 28px;
-}
-
-.main-nav a {
-    color: var(--color-text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-}
-
-.main-nav a:hover,
-.main-nav a.active {
-    color: var(--color-gold-light);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.contact-info {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-}
-
-/* Hero Section with Video Background */
-.hero-video-section {
-    position: relative;
-    width: 100%;
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 100px 0 60px;
-    background: url("../photos/service_hero.png") center/cover no-repeat;
-}
-
-.hero-video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--hero-overlay-bg);
-    z-index: 2;
-    transition: background 0.4s ease;
-}
-
-.hero-glow-gold {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 700px;
-    height: 400px;
-    background: var(--hero-glow-bg);
-    filter: blur(80px);
-    z-index: 3;
-    pointer-events: none;
-}
-
-.hero-container {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-}
-
-.hero-content {
-    max-width: 960px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(214, 158, 46, 0.12);
-    border: 1px solid var(--color-border-gold);
-    color: var(--color-gold-light);
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
-    backdrop-filter: blur(8px);
-}
-
-.hero-content h1 {
-    font-size: 4.2rem;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    background: var(--hero-title-color);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-content p {
-    font-size: 1.25rem;
-    color: var(--hero-text-color);
-    margin: 0 auto 40px auto;
-    max-width: 840px;
-    line-height: 1.7;
-}
-
-.hero-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-/* Stats Bar Box Section */
-.stats-bar-section {
-    padding: 40px 0;
-    background: var(--color-bg-dark);
-    position: relative;
-    z-index: 15;
-    margin-top: -30px;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-}
-
-.stat-box {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    padding: 28px 20px;
-    text-align: center;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition-smooth);
-}
-
-.stat-box:hover {
-    border-color: var(--color-border-gold);
-    transform: translateY(-4px);
-    box-shadow: var(--card-hover-shadow);
-}
-
-.stat-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-
-.stat-number {
-    font-family: var(--font-sans);
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: var(--color-heading-text);
-    line-height: 1;
-    margin-bottom: 8px;
-    letter-spacing: -1px;
-}
-
-.stat-label {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-heading-text);
-    letter-spacing: 0.5px;
-}
-
-.stat-sub {
-    font-size: 0.78rem;
-    color: var(--color-text-dim);
-    margin-top: 4px;
-}
-
-/* Section Header Shared */
-.section-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.section-header .subtitle {
-    color: var(--color-primary-gold);
-    font-family: var(--font-sans);
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    font-size: 0.85rem;
-    margin-bottom: 12px;
-}
-
-.section-header h2 {
-    font-size: 3.2rem;
-    margin-bottom: 16px;
-    color: var(--color-heading-text);
-}
-
-.section-header .header-description {
-    max-width: 750px;
-    margin: 16px auto 0 auto;
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-}
-
-.divider {
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--color-primary-gold), transparent);
-    margin: 0 auto;
-}
-
-/* Services Section */
-.services-section {
-    padding: 80px 0;
-    background-color: var(--color-bg-dark);
-}
-
-/* Filter & Search Box Bar */
-.filter-search-bar {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 44px;
-    flex-wrap: wrap;
-    gap: 16px;
-    box-shadow: var(--card-shadow);
-}
-
-.filter-pills {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.filter-pill {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-text-muted);
-    padding: 8px 18px;
-    border-radius: 25px;
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition-fast);
-}
-
-.filter-pill:hover,
-.filter-pill.active {
-    background: rgba(214, 158, 46, 0.15);
-    color: var(--color-gold-light);
-    border-color: var(--color-border-gold);
-}
-
-.search-input-box {
-    position: relative;
-    min-width: 280px;
-}
-
-.search-input-box .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-text-dim);
-    font-size: 0.9rem;
-}
-
-.search-input-box input {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-heading-text);
-    padding: 9px 16px 9px 38px;
-    border-radius: 25px;
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    outline: none;
-    transition: var(--transition-fast);
-}
-
-.search-input-box input:focus {
-    border-color: var(--color-primary-gold);
-}
-
-/* Services Grid (Box Form) */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
-}
-
-.service-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition-smooth);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--color-primary-gold), transparent);
-    opacity: 0;
-    transition: var(--transition-smooth);
-}
-
-.service-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--color-border-gold);
-    box-shadow: var(--card-hover-shadow);
-}
-
-.service-card:hover::before {
-    opacity: 1;
-}
-
-.card-image {
-    height: 200px;
-    position: relative;
-    overflow: hidden;
-}
-
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.service-card:hover .card-image img {
-    transform: scale(1.08);
-}
-
-.overlay-gradient {
-    display: none;
-}
-
-.card-badge {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    background: var(--color-heading-text);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--color-heading-text);
-    color: var(--color-bg-card);
-    font-family: var(--font-sans);
-    font-size: 0.68rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-}
-
-.card-content {
-    padding: 24px 22px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.card-content h3 {
-    font-family: var(--font-sans);
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-    line-height: 1.25;
-    color: var(--color-heading-text);
-}
-
-.card-content p {
-    font-size: 0.88rem;
-    color: var(--color-text-muted);
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-.features-list {
-    list-style: none;
-    margin-bottom: 24px;
-    flex-grow: 1;
-}
-
-.features-list li {
-    font-size: 0.84rem;
-    color: var(--color-text-main);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.features-list li .check {
-    color: var(--color-gold-light);
-    font-weight: 700;
-    font-size: 0.85rem;
-}
-
-.card-footer-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 16px;
-    border-top: 1px solid var(--color-border-subtle);
-    margin-top: auto;
-}
-
-.metric-pill {
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    color: var(--color-gold-light);
-    background: rgba(214, 158, 46, 0.1);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.btn-card-action {
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--color-heading-text);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition-fast);
-}
-
-.btn-card-action:hover {
-    color: var(--color-primary-gold);
-}
-
-.btn-card-action .arrow {
-    transition: transform 0.3s ease;
-}
-
-.btn-card-action:hover .arrow {
-    transform: translateX(4px);
-}
-
-/* Recommendation Calculator Section */
-.calculator-section {
-    padding: 80px 0;
-    background: var(--color-bg-alt);
-    border-top: 1px solid var(--color-border-subtle);
-    border-bottom: 1px solid var(--color-border-subtle);
-}
-
-.calc-box {
-    background: var(--calc-box-bg);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 20px;
-    padding: 44px;
-    box-shadow: var(--card-shadow);
-}
-
-.calc-header {
-    text-align: center;
-    margin-bottom: 36px;
-}
-
-.calc-badge {
-    color: var(--color-primary-gold);
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    display: inline-block;
-    margin-bottom: 10px;
-}
-
-.calc-header h2 {
-    font-size: 2.6rem;
-    margin-bottom: 10px;
-    color: var(--color-heading-text);
-}
-
-.calc-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
-    align-items: center;
-}
-
-.calc-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.input-group label {
-    display: block;
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-heading-text);
-    margin-bottom: 8px;
-}
-
-.input-group select {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--color-heading-text);
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    outline: none;
-    cursor: pointer;
-}
-
-.input-group select option {
-    background: var(--color-bg-card);
-    color: var(--color-heading-text);
-}
-
-.calc-result {
-    background: var(--calc-result-bg);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 14px;
-    padding: 30px;
-}
-
-.result-badge {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--color-gold-light);
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-}
-
-.calc-result h4 {
-    font-size: 1.6rem;
-    color: var(--color-heading-text);
-    margin-bottom: 12px;
-}
-
-.calc-result p {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin-bottom: 16px;
-}
-
-.rec-features {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.85rem;
-    color: var(--color-gold-light);
-    font-weight: 500;
-}
-
-/* 4-Step Advisory Process Box Grid */
-.process-section {
-    padding: 90px 0;
-    background: var(--color-bg-dark);
-}
-
-.process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-}
-
-.process-box {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 16px;
-    padding: 32px 24px;
-    position: relative;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition-smooth);
-}
-
-.process-box:hover {
-    border-color: var(--color-border-gold);
-    transform: translateY(-6px);
-    box-shadow: var(--card-hover-shadow);
-}
-
-.process-step-num {
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-primary-gold);
-    opacity: 0.4;
-    line-height: 1;
-    margin-bottom: 12px;
-}
-
-.process-title {
-    font-size: 1.4rem;
-    color: var(--color-heading-text);
-    margin-bottom: 12px;
-}
-
-.process-desc {
-    font-size: 0.88rem;
-    color: var(--color-text-muted);
-    line-height: 1.6;
-}
-
-/* Client Success Spotlight Box */
-.spotlight-section {
-    padding: 90px 0;
-    background: var(--color-bg-alt);
-}
-
-.spotlight-box {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 24px;
-    overflow: hidden;
-    display: flex;
-    box-shadow: var(--card-shadow);
-}
-
-.spotlight-image {
-    flex: 0 0 42%;
-    position: relative;
-}
-
-.spotlight-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.spotlight-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent 50%, var(--color-bg-card) 100%);
-}
-
-.spotlight-content {
-    flex: 1;
-    padding: 50px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.spotlight-tag {
-    color: var(--color-primary-gold);
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-}
-
-.spotlight-content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: var(--color-heading-text);
-}
-
-.spotlight-quote {
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--color-text-main);
-    margin-bottom: 30px;
-    line-height: 1.7;
-}
-
-.spotlight-metrics {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.spot-metric {
-    display: flex;
-    flex-direction: column;
-}
-
-.spot-metric .m-val {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-gold-light);
-}
-
-.spot-metric .m-lbl {
-    font-size: 0.78rem;
-    color: var(--color-text-muted);
-}
-
-/* Executive Consultation Banner */
-.cta-banner-section {
-    padding: 90px 0;
-    background: var(--color-bg-dark);
-}
-
-.cta-banner-box {
-    background: var(--cta-banner-bg);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 24px;
-    padding: 60px 40px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-}
-
-.cta-badge {
-    color: #f5d77f;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    display: inline-block;
-    margin-bottom: 12px;
-}
-
-.cta-banner-box h2 {
-    font-size: 3rem;
-    margin-bottom: 16px;
-    color: #ffffff;
-}
-
-.cta-banner-box p {
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto 36px auto;
-    color: #cbd5e1;
-}
-
-.consultation-form {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.form-row {
-    display: flex;
-    gap: 16px;
-}
-
-.form-row input,
-.form-row select {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    padding: 14px 18px;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    outline: none;
-}
-
-.form-row input::placeholder {
-    color: #94a3b8;
-}
-
-.form-row select option {
-    background: #0d141d;
-    color: #ffffff;
-}
-
-/* Footer Section */
-.main-footer {
-    background-color: #040609;
-    color: var(--color-text-main);
-    padding: 80px 0 40px;
-    border-top: 1px solid var(--color-border-subtle);
-}
-
-.footer-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.footer-header h2 {
-    color: #ffffff;
-    font-size: 2.8rem;
-}
-
-.footer-icons-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.footer-icon-item .icon-circle {
-    width: 70px;
-    height: 70px;
-    background: rgba(214, 158, 46, 0.1);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    margin: 0 auto 16px;
-    color: #f5d77f;
-}
-
-.footer-icon-item p {
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 30px;
-    text-align: center;
-    color: #94a3b8;
-    font-size: 0.82rem;
-}
-
-.footer-bottom p {
-    margin-bottom: 12px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Modal Overlay */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.modal-container {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-gold);
-    border-radius: 20px;
-    max-width: 680px;
-    width: 90%;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 36px;
-    position: relative;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-    color: var(--color-text-main);
-}
-
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    color: var(--color-text-muted);
-    font-size: 1.8rem;
-    cursor: pointer;
-    line-height: 1;
-}
-
-.modal-close:hover {
-    color: var(--color-gold-light);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1200px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
+    [data-theme="dark"] {
+        --color-bg-dark: #06080d;
+        --color-bg-card: #0d141d;
+        --color-bg-card-hover: #121a26;
+        --color-bg-alt: #0a0f17;
+        --color-primary-gold: #d69e2e;
+        --color-gold-light: #f5d77f;
+        --color-gold-dark: #b7791f;
+        --color-gold-glow: rgba(214, 158, 46, 0.25);
+
+        --color-text-main: #f3f4f6;
+        --color-heading-text: #ffffff;
+        --color-text-muted: #9ca3af;
+        --color-text-dim: #6b7280;
+
+        --color-border-subtle: rgba(255, 255, 255, 0.08);
+        --color-border-gold: rgba(214, 158, 46, 0.3);
+
+        --hero-overlay-bg: rgba(6, 8, 13, 0.5);
+        --hero-title-color: linear-gradient(180deg, #ffffff 0%, #e5e7eb 70%, #f5d77f 100%);
+        --hero-text-color: rgba(255, 255, 255, 0.85);
+        --hero-glow-bg: radial-gradient(circle, rgba(214, 158, 46, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(214, 158, 46, 0.25);
+        --input-bg: rgba(255, 255, 255, 0.05);
+        --input-border: rgba(255, 255, 255, 0.08);
+
+        --calc-box-bg: #0d141d;
+        --calc-result-bg: rgba(214, 158, 46, 0.06);
+        --cta-banner-bg: linear-gradient(135deg, #0d141d 0%, #111a26 100%);
+        --cta-banner-text: #ffffff;
+
+        --header-bg: rgba(6, 8, 13, 0.9);
+        --header-border: rgba(255, 255, 255, 0.08);
     }
 
-    .process-grid,
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+    /* Reset & Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-}
 
-@media (max-width: 992px) {
-    .hero-content h1 {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-body);
+        color: var(--color-text-main);
+        background-color: var(--color-bg-dark);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+        transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 4%;
+    }
+
+    /* Typography Base */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading);
+        color: var(--color-heading-text);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+    }
+
+    p {
+        color: var(--color-text-muted);
+    }
+
+    a {
+        text-decoration: none;
+        transition: var(--transition-smooth);
+    }
+
+    /* Buttons */
+    .btn-gold {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #f5d77f 0%, var(--color-primary-gold) 50%, var(--color-gold-light) 100%);
+        color: #06080d;
+        padding: 16px 36px;
+        border-radius: 8px;
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 20px var(--color-gold-glow);
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+    }
+
+    .btn-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(214, 158, 46, 0.45);
+        background: linear-gradient(135deg, #ffffff 0%, #f5d77f 50%, var(--color-primary-gold) 100%);
+    }
+
+    .btn-gold-sm {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f5d77f 0%, var(--color-primary-gold) 100%);
+        color: #06080d;
+        padding: 10px 22px;
+        border-radius: 6px;
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 12px var(--color-gold-glow);
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-gold-sm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(214, 158, 46, 0.4);
+    }
+
+    .btn-glass {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: var(--input-bg);
+        backdrop-filter: blur(10px);
+        color: var(--color-heading-text);
+        padding: 16px 36px;
+        border-radius: 8px;
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: 1px solid var(--input-border);
+        cursor: pointer;
+        transition: var(--transition-smooth);
+    }
+
+    .btn-glass:hover {
+        background: var(--color-bg-card-hover);
+        border-color: var(--color-primary-gold);
+        color: var(--color-gold-light);
+        transform: translateY(-2px);
+    }
+
+    /* Theme Toggle Button */
+    .btn-theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        color: var(--color-heading-text);
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-fast);
+    }
+
+    .btn-theme-toggle:hover {
+        border-color: var(--color-primary-gold);
+        color: var(--color-primary-gold);
+        transform: translateY(-1px);
+    }
+
+    /* Floating Theme Switcher Badge */
+    .floating-theme-toggle {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 999;
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-gold);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border-radius: 30px;
+        padding: 6px 14px;
+    }
+
+    /* Header */
+    .main-header {
+        padding: 20px 0;
+        background-color: var(--header-bg);
+        backdrop-filter: blur(12px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid var(--header-border);
+        transition: var(--transition-smooth);
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, var(--color-heading-text) 60%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 28px;
+    }
+
+    .main-nav a {
+        color: var(--color-text-muted);
+        font-family: var(--font-sans);
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+        color: var(--color-gold-light);
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .contact-info {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-text-muted);
+    }
+
+    /* Hero Banner — Executive Video Aesthetic */
+    .hero-banner {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background: transparent;
+        overflow: hidden;
+        overflow-x: hidden;
+        padding: 6.5rem 2rem 3.5rem 2rem;
+        margin-top: 0;
+        border-bottom: none;
+        box-sizing: border-box;
+    }
+
+    .hero-video-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+        pointer-events: none;
+        filter: none !important;
+        opacity: 1 !important;
+    }
+
+    .hero-glow-gold {
+        position: absolute;
+        top: -100px;
+        left: 20%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 400px;
+        z-index: 3;
+        background: radial-gradient(circle, rgba(245, 215, 127, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+        filter: blur(60px);
+        pointer-events: none;
+        animation: pulseGlow 6s ease-in-out infinite;
+    }
+
+    .hero-content-wrapper {
+        position: relative;
+        z-index: 10;
+        max-width: 1280px;
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3.5rem;
+    }
+
+    .hero-left-section {
+        max-width: 720px;
+        width: 100%;
+        text-align: left;
+        margin-left: 0;
+        margin-top: 30px;
+    }
+
+    .hero-pill-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.45rem 1.25rem;
+        background: rgba(212, 175, 55, 0.14);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        border-radius: var(--radius-pill);
+        color: var(--color-gold);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 1.75rem;
+        box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Headline matching attached image structure */
+    .hero-image-styled-title {
+        font-size: clamp(2.35rem, 5vw + 1rem, 4.25rem);
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.06;
+        letter-spacing: -0.035em;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .highlight-text,
+    .hero-image-styled-title span.highlight-text {
+        color: #FFD700;
+        background: linear-gradient(185deg, #FFF9C4 0%, #FFD700 35%, #F59E0B 75%, #B45309 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: #ffd70091;
+        display: inline-block;
+    }
+
+    .hero-image-styled-subtitle {
+        font-size: 1.2rem;
+        color: rgba(241, 245, 249, 0.9);
+        max-width: 580px;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Pill Search / Input Bar matching attached image */
+    .hero-pill-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(16px);
+        border-radius: 9999px;
+        padding: 0.45rem 0.45rem 0.45rem 1.25rem;
+        max-width: 540px;
+        width: 100%;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .hero-pill-bar:focus-within {
+        transform: translateY(-2px);
+        background: #ffffff;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 3px rgba(236, 72, 153, 0.4);
+    }
+
+    .pill-left-content {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .pill-icon {
+        font-size: 1.15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(236, 72, 153, 0.12);
+        color: #db2777;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+
+    .pill-store-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #0f172a;
+        white-space: nowrap;
+        letter-spacing: -0.01em;
+    }
+
+    .pill-divider {
+        color: #cbd5e1;
+        font-weight: 300;
+        font-size: 1.2rem;
+        user-select: none;
+    }
+
+    .pill-input {
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 0.95rem;
+        color: #0f172a;
+        width: 100%;
+        font-family: inherit;
+    }
+
+    .pill-input::placeholder {
+        color: #94a3b8;
+    }
+
+    .pill-submit-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        border: none;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        box-shadow: 0 4px 14px rgba(236, 72, 153, 0.45);
+        transition: all 0.25s ease;
+    }
+
+    .pill-submit-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 20px rgba(236, 72, 153, 0.65);
+    }
+
+    /* Metrics Ticker Wrapper */
+    .metrics-ticker-wrapper {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        width: 100%;
+        max-width: 920px;
+        margin: 0;
+        padding: 0.75rem 1.5rem;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(212, 175, 55, 0.35);
+        backdrop-filter: blur(24px);
+        border-radius: var(--radius-pill);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 12px rgba(212, 175, 55, 0.08);
+        transition: var(--transition-smooth);
+    }
+
+    .metrics-ticker-wrapper:hover {
+        border-color: rgba(212, 175, 55, 0.6);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12), inset 0 0 16px rgba(212, 175, 55, 0.15);
+    }
+
+    .metric-item {
+        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.15rem 0.5rem;
+    }
+
+    .metric-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 15%;
+        height: 70%;
+        width: 1px;
+        background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.15), transparent);
+    }
+
+    .metric-value {
+        font-size: 1.35rem;
+        font-weight: 800;
+        font-family: var(--font-heading);
+        color: #B45309;
+        background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #92400E 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.05rem;
+        line-height: 1.2;
+    }
+
+    .metric-label {
+        font-size: 0.72rem;
+        color: #334155;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    /* Dark Theme Overrides for Metrics Bar */
+    [data-theme='dark'] .metrics-ticker-wrapper {
+        background: rgba(6, 9, 16, 0.88);
+        border-color: rgba(212, 175, 55, 0.35);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 14px rgba(212, 175, 55, 0.1);
+    }
+
+    [data-theme='dark'] .metrics-ticker-wrapper:hover {
+        border-color: rgba(212, 175, 55, 0.6);
+        box-shadow: 0 14px 44px rgba(0, 0, 0, 0.7), inset 0 0 18px rgba(212, 175, 55, 0.18);
+    }
+
+    [data-theme='dark'] .metric-item:not(:last-child)::after {
+        background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    }
+
+    [data-theme='dark'] .metric-value {
+        color: #FFD700;
+        background: linear-gradient(135deg, #FFFFFF 0%, #FFF59D 35%, #FFD700 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    }
+
+    [data-theme='dark'] .metric-label {
+        color: #E2E8F0;
+    }
+
+    /* User Welcome Command Banner */
+    .member-banner {
+        width: 100%;
+        max-width: 1100px;
+        margin: 2rem auto 0;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(15, 23, 42, 0.6) 100%);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* Hero banner responsive rules */
+    @media (max-width: 992px) {
+        .hero-banner {
+            padding: 6rem 2.5rem 3rem 2.5rem;
+        }
+
+        .hero-left-section {
+            max-width: 100%;
+        }
+
+        .metrics-ticker-wrapper {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            border-radius: 1.5rem;
+            padding: 0.85rem 1.25rem;
+        }
+
+        .metric-item:nth-child(2)::after {
+            display: none;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero-banner {
+            min-height: auto;
+            padding: 5.5rem 1.25rem 2rem 1.25rem;
+        }
+
+        .hero-pill-bar {
+            padding: 0.35rem 0.35rem 0.35rem 0.85rem;
+        }
+
+        .pill-store-name {
+            font-size: 0.85rem;
+        }
+
+        .metrics-ticker-wrapper {
+            grid-template-columns: 1fr;
+        }
+
+        .metric-item::after {
+            display: none !important;
+        }
+    }
+
+    /* Section Header Shared */
+    .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .section-header .subtitle {
+        color: var(--color-primary-gold);
+        font-family: var(--font-sans);
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+
+    .section-header h2 {
         font-size: 3.2rem;
+        margin-bottom: 16px;
+        color: var(--color-heading-text);
     }
 
-    .calc-grid,
-    .spotlight-box {
-        grid-template-columns: 1fr;
-        flex-direction: column;
+    .section-header .header-description {
+        max-width: 750px;
+        margin: 16px auto 0 auto;
+        font-size: 1.1rem;
+        color: var(--color-text-muted);
     }
 
-    .spotlight-image {
-        height: 280px;
+    .divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--color-primary-gold), transparent);
+        margin: 0 auto;
     }
 
-    .main-nav {
-        display: none;
+    /* Services Section */
+    .services-section {
+        padding: 80px 0;
+        background-color: var(--color-bg-dark);
     }
 
-    .footer-icons-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-
-    .services-grid,
-    .process-grid,
-    .stats-grid,
-    .footer-icons-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-content h1 {
-        font-size: 2.4rem;
-    }
-
-    .form-row {
-        flex-direction: column;
-    }
-
+    /* Filter & Search Box Bar */
     .filter-search-bar {
-        flex-direction: column;
-        align-items: stretch;
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 16px;
+        padding: 16px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 44px;
+        flex-wrap: wrap;
+        gap: 16px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .filter-pills {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .filter-pill {
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        color: var(--color-text-muted);
+        padding: 8px 18px;
+        border-radius: 25px;
+        font-family: var(--font-sans);
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-fast);
+    }
+
+    .filter-pill:hover,
+    .filter-pill.active {
+        background: rgba(214, 158, 46, 0.15);
+        color: var(--color-gold-light);
+        border-color: var(--color-border-gold);
     }
 
     .search-input-box {
-        min-width: 100%;
+        position: relative;
+        min-width: 280px;
     }
-}
+
+    .search-input-box .search-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--color-text-dim);
+        font-size: 0.9rem;
+    }
+
+    .search-input-box input {
+        width: 100%;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        color: var(--color-heading-text);
+        padding: 9px 16px 9px 38px;
+        border-radius: 25px;
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        outline: none;
+        transition: var(--transition-fast);
+    }
+
+    .search-input-box input:focus {
+        border-color: var(--color-primary-gold);
+    }
+
+    /* Services Grid (Box Form) */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px;
+    }
+
+    .service-card {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition-smooth);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--color-primary-gold), transparent);
+        opacity: 0;
+        transition: var(--transition-smooth);
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--color-border-gold);
+        box-shadow: var(--card-hover-shadow);
+    }
+
+    .service-card:hover::before {
+        opacity: 1;
+    }
+
+    .card-image {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .service-card:hover .card-image img {
+        transform: scale(1.08);
+    }
+
+    .overlay-gradient {
+        display: none;
+    }
+
+    .card-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: var(--color-heading-text);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--color-heading-text);
+        color: var(--color-bg-card);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        letter-spacing: 1px;
+    }
+
+    .card-content {
+        padding: 24px 22px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .card-content h3 {
+        font-family: var(--font-sans);
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 12px;
+        line-height: 1.25;
+        color: var(--color-heading-text);
+    }
+
+    .card-content p {
+        font-size: 0.88rem;
+        color: var(--color-text-muted);
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .features-list {
+        list-style: none;
+        margin-bottom: 0px;
+        flex-grow: 1;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin-top 0.3s ease;
+        margin-top: 0;
+    }
+
+    .service-card:hover .features-list {
+        max-height: 250px;
+        opacity: 1;
+        margin-top: 14px;
+        margin-bottom: 24px;
+    }
+
+    .features-list li {
+        font-size: 0.84rem;
+        color: var(--color-text-main);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .features-list li .check {
+        color: var(--color-gold-light);
+        font-weight: 700;
+        font-size: 0.85rem;
+    }
+
+    /* Card Comparison UI */
+    .compare-checkbox-wrapper {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 15;
+        background: rgba(6, 8, 13, 0.85);
+        border: 1px solid var(--color-border-gold);
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: var(--transition-fast);
+    }
+
+    .compare-checkbox-wrapper:hover {
+        transform: scale(1.08);
+        background: var(--color-bg-card);
+    }
+
+    .compare-checkbox-wrapper input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid var(--color-text-muted);
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+        transition: var(--transition-fast);
+        position: relative;
+    }
+
+    .compare-checkbox-wrapper input[type="checkbox"]:checked {
+        background-color: var(--color-primary-gold);
+        border-color: var(--color-primary-gold);
+    }
+
+    .compare-checkbox-wrapper input[type="checkbox"]:checked::after {
+        content: '✓';
+        color: #06080d;
+        font-size: 11px;
+        font-weight: 800;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Sticky Comparison Drawer */
+    .comparison-drawer {
+        position: fixed;
+        bottom: -120px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 650px;
+        background: rgba(13, 20, 29, 0.95);
+        border: 1px solid var(--color-border-gold);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+        padding: 18px 28px;
+        z-index: 999;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .comparison-drawer.active {
+        bottom: 0;
+    }
+
+    .drawer-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .drawer-title {
+        font-family: var(--font-heading);
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .drawer-subtitle {
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
+    }
+
+    .drawer-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    /* Comparison Matrix Modal */
+    .compare-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(15px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .compare-modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .compare-modal-container {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-gold);
+        border-radius: 24px;
+        max-width: 1080px;
+        width: 92%;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 40px;
+        position: relative;
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+    }
+
+    .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 24px;
+        text-align: left;
+    }
+
+    .compare-table th,
+    .compare-table td {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--color-border-subtle);
+        font-size: 0.9rem;
+        color: var(--color-text-main);
+        vertical-align: top;
+    }
+
+    .compare-table th {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        color: var(--color-heading-text);
+        background: rgba(214, 158, 46, 0.05);
+    }
+
+    .compare-row-header {
+        font-weight: 700;
+        color: var(--color-gold-light);
+        width: 22%;
+    }
+
+    .compare-col-service {
+        width: 26%;
+    }
+
+    .compare-table tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .card-footer-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-border-subtle);
+        margin-top: auto;
+    }
+
+    .metric-pill {
+        font-family: var(--font-sans);
+        font-size: 0.72rem;
+        color: var(--color-gold-light);
+        background: rgba(214, 158, 46, 0.1);
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+    .btn-card-action {
+        font-family: var(--font-sans);
+        font-size: 0.78rem;
+        font-weight: 800;
+        color: var(--color-heading-text);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-fast);
+    }
+
+    .btn-card-action:hover {
+        color: var(--color-primary-gold);
+    }
+
+    .btn-card-action .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-card-action:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    /* Recommendation Calculator Section */
+    .calculator-section {
+        padding: 80px 0;
+        background: var(--color-bg-alt);
+        border-top: 1px solid var(--color-border-subtle);
+        border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .calc-box {
+        background: var(--calc-box-bg);
+        border: 1px solid var(--color-border-gold);
+        border-radius: 20px;
+        padding: 44px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .calc-header {
+        text-align: center;
+        margin-bottom: 36px;
+    }
+
+    .calc-badge {
+        color: var(--color-primary-gold);
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .calc-header h2 {
+        font-size: 2.6rem;
+        margin-bottom: 10px;
+        color: var(--color-heading-text);
+    }
+
+    .calc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+        align-items: center;
+    }
+
+    .calc-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-heading-text);
+        margin-bottom: 8px;
+    }
+
+    .input-group select {
+        width: 100%;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        color: var(--color-heading-text);
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .input-group select option {
+        background: var(--color-bg-card);
+        color: var(--color-heading-text);
+    }
+
+    .calc-result {
+        background: var(--calc-result-bg);
+        border: 1px solid var(--color-border-gold);
+        border-radius: 14px;
+        padding: 30px;
+    }
+
+    .result-badge {
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--color-gold-light);
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .calc-result h4 {
+        font-size: 1.6rem;
+        color: var(--color-heading-text);
+        margin-bottom: 12px;
+    }
+
+    .calc-result p {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+        margin-bottom: 16px;
+    }
+
+    .rec-features {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 0.85rem;
+        color: var(--color-gold-light);
+        font-weight: 500;
+    }
+
+    /* 4-Step Advisory Process Box Grid */
+    .process-section {
+        padding: 90px 0;
+        background: var(--color-bg-dark);
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+
+    .process-box {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 16px;
+        padding: 32px 24px;
+        position: relative;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition-smooth);
+    }
+
+    .process-box:hover {
+        border-color: var(--color-border-gold);
+        transform: translateY(-6px);
+        box-shadow: var(--card-hover-shadow);
+    }
+
+    .process-step-num {
+        font-family: var(--font-heading);
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--color-primary-gold);
+        opacity: 0.4;
+        line-height: 1;
+        margin-bottom: 12px;
+    }
+
+    .process-title {
+        font-size: 1.4rem;
+        color: var(--color-heading-text);
+        margin-bottom: 12px;
+    }
+
+    .process-desc {
+        font-size: 0.88rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
+    }
+
+    /* Client Success Spotlight Box */
+    .spotlight-section {
+        padding: 90px 0;
+        background: var(--color-bg-alt);
+    }
+
+    .spotlight-box {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 24px;
+        overflow: hidden;
+        display: flex;
+        box-shadow: var(--card-shadow);
+    }
+
+    .spotlight-image {
+        flex: 0 0 42%;
+        position: relative;
+    }
+
+    .spotlight-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .spotlight-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent 50%, var(--color-bg-card) 100%);
+    }
+
+    .spotlight-content {
+        flex: 1;
+        padding: 50px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .spotlight-tag {
+        color: var(--color-primary-gold);
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+    }
+
+    .spotlight-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--color-heading-text);
+    }
+
+    .spotlight-quote {
+        font-style: italic;
+        font-size: 1.05rem;
+        color: var(--color-text-main);
+        margin-bottom: 30px;
+        line-height: 1.7;
+    }
+
+    .spotlight-metrics {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .spot-metric {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .spot-metric .m-val {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-gold-light);
+    }
+
+    .spot-metric .m-lbl {
+        font-size: 0.78rem;
+        color: var(--color-text-muted);
+    }
+
+    /* Executive Consultation Banner */
+    .cta-banner-section {
+        padding: 90px 0;
+        background: var(--color-bg-dark);
+    }
+
+    .cta-banner-box {
+        background: var(--cta-banner-bg);
+        border: 1px solid var(--color-border-gold);
+        border-radius: 24px;
+        padding: 60px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-badge {
+        color: #f5d77f;
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        display: inline-block;
+        margin-bottom: 12px;
+    }
+
+    .cta-banner-box h2 {
+        font-size: 3rem;
+        margin-bottom: 16px;
+        color: #ffffff;
+    }
+
+    .cta-banner-box p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto 36px auto;
+        color: #cbd5e1;
+    }
+
+    .consultation-form {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 16px;
+    }
+
+    .form-row input,
+    .form-row select {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        padding: 14px 18px;
+        border-radius: 8px;
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        outline: none;
+    }
+
+    .form-row input::placeholder {
+        color: #94a3b8;
+    }
+
+    .form-row select option {
+        background: #0d141d;
+        color: #ffffff;
+    }
+
+    /* Footer Section */
+    .main-footer {
+        background-color: #040609;
+        color: var(--color-text-main);
+        padding: 80px 0 40px;
+        border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .footer-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .footer-header h2 {
+        color: #ffffff;
+        font-size: 2.8rem;
+    }
+
+    .footer-icons-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .footer-icon-item .icon-circle {
+        width: 70px;
+        height: 70px;
+        background: rgba(214, 158, 46, 0.1);
+        border: 1px solid var(--color-border-gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin: 0 auto 16px;
+        color: #f5d77f;
+    }
+
+    .footer-icon-item p {
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #ffffff;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 30px;
+        text-align: center;
+        color: #94a3b8;
+        font-size: 0.82rem;
+    }
+
+    .footer-bottom p {
+        margin-bottom: 12px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(10px);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-container {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-gold);
+        border-radius: 20px;
+        max-width: 680px;
+        width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 36px;
+        position: relative;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        color: var(--color-text-main);
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: transparent;
+        border: none;
+        color: var(--color-text-muted);
+        font-size: 1.8rem;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .modal-close:hover {
+        color: var(--color-gold-light);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+        .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .process-grid,
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .hero-content h1 {
+            font-size: 3.2rem;
+        }
+
+        .calc-grid,
+        .spotlight-box {
+            grid-template-columns: 1fr;
+            flex-direction: column;
+        }
+
+        .spotlight-image {
+            height: 280px;
+        }
+
+        .main-nav {
+            display: none;
+        }
+
+        .footer-icons-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+
+        .services-grid,
+        .process-grid,
+        .stats-grid,
+        .footer-icons-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-content h1 {
+            font-size: 2.4rem;
+        }
+
+        .form-row {
+            flex-direction: column;
+        }
+
+        .filter-search-bar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-input-box {
+            min-width: 100%;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 
-    
 
 
-    <!-- Hero Video Section -->
-    <section class="hero-video-section">
 
-        <div class="hero-overlay"></div>
-        <div class="hero-glow-gold"></div>
+<!-- 1. EXECUTIVE HERO BANNER WITH BACKGROUND IMAGE -->
+<section class="hero-banner">
+    <img class="hero-video-bg" src="{% static 'service_hero.png' %}"
+        alt="Architecting Generational Prosperity & Capital Resilience">
 
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="badge-icon">✨</span> BESPOKE WEALTH & INSTITUTIONAL ADVISORY
+    <div class="hero-content-wrapper">
+        <!-- Left Aligned Hero Structure -->
+        <div class="hero-left-section">
+            <div class="hero-pill-badge">
+                <span>✨ BESPOKE WEALTH & INSTITUTIONAL ADVISORY</span>
+            </div>
+
+            <h1 class="hero-image-styled-title">
+                Architecting<br>
+                generational prosperity<br>
+                <span class="highlight-text">& capital resilience</span>
+            </h1>
+
+            <p class="hero-image-styled-subtitle">
+                Elevate your financial trajectory with bespoke advisory services engineered for ultra-high-net-worth
+                individuals, family offices, and corporations. We construct resilient, forward-looking strategies that
+                preserve and multiply your legacy.
+            </p>
+
+            <form class="hero-pill-bar" action="#consultation" method="get">
+                <div class="pill-left-content">
+                    <span class="pill-icon">💼</span>
+                    <span class="pill-store-name">GuardianTree FP</span>
+                    <span class="pill-divider">|</span>
+                    <input type="text" name="message" class="pill-input"
+                        placeholder="Enter your financial goal or query" required>
                 </div>
-                <h1>Architecting Generational Prosperity & Capital Resilience</h1>
-                <p>Elevate your financial trajectory with bespoke advisory services engineered for ultra-high-net-worth individuals, family offices, and corporations. We construct resilient, forward-looking strategies that preserve and multiply your legacy.</p>
-                
-                <div class="hero-actions">
-                    <a href="#services-explore" class="btn-gold">
-                        <span>EXPLORE SERVICES</span>
-                        <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-                    </a>
-                    <a href="#consultation" class="btn-glass">
-                        <span>SCHEDULE PRIVATE CONSULTATION</span>
-                        <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>
-                </div>
+                <button type="submit" class="pill-submit-btn" aria-label="Submit query">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <!-- Live Financial Market Metrics Ticker -->
+        <div class="metrics-ticker-wrapper">
+            <div class="metric-item">
+                <div class="metric-value">$4.8B+</div>
+                <div class="metric-label">Assets Under Advisory</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">99.4%</div>
+                <div class="metric-label">Client Retention Rate</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">25+ Yrs</div>
+                <div class="metric-label">Fiduciary Excellence</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">100%</div>
+                <div class="metric-label">Independent Counsel</div>
             </div>
         </div>
-    </section>
 
-    <!-- Hero Stats Bar (Solid Box Bar) -->
-    <section class="stats-bar-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-icon">🏛️</div>
-                    <div class="stat-number" data-target="4.8">$4.8B+</div>
-                    <div class="stat-label">Assets Under Advisory</div>
-                    <div class="stat-sub">Institutional & Private Wealth</div>
+        <!-- Authenticated Member Command Bar -->
+        {% if user.is_authenticated %}
+        <div class="member-banner">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div
+                    style="width: 46px; height: 46px; border-radius: 50%; background: var(--color-gold); color: #0A0D14; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;">
+                    {{ user.get_initials }}
                 </div>
-                <div class="stat-box">
-                    <div class="stat-icon">💎</div>
-                    <div class="stat-number" data-target="99.4">99.4%</div>
-                    <div class="stat-label">Client Retention Rate</div>
-                    <div class="stat-sub">Multi-Generational Loyalty</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-icon">⚖️</div>
-                    <div class="stat-number" data-target="25">25+ Yrs</div>
-                    <div class="stat-label">Fiduciary Excellence</div>
-                    <div class="stat-sub">Proven Market Performance</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-icon">🛡️</div>
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Independent Counsel</div>
-                    <div class="stat-sub">Zero Conflict of Interest</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Services Section -->
-    <section class="services-section" id="services-explore">
-        <div class="container">
-            <header class="section-header">
-                <p class="subtitle">COMPREHENSIVE ADVISORY MATRIX</p>
-                <h2>Bespoke Financial Services</h2>
-                <div class="divider"></div>
-                <p class="header-description">Explore our specialized financial divisions engineered to protect capital, optimize tax obligations, and generate sustainable multi-generational growth.</p>
-            </header>
-
-            <!-- Category Filter & Search Bar Box -->
-            <div class="filter-search-bar">
-                <div class="filter-pills" id="filter-pills">
-                    <button class="filter-pill active" data-category="all">All Services</button>
-                    <button class="filter-pill" data-category="wealth">Private Wealth</button>
-                    <button class="filter-pill" data-category="portfolio">Portfolio Management</button>
-                    <button class="filter-pill" data-category="retirement">Retirement & Pension</button>
-                    <button class="filter-pill" data-category="legacy">Legacy & Corporate</button>
-                    <button class="filter-pill" data-category="tax">Tax & Estate</button>
-                    <button class="filter-pill" data-category="impact">Impact & Community</button>
-                </div>
-                <div class="search-input-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="service-search" placeholder="Search service e.g. Tax, Estate, Portfolio..." />
+                <div>
+                    <div style="font-weight: 700; font-size: 1.05rem; color: var(--color-primary);">
+                        Welcome Back, {{ user.get_display_name }}
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--color-subtext);">
+                        Client Account #{{ user.id|stringformat:"05d" }} &bull; Provider: {{ user.auth_provider|title }}
+                    </div>
                 </div>
             </div>
 
-            <!-- Services Grid (Box Form) -->
-            <div class="services-grid" id="services-grid">
-                
-                <!-- Box 1 -->
-                <article class="service-card" data-category="wealth tax">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/card_1.jpg' %}" alt="Bespoke Financial Architecture">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">WEALTH ARCHITECTURE</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Bespoke Financial Architecture</h3>
-                        <p>A meticulous, structural approach to wealth creation and asset positioning. We construct institutional-grade blueprints aligning liquid reserves, fixed assets, and growth capital.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Integrated Cash Flow Management</li>
-                            <li><span class="check">✓</span> Advanced Tax Exposure Optimization</li>
-                            <li><span class="check">✓</span> Strategic Liability Structuring</li>
-                            <li><span class="check">✓</span> Global Asset Protection Frameworks</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Target: $1M+ Portfolios</span>
-                            <button class="btn-card-action" onclick="openModal('architecture')">
-                                DISCOVER PATH <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Box 2 -->
-                <article class="service-card" data-category="portfolio wealth">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/card_2.jpg' %}" alt="Active Wealth Cultivation">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">PORTFOLIO GROWTH</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Active Wealth Cultivation</h3>
-                        <p>Dynamic, disciplined portfolio management for active capital growth and inflation protection. We deploy proprietary quantitative insights tailored to your risk parameters.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Discretionary Portfolio Management</li>
-                            <li><span class="check">✓</span> Alternative Investments & Private Equity</li>
-                            <li><span class="check">✓</span> Real-Time Global Market Intelligence</li>
-                            <li><span class="check">✓</span> Institutional Risk Audit & Reporting</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Discretionary Mandates</span>
-                            <button class="btn-card-action" onclick="openModal('portfolio')">
-                                BUILD LEGACY <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Box 3 -->
-                <article class="service-card" data-category="retirement wealth">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/card_3.jpg' %}" alt="Optimized Retirement Trajectories">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">RETIREMENT & LONGEVITY</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Optimized Retirement Trajectories</h3>
-                        <p>Secure a seamless transition into your next executive chapter. We engineer sustainable, tax-free distribution structures that guarantee income stability for decades.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Strategic Income Cash-Flow Stream</li>
-                            <li><span class="check">✓</span> Longevity Risk Shielding</li>
-                            <li><span class="check">✓</span> Executive Pension Restructuring</li>
-                            <li><span class="check">✓</span> Tax-Efficient Capital Distributions</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Lifetime Income Guarantee</span>
-                            <button class="btn-card-action" onclick="openModal('retirement')">
-                                SECURE FUTURE <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Box 4 -->
-                <article class="service-card" data-category="legacy wealth">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/service_4.jpg' %}" alt="Strategic Corporate & Legacy Counsel">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">CORPORATE & SUCCESSION</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Strategic Corporate & Legacy Counsel</h3>
-                        <p>Specialized advisory for business founders, executives, and multi-generational families. We preserve corporate achievements while transferring wealth seamlessly to heirs.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Business Succession & M&A Governance</li>
-                            <li><span class="check">✓</span> Executive Equity & Retention Models</li>
-                            <li><span class="check">✓</span> Philanthropic & Foundation Structuring</li>
-                            <li><span class="check">✓</span> Family Office Charter Creation</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Family Office Governance</span>
-                            <button class="btn-card-action" onclick="openModal('legacy')">
-                                PLAN GENERATIONS <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Box 5 -->
-                <article class="service-card" data-category="tax wealth">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/service_1.jpg' %}" alt="Tax Mitigation & Cross-Border Advisory">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">TAX & ESTATE SHIELDING</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Tax Mitigation & Estate Shielding</h3>
-                        <p>Sophisticated cross-border tax advisory designed to minimize capital gains, estate taxes, and inheritance friction through offshore and domestic trust instruments.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Multi-Jurisdictional Tax Minimization</li>
-                            <li><span class="check">✓</span> Irrevocable & Dynasty Trust Design</li>
-                            <li><span class="check">✓</span> Estate Audit & Liability Containment</li>
-                            <li><span class="check">✓</span> Sovereign Wealth Protection</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Up to 40% Tax Reduction</span>
-                            <button class="btn-card-action" onclick="openModal('tax')">
-                                DISCOVER SHIELD <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Box 6 -->
-                <article class="service-card" data-category="portfolio legacy">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/service_3.jpg' %}" alt="Private Equity & Alternative Assets">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">ALTERNATIVE VENTURES</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Private Equity & Alternative Assets</h3>
-                        <p>Exclusive access to institutional private market deals, venture funding, commercial real estate portfolios, and private debt instruments unavailable to public markets.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Direct Co-Investment Opportunities</li>
-                            <li><span class="check">✓</span> Premium Commercial Real Estate Syndicate</li>
-                            <li><span class="check">✓</span> High-Yield Private Credit Funds</li>
-                            <li><span class="check">✓</span> Venture Capital Allocation</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Exclusive Institutional Deals</span>
-                            <button class="btn-card-action" onclick="openModal('alternatives')">
-                                EXPLORE VENTURES <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Box 7 -->
-                <article class="service-card" data-category="advisory">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/anti_poverty.jpg' %}" alt="Corporate Finance Advisory">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">FINANCE ADVISORY</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Strategic Corporate Advisory</h3>
-                        <p>Specialized strategic advisory services for corporate restructuring, mergers and acquisitions, capital raising, and complex financial optimization.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Mergers & Acquisitions Consulting</li>
-                            <li><span class="check">✓</span> Corporate Restructuring Strategy</li>
-                            <li><span class="check">✓</span> Complex Capital Raising</li>
-                            <li><span class="check">✓</span> Enterprise Valuation Modeling</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Bespoke Advisory</span>
-                            <button class="btn-card-action" onclick="openModal('advisory')">
-                                LEARN MORE <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Box 8 -->
-                <article class="service-card" data-category="impact legacy">
-                    <div class="card-image">
-                        <img src="{% static 'login/images/family_programs.jpg' %}" alt="Family & Youth Engagement">
-                        <div class="overlay-gradient"></div>
-                        <span class="card-badge">COMMUNITY & YOUTH</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Family & Next-Gen Financial Literacy</h3>
-                        <p>Comprehensive educational programs designed to prepare heirs and community youth for financial stewardship, leadership roles, and economic independence.</p>
-                        <ul class="features-list">
-                            <li><span class="check">✓</span> Heir Stewardship Seminars</li>
-                            <li><span class="check">✓</span> Youth Oasis Financial Resource Center</li>
-                            <li><span class="check">✓</span> Entrepreneurial Leadership Bootcamps</li>
-                            <li><span class="check">✓</span> Community Wealth Workshops</li>
-                        </ul>
-                        <div class="card-footer-info">
-                            <span class="metric-pill">Youth Mentorship</span>
-                            <button class="btn-card-action" onclick="openModal('family')">
-                                LEARN MORE <span class="arrow">→</span>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Advisory Recommendation Box -->
-    <section class="calculator-section">
-        <div class="container">
-            <div class="calc-box">
-                <div class="calc-header">
-                    <span class="calc-badge">⚡ INTERACTIVE ADVISORY FINDER</span>
-                    <h2>Find Your Tailored Advisory Blueprint</h2>
-                    <p>Select your profile parameters to immediately identify the optimal wealth management framework for your goals.</p>
-                </div>
-                <div class="calc-grid">
-                    <div class="calc-inputs">
-                        <div class="input-group">
-                            <label for="calc-profile">Client Entity Type:</label>
-                            <select id="calc-profile" onchange="calculateRecommendation()">
-                                <option value="hnw">High-Net-Worth Individual ($1M - $10M)</option>
-                                <option value="vhnw">Ultra High-Net-Worth ($10M - $50M)</option>
-                                <option value="fo">Family Office / Multi-Gen ($50M+)</option>
-                                <option value="corp">Corporate Founder / Executive</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="calc-objective">Primary Strategic Goal:</label>
-                            <select id="calc-objective" onchange="calculateRecommendation()">
-                                <option value="growth">Aggressive Capital Growth & Alternative Access</option>
-                                <option value="preservation">Capital Preservation & Risk Shielding</option>
-                                <option value="tax">Tax Minimization & Estate Structuring</option>
-                                <option value="succession">Corporate Succession & Heir Education</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="calc-result" id="calc-result-box">
-                        <div class="result-badge">RECOMMENDED FRAMEWORK</div>
-                        <h4 id="rec-title">Bespoke Wealth Architecture & Tax Shield</h4>
-                        <p id="rec-desc">Optimal for High-Net-Worth profiles seeking integrated tax optimization, discretionary portfolio management, and sovereign risk defense.</p>
-                        <div class="rec-features" id="rec-features">
-                            <span>• 1-on-1 Senior Managing Director</span>
-                            <span>• Quarterly Portfolio Audit</span>
-                            <span>• Offshore Trust Options</span>
-                        </div>
-                        <a href="#consultation" class="btn-gold-sm" style="margin-top: 15px; width: 100%; text-align: center;">APPLY FOR ADVISORY MANDATE</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4-Step Bespoke Advisory Process Box Grid -->
-    <section class="process-section">
-        <div class="container">
-            <header class="section-header">
-                <p class="subtitle">METHODOLOGY OF EXCELLENCE</p>
-                <h2>Our 4-Step Advisory Process</h2>
-                <div class="divider"></div>
-            </header>
-
-            <div class="process-grid">
-                <div class="process-box">
-                    <div class="process-step-num">01</div>
-                    <h3 class="process-title">Discovery & Audit</h3>
-                    <p class="process-desc">A forensic review of global asset allocations, tax exposures, liabilities, and multi-generational objectives.</p>
-                </div>
-                <div class="process-box">
-                    <div class="process-step-num">02</div>
-                    <h3 class="process-title">Strategic Architecture</h3>
-                    <p class="process-desc">Engineering bespoke wealth blueprints, asset distribution frameworks, and quantitative risk buffers.</p>
-                </div>
-                <div class="process-box">
-                    <div class="process-step-num">03</div>
-                    <h3 class="process-title">Precision Execution</h3>
-                    <p class="process-desc">Disciplined capital deployment across global liquid markets, private equity funds, and tax-shielded trusts.</p>
-                </div>
-                <div class="process-box">
-                    <div class="process-step-num">04</div>
-                    <h3 class="process-title">Dynamic Governance</h3>
-                    <p class="process-desc">Continuous real-time portfolio rebalancing, risk monitoring, and institutional-grade quarterly reporting.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Client Success Spotlight Box -->
-    <section class="spotlight-section">
-        <div class="container">
-            <div class="spotlight-box">
-                <div class="spotlight-image">
-                    <img src="{% static 'login/images/service_2.jpg' %}" alt="Senior Wealth Managing Director">
-                    <div class="spotlight-overlay"></div>
-                </div>
-                <div class="spotlight-content">
-                    <div class="spotlight-tag">CASE STUDY SPOTLIGHT</div>
-                    <h2>Legacy Wealth Preservation & Tax Restructuring</h2>
-                    <p class="spotlight-quote">"We recently assisted an international family office in restructuring their $45M global asset portfolio, resulting in an immediate 38% reduction in annual tax exposure and establishing an enduring philanthropic trust."</p>
-
-                    <div class="spotlight-metrics">
-                        <div class="spot-metric">
-                            <span class="m-val">38%</span>
-                            <span class="m-lbl">Tax Reduction</span>
-                        </div>
-                        <div class="spot-metric">
-                            <span class="m-val">$12M</span>
-                            <span class="m-lbl">Trust Fund Protected</span>
-                        </div>
-                        <div class="spot-metric">
-                            <span class="m-val">100%</span>
-                            <span class="m-lbl">Succession Alignment</span>
-                        </div>
-                    </div>
-
-                    <a href="#consultation" class="btn-gold-sm" style="display: inline-block;">REQUEST CASE STUDY AUDIT →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Executive Consultation Banner -->
-    <section class="cta-banner-section" id="consultation">
-        <div class="container">
-            <div class="cta-banner-box">
-                <div class="cta-glow"></div>
-                <span class="cta-badge">CONFIDENTIAL ADVISORY MANDATE</span>
-                <h2>Architect Your Generational Legacy</h2>
-                <p>Connect directly with our Senior Managing Partners for a private, zero-commitment advisory evaluation.</p>
-
-                <form class="consultation-form" onsubmit="event.preventDefault(); alert('Thank you for requesting a private advisory consultation. A Senior Managing Partner will reach out to you within 24 hours.');">
-                    <div class="form-row">
-                        <input type="text" placeholder="Full Name" required />
-                        <input type="email" placeholder="Corporate or Private Email" required />
-                    </div>
-                    <div class="form-row">
-                        <select required>
-                            <option value="" disabled selected>Select Primary Service Mandate</option>
-                            <option value="wealth">Bespoke Financial Architecture ($1M+)</option>
-                            <option value="portfolio">Active Portfolio Management</option>
-                            <option value="retirement">Retirement & Pension Trajectories</option>
-                            <option value="corporate">Corporate Succession & Legacy</option>
-                            <option value="tax">Tax Mitigation & Estate Shielding</option>
-                        </select>
-                        <button type="submit" class="btn-gold">SUBMIT MANDATE REQUEST</button>
-                    </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <button class="btn btn-secondary" onclick="document.getElementById('bio-modal').style.display='flex'"
+                    style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                    Edit Profile Bio
+                </button>
+                <form method="post" action="{% url 'login:logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-gold"
+                        style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                        Sign Out
+                    </button>
                 </form>
             </div>
         </div>
-    </section>
+        {% endif %}
 
-    
+    </div>
+</section>
 
-    <!-- Interactive Service Detail Modal -->
-    <div class="modal-overlay" id="service-modal">
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeModal()">×</button>
-            <div id="modal-body-content">
-                <!-- Injected via JavaScript -->
+<!-- Main Services Section -->
+<section class="services-section" id="services-explore">
+    <div class="container">
+        <header class="section-header">
+            <p class="subtitle">COMPREHENSIVE ADVISORY MATRIX</p>
+            <h2>Bespoke <span class="highlight-text">Financial Services</span></h2>
+            <div class="divider"></div>
+            <p class="header-description">Explore our specialized financial divisions engineered to protect capital,
+                optimize tax obligations, and generate sustainable multi-generational growth.</p>
+        </header>
+
+        <!-- Category Filter & Search Bar Box -->
+        <div class="filter-search-bar">
+            <div class="filter-pills" id="filter-pills">
+                <button class="filter-pill active" data-category="all">All Services</button>
+                <button class="filter-pill" data-category="wealth">Private Wealth</button>
+                <button class="filter-pill" data-category="portfolio">Portfolio Management</button>
+                <button class="filter-pill" data-category="retirement">Retirement & Pension</button>
+                <button class="filter-pill" data-category="legacy">Legacy & Corporate</button>
+                <button class="filter-pill" data-category="tax">Tax & Estate</button>
+                <button class="filter-pill" data-category="impact">Impact & Community</button>
+            </div>
+            <div class="search-input-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="service-search" placeholder="Search service e.g. Tax, Estate, Portfolio..." />
+            </div>
+        </div>
+
+        <!-- Services Grid (Box Form) -->
+        <div class="services-grid" id="services-grid">
+
+            <!-- Box 1 -->
+            <article class="service-card" data-category="wealth tax">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="architecture"
+                        data-service-name="Bespoke Financial Architecture" onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/card_1.jpg' %}" alt="Bespoke Financial Architecture">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">WEALTH ARCHITECTURE</span>
+                </div>
+                <div class="card-content">
+                    <h3>Bespoke Financial Architecture</h3>
+                    <p>A meticulous, structural approach to wealth creation and asset positioning. We construct
+                        institutional-grade blueprints aligning liquid reserves, fixed assets, and growth capital.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Integrated Cash Flow Management</li>
+                        <li><span class="check">✓</span> Advanced Tax Exposure Optimization</li>
+                        <li><span class="check">✓</span> Strategic Liability Structuring</li>
+                        <li><span class="check">✓</span> Global Asset Protection Frameworks</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Target: $1M+ Portfolios</span>
+                        <button class="btn-card-action" onclick="openModal('architecture')">
+                            DISCOVER PATH <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Box 2 -->
+            <article class="service-card" data-category="portfolio wealth">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="portfolio"
+                        data-service-name="Active Wealth Cultivation" onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/card_2.jpg' %}" alt="Active Wealth Cultivation">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">PORTFOLIO GROWTH</span>
+                </div>
+                <div class="card-content">
+                    <h3>Active Wealth Cultivation</h3>
+                    <p>Dynamic, disciplined portfolio management for active capital growth and inflation protection. We
+                        deploy proprietary quantitative insights tailored to your risk parameters.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Discretionary Portfolio Management</li>
+                        <li><span class="check">✓</span> Alternative Investments & Private Equity</li>
+                        <li><span class="check">✓</span> Real-Time Global Market Intelligence</li>
+                        <li><span class="check">✓</span> Institutional Risk Audit & Reporting</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Discretionary Mandates</span>
+                        <button class="btn-card-action" onclick="openModal('portfolio')">
+                            BUILD LEGACY <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Box 3 -->
+            <article class="service-card" data-category="retirement wealth">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="retirement"
+                        data-service-name="Optimized Retirement Trajectories"
+                        onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/card_3.jpg' %}" alt="Optimized Retirement Trajectories">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">RETIREMENT & LONGEVITY</span>
+                </div>
+                <div class="card-content">
+                    <h3>Optimized Retirement Trajectories</h3>
+                    <p>Secure a seamless transition into your next executive chapter. We engineer sustainable, tax-free
+                        distribution structures that guarantee income stability for decades.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Strategic Income Cash-Flow Stream</li>
+                        <li><span class="check">✓</span> Longevity Risk Shielding</li>
+                        <li><span class="check">✓</span> Executive Pension Restructuring</li>
+                        <li><span class="check">✓</span> Tax-Efficient Capital Distributions</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Lifetime Income Guarantee</span>
+                        <button class="btn-card-action" onclick="openModal('retirement')">
+                            SECURE FUTURE <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Box 4 -->
+            <article class="service-card" data-category="legacy wealth">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="legacy"
+                        data-service-name="Strategic Corporate & Legacy Counsel"
+                        onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/service_4.jpg' %}" alt="Strategic Corporate & Legacy Counsel">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">CORPORATE & SUCCESSION</span>
+                </div>
+                <div class="card-content">
+                    <h3>Strategic Corporate & Legacy Counsel</h3>
+                    <p>Specialized advisory for business founders, executives, and multi-generational families. We
+                        preserve corporate achievements while transferring wealth seamlessly to heirs.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Business Succession & M&A Governance</li>
+                        <li><span class="check">✓</span> Executive Equity & Retention Models</li>
+                        <li><span class="check">✓</span> Philanthropic & Foundation Structuring</li>
+                        <li><span class="check">✓</span> Family Office Charter Creation</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Family Office Governance</span>
+                        <button class="btn-card-action" onclick="openModal('legacy')">
+                            PLAN GENERATIONS <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Box 5 -->
+            <article class="service-card" data-category="tax wealth">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="tax"
+                        data-service-name="Tax Mitigation & Estate Shielding"
+                        onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/service_1.jpg' %}" alt="Tax Mitigation & Cross-Border Advisory">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">TAX & ESTATE SHIELDING</span>
+                </div>
+                <div class="card-content">
+                    <h3>Tax Mitigation & Estate Shielding</h3>
+                    <p>Sophisticated cross-border tax advisory designed to minimize capital gains, estate taxes, and
+                        inheritance friction through offshore and domestic trust instruments.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Multi-Jurisdictional Tax Minimization</li>
+                        <li><span class="check">✓</span> Irrevocable & Dynasty Trust Design</li>
+                        <li><span class="check">✓</span> Estate Audit & Liability Containment</li>
+                        <li><span class="check">✓</span> Sovereign Wealth Protection</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Up to 40% Tax Reduction</span>
+                        <button class="btn-card-action" onclick="openModal('tax')">
+                            DISCOVER SHIELD <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Box 6 -->
+            <article class="service-card" data-category="portfolio legacy">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="alternatives"
+                        data-service-name="Private Equity & Alternative Assets"
+                        onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/service_3.jpg' %}" alt="Private Equity & Alternative Assets">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">ALTERNATIVE VENTURES</span>
+                </div>
+                <div class="card-content">
+                    <h3>Private Equity & Alternative Assets</h3>
+                    <p>Exclusive access to institutional private market deals, venture funding, commercial real estate
+                        portfolios, and private debt instruments unavailable to public markets.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Direct Co-Investment Opportunities</li>
+                        <li><span class="check">✓</span> Premium Commercial Real Estate Syndicate</li>
+                        <li><span class="check">✓</span> High-Yield Private Credit Funds</li>
+                        <li><span class="check">✓</span> Venture Capital Allocation</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Exclusive Institutional Deals</span>
+                        <button class="btn-card-action" onclick="openModal('alternatives')">
+                            EXPLORE VENTURES <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Box 7 -->
+            <article class="service-card" data-category="advisory">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="advisory"
+                        data-service-name="Strategic Corporate Advisory" onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/anti_poverty.jpg' %}" alt="Corporate Finance Advisory">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">FINANCE ADVISORY</span>
+                </div>
+                <div class="card-content">
+                    <h3>Strategic Corporate Advisory</h3>
+                    <p>Specialized strategic advisory services for corporate restructuring, mergers and acquisitions,
+                        capital raising, and complex financial optimization.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Mergers & Acquisitions Consulting</li>
+                        <li><span class="check">✓</span> Corporate Restructuring Strategy</li>
+                        <li><span class="check">✓</span> Complex Capital Raising</li>
+                        <li><span class="check">✓</span> Enterprise Valuation Modeling</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Bespoke Advisory</span>
+                        <button class="btn-card-action" onclick="openModal('advisory')">
+                            LEARN MORE <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Box 8 -->
+            <article class="service-card" data-category="impact legacy">
+                <div class="compare-checkbox-wrapper" title="Select to compare">
+                    <input type="checkbox" class="compare-select" data-service-id="family"
+                        data-service-name="Family & Next-Gen Financial Literacy"
+                        onclick="handleCompareSelect(this, event)">
+                </div>
+                <div class="card-image">
+                    <img src="{% static 'login/images/family_programs.jpg' %}" alt="Family & Youth Engagement">
+                    <div class="overlay-gradient"></div>
+                    <span class="card-badge">COMMUNITY & YOUTH</span>
+                </div>
+                <div class="card-content">
+                    <h3>Family & Next-Gen Financial Literacy</h3>
+                    <p>Comprehensive educational programs designed to prepare heirs and community youth for financial
+                        stewardship, leadership roles, and economic independence.</p>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Heir Stewardship Seminars</li>
+                        <li><span class="check">✓</span> Youth Oasis Financial Resource Center</li>
+                        <li><span class="check">✓</span> Entrepreneurial Leadership Bootcamps</li>
+                        <li><span class="check">✓</span> Community Wealth Workshops</li>
+                    </ul>
+                    <div class="card-footer-info">
+                        <span class="metric-pill">Youth Mentorship</span>
+                        <button class="btn-card-action" onclick="openModal('family')">
+                            LEARN MORE <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Advisory Recommendation Box -->
+<section class="calculator-section">
+    <div class="container">
+        <div class="calc-box">
+            <div class="calc-header">
+                <span class="calc-badge">⚡ INTERACTIVE ADVISORY FINDER</span>
+                <h2>Find Your Tailored Advisory Blueprint</h2>
+                <p>Select your profile parameters to immediately identify the optimal wealth management framework for
+                    your goals.</p>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-inputs">
+                    <div class="input-group">
+                        <label for="calc-profile">Client Entity Type:</label>
+                        <select id="calc-profile" onchange="calculateRecommendation()">
+                            <option value="hnw">High-Net-Worth Individual ($1M - $10M)</option>
+                            <option value="vhnw">Ultra High-Net-Worth ($10M - $50M)</option>
+                            <option value="fo">Family Office / Multi-Gen ($50M+)</option>
+                            <option value="corp">Corporate Founder / Executive</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="calc-objective">Primary Strategic Goal:</label>
+                        <select id="calc-objective" onchange="calculateRecommendation()">
+                            <option value="growth">Aggressive Capital Growth & Alternative Access</option>
+                            <option value="preservation">Capital Preservation & Risk Shielding</option>
+                            <option value="tax">Tax Minimization & Estate Structuring</option>
+                            <option value="succession">Corporate Succession & Heir Education</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-result" id="calc-result-box">
+                    <div class="result-badge">RECOMMENDED FRAMEWORK</div>
+                    <h4 id="rec-title">Bespoke Wealth Architecture & Tax Shield</h4>
+                    <p id="rec-desc">Optimal for High-Net-Worth profiles seeking integrated tax optimization,
+                        discretionary portfolio management, and sovereign risk defense.</p>
+                    <div class="rec-features" id="rec-features">
+                        <span>• 1-on-1 Senior Managing Director</span>
+                        <span>• Quarterly Portfolio Audit</span>
+                        <span>• Offshore Trust Options</span>
+                    </div>
+                    <a href="#consultation" class="btn-gold-sm"
+                        style="margin-top: 15px; width: 100%; text-align: center;">APPLY FOR ADVISORY MANDATE</a>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Interactive Script -->
-    <script>
-        // Theme Toggling Functionality
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            localStorage.setItem('bf-theme', currentTheme);
-            updateThemeToggleBtns(currentTheme);
+<!-- 4-Step Bespoke Advisory Process Box Grid -->
+<section class="process-section">
+    <div class="container">
+        <header class="section-header">
+            <p class="subtitle">METHODOLOGY OF EXCELLENCE</p>
+            <h2>Our 4-Step Advisory Process</h2>
+            <div class="divider"></div>
+        </header>
+
+        <div class="process-grid">
+            <div class="process-box">
+                <div class="process-step-num">01</div>
+                <h3 class="process-title">Discovery & Audit</h3>
+                <p class="process-desc">A forensic review of global asset allocations, tax exposures, liabilities, and
+                    multi-generational objectives.</p>
+            </div>
+            <div class="process-box">
+                <div class="process-step-num">02</div>
+                <h3 class="process-title">Strategic Architecture</h3>
+                <p class="process-desc">Engineering bespoke wealth blueprints, asset distribution frameworks, and
+                    quantitative risk buffers.</p>
+            </div>
+            <div class="process-box">
+                <div class="process-step-num">03</div>
+                <h3 class="process-title">Precision Execution</h3>
+                <p class="process-desc">Disciplined capital deployment across global liquid markets, private equity
+                    funds, and tax-shielded trusts.</p>
+            </div>
+            <div class="process-box">
+                <div class="process-step-num">04</div>
+                <h3 class="process-title">Dynamic Governance</h3>
+                <p class="process-desc">Continuous real-time portfolio rebalancing, risk monitoring, and
+                    institutional-grade quarterly reporting.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Client Success Spotlight Box -->
+<section class="spotlight-section">
+    <div class="container">
+        <div class="spotlight-box">
+            <div class="spotlight-image">
+                <img src="{% static 'login/images/service_2.jpg' %}" alt="Senior Wealth Managing Director">
+                <div class="spotlight-overlay"></div>
+            </div>
+            <div class="spotlight-content">
+                <div class="spotlight-tag">CASE STUDY SPOTLIGHT</div>
+                <h2>Legacy Wealth Preservation & Tax Restructuring</h2>
+                <p class="spotlight-quote">"We recently assisted an international family office in restructuring their
+                    $45M global asset portfolio, resulting in an immediate 38% reduction in annual tax exposure and
+                    establishing an enduring philanthropic trust."</p>
+
+                <div class="spotlight-metrics">
+                    <div class="spot-metric">
+                        <span class="m-val">38%</span>
+                        <span class="m-lbl">Tax Reduction</span>
+                    </div>
+                    <div class="spot-metric">
+                        <span class="m-val">$12M</span>
+                        <span class="m-lbl">Trust Fund Protected</span>
+                    </div>
+                    <div class="spot-metric">
+                        <span class="m-val">100%</span>
+                        <span class="m-lbl">Succession Alignment</span>
+                    </div>
+                </div>
+
+                <a href="#consultation" class="btn-gold-sm" style="display: inline-block;">REQUEST CASE STUDY AUDIT
+                    →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Executive Consultation Banner -->
+<section class="cta-banner-section" id="consultation">
+    <div class="container">
+        <div class="cta-banner-box">
+            <div class="cta-glow"></div>
+            <span class="cta-badge">CONFIDENTIAL ADVISORY MANDATE</span>
+            <h2>Architect Your Generational Legacy</h2>
+            <p>Connect directly with our Senior Managing Partners for a private, zero-commitment advisory evaluation.
+            </p>
+
+            <form class="consultation-form"
+                onsubmit="event.preventDefault(); alert('Thank you for requesting a private advisory consultation. A Senior Managing Partner will reach out to you within 24 hours.');">
+                <div class="form-row">
+                    <input type="text" placeholder="Full Name" required />
+                    <input type="email" placeholder="Corporate or Private Email" required />
+                </div>
+                <div class="form-row">
+                    <select required>
+                        <option value="" disabled selected>Select Primary Service Mandate</option>
+                        <option value="wealth">Bespoke Financial Architecture ($1M+)</option>
+                        <option value="portfolio">Active Portfolio Management</option>
+                        <option value="retirement">Retirement & Pension Trajectories</option>
+                        <option value="corporate">Corporate Succession & Legacy</option>
+                        <option value="tax">Tax Mitigation & Estate Shielding</option>
+                    </select>
+                    <button type="submit" class="btn-gold">SUBMIT MANDATE REQUEST</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Interactive Service Detail Modal -->
+<div class="modal-overlay" id="service-modal">
+    <div class="modal-container">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <div id="modal-body-content">
+            <!-- Injected via JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Profile Bio Edit (if authenticated) -->
+{% if user.is_authenticated %}
+<div id="bio-modal"
+    style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 1.5rem;">
+    <div class="glass-card"
+        style="width: 100%; max-width: 500px; padding: 2.25rem; background: var(--color-secondary);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 1.25rem;">Update Profile Summary</h3>
+            <button onclick="document.getElementById('bio-modal').style.display='none'"
+                style="background: none; border: none; font-size: 1.5rem; color: var(--color-subtext); cursor: pointer;">&times;</button>
+        </div>
+
+        <form method="post" action="{% url 'login:home' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="form-label">Personal Bio / Advisory Note</label>
+                <textarea name="bio" class="form-input" rows="4"
+                    placeholder="Enter a brief summary about yourself or your financial objectives...">{{ user.bio }}</textarea>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+                <button type="button" class="btn btn-secondary"
+                    onclick="document.getElementById('bio-modal').style.display='none'">Cancel</button>
+                <button type="submit" class="btn btn-gold">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+<!-- Floating Comparison Drawer -->
+<div class="comparison-drawer" id="comparison-drawer">
+    <div class="drawer-info">
+        <div class="drawer-title">Compare Services</div>
+        <div class="drawer-subtitle" id="compare-count-text">0 of 3 selected</div>
+    </div>
+    <div class="drawer-actions">
+        <button class="btn-glass" style="padding: 10px 20px; font-size: 0.85rem; border-radius: 30px;"
+            onclick="clearComparison()">Clear All</button>
+        <button class="btn-gold-sm" style="padding: 10px 22px; border-radius: 30px;"
+            onclick="openComparisonModal()">Compare Now</button>
+    </div>
+</div>
+
+<!-- Comparison Matrix Modal -->
+<div class="compare-modal-overlay" id="compare-modal">
+    <div class="compare-modal-container">
+        <button class="modal-close" onclick="closeComparisonModal()">×</button>
+        <div style="text-align: center; margin-bottom: 24px;">
+            <span class="calc-badge">📊 SIDE-BY-SIDE MATRIX</span>
+            <h2
+                style="font-size: 2.2rem; font-family: var(--font-heading); margin-top: 8px; color: var(--color-heading-text);">
+                Compare Selected Services</h2>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 8px;">Review core objectives,
+                targets, and delivery models to find your optimal path.</p>
+        </div>
+        <div id="compare-table-wrapper" style="overflow-x: auto;">
+            <!-- Dynamically generated table will go here -->
+        </div>
+    </div>
+</div>
+
+<!-- Interactive Script -->
+<script>
+    // Services Comparison Functionality
+    let selectedServices = [];
+    const comparisonData = {
+        architecture: {
+            name: "Bespoke Financial Architecture",
+            target: "$1M+ Portfolios / Family Wealth",
+            objective: "Forensic wealth structuring & tax shielding",
+            deliverables: ["Forensic global balance sheet audit", "Asset-backed leverage optimization", "Offshore & domestic trust integration", "Quarterly wealth projection models"],
+            access: "Managing Partner & Senior Desk",
+            taxReduction: "High (Up to 40% liability reduction)"
+        },
+        portfolio: {
+            name: "Active Wealth Cultivation",
+            target: "Growth Seekers / Active Portfolios",
+            objective: "Quantitative multi-asset growth & private credit/PE",
+            deliverables: ["Discretionary quantitative equity models", "Access to PE syndicates & direct deals", "Algorithmic risk buffers & hedging", "Real-time institutional portal access"],
+            access: "Discretionary Portfolio Manager",
+            taxReduction: "Medium (Tax-loss harvesting integrated)"
+        },
+        retirement: {
+            name: "Optimized Retirement Trajectories",
+            target: "Pre-retirement Executives & Business Owners",
+            objective: "Guaranteed, tax-free longevity income design",
+            deliverables: ["Tax-sheltered distribution strategy", "Healthcare cost shielding", "Executive pension roll-overs", "Enduring legacy transfer buffers"],
+            access: "Retirement Strategy Advisor",
+            taxReduction: "High (Maximized distribution tax shielding)"
+        },
+        legacy: {
+            name: "Strategic Corporate & Legacy Counsel",
+            target: "Family Enterprises & Corporate Founders",
+            objective: "Succession mapping, phantom stock, and office charters",
+            deliverables: ["M&A exit valuation roadmap", "Executive equity phantom stock design", "Family Office Charter & Constitution", "Donor-Advised Funds (DAF) setup"],
+            access: "Full Retained Advisory Council",
+            taxReduction: "High (Dynasty & CRT shielding)"
+        },
+        tax: {
+            name: "Tax Mitigation & Estate Shielding",
+            target: "Asset Protection & High Tax Exposure",
+            objective: "Cross-border tax minimization and estate trust shield",
+            deliverables: ["Irrevocable Dynasty Trust setup", "Multi-jurisdictional tax audit", "Legal liability asset protection", "Charitable Remainder Trust (CRT) implementation"],
+            access: "Fiduciary Trust Attorney & Tax Partner",
+            taxReduction: "Extreme (Maximum multi-jurisdictional reduction)"
+        },
+        alternatives: {
+            name: "Private Equity & Alternative Assets",
+            target: "Accredited Investors & Family Offices",
+            objective: "Direct co-investment in non-public yield assets",
+            deliverables: ["Direct private equity syndications", "High-yield private credit pools (8-12%)", "Prime commercial real estate syndicates", "Pre-IPO venture capital rounds"],
+            access: "Alternatives Placement Desk",
+            taxReduction: "Medium (Capital gains deferrals)"
+        },
+        advisory: {
+            name: "Strategic Corporate Advisory",
+            target: "Enterprises, Mid-Caps, and Startups",
+            objective: "Corporate capital structure and transaction advisory",
+            deliverables: ["Buy-side & sell-side M&A consulting", "Capital structure optimization", "Distressed asset restructuring", "Forensic due diligence audits"],
+            access: "Senior Investment Banker",
+            taxReduction: "Transactional (Corporate tax structuring)"
+        },
+        family: {
+            name: "Family & Next-Gen Financial Literacy",
+            target: "Heirs & Community Youth",
+            objective: "Governance retreats and wealth stewardship workshops",
+            deliverables: ["Next-generation family retreats", "Interactive wealth workshops", "Mentorship access", "Entrepreneurial grant incubators"],
+            access: "Community Engagement Partner",
+            taxReduction: "N/A"
         }
+    };
 
-        function updateThemeToggleBtns(theme) {
-            const btnHeader = document.getElementById('theme-toggle-btn');
-            const btnFloat = document.getElementById('theme-toggle-float');
-            const label = theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
-            if (btnHeader) btnHeader.innerHTML = label;
-            if (btnFloat) btnFloat.innerHTML = label;
+    function handleCompareSelect(checkbox, event) {
+        event.stopPropagation();
+        const serviceId = checkbox.getAttribute('data-service-id');
+        if (checkbox.checked) {
+            if (selectedServices.length >= 3) {
+                checkbox.checked = false;
+                alert("You can select up to 3 services to compare side-by-side.");
+                return;
+            }
+            selectedServices.push(serviceId);
+        } else {
+            selectedServices = selectedServices.filter(id => id !== serviceId);
         }
+        updateComparisonDrawer();
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('bf-theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeToggleBtns(savedTheme);
+    function updateComparisonDrawer() {
+        const drawer = document.getElementById('comparison-drawer');
+        const countText = document.getElementById('compare-count-text');
+        if (selectedServices.length > 0) {
+            drawer.classList.add('active');
+            countText.innerText = `${selectedServices.length} of 3 selected`;
+        } else {
+            drawer.classList.remove('active');
+        }
+    }
+
+    function clearComparison() {
+        selectedServices = [];
+        document.querySelectorAll('.compare-select').forEach(cb => cb.checked = false);
+        updateComparisonDrawer();
+    }
+
+    function openComparisonModal() {
+        if (selectedServices.length === 0) return;
+        const wrapper = document.getElementById('compare-table-wrapper');
+
+        // Build the comparison matrix HTML
+        let html = `<table class="compare-table"><thead><tr><th class="compare-row-header">Attribute</th>`;
+
+        selectedServices.forEach(id => {
+            const service = comparisonData[id];
+            html += `<th class="compare-col-service">${service.name}</th>`;
         });
+        html += `</tr></thead><tbody>`;
 
-        // Filtering Functionality
-        const filterPills = document.querySelectorAll('.filter-pill');
-        const serviceCards = document.querySelectorAll('.service-card');
-        const searchInput = document.getElementById('service-search');
+        // Row 1: Target Client
+        html += `<tr><td class="compare-row-header">Target Client</td>`;
+        selectedServices.forEach(id => {
+            html += `<td>${comparisonData[id].target}</td>`;
+        });
+        html += `</tr>`;
 
-        filterPills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                filterPills.forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-                filterServices();
+        // Row 2: Strategic Objective
+        html += `<tr><td class="compare-row-header">Strategic Objective</td>`;
+        selectedServices.forEach(id => {
+            html += `<td>${comparisonData[id].objective}</td>`;
+        });
+        html += `</tr>`;
+
+        // Row 3: Key Deliverables
+        html += `<tr><td class="compare-row-header">Key Deliverables</td>`;
+        selectedServices.forEach(id => {
+            html += `<td><ul style="list-style: none; padding-left: 0; margin: 0;">`;
+            comparisonData[id].deliverables.forEach(item => {
+                html += `<li style="margin-bottom: 6px;"><span style="color: var(--color-gold-light); margin-right: 6px;">✓</span> ${item}</li>`;
             });
+            html += `</ul></td>`;
         });
+        html += `</tr>`;
 
-        if (searchInput) {
-            searchInput.addEventListener('input', filterServices);
-        }
+        // Row 4: Fiduciary Access
+        html += `<tr><td class="compare-row-header">Fiduciary Access</td>`;
+        selectedServices.forEach(id => {
+            html += `<td>${comparisonData[id].access}</td>`;
+        });
+        html += `</tr>`;
 
-        function filterServices() {
-            const activeCategory = document.querySelector('.filter-pill.active').getAttribute('data-category');
-            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        // Row 5: Tax Optimization
+        html += `<tr><td class="compare-row-header">Tax Optimization</td>`;
+        selectedServices.forEach(id => {
+            html += `<td>${comparisonData[id].taxReduction}</td>`;
+        });
+        html += `</tr>`;
 
-            serviceCards.forEach(card => {
-                const cardCategories = card.getAttribute('data-category') || '';
-                const cardText = card.innerText.toLowerCase();
+        // Row 6: Action Button
+        html += `<tr><td class="compare-row-header">Action</td>`;
+        selectedServices.forEach(id => {
+            html += `<td>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <button class="btn-gold-sm" style="width: 100%; text-align: center; font-size: 0.8rem; padding: 8px 12px; border-radius: 6px;" onclick="closeComparisonModal(); openModal('${id}')">VIEW SYSTEM DETAILS</button>
+                        <a href="#consultation" class="btn-glass" style="width: 100%; text-align: center; font-size: 0.8rem; padding: 8px 12px; border-radius: 6px;" onclick="closeComparisonModal()">REQUEST EVALUATION</a>
+                    </div>
+                </td>`;
+        });
+        html += `</tr>`;
 
-                const matchesCategory = (activeCategory === 'all') || cardCategories.includes(activeCategory);
-                const matchesSearch = query === '' || cardText.includes(query);
+        html += `</tbody></table>`;
+        wrapper.innerHTML = html;
 
-                if (matchesCategory && matchesSearch) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
+        document.getElementById('compare-modal').classList.add('active');
+    }
+
+    function closeComparisonModal() {
+        document.getElementById('compare-modal').classList.remove('active');
+    }
+
+    // Close comparison modal if clicking overlay
+    document.addEventListener('DOMContentLoaded', () => {
+        const compareModal = document.getElementById('compare-modal');
+        if (compareModal) {
+            compareModal.addEventListener('click', (e) => {
+                if (e.target.classList.contains('compare-modal-overlay')) {
+                    closeComparisonModal();
                 }
             });
         }
+    });
 
-        // Service Modal Details
-        const serviceDetails = {
-            architecture: {
-                title: "Bespoke Financial Architecture",
-                badge: "WEALTH ARCHITECTURE",
-                desc: "Our flagship structural planning mandate engineered for individuals and families managing over $1M in liquid assets. We audit your global balance sheet to eliminate tax friction, restructure liabilities, and align liquid cash flow with generational goals.",
-                deliverables: [
-                    "Full forensic balance sheet & tax liability audit",
-                    "Asset-backed leverage & liquidity structuring",
-                    "Offshore & domestic trust integration",
-                    "Quarterly wealth projection modeling"
-                ]
-            },
-            portfolio: {
-                title: "Active Wealth Cultivation",
-                badge: "PORTFOLIO GROWTH",
-                desc: "Institutional discretionary asset management deploying quantitative multi-asset strategies across equities, global bonds, private equity, and structured alternative debt. Designed to outperform benchmark indices while preserving principal.",
-                deliverables: [
-                    "Discretionary portfolio mandate execution",
-                    "Access to private equity syndicates & direct co-investments",
-                    "Algorithmic risk hedging & downside buffers",
-                    "Real-time institutional performance portal access"
-                ]
-            },
-            retirement: {
-                title: "Optimized Retirement Trajectories",
-                badge: "RETIREMENT & LONGEVITY",
-                desc: "Guaranteed income trajectory design for executives and business owners transitioning out of active operations. We construct non-correlated income cash flow streams immune to market drawdowns.",
-                deliverables: [
-                    "Tax-sheltered distribution strategy",
-                    "Longevity insurance & healthcare cost shielding",
-                    "Executive pension rollover & consolidation",
-                    "Legacy transfer buffer creation"
-                ]
-            },
-            legacy: {
-                title: "Strategic Corporate & Legacy Counsel",
-                badge: "CORPORATE & SUCCESSION",
-                desc: "Comprehensive advisory for family enterprises and founders. We design governance structures, succession plans, and philanthropic endowments that ensure legacy continuity across generations.",
-                deliverables: [
-                    "Business valuation & succession roadmap",
-                    "Executive retention & equity phantom stock design",
-                    "Family Office Charter & Constitution development",
-                    "Donor-Advised Funds & Private Foundation setup"
-                ]
-            },
-            tax: {
-                title: "Tax Mitigation & Estate Shielding",
-                badge: "TAX & ESTATE SHIELDING",
-                desc: "Advanced multi-jurisdictional tax optimization strategies that safeguard capital against estate tax friction, capital gains spikes, and regulatory vulnerability.",
-                deliverables: [
-                    "Irrevocable Dynasty Trust structuring",
-                    "Cross-border tax compliance & shielding",
-                    "Asset protection against legal liabilities",
-                    "Charitable Remainder Trust (CRT) implementation"
-                ]
-            },
-            alternatives: {
-                title: "Private Equity & Alternative Assets",
-                badge: "ALTERNATIVE VENTURES",
-                desc: "Exclusive co-investment opportunities in private credit markets, prime commercial real estate syndicates, venture capital rounds, and physical commodity vaults.",
-                deliverables: [
-                    "Access to institutional private placement memos",
-                    "High-yield private debt pools (8-12% target return)",
-                    "Tier-1 commercial real estate syndications",
-                    "Pre-IPO venture capital allocations"
-                ]
-            },
-            advisory: {
-                title: "Strategic Corporate Advisory",
-                badge: "FINANCE ADVISORY",
-                desc: "Expert-led strategic financial advisory guiding enterprises through complex mergers, acquisitions, capital structuring, and critical financial transitions.",
-                deliverables: [
-                    "Buy-side and sell-side M&A advisory",
-                    "Capital structure optimization",
-                    "Distressed asset restructuring",
-                    "Comprehensive financial due diligence"
-                ]
-            },
-            family: {
-                title: "Family & Next-Gen Financial Literacy",
-                badge: "COMMUNITY & YOUTH",
-                desc: "Curriculum-based financial stewardship programs designed to equip heirs and community youth with practical capital management skills and executive leadership principles.",
-                deliverables: [
-                    "Next-generation family governance retreats",
-                    "Interactive wealth stewardship workshops",
-                    "Oasis Youth Center mentorship access",
-                    "Entrepreneurial grant funding incubators"
-                ]
+    // Theme Toggling Functionality
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        localStorage.setItem('bf-theme', currentTheme);
+        updateThemeToggleBtns(currentTheme);
+    }
+
+    function updateThemeToggleBtns(theme) {
+        const btnHeader = document.getElementById('theme-toggle-btn');
+        const btnFloat = document.getElementById('theme-toggle-float');
+        const label = theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+        if (btnHeader) btnHeader.innerHTML = label;
+        if (btnFloat) btnFloat.innerHTML = label;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('bf-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeToggleBtns(savedTheme);
+    });
+
+    // Filtering Functionality
+    const filterPills = document.querySelectorAll('.filter-pill');
+    const serviceCards = document.querySelectorAll('.service-card');
+    const searchInput = document.getElementById('service-search');
+
+    filterPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            filterPills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            filterServices();
+        });
+    });
+
+    if (searchInput) {
+        searchInput.addEventListener('input', filterServices);
+    }
+
+    function filterServices() {
+        const activeCategory = document.querySelector('.filter-pill.active').getAttribute('data-category');
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        serviceCards.forEach(card => {
+            const cardCategories = card.getAttribute('data-category') || '';
+            const cardText = card.innerText.toLowerCase();
+
+            const matchesCategory = (activeCategory === 'all') || cardCategories.includes(activeCategory);
+            const matchesSearch = query === '' || cardText.includes(query);
+
+            if (matchesCategory && matchesSearch) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
             }
-        };
+        });
+    }
 
-        function openModal(key) {
-            const detail = serviceDetails[key];
-            if (!detail) return;
-            const modalBody = document.getElementById('modal-body-content');
-            modalBody.innerHTML = `
+    // Service Modal Details
+    const serviceDetails = {
+        architecture: {
+            title: "Bespoke Financial Architecture",
+            badge: "WEALTH ARCHITECTURE",
+            desc: "Our flagship structural planning mandate engineered for individuals and families managing over $1M in liquid assets. We audit your global balance sheet to eliminate tax friction, restructure liabilities, and align liquid cash flow with generational goals.",
+            deliverables: [
+                "Full forensic balance sheet & tax liability audit",
+                "Asset-backed leverage & liquidity structuring",
+                "Offshore & domestic trust integration",
+                "Quarterly wealth projection modeling"
+            ]
+        },
+        portfolio: {
+            title: "Active Wealth Cultivation",
+            badge: "PORTFOLIO GROWTH",
+            desc: "Institutional discretionary asset management deploying quantitative multi-asset strategies across equities, global bonds, private equity, and structured alternative debt. Designed to outperform benchmark indices while preserving principal.",
+            deliverables: [
+                "Discretionary portfolio mandate execution",
+                "Access to private equity syndicates & direct co-investments",
+                "Algorithmic risk hedging & downside buffers",
+                "Real-time institutional performance portal access"
+            ]
+        },
+        retirement: {
+            title: "Optimized Retirement Trajectories",
+            badge: "RETIREMENT & LONGEVITY",
+            desc: "Guaranteed income trajectory design for executives and business owners transitioning out of active operations. We construct non-correlated income cash flow streams immune to market drawdowns.",
+            deliverables: [
+                "Tax-sheltered distribution strategy",
+                "Longevity insurance & healthcare cost shielding",
+                "Executive pension rollover & consolidation",
+                "Legacy transfer buffer creation"
+            ]
+        },
+        legacy: {
+            title: "Strategic Corporate & Legacy Counsel",
+            badge: "CORPORATE & SUCCESSION",
+            desc: "Comprehensive advisory for family enterprises and founders. We design governance structures, succession plans, and philanthropic endowments that ensure legacy continuity across generations.",
+            deliverables: [
+                "Business valuation & succession roadmap",
+                "Executive retention & equity phantom stock design",
+                "Family Office Charter & Constitution development",
+                "Donor-Advised Funds & Private Foundation setup"
+            ]
+        },
+        tax: {
+            title: "Tax Mitigation & Estate Shielding",
+            badge: "TAX & ESTATE SHIELDING",
+            desc: "Advanced multi-jurisdictional tax optimization strategies that safeguard capital against estate tax friction, capital gains spikes, and regulatory vulnerability.",
+            deliverables: [
+                "Irrevocable Dynasty Trust structuring",
+                "Cross-border tax compliance & shielding",
+                "Asset protection against legal liabilities",
+                "Charitable Remainder Trust (CRT) implementation"
+            ]
+        },
+        alternatives: {
+            title: "Private Equity & Alternative Assets",
+            badge: "ALTERNATIVE VENTURES",
+            desc: "Exclusive co-investment opportunities in private credit markets, prime commercial real estate syndicates, venture capital rounds, and physical commodity vaults.",
+            deliverables: [
+                "Access to institutional private placement memos",
+                "High-yield private debt pools (8-12% target return)",
+                "Tier-1 commercial real estate syndications",
+                "Pre-IPO venture capital allocations"
+            ]
+        },
+        advisory: {
+            title: "Strategic Corporate Advisory",
+            badge: "FINANCE ADVISORY",
+            desc: "Expert-led strategic financial advisory guiding enterprises through complex mergers, acquisitions, capital structuring, and critical financial transitions.",
+            deliverables: [
+                "Buy-side and sell-side M&A advisory",
+                "Capital structure optimization",
+                "Distressed asset restructuring",
+                "Comprehensive financial due diligence"
+            ]
+        },
+        family: {
+            title: "Family & Next-Gen Financial Literacy",
+            badge: "COMMUNITY & YOUTH",
+            desc: "Curriculum-based financial stewardship programs designed to equip heirs and community youth with practical capital management skills and executive leadership principles.",
+            deliverables: [
+                "Next-generation family governance retreats",
+                "Interactive wealth stewardship workshops",
+                "Oasis Youth Center mentorship access",
+                "Entrepreneurial grant funding incubators"
+            ]
+        }
+    };
+
+    function openModal(key) {
+        const detail = serviceDetails[key];
+        if (!detail) return;
+        const modalBody = document.getElementById('modal-body-content');
+        modalBody.innerHTML = `
                 <span class="card-badge" style="margin-bottom: 12px; display: inline-block;">${detail.badge}</span>
                 <h2 style="font-size: 2.2rem; font-family: var(--font-heading); margin-bottom: 16px; color: var(--color-heading-text);">${detail.title}</h2>
                 <p style="color: var(--color-text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px;">${detail.desc}</p>
@@ -1894,44 +2624,44 @@ a {
                     <a href="#consultation" class="btn-gold-sm" onclick="closeModal()" style="display: inline-block;">SCHEDULE CONSULTATION FOR THIS SERVICE</a>
                 </div>
             `;
-            document.getElementById('service-modal').classList.add('active');
+        document.getElementById('service-modal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('service-modal').classList.remove('active');
+    }
+
+    document.getElementById('service-modal').addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal-overlay')) {
+            closeModal();
         }
+    });
 
-        function closeModal() {
-            document.getElementById('service-modal').classList.remove('active');
+    function calculateRecommendation() {
+        const profile = document.getElementById('calc-profile').value;
+        const obj = document.getElementById('calc-objective').value;
+        const titleEl = document.getElementById('rec-title');
+        const descEl = document.getElementById('rec-desc');
+        const featsEl = document.getElementById('rec-features');
+
+        if (profile === 'fo' || obj === 'tax') {
+            titleEl.innerText = "Family Office Sovereign Trust & Tax Shield";
+            descEl.innerText = "Tailored for multi-generational holdings and family offices requiring cross-border trust structuring, tax elimination strategies, and legacy governance.";
+            featsEl.innerHTML = "<span>• Dedicated Senior Family Officer</span><span>• Irrevocable Dynasty Trust</span><span>• Offshore Sovereign Defense</span>";
+        } else if (obj === 'growth') {
+            titleEl.innerText = "Active Multi-Asset Portfolio Cultivation";
+            descEl.innerText = "Optimized for aggressive capital growth using quantitative equity models, private equity syndicates, and structured high-yield debt.";
+            featsEl.innerHTML = "<span>• Private Market Co-Investment</span><span>• Algorithmic Downside Buffer</span><span>• Real-Time Portfolio Portal</span>";
+        } else if (obj === 'succession' || profile === 'corp') {
+            titleEl.innerText = "Corporate Succession & Founder Liquidity Mandate";
+            descEl.innerText = "Engineered for business founders preparing for M&A exit, phantom equity distribution, and successor leadership transition.";
+            featsEl.innerHTML = "<span>• M&A Valuation & Exit Strategy</span><span>• Executive Equity Phantom Plan</span><span>• Heir Leadership Bootcamp</span>";
+        } else {
+            titleEl.innerText = "Bespoke Wealth Architecture Plan";
+            descEl.innerText = "Our foundational comprehensive mandate integrating asset allocation, cash flow optimization, and tax-efficient distribution.";
+            featsEl.innerHTML = "<span>• 1-on-1 Managing Partner</span><span>• Quarterly Financial Audit</span><span>• Bespoke Asset Allocation</span>";
         }
-
-        document.getElementById('service-modal').addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-overlay')) {
-                closeModal();
-            }
-        });
-
-        function calculateRecommendation() {
-            const profile = document.getElementById('calc-profile').value;
-            const obj = document.getElementById('calc-objective').value;
-            const titleEl = document.getElementById('rec-title');
-            const descEl = document.getElementById('rec-desc');
-            const featsEl = document.getElementById('rec-features');
-
-            if (profile === 'fo' || obj === 'tax') {
-                titleEl.innerText = "Family Office Sovereign Trust & Tax Shield";
-                descEl.innerText = "Tailored for multi-generational holdings and family offices requiring cross-border trust structuring, tax elimination strategies, and legacy governance.";
-                featsEl.innerHTML = "<span>• Dedicated Senior Family Officer</span><span>• Irrevocable Dynasty Trust</span><span>• Offshore Sovereign Defense</span>";
-            } else if (obj === 'growth') {
-                titleEl.innerText = "Active Multi-Asset Portfolio Cultivation";
-                descEl.innerText = "Optimized for aggressive capital growth using quantitative equity models, private equity syndicates, and structured high-yield debt.";
-                featsEl.innerHTML = "<span>• Private Market Co-Investment</span><span>• Algorithmic Downside Buffer</span><span>• Real-Time Portfolio Portal</span>";
-            } else if (obj === 'succession' || profile === 'corp') {
-                titleEl.innerText = "Corporate Succession & Founder Liquidity Mandate";
-                descEl.innerText = "Engineered for business founders preparing for M&A exit, phantom equity distribution, and successor leadership transition.";
-                featsEl.innerHTML = "<span>• M&A Valuation & Exit Strategy</span><span>• Executive Equity Phantom Plan</span><span>• Heir Leadership Bootcamp</span>";
-            } else {
-                titleEl.innerText = "Bespoke Wealth Architecture Plan";
-                descEl.innerText = "Our foundational comprehensive mandate integrating asset allocation, cash flow optimization, and tax-efficient distribution.";
-                featsEl.innerHTML = "<span>• 1-on-1 Managing Partner</span><span>• Quarterly Financial Audit</span><span>• Bespoke Asset Allocation</span>";
-            }
-        }
-    </script>
+    }
+</script>
 
 {% endblock %}
