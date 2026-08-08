@@ -92,33 +92,6 @@ if os.path.exists(_gen_consult_hero):
     except Exception:
         pass
 
-# Auto-migrate database modifications & repair SQLite schemas on server initialization
-try:
-    import sqlite3
-    db_path = BASE_DIR / 'db.sqlite3'
-    if os.path.exists(db_path):
-        conn = sqlite3.connect(str(db_path))
-        cursor = conn.cursor()
-        cursor.execute("PRAGMA table_info(login_consultationbooking);")
-        cols = [row[1] for row in cursor.fetchall()]
-        if cols and 'reference_key' not in cols:
-            cursor.execute("DROP TABLE IF EXISTS login_consultationbooking;")
-            cursor.execute("DELETE FROM django_migrations WHERE app='login' AND name LIKE '%consultationbooking%';")
-            conn.commit()
-        conn.close()
-except Exception:
-    pass
-
-try:
-    from django.core.management import call_command
-    call_command('makemigrations', 'login', interactive=False)
-    call_command('migrate', interactive=False)
-except Exception:
-    pass
-
-
-
-
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@wlg*897qb*$lo1_ek^5&5c#bldttck@9$9iah37-)qcf!zd)7')
 

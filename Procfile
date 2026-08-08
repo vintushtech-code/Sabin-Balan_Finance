@@ -1,0 +1,1 @@
+web: gunicorn sabin_balan_finance_project.wsgi:application

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: sabin-balan-finance
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn sabin_balan_finance_project.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.11.8"
