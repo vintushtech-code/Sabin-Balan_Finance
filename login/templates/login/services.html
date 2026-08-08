@@ -1683,7 +1683,7 @@
                 preserve and multiply your legacy.
             </p>
 
-            <form class="hero-pill-bar" action="#consultation" method="get">
+            <form class="hero-pill-bar" action="{% url 'login:consultation' %}" method="get">
                 <div class="pill-left-content">
                     <span class="pill-icon">💼</span>
                     <span class="pill-store-name">GuardianTree FP</span>
@@ -2042,12 +2042,12 @@
 <section class="calculator-section">
     <div class="container">
         <div class="calc-box">
-            <div class="calc-header">
-                <span class="calc-badge">⚡ INTERACTIVE ADVISORY FINDER</span>
+            <header class="section-header" style="margin-bottom: 32px;">
+                <span class="subtitle">⚡ INTERACTIVE ADVISORY FINDER</span>
                 <h2>Find Your Tailored <span class="highlight-text">Advisory Blueprint</span></h2>
-                <p>Select your profile parameters to immediately identify the optimal wealth management framework for
-                    your goals.</p>
-            </div>
+                <div class="divider"></div>
+                <p class="header-description">Select your profile parameters to immediately identify the optimal wealth management framework for your goals.</p>
+            </header>
             <div class="calc-grid">
                 <div class="calc-inputs">
                     <div class="input-group">
@@ -2080,7 +2080,7 @@
                         <span>• Quarterly Portfolio Audit</span>
                         <span>• Offshore Trust Options</span>
                     </div>
-                    <a href="#consultation" class="btn-gold-sm"
+                    <a id="apply-advisory-link" href="{% url 'login:consultation' %}?service=financial_planning" class="btn-gold-sm"
                         style="margin-top: 15px; width: 100%; text-align: center;">APPLY FOR ADVISORY MANDATE</a>
                 </div>
             </div>
@@ -2156,39 +2156,9 @@
                     </div>
                 </div>
 
-                <a href="#consultation" class="btn-gold-sm" style="display: inline-block;">REQUEST CASE STUDY AUDIT
+                <a href="{% url 'login:consultation' %}" class="btn-gold-sm" style="display: inline-block;">REQUEST CASE STUDY AUDIT
                     →</a>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- Executive Consultation Banner -->
-<section class="cta-banner-section" id="consultation">
-    <div class="container">
-        <div class="cta-banner-box">
-            <div class="cta-glow"></div>
-            <span class="cta-badge">CONFIDENTIAL ADVISORY MANDATE</span>
-            <h2>Book Your Private Advisory Consultation</h2>
-            <p>Connect directly with our Senior Managing Partners for a private, zero-commitment advisory evaluation.</p>
-
-            <form class="consultation-form" method="get" action="{% url 'login:consultation' %}">
-                <div class="form-row">
-                    <input type="text" name="client_name" placeholder="Full Name" />
-                    <input type="email" name="email" placeholder="Corporate or Private Email" />
-                </div>
-                <div class="form-row">
-                    <select name="service" required>
-                        <option value="" disabled selected>Select Primary Service Mandate</option>
-                        <option value="financial_planning">Comprehensive Financial Planning</option>
-                        <option value="investment">Investment & Multi-Asset Portfolio Strategy</option>
-                        <option value="retirement">Retirement & Legacy Structuring</option>
-                        <option value="wealth_management">Private Wealth Management & Family Office</option>
-                        <option value="tax_planning">Tax Optimization & Fiscal Structuring</option>
-                    </select>
-                    <button type="submit" class="btn-gold">BOOK CONSULTATION</button>
-                </div>
-            </form>
         </div>
     </div>
 </section>
@@ -2429,7 +2399,7 @@
             html += `<td>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
                         <button class="btn-gold-sm" style="width: 100%; text-align: center; font-size: 0.8rem; padding: 8px 12px; border-radius: 6px;" onclick="closeComparisonModal(); openModal('${id}')">VIEW SYSTEM DETAILS</button>
-                        <a href="#consultation" class="btn-glass" style="width: 100%; text-align: center; font-size: 0.8rem; padding: 8px 12px; border-radius: 6px;" onclick="closeComparisonModal()">REQUEST EVALUATION</a>
+                        <a href="{% url 'login:consultation' %}" class="btn-glass" style="width: 100%; text-align: center; font-size: 0.8rem; padding: 8px 12px; border-radius: 6px;" onclick="closeComparisonModal()">REQUEST EVALUATION</a>
                     </div>
                 </td>`;
         });
