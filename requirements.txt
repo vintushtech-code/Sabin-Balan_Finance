@@ -19,3 +19,4 @@ gunicorn>=21.2.0
 
 # Utility Libraries
 requests>=2.31.0
+waitress
