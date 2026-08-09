@@ -183,6 +183,7 @@
       display: flex;
       align-items: center;
       gap: 0.85rem;
+      min-width: 0;
     }
 
     .brand-logo {
@@ -207,6 +208,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      white-space: nowrap;
     }
 
     .brand-badge {
@@ -224,6 +226,7 @@
     .client-reviewer-tag {
       font-size: 0.82rem;
       color: var(--text-muted);
+      white-space: nowrap;
     }
 
     .client-reviewer-tag strong {
@@ -235,6 +238,8 @@
       display: flex;
       align-items: center;
       gap: 0.65rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .save-status-indicator {
@@ -248,6 +253,7 @@
       background: var(--bg-input);
       border: 1px solid var(--border-color);
       transition: var(--transition-smooth);
+      white-space: nowrap;
     }
 
     .save-status-indicator.is-dirty {
@@ -282,6 +288,7 @@
       gap: 0.45rem;
       box-shadow: var(--card-shadow);
       transition: var(--transition-smooth);
+      white-space: nowrap;
     }
 
     .theme-toggle-btn:hover {
@@ -311,6 +318,7 @@
       align-items: center;
       gap: 0.35rem;
       transition: var(--transition-smooth);
+      white-space: nowrap;
     }
 
     .mode-btn.active {
@@ -438,6 +446,7 @@
       gap: 0.5rem;
       box-shadow: var(--card-shadow);
       transition: var(--transition-smooth);
+      white-space: nowrap;
     }
 
     .changes-badge-btn:hover {
@@ -478,6 +487,7 @@
       align-items: center;
       gap: 0.4rem;
       flex-wrap: nowrap;
+      min-width: 0;
     }
 
     .page-tab-item {
@@ -494,6 +504,7 @@
       cursor: pointer;
       white-space: nowrap;
       transition: var(--transition-smooth);
+      flex-shrink: 0;
     }
 
     .page-tab-item:hover {
@@ -552,6 +563,7 @@
       color: var(--text-muted);
       font-weight: 700;
       margin-right: 0.35rem;
+      white-space: nowrap;
     }
 
     /* Main Workspace */
@@ -560,6 +572,8 @@
       margin: 1.25rem auto;
       padding: 0 1.5rem 4rem 1.5rem;
       min-height: calc(100vh - 160px);
+      box-sizing: border-box;
+      width: 100%;
     }
 
     /* Banner Alert */
@@ -574,12 +588,15 @@
       justify-content: space-between;
       gap: 1.25rem;
       box-shadow: var(--card-shadow);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .banner-left {
       display: flex;
       align-items: center;
       gap: 1rem;
+      min-width: 0;
     }
 
     .banner-icon {
@@ -614,23 +631,28 @@
       flex-shrink: 0;
     }
 
-    /* Split Review Grid */
+    /* ==========================================================================
+       ROBUST SPLIT REVIEW GRID (minmax(0, 1fr) ensures columns never break)
+       ========================================================================== */
     .split-review-grid {
       display: grid;
-      grid-template-columns: 1.18fr 0.82fr;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
       gap: 1.5rem;
       align-items: start;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .full-replica-mode .split-review-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
     .full-replica-mode .inspector-column {
       display: none;
     }
 
     .form-only-mode .split-review-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
     .form-only-mode .replica-column {
       display: none;
@@ -644,6 +666,9 @@
       overflow: hidden;
       box-shadow: var(--card-shadow);
       position: relative;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .replica-window-bar {
@@ -653,12 +678,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.75rem;
     }
 
     .replica-dots {
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
 
     .replica-dot {
@@ -684,6 +711,9 @@
       width: 100%;
       justify-content: center;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .replica-content-body {
@@ -692,15 +722,38 @@
       background: var(--bg-replica-body);
       max-height: 850px;
       overflow-y: auto;
+      overflow-x: hidden;
       scroll-behavior: smooth;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    /* Section on Replica */
+    /* Section on Replica (Moveable & Draggable) */
     .replica-section {
       position: relative;
       padding: 3.5rem 2rem;
       border-bottom: 1px solid var(--border-color);
       transition: var(--transition-smooth);
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .replica-section.is-dragging {
+      opacity: 0.45;
+      border: 2px dashed var(--color-gold-bright) !important;
+      transform: scale(0.99);
+    }
+
+    .replica-section.drag-over-top {
+      border-top: 4px solid var(--color-gold-bright) !important;
+    }
+
+    .replica-section.drag-over-bottom {
+      border-bottom: 4px solid var(--color-gold-bright) !important;
     }
 
     .replica-section:hover {
@@ -742,19 +795,36 @@
       z-index: 50;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
-      opacity: 0.92;
+      gap: 0.4rem;
+      opacity: 0.95;
       transition: var(--transition-smooth);
       background: var(--bg-surface);
-      padding: 0.25rem 0.5rem;
+      padding: 0.25rem 0.6rem;
       border-radius: var(--radius-pill);
       border: 1px solid var(--border-color);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
     }
 
     .replica-section:hover .section-floating-controls {
       opacity: 1;
       border-color: var(--color-gold);
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.2);
+    }
+
+    .section-drag-handle {
+      cursor: grab;
+      font-size: 0.85rem;
+      padding: 0 0.35rem;
+      color: var(--color-gold);
+      font-weight: 800;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .section-drag-handle:active {
+      cursor: grabbing;
     }
 
     .section-tag-pill {
@@ -764,6 +834,7 @@
       padding: 0.2rem 0.6rem;
       border-radius: var(--radius-pill);
       letter-spacing: 0.5px;
+      white-space: nowrap;
     }
 
     .tag-original {
@@ -806,12 +877,13 @@
       cursor: pointer;
       font-size: 0.78rem;
       transition: var(--transition-smooth);
+      flex-shrink: 0;
     }
 
     .section-action-icon-btn:hover {
       background: var(--color-gold);
       color: #FFFFFF;
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
 
     /* DIRECT ON-IMAGE CHANGE BUTTON */
@@ -820,7 +892,7 @@
       top: 16px;
       left: 16px;
       z-index: 30;
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.88);
       color: #FFFFFF;
       border: 1px solid var(--color-gold-bright);
       padding: 0.35rem 0.85rem;
@@ -834,6 +906,7 @@
       align-items: center;
       gap: 0.4rem;
       transition: var(--transition-smooth);
+      white-space: nowrap;
     }
 
     .direct-change-img-overlay:hover {
@@ -842,7 +915,7 @@
       transform: scale(1.05);
     }
 
-    /* Word-Level and Element-Level Inline Highlighting & Hover Visual Cue */
+    /* Inline Highlighting */
     [contenteditable="true"] {
       outline: 1px dashed transparent;
       border-radius: var(--radius-sm);
@@ -864,7 +937,6 @@
       box-shadow: 0 0 15px rgba(217, 119, 6, 0.25);
     }
 
-    /* WORD HIGHLIGHTING MARK TAG (Used in downloaded HTML and active diffs) */
     mark.word-highlight, .word-highlight {
       background: var(--word-highlight-bg) !important;
       color: var(--word-highlight-color) !important;
@@ -877,20 +949,23 @@
       line-height: 1.3 !important;
     }
 
-    /* Hero Section Replica Component */
+    /* Hero Section Replica */
     .replica-hero {
       position: relative;
-      min-height: 460px;
+      min-height: 440px;
+      max-width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       border-radius: var(--radius-lg);
       overflow: hidden;
       padding: 3rem 2.5rem;
       border: 1px solid var(--border-color);
       transition: background-image 0.35s ease-in-out;
+      box-sizing: border-box;
     }
 
     .hero-overlay {
@@ -923,18 +998,20 @@
     }
 
     .hero-main-title {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 800;
       color: #FFFFFF;
-      line-height: 1.15;
+      line-height: 1.18;
       margin-bottom: 1rem;
+      word-break: break-word;
     }
 
     .hero-main-subtitle {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #E2E8F0;
       line-height: 1.5;
       margin-bottom: 1.5rem;
+      word-break: break-word;
     }
 
     .hero-search-pill {
@@ -948,6 +1025,8 @@
       color: #1E293B;
       font-size: 0.85rem;
       margin-bottom: 1.75rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .hero-search-pill input {
@@ -958,53 +1037,93 @@
       color: #0F172A;
       background: transparent;
       padding-left: 0.5rem;
+      min-width: 0;
     }
 
+    /* Moveable Metrics Ticker */
     .metrics-ticker-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
       background: var(--bg-surface);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-lg);
       padding: 1rem 1.25rem;
       box-shadow: var(--card-shadow);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .metric-box {
       text-align: center;
+      min-width: 0;
+      position: relative;
+      padding: 0.75rem 0.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      background: var(--bg-input);
+      transition: var(--transition-smooth);
+    }
+
+    .metric-box:hover {
+      border-color: var(--color-gold);
+      background: var(--bg-surface);
+      transform: translateY(-2px);
+    }
+
+    .metric-box.is-dragging {
+      opacity: 0.4;
+      border: 2px dashed var(--color-gold) !important;
+    }
+
+    .metric-box-controls {
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-bottom: 0.4rem;
+      opacity: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .metric-box:hover .metric-box-controls {
+      opacity: 1;
     }
 
     .metric-value {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--color-gold);
+      white-space: nowrap;
     }
 
     .metric-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 700;
     }
 
-    /* Cards Grid on Replica */
+    /* Moveable Cards Grid on Replica */
     .replica-cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 1.25rem;
       margin-top: 1.5rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .replica-glass-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 1.5rem;
+      padding: 1.25rem;
       position: relative;
       transition: var(--transition-smooth);
       box-shadow: var(--card-shadow);
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .replica-glass-card:hover {
@@ -1013,44 +1132,86 @@
       box-shadow: var(--card-shadow-hover);
     }
 
+    .replica-glass-card.is-dragging {
+      opacity: 0.4;
+      border: 2px dashed var(--color-gold-bright) !important;
+    }
+
     .card-actions-bar {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       gap: 0.35rem;
       margin-bottom: 0.75rem;
+      background: var(--bg-input);
+      padding: 0.2rem 0.4rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .card-move-group {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .component-drag-handle {
+      cursor: grab;
+      font-size: 0.75rem;
+      color: var(--color-gold);
+      font-weight: 800;
+      padding: 0 0.2rem;
+    }
+
+    .component-drag-handle:active {
+      cursor: grabbing;
     }
 
     .card-img-thumb {
       width: 100%;
-      height: 125px;
+      height: 120px;
       border-radius: var(--radius-md);
       object-fit: cover;
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
       border: 1px solid var(--border-color);
       transition: var(--transition-smooth);
+      display: block;
     }
 
     .card-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--text-primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
+      word-break: break-word;
     }
 
     .card-desc {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
       line-height: 1.45;
+      word-break: break-word;
     }
 
-    /* Simulator on Replica */
+    .media-showcase-img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-gold);
+      box-shadow: var(--card-shadow);
+      display: block;
+    }
+
+    /* Simulator */
     .simulator-preview-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-xl);
-      padding: 2rem;
+      padding: 1.75rem;
       margin-top: 1rem;
       box-shadow: var(--card-shadow);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .slider-row {
@@ -1089,7 +1250,27 @@
       border: 1px solid var(--border-color);
     }
 
-    /* Add Section Dropzone Button */
+    /* Moveable FAQ Items */
+    .faq-moveable-item {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: var(--transition-smooth);
+    }
+
+    .faq-moveable-item:hover {
+      border-color: var(--color-gold);
+      box-shadow: var(--card-shadow);
+    }
+
+    .faq-moveable-item.is-dragging {
+      opacity: 0.4;
+      border: 2px dashed var(--color-gold) !important;
+    }
+
+    /* Add Section Dropzone */
     .add-section-dropzone {
       margin: 1.5rem 0;
       border: 2px dashed var(--border-gold);
@@ -1099,6 +1280,8 @@
       background: var(--state-modified-bg);
       cursor: pointer;
       transition: var(--transition-smooth);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .add-section-dropzone:hover {
@@ -1117,11 +1300,16 @@
       gap: 0.5rem;
     }
 
-    /* INSPECTOR COLUMN */
+    /* ==========================================================================
+       INSPECTOR COLUMN (Robust, contained, with no overflow blowout)
+       ========================================================================== */
     .inspector-column {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .inspector-card {
@@ -1134,8 +1322,12 @@
       top: 140px;
       max-height: calc(100vh - 160px);
       overflow-y: auto;
+      overflow-x: hidden;
       scrollbar-width: thin;
       scrollbar-color: var(--color-gold) transparent;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .inspector-header {
@@ -1145,6 +1337,11 @@
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 1rem;
       margin-bottom: 1.5rem;
+      gap: 0.5rem;
+    }
+
+    .inspector-title-group {
+      min-width: 0;
     }
 
     .inspector-title-group h3 {
@@ -1154,6 +1351,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      white-space: nowrap;
     }
 
     .inspector-title-group p {
@@ -1172,6 +1370,7 @@
       outline: none;
       cursor: pointer;
       width: 100%;
+      box-sizing: border-box;
       margin-bottom: 1.25rem;
     }
 
@@ -1181,6 +1380,8 @@
       border-radius: var(--radius-lg);
       padding: 1rem;
       margin-bottom: 1.25rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .reference-box-header {
@@ -1188,6 +1389,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 0.6rem;
+      gap: 0.5rem;
     }
 
     .reference-box-header span {
@@ -1196,6 +1398,7 @@
       color: var(--color-gold);
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      white-space: nowrap;
     }
 
     .screenshot-thumb-container {
@@ -1206,6 +1409,7 @@
       overflow: hidden;
       border: 1px solid var(--border-gold);
       background: #020503;
+      box-sizing: border-box;
     }
 
     .screenshot-thumb-container img {
@@ -1213,6 +1417,7 @@
       height: 100%;
       object-fit: cover;
       transition: var(--transition-smooth);
+      display: block;
     }
 
     .screenshot-thumb-container:hover img {
@@ -1220,9 +1425,6 @@
     }
 
     .screenshot-zoom-btn {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
       background: var(--bg-surface);
       border: 1px solid var(--border-gold);
       color: var(--color-gold);
@@ -1232,10 +1434,13 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      white-space: nowrap;
     }
 
     .form-group {
       margin-bottom: 1.25rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .form-label {
@@ -1268,6 +1473,7 @@
       color: var(--text-primary);
       outline: none;
       transition: var(--transition-smooth);
+      box-sizing: border-box;
     }
 
     .form-input:focus, .form-textarea:focus, .form-select:focus {
@@ -1287,6 +1493,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 0.75rem;
       margin-bottom: 1.25rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .image-switcher-group {
@@ -1295,6 +1503,8 @@
       border-radius: var(--radius-lg);
       padding: 1rem;
       margin-bottom: 1.25rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .image-switcher-header {
@@ -1305,6 +1515,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.5rem;
+    }
+
+    #currentImageName {
+      font-size: 0.72rem;
+      color: var(--color-gold);
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
     }
 
     .image-picker-preset-grid {
@@ -1312,6 +1533,8 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 0.5rem;
       margin-bottom: 0.75rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .preset-img-thumb {
@@ -1322,12 +1545,14 @@
       overflow: hidden;
       position: relative;
       transition: var(--transition-smooth);
+      box-sizing: border-box;
     }
 
     .preset-img-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .preset-img-thumb.selected {
@@ -1348,9 +1573,11 @@
       border-top: 1px solid var(--border-color);
     }
 
-    /* AUDIT LOG VIEW */
+    /* AUDIT LOG */
     .audit-log-view {
       display: none;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .audit-log-view.active-tab-view {
@@ -1368,6 +1595,8 @@
       justify-content: space-between;
       gap: 2rem;
       box-shadow: var(--card-shadow);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .audit-stats-grid {
@@ -1375,6 +1604,8 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
       margin-bottom: 2rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .audit-stat-card {
@@ -1384,6 +1615,8 @@
       padding: 1.25rem;
       text-align: center;
       box-shadow: var(--card-shadow);
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .audit-stat-num {
@@ -1408,6 +1641,7 @@
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--card-shadow);
+      box-sizing: border-box;
     }
 
     .changes-table th, .changes-table td {
@@ -1440,6 +1674,7 @@
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
+      box-sizing: border-box;
     }
 
     .modal-backdrop.open {
@@ -1454,10 +1689,12 @@
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
+      overflow-x: hidden;
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
       padding: 2rem;
       position: relative;
       color: var(--text-primary);
+      box-sizing: border-box;
     }
 
     .modal-close-btn {
@@ -1488,6 +1725,8 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
       margin: 1.5rem 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .template-card {
@@ -1499,9 +1738,10 @@
       text-align: left;
       transition: var(--transition-smooth);
       position: relative;
+      box-sizing: border-box;
     }
 
-    .template-card:hover, .template-card.selected-tpl {
+    .template-card:hover {
       border-color: var(--color-gold);
       background: var(--state-modified-bg);
       transform: translateY(-3px);
@@ -1530,6 +1770,8 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin: 1.5rem 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .export-option-card {
@@ -1540,6 +1782,7 @@
       text-align: center;
       cursor: pointer;
       transition: var(--transition-smooth);
+      box-sizing: border-box;
     }
 
     .export-option-card:hover {
@@ -1560,6 +1803,7 @@
       overflow-y: auto;
       white-space: pre-wrap;
       margin-top: 1rem;
+      box-sizing: border-box;
     }
 
     .toast-pill {
@@ -1588,7 +1832,7 @@
 
     @media (max-width: 1200px) {
       .split-review-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
       .inspector-card {
         position: relative;
@@ -1707,7 +1951,7 @@
         <div class="banner-icon">✨</div>
         <div class="banner-text">
           <h2 id="bannerPageTitle">Reviewing: Home Page — First Draft</h2>
-          <p id="bannerPageDesc">All edits and image updates reflect live instantly on screen. Click the "💾 Save Changes" button when you are satisfied to commit your review.</p>
+          <p id="bannerPageDesc">All sections and components are moveable via ⬆️/⬇️ buttons or drag & drop. Click "💾 Save Changes" when ready.</p>
         </div>
       </div>
       <div class="banner-actions">
@@ -1737,8 +1981,8 @@
           <div class="replica-url-pill">
             <span style="color: var(--color-gold);">🔒 https://sabinbalanfinance.com</span><span id="replicaUrlPath">/home/</span>
           </div>
-          <div style="font-size: 0.75rem; color: var(--text-muted);">
-            ⚡ Live Interactive Preview
+          <div style="font-size: 0.75rem; color: var(--text-muted); white-space: nowrap;">
+            ⚡ Drag & Drop / Moveable Live Preview
           </div>
         </div>
 
@@ -1753,7 +1997,7 @@
           <div class="inspector-header">
             <div class="inspector-title-group">
               <h3><span>🔍</span> Section Inspector</h3>
-              <p>Review & customize the selected section</p>
+              <p>Review, customize & rearrange components</p>
             </div>
             <span class="section-tag-pill tag-original" id="inspectorStatusBadge">Original Baseline</span>
           </div>
@@ -1769,7 +2013,7 @@
           <!-- Screenshot / Reference Asset Preview -->
           <div class="section-reference-box">
             <div class="reference-box-header">
-              <span>Section Visual Reference / Live Image</span>
+              <span>Section Image (Live In-Place)</span>
               <button type="button" class="screenshot-zoom-btn" onclick="zoomCurrentScreenshot()">🔍 Enlarge</button>
             </div>
             <div class="screenshot-thumb-container" id="screenshotContainer">
@@ -1819,8 +2063,8 @@
           <!-- Image & Media Switcher -->
           <div class="image-switcher-group">
             <div class="image-switcher-header">
-              <span>Replace Section Image (Updates Live)</span>
-              <span style="font-size: 0.72rem; color: var(--color-gold);" id="currentImageName">photos/home_hero.png</span>
+              <span>Change Image (Updates In-Place)</span>
+              <span id="currentImageName">photos/home_hero.png</span>
             </div>
 
             <!-- Built-in Project Image Presets -->
@@ -1872,7 +2116,7 @@
       <div class="audit-header-card">
         <div>
           <h2 style="font-size: 1.6rem; color: var(--color-gold); margin-bottom: 0.4rem;">Sabin Balan Finance — Client Review Summary & Audit Log</h2>
-          <p style="color: var(--text-secondary);">Real-time tracking of all modifications, added sections, deleted elements, and client instructions across all website pages.</p>
+          <p style="color: var(--text-secondary);">Real-time tracking of all modifications, rearranged sections, added components, and client instructions across all website pages.</p>
         </div>
         <div style="display: flex; gap: 0.75rem;">
           <button type="button" class="btn btn-outline-gold" onclick="closeAuditTab()">
@@ -2000,7 +2244,7 @@
     <div class="modal-box" style="max-width: 720px;">
       <button type="button" class="modal-close-btn" onclick="closeImagePickerModal()">&times;</button>
       <h2 style="color: var(--color-gold); margin-bottom: 0.3rem;">🖼️ Select / Replace Section Image</h2>
-      <p style="color: var(--text-secondary); font-size: 0.85rem;">Pick from the executive library or upload your own file. Updates immediately on screen.</p>
+      <p style="color: var(--text-secondary); font-size: 0.85rem;">Pick from the executive library or upload your own file. Updates immediately in-place.</p>
 
       <div class="section-template-grid" id="quickImageGrid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
         <!-- Populated via JS -->
@@ -2057,7 +2301,7 @@
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-        <span style="font-size: 0.78rem; color: var(--color-gold);">Auto-saved to browser storage</span>
+        <span style="font-size: 0.78rem; color: var(--color-gold);">Auto-saved on click of Save Changes</span>
         <div style="display: flex; gap: 0.5rem;">
           <button type="button" class="btn btn-secondary" onclick="closeExportModal()">Close</button>
           <button type="button" class="btn btn-download-html" onclick="downloadReviewedHTMLFile()">Download HTML</button>
@@ -2074,7 +2318,7 @@
     <div class="modal-box" style="max-width: 900px; padding: 1.25rem;">
       <button type="button" class="modal-close-btn" onclick="closeZoomModal()">&times;</button>
       <h3 id="zoomModalTitle" style="color: var(--color-gold); margin-bottom: 0.75rem;">Section Visual Screenshot</h3>
-      <img id="zoomModalImg" src="" alt="Enlarged Reference Screenshot" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-gold);">
+      <img id="zoomModalImg" src="" alt="Enlarged Reference Screenshot" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-gold); max-height: 80vh; object-fit: contain;">
     </div>
   </div>
 
@@ -2518,6 +2762,10 @@
     let activeSectionId = null;
     let currentViewMode = 'split';
 
+    // Drag-and-drop state
+    let draggedSectionId = null;
+    let draggedComponentInfo = null;
+
     function initTheme() {
       const savedTheme = localStorage.getItem('sabin_theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
@@ -2636,7 +2884,7 @@
       const curr = currentPages[activePageIndex];
       document.getElementById('pageProgressIndicator').textContent = `Page ${activePageIndex + 1} of ${currentPages.length}: ${curr.name}`;
       document.getElementById('bannerPageTitle').textContent = `Reviewing: ${curr.name} — First Draft`;
-      document.getElementById('bannerPageDesc').textContent = curr.description;
+      document.getElementById('bannerPageDesc').textContent = `All sections and components are moveable. Rearrange easily and click "💾 Save Changes".`;
       document.getElementById('replicaUrlPath').textContent = curr.urlPath;
 
       document.getElementById('btnPrevPage').disabled = activePageIndex === 0;
@@ -2685,6 +2933,77 @@
       }).join(' ');
     }
 
+    /* DRAG AND DROP HANDLERS FOR SECTIONS */
+    function onSectionDragStart(e, sectionId) {
+      draggedSectionId = sectionId;
+      draggedComponentInfo = null;
+      e.dataTransfer.setData('text/plain', sectionId);
+      e.dataTransfer.effectAllowed = 'move';
+      const el = document.getElementById(`replica_sec_${sectionId}`);
+      if (el) el.classList.add('is-dragging');
+    }
+
+    function onSectionDragOver(e, sectionId) {
+      if (!draggedSectionId || draggedSectionId === sectionId) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+
+      const targetEl = document.getElementById(`replica_sec_${sectionId}`);
+      if (!targetEl) return;
+
+      const rect = targetEl.getBoundingClientRect();
+      const midY = rect.top + rect.height / 2;
+      if (e.clientY < midY) {
+        targetEl.classList.add('drag-over-top');
+        targetEl.classList.remove('drag-over-bottom');
+      } else {
+        targetEl.classList.add('drag-over-bottom');
+        targetEl.classList.remove('drag-over-top');
+      }
+    }
+
+    function onSectionDragLeave(e, sectionId) {
+      const targetEl = document.getElementById(`replica_sec_${sectionId}`);
+      if (targetEl) {
+        targetEl.classList.remove('drag-over-top', 'drag-over-bottom');
+      }
+    }
+
+    function onSectionDrop(e, targetSectionId) {
+      e.preventDefault();
+      if (!draggedSectionId || draggedSectionId === targetSectionId) return;
+
+      const page = currentPages[activePageIndex];
+      const fromIdx = page.sections.findIndex(s => s.id === draggedSectionId);
+      let toIdx = page.sections.findIndex(s => s.id === targetSectionId);
+      if (fromIdx < 0 || toIdx < 0) return;
+
+      const targetEl = document.getElementById(`replica_sec_${targetSectionId}`);
+      const isAfter = targetEl && targetEl.classList.contains('drag-over-bottom');
+
+      const [movedSec] = page.sections.splice(fromIdx, 1);
+      toIdx = page.sections.findIndex(s => s.id === targetSectionId);
+      if (isAfter) {
+        page.sections.splice(toIdx + 1, 0, movedSec);
+      } else {
+        page.sections.splice(toIdx, 0, movedSec);
+      }
+
+      markDirty();
+      activeSectionId = movedSec.id;
+      renderActivePage();
+      onInspectorSectionSelected(movedSec.id);
+      showToast(`Moved section: ${movedSec.name}`, 'info');
+    }
+
+    function onSectionDragEnd(e, sectionId) {
+      draggedSectionId = null;
+      document.querySelectorAll('.replica-section').forEach(el => {
+        el.classList.remove('is-dragging', 'drag-over-top', 'drag-over-bottom');
+      });
+    }
+
+    /* RENDER REPLICA BODY */
     function renderActivePage() {
       const page = currentPages[activePageIndex];
       const replicaBody = document.getElementById('replicaContentBody');
@@ -2702,6 +3021,15 @@
         const secEl = document.createElement('div');
         secEl.className = `replica-section ${section.id === activeSectionId ? 'is-active-section' : ''} ${section.status}-highlight`;
         secEl.id = `replica_sec_${section.id}`;
+        secEl.draggable = true;
+
+        // Attach section drag-and-drop events
+        secEl.ondragstart = (e) => onSectionDragStart(e, section.id);
+        secEl.ondragover = (e) => onSectionDragOver(e, section.id);
+        secEl.ondragleave = (e) => onSectionDragLeave(e, section.id);
+        secEl.ondrop = (e) => onSectionDrop(e, section.id);
+        secEl.ondragend = (e) => onSectionDragEnd(e, section.id);
+
         secEl.onclick = (e) => {
           if (!e.target.isContentEditable && !e.target.closest('button') && !e.target.closest('input')) {
             onInspectorSectionSelected(section.id);
@@ -2716,9 +3044,10 @@
 
         let sectionInnerHtml = `
           <div class="section-floating-controls">
+            <span class="section-drag-handle" title="Drag & Drop to reorder this section">⋮⋮ Drag Section</span>
             <span class="section-tag-pill ${tagClass}">${tagLabel}</span>
-            <button type="button" class="section-action-icon-btn" onclick="event.stopPropagation(); moveSection('${section.id}', -1)" title="Move Up">⬆️</button>
-            <button type="button" class="section-action-icon-btn" onclick="event.stopPropagation(); moveSection('${section.id}', 1)" title="Move Down">⬇️</button>
+            <button type="button" class="section-action-icon-btn" onclick="event.stopPropagation(); moveSection('${section.id}', -1)" title="Move Section Up">⬆️</button>
+            <button type="button" class="section-action-icon-btn" onclick="event.stopPropagation(); moveSection('${section.id}', 1)" title="Move Section Down">⬇️</button>
             <button type="button" class="section-action-icon-btn" onclick="event.stopPropagation(); duplicateSection('${section.id}')" title="Duplicate Section">📋</button>
             <button type="button" class="section-action-icon-btn" onclick="event.stopPropagation(); openImagePickerForSection('${section.id}')" title="Change Section Image Live">🖼️</button>
             <button type="button" class="section-action-icon-btn" onclick="event.stopPropagation(); onInspectorSectionSelected('${section.id}')" title="Edit in Inspector">✏️</button>
@@ -2747,12 +3076,20 @@
             </div>
             ${section.metrics ? `
               <div class="metrics-ticker-row" style="margin-top: 1rem;">
-                ${section.metrics.map(m => `
-                  <div class="metric-box">
-                    <div class="metric-value">${m.val}</div>
-                    <div class="metric-label">${m.label}</div>
+                ${section.metrics.map((m, mIdx) => `
+                  <div class="metric-box" id="metric_${section.id}_${mIdx}">
+                    <div class="metric-box-controls">
+                      <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); moveMetricComponent('${section.id}', ${mIdx}, -1)" title="Move Metric Left">⬅️</button>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); moveMetricComponent('${section.id}', ${mIdx}, 1)" title="Move Metric Right">➡️</button>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); removeMetricComponent('${section.id}', ${mIdx})" title="Delete Metric">🗑️</button>
+                    </div>
+                    <div class="metric-value" contenteditable="true" onblur="handleMetricEdit('${section.id}', ${mIdx}, 'val', this.innerText)">${m.val}</div>
+                    <div class="metric-label" contenteditable="true" onblur="handleMetricEdit('${section.id}', ${mIdx}, 'label', this.innerText)">${m.label}</div>
                   </div>
                 `).join('')}
+              </div>
+              <div style="margin-top: 0.5rem; text-align: right;">
+                <button type="button" class="btn btn-outline-gold" style="font-size: 0.72rem; padding: 0.25rem 0.6rem;" onclick="addMetricComponent('${section.id}')">+ Add Metric Ticker</button>
               </div>
             ` : ''}
           `;
@@ -2805,10 +3142,18 @@
 
             <div class="replica-cards-grid">
               ${(section.cards || []).map((c, cIdx) => `
-                <div class="replica-glass-card">
+                <div class="replica-glass-card" id="card_${section.id}_${cIdx}">
                   <div class="card-actions-bar">
-                    <button type="button" class="btn btn-secondary" style="font-size:0.68rem; padding:0.15rem 0.45rem;" onclick="changeCardImage('${section.id}', ${cIdx})" title="Change Card Image">🖼️</button>
-                    <button type="button" class="btn btn-secondary" style="font-size:0.68rem; padding:0.15rem 0.45rem;" onclick="removeCardFromSection('${section.id}', ${cIdx})" title="Remove Card">🗑️</button>
+                    <div class="card-move-group">
+                      <span class="component-drag-handle" title="Move card">↕️ Card ${cIdx+1}</span>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.65rem; padding:0.12rem 0.35rem;" onclick="event.stopPropagation(); moveCardComponent('${section.id}', ${cIdx}, -1)" title="Move Left / Earlier">⬅️</button>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.65rem; padding:0.12rem 0.35rem;" onclick="event.stopPropagation(); moveCardComponent('${section.id}', ${cIdx}, 1)" title="Move Right / Later">➡️</button>
+                    </div>
+                    <div style="display: flex; gap: 0.2rem;">
+                      <button type="button" class="btn btn-secondary" style="font-size:0.65rem; padding:0.12rem 0.35rem;" onclick="changeCardImage('${section.id}', ${cIdx})" title="Change Card Image">🖼️</button>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.65rem; padding:0.12rem 0.35rem;" onclick="duplicateCardComponent('${section.id}', ${cIdx})" title="Duplicate Card">📋</button>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.65rem; padding:0.12rem 0.35rem;" onclick="removeCardFromSection('${section.id}', ${cIdx})" title="Remove Card">🗑️</button>
+                    </div>
                   </div>
                   ${c.img ? `<img src="${c.img}" id="card_img_${section.id}_${cIdx}" alt="${c.title}" class="card-img-thumb" onerror="this.src='login/static/login/images/service_1.jpg'">` : ''}
                   <div class="card-title" contenteditable="true" title="Click to edit card title" onblur="handleCardEdit('${section.id}', ${cIdx}, 'title', this.innerText)">${c.title}</div>
@@ -2859,7 +3204,7 @@
                 <button type="button" class="direct-change-img-overlay" onclick="event.stopPropagation(); openImagePickerForSection('${section.id}')">
                   🖼️ Change Image Live
                 </button>
-                <img src="${section.image}" id="media_img_${section.id}" alt="Media Showcase" style="width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--border-gold); box-shadow: var(--card-shadow);" onerror="this.src='login/static/login/images/service_hero.png'">
+                <img src="${section.image}" id="media_img_${section.id}" alt="Media Showcase" class="media-showcase-img" onerror="this.src='login/static/login/images/service_hero.png'">
               </div>
             </div>
           `;
@@ -2871,11 +3216,22 @@
 
             <div style="display: flex; flex-direction: column; gap: 0.75rem;">
               ${(section.faqs || []).map((faq, fIdx) => `
-                <div class="replica-glass-card" style="padding: 1.25rem;">
+                <div class="faq-moveable-item" id="faq_${section.id}_${fIdx}">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Question #${fIdx+1}</span>
+                    <div style="display: flex; gap: 0.25rem;">
+                      <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); moveFaqComponent('${section.id}', ${fIdx}, -1)" title="Move FAQ Up">⬆️</button>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); moveFaqComponent('${section.id}', ${fIdx}, 1)" title="Move FAQ Down">⬇️</button>
+                      <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); removeFaqComponent('${section.id}', ${fIdx})" title="Delete FAQ">🗑️</button>
+                    </div>
+                  </div>
                   <div style="font-weight: 800; color: var(--color-gold); margin-bottom: 0.4rem;" contenteditable="true" onblur="handleFaqEdit('${section.id}', ${fIdx}, 'q', this.innerText)">${faq.q}</div>
                   <div style="font-size: 0.85rem; color: var(--text-secondary);" contenteditable="true" onblur="handleFaqEdit('${section.id}', ${fIdx}, 'a', this.innerText)">${faq.a}</div>
                 </div>
               `).join('')}
+            </div>
+            <div style="margin-top: 0.75rem; text-align: right;">
+              <button type="button" class="btn btn-outline-gold" style="font-size: 0.72rem; padding: 0.25rem 0.6rem;" onclick="addFaqComponent('${section.id}')">+ Add Question Item</button>
             </div>
           `;
         } else if (section.type === 'metrics') {
@@ -2891,12 +3247,20 @@
                 { label: 'Client Retention', val: '99.8%' },
                 { label: 'Global Offices', val: '4 Hubs' },
                 { label: 'Fiduciary Heritage', val: '25+ Yrs' }
-              ]).map(m => `
-                <div class="metric-box">
-                  <div class="metric-value">${m.val}</div>
-                  <div class="metric-label">${m.label}</div>
+              ]).map((m, mIdx) => `
+                <div class="metric-box" id="metric_${section.id}_${mIdx}">
+                  <div class="metric-box-controls">
+                    <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); moveMetricComponent('${section.id}', ${mIdx}, -1)" title="Move Metric Left">⬅️</button>
+                    <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); moveMetricComponent('${section.id}', ${mIdx}, 1)" title="Move Metric Right">➡️</button>
+                    <button type="button" class="btn btn-secondary" style="font-size:0.62rem; padding:0.1rem 0.35rem;" onclick="event.stopPropagation(); removeMetricComponent('${section.id}', ${mIdx})" title="Delete Metric">🗑️</button>
+                  </div>
+                  <div class="metric-value" contenteditable="true" onblur="handleMetricEdit('${section.id}', ${mIdx}, 'val', this.innerText)">${m.val}</div>
+                  <div class="metric-label" contenteditable="true" onblur="handleMetricEdit('${section.id}', ${mIdx}, 'label', this.innerText)">${m.label}</div>
                 </div>
               `).join('')}
+            </div>
+            <div style="margin-top: 0.5rem; text-align: right;">
+              <button type="button" class="btn btn-outline-gold" style="font-size: 0.72rem; padding: 0.25rem 0.6rem;" onclick="addMetricComponent('${section.id}')">+ Add Metric Ticker</button>
             </div>
           `;
         } else {
@@ -2958,7 +3322,9 @@
       document.getElementById('fieldSubtitle').value = section.subtitle || '';
       document.getElementById('fieldNotes').value = section.notes || '';
       document.getElementById('fieldCustomImageUrl').value = section.image || '';
-      document.getElementById('currentImageName').textContent = section.image || 'Default';
+      
+      const imgDisplayName = section.image && section.image.startsWith('data:') ? 'Custom Uploaded File' : (section.image || 'Default');
+      document.getElementById('currentImageName').textContent = imgDisplayName;
 
       document.getElementById('inspectorScreenshotImg').src = section.image || 'photos/home_hero.png';
 
@@ -2988,7 +3354,7 @@
       }
     }
 
-    /* LIVE UPDATING FIELD HANDLERS */
+    /* LIVE IN-PLACE EDITING */
     function updateActiveSectionFieldLive(field, value) {
       const page = currentPages[activePageIndex];
       const section = page.sections.find(s => s.id === activeSectionId);
@@ -3029,6 +3395,40 @@
       showToast(`Updated ${field} on ${section.name} (Live)`, 'info');
     }
 
+    /* COMPONENT LEVEL MOVING & EDITING */
+    function moveCardComponent(sectionId, cardIdx, direction) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.cards) return;
+
+      const targetIdx = cardIdx + direction;
+      if (targetIdx < 0 || targetIdx >= section.cards.length) return;
+
+      const temp = section.cards[cardIdx];
+      section.cards[cardIdx] = section.cards[targetIdx];
+      section.cards[targetIdx] = temp;
+
+      section.status = 'modified';
+      markDirty();
+      renderActivePage();
+      showToast('Moved card component position', 'info');
+    }
+
+    function duplicateCardComponent(sectionId, cardIdx) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.cards) return;
+
+      const copy = JSON.parse(JSON.stringify(section.cards[cardIdx]));
+      copy.title = `${copy.title} (Copy)`;
+      section.cards.splice(cardIdx + 1, 0, copy);
+
+      section.status = 'modified';
+      markDirty();
+      renderActivePage();
+      showToast('Duplicated card component', 'success');
+    }
+
     function handleCardEdit(sectionId, cardIdx, field, value) {
       const page = currentPages[activePageIndex];
       const section = page.sections.find(s => s.id === sectionId);
@@ -3053,18 +3453,6 @@
       showToast('Removed card from grid', 'info');
     }
 
-    function handleFaqEdit(sectionId, faqIdx, field, value) {
-      const page = currentPages[activePageIndex];
-      const section = page.sections.find(s => s.id === sectionId);
-      if (!section || !section.faqs || !section.faqs[faqIdx]) return;
-
-      section.faqs[faqIdx][field] = value;
-      if (section.status === 'original') section.status = 'modified';
-
-      markDirty();
-      renderPageTabs();
-    }
-
     function addCardToSection(sectionId) {
       const page = currentPages[activePageIndex];
       const section = page.sections.find(s => s.id === sectionId);
@@ -3083,6 +3471,120 @@
       showToast('Added new card item', 'success');
     }
 
+    /* Move Metric Component */
+    function moveMetricComponent(sectionId, mIdx, direction) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.metrics) return;
+
+      const targetIdx = mIdx + direction;
+      if (targetIdx < 0 || targetIdx >= section.metrics.length) return;
+
+      const temp = section.metrics[mIdx];
+      section.metrics[mIdx] = section.metrics[targetIdx];
+      section.metrics[targetIdx] = temp;
+
+      section.status = 'modified';
+      markDirty();
+      renderActivePage();
+      showToast('Moved metric component', 'info');
+    }
+
+    function handleMetricEdit(sectionId, mIdx, field, value) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.metrics || !section.metrics[mIdx]) return;
+
+      section.metrics[mIdx][field] = value;
+      section.status = 'modified';
+      markDirty();
+      renderPageTabs();
+    }
+
+    function removeMetricComponent(sectionId, mIdx) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.metrics) return;
+
+      section.metrics.splice(mIdx, 1);
+      section.status = 'modified';
+      markDirty();
+      renderActivePage();
+      showToast('Removed metric', 'info');
+    }
+
+    function addMetricComponent(sectionId) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section) return;
+
+      if (!section.metrics) section.metrics = [];
+      section.metrics.push({ label: 'New Metric Label', val: '100%+' });
+      section.status = 'modified';
+
+      markDirty();
+      renderActivePage();
+      showToast('Added new metric item', 'success');
+    }
+
+    /* Move FAQ Component */
+    function moveFaqComponent(sectionId, fIdx, direction) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.faqs) return;
+
+      const targetIdx = fIdx + direction;
+      if (targetIdx < 0 || targetIdx >= section.faqs.length) return;
+
+      const temp = section.faqs[fIdx];
+      section.faqs[fIdx] = section.faqs[targetIdx];
+      section.faqs[targetIdx] = temp;
+
+      section.status = 'modified';
+      markDirty();
+      renderActivePage();
+      showToast('Moved question item', 'info');
+    }
+
+    function handleFaqEdit(sectionId, faqIdx, field, value) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.faqs || !section.faqs[faqIdx]) return;
+
+      section.faqs[faqIdx][field] = value;
+      if (section.status === 'original') section.status = 'modified';
+
+      markDirty();
+      renderPageTabs();
+    }
+
+    function removeFaqComponent(sectionId, fIdx) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section || !section.faqs) return;
+
+      section.faqs.splice(fIdx, 1);
+      section.status = 'modified';
+      markDirty();
+      renderActivePage();
+      showToast('Removed question item', 'info');
+    }
+
+    function addFaqComponent(sectionId) {
+      const page = currentPages[activePageIndex];
+      const section = page.sections.find(s => s.id === sectionId);
+      if (!section) return;
+
+      if (!section.faqs) section.faqs = [];
+      section.faqs.push({ q: 'New Frequently Asked Question Title?', a: 'Detailed answer explanation for client advisory requirements.' });
+      section.status = 'modified';
+
+      markDirty();
+      renderActivePage();
+      showToast('Added new FAQ item', 'success');
+    }
+
+    /* SECTION OPERATIONS */
     function deleteSection(sectionId) {
       const page = currentPages[activePageIndex];
       const section = page.sections.find(s => s.id === sectionId);
@@ -3121,7 +3623,7 @@
       markDirty();
       renderActivePage();
       onInspectorSectionSelected(sectionId);
-      showToast('Reordered section position', 'info');
+      showToast(`Moved section: ${temp.name}`, 'info');
     }
 
     function duplicateSection(sectionId) {
@@ -3153,7 +3655,7 @@
       }
     }
 
-    /* DIRECT LIVE IMAGE UPDATING */
+    /* DIRECT IN-PLACE IMAGE UPDATING */
     let targetSectionForImage = null;
     let targetCardIndexForImage = null;
 
@@ -3187,7 +3689,7 @@
         item.onclick = () => applyLiveImage(asset.path);
         item.innerHTML = `
           <img src="${asset.path}" alt="${asset.name}" style="width: 100%; height: 65px; object-fit: cover; border-radius: 6px; margin-bottom: 0.35rem;" onerror="this.src='login/static/login/images/service_hero.png'">
-          <div style="font-size: 0.72rem; font-weight: 700;">${asset.name}</div>
+          <div style="font-size: 0.72rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${asset.name}</div>
         `;
         grid.appendChild(item);
       });
@@ -3195,7 +3697,8 @@
 
     function applyLiveImage(imagePath) {
       const page = currentPages[activePageIndex];
-      const section = page.sections.find(s => s.id === (targetSectionForImage || activeSectionId));
+      const secId = targetSectionForImage || activeSectionId;
+      const section = page.sections.find(s => s.id === secId);
       if (!section) return;
 
       if (targetCardIndexForImage !== null && section.cards && section.cards[targetCardIndexForImage]) {
@@ -3217,7 +3720,7 @@
       markDirty();
       populateInspector(section.id);
       closeImagePickerModal();
-      showToast('Image updated live on screen!', 'success');
+      showToast('Image updated in-place!', 'success');
     }
 
     function applyQuickImageUrl() {
@@ -3274,7 +3777,7 @@
       }
     }
 
-    /* ADVANCED SECTION BUILDER */
+    /* SECTION BUILDER */
     function openAddSectionModal() {
       document.getElementById('modalAddSection').classList.add('open');
     }
@@ -3357,7 +3860,7 @@
         if (newEl) newEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 150);
 
-      showToast(`Added new ${templateType.toUpperCase()} section live! Click Save Changes when ready.`, 'success');
+      showToast(`Added new ${templateType.toUpperCase()} section in-place! Click Save Changes when ready.`, 'success');
     }
 
     function updateSimulatorCalc() {
@@ -3527,7 +4030,7 @@
                 <div class="content-subtitle">${highlightedSubtitle}</div>
                 ${sec.image ? `
                   <div class="content-asset-box">
-                    <strong>Asset Reference:</strong> <code>${sec.image}</code>
+                    <strong>Asset Reference:</strong> <code>${sec.image.startsWith('data:') ? 'Custom Uploaded File' : sec.image}</code>
                   </div>
                 ` : ''}
                 ${sec.notes ? `
@@ -3720,7 +4223,7 @@
             digest += `- **Status:** ${s.status.toUpperCase()}\n`;
             digest += `- **Updated Title:** ${s.title.replace(/<[^>]*>?/gm, '')}\n`;
             if (s.subtitle) digest += `- **Updated Subtitle:** ${s.subtitle}\n`;
-            if (s.image) digest += `- **Image Asset Reference:** \`${s.image}\`\n`;
+            if (s.image) digest += `- **Image Asset Reference:** \`${s.image.startsWith('data:') ? 'Custom Uploaded File' : s.image}\`\n`;
             if (s.notes) digest += `- **Client Instructions:** ${s.notes}\n`;
             digest += `\n`;
           });
