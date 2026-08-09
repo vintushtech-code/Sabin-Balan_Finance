@@ -40,4 +40,9 @@ urlpatterns = [
     # Social OAuth Routes
     path('oauth/<str:provider>/', views.SocialAuthInitView.as_view(), name='social_init'),
     path('oauth/callback/<str:provider>/', views.SocialAuthCallbackView.as_view(), name='social_callback'),
+
+    # Client First Draft Review & Feedback Portal
+    path('client-review/', views.ClientReviewView.as_view(), name='client_review'),
+    path('review/', views.ClientReviewView.as_view(), name='review'),
 ]
+
