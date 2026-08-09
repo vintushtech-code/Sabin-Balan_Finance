@@ -1855,6 +1855,103 @@
         grid-template-columns: 1fr 1fr;
       }
     }
+  
+    /* REPLICA OFFICIAL WEBSITE NAVBAR & FOOTER STYLES */
+    .replica-navbar-header {
+      width: 100%;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.85rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .replica-nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .replica-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .replica-logo-img {
+      height: 44px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+    }
+    .replica-brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-main {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--color-gold);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .replica-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .replica-nav-links a {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .replica-nav-links a:hover,
+    .replica-nav-links a.active {
+      color: var(--color-gold);
+      background: rgba(217, 119, 6, 0.08);
+    }
+    .replica-footer {
+      width: 100%;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      padding: 2.5rem 1.5rem;
+      margin-top: 3rem;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+    .replica-footer-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .replica-footer-container {
+        grid-template-columns: 1fr;
+      }
+      .replica-nav-links {
+        display: none;
+      }
+    }
+    .replica-footer-logo {
+      height: 40px;
+      width: auto;
+      margin-bottom: 0.75rem;
+    }
+
   </style>
 </head>
 <body>
@@ -3032,6 +3129,43 @@
       const replicaBody = document.getElementById('replicaContentBody');
       replicaBody.innerHTML = '';
 
+      /* 1. RENDER OFFICIAL WEBSITE HEADER & LOGO NAVBAR */
+      const navHeader = document.createElement('header');
+      navHeader.className = 'replica-navbar-header';
+      navHeader.innerHTML = `
+        <div class="replica-nav-container">
+          <div class="replica-logo-group">
+            <img src="${getStaticUrl('logo.png')}" alt="Sabin Balan Finance Logo" class="replica-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="replica-logo-text-fallback" style="display:none; align-items:center; gap:0.5rem;">
+              <span style="font-size:1.4rem;">🏛️</span>
+              <div>
+                <div style="font-weight:800; font-size:1rem; color:var(--text-primary);">GuardianTree <span style="color:var(--color-gold);">FP</span></div>
+                <div style="font-size:0.65rem; color:var(--color-gold); font-weight:700;">SABIN BALAN FINANCE</div>
+              </div>
+            </div>
+            <div class="replica-brand-title">
+              <span class="brand-main">Sabin Balan Finance</span>
+              <span class="brand-sub">Private Wealth & Institutional Advisory</span>
+            </div>
+          </div>
+          <nav class="replica-nav-links">
+            <a class="${page.id === 'home' ? 'active' : ''}" onclick="selectPage(0); return false;">Home</a>
+            <a class="${page.id === 'about' ? 'active' : ''}" onclick="selectPage(1); return false;">About Us</a>
+            <a class="${page.id === 'services' ? 'active' : ''}" onclick="selectPage(2); return false;">Services</a>
+            <a class="${page.id === 'testimonials' ? 'active' : ''}" onclick="selectPage(3); return false;">Testimonials</a>
+            <a class="${page.id === 'consultation' ? 'active' : ''}" onclick="selectPage(4); return false;">Book Consultation</a>
+            <a class="${page.id === 'contact' ? 'active' : ''}" onclick="selectPage(5); return false;">Contact</a>
+          </nav>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <button type="button" class="btn btn-gold" onclick="selectPage(4);" style="font-size:0.8rem; padding:0.4rem 0.95rem; border-radius:9999px;">
+              Book Consultation &rarr;
+            </button>
+          </div>
+        </div>
+      `;
+      replicaBody.appendChild(navHeader);
+
+
       const selector = document.getElementById('inspectorSectionSelect');
       selector.innerHTML = '';
 
@@ -3308,6 +3442,31 @@
         <span>➕ Append New Section to ${page.name}</span>
       `;
       replicaBody.appendChild(appendZone);
+
+      /* 2. RENDER OFFICIAL WEBSITE FOOTER */
+      const footerEl = document.createElement('footer');
+      footerEl.className = 'replica-footer';
+      footerEl.innerHTML = `
+        <div class="replica-footer-container">
+          <div class="footer-col-brand">
+            <img src="${getStaticUrl('logo.png')}" alt="Logo" class="replica-footer-logo" onerror="this.style.display='none';">
+            <h3 style="color:var(--color-gold); font-size:1.2rem; font-weight:800; margin-bottom:0.4rem;">Sabin Balan Finance</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Institutional Asset Stewardship, Quantitative Portfolio Advisory, & Multi-Generational Family Office Governance.</p>
+          </div>
+          <div class="footer-col">
+            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text-primary); margin-bottom:0.75rem;">Global Advisory Desks</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Mumbai HQ &bull; London Mayfair &bull; Dubai DIFC &bull; New York</p>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.4rem;">ISO 27001 Security Certified</p>
+          </div>
+          <div class="footer-col">
+            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text-primary); margin-bottom:0.75rem;">Fiduciary Governance</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Fee-Only Advisory Desk. Zero Product Markups.</p>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.4rem;">&copy; 2026 Sabin Balan Finance. All rights reserved.</p>
+          </div>
+        </div>
+      `;
+      replicaBody.appendChild(footerEl);
+
 
       if (!activeSectionId || !page.sections.some(s => s.id === activeSectionId)) {
         if (page.sections.length > 0) {
