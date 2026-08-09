@@ -2816,7 +2816,7 @@
     }
 
     function loadSavedState() {
-      const saved = localStorage.getItem('sabin_balan_review_draft');
+      const saved = localStorage.getItem('sabin_balan_review_draft_v3');
       if (saved) {
         try {
           lastSavedPages = JSON.parse(saved);
@@ -2860,7 +2860,7 @@
 
     function saveAllDraftChanges() {
       lastSavedPages = JSON.parse(JSON.stringify(currentPages));
-      localStorage.setItem('sabin_balan_review_draft', JSON.stringify(lastSavedPages));
+      localStorage.setItem('sabin_balan_review_draft_v3', JSON.stringify(lastSavedPages));
       markClean();
       showToast('💾 All review changes successfully saved!', 'success');
       renderPageTabs();
@@ -3177,7 +3177,7 @@
                       <button type="button" class="btn btn-secondary" style="font-size:0.65rem; padding:0.12rem 0.35rem;" onclick="removeCardFromSection('${section.id}', ${cIdx})" title="Remove Card">🗑️</button>
                     </div>
                   </div>
-                  ${c.img ? `<img src="${getStaticUrl(c.img)}" id="card_img_${section.id}_${cIdx}" alt="${c.title}" class="card-img-thumb" onerror="this.src='login/static/login/images/service_1.jpg'">` : ''}
+                  ${c.img ? `<img src="${getStaticUrl(c.img)}" id="card_img_${section.id}_${cIdx}" alt="${c.title}" class="card-img-thumb" onerror="this.src='${getStaticUrl('login/images/service_1.jpg')}'">` : ''}
                   <div class="card-title" contenteditable="true" title="Click to edit card title" onblur="handleCardEdit('${section.id}', ${cIdx}, 'title', this.innerText)">${c.title}</div>
                   <div class="card-desc" contenteditable="true" title="Click to edit description" onblur="handleCardEdit('${section.id}', ${cIdx}, 'desc', this.innerText)">${c.desc}</div>
                 </div>
@@ -3226,7 +3226,7 @@
                 <button type="button" class="direct-change-img-overlay" onclick="event.stopPropagation(); openImagePickerForSection('${section.id}')">
                   🖼️ Change Image Live
                 </button>
-                <img src="${section.image}" id="media_img_${section.id}" alt="Media Showcase" class="media-showcase-img" onerror="this.src='login/static/login/images/service_hero.png'">
+                <img src="${getStaticUrl(section.image)}" id="media_img_${section.id}" alt="Media Showcase" class="media-showcase-img" onerror="this.src='${getStaticUrl('service_hero.png')}'">
               </div>
             </div>
           `;
@@ -3726,15 +3726,15 @@
       if (targetCardIndexForImage !== null && section.cards && section.cards[targetCardIndexForImage]) {
         section.cards[targetCardIndexForImage].img = imagePath;
         const cardImgEl = document.getElementById(`card_img_${section.id}_${targetCardIndexForImage}`);
-        if (cardImgEl) cardImgEl.src = imagePath;
+        if (cardImgEl) cardImgEl.src = getStaticUrl(imagePath);
       } else {
         section.image = imagePath;
         const heroBgEl = document.getElementById(`hero_bg_${section.id}`);
-        if (heroBgEl) heroBgEl.style.backgroundImage = `url('${imagePath}')`;
+        if (heroBgEl) heroBgEl.style.backgroundImage = `url('${getStaticUrl(imagePath)}')`;
         const mediaImgEl = document.getElementById(`media_img_${section.id}`);
-        if (mediaImgEl) mediaImgEl.src = imagePath;
+        if (mediaImgEl) mediaImgEl.src = getStaticUrl(imagePath);
         const testImgEl = document.getElementById(`testimonial_img_${section.id}`);
-        if (testImgEl) testImgEl.src = imagePath;
+        if (testImgEl) testImgEl.src = getStaticUrl(imagePath);
       }
 
       if (section.status === 'original') section.status = 'modified';
@@ -3770,7 +3770,7 @@
         item.className = 'preset-img-thumb';
         item.title = asset.name;
         item.onclick = () => setCustomImageLive(asset.path);
-        item.innerHTML = `<img src="${asset.path}" alt="${asset.name}" onerror="this.src='login/static/login/images/service_hero.png'">`;
+        item.innerHTML = `<img src="${getStaticUrl(asset.path)}" alt="${asset.name}" onerror="this.src='${getStaticUrl('service_hero.png')}'">`;
         grid.appendChild(item);
       });
     }
