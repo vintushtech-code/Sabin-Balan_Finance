@@ -2333,24 +2333,62 @@
        3. JAVASCRIPT ARCHITECTURE & STATE MANAGEMENT
        ========================================================================== -->
   <script>
+    /* DYNAMIC ASSET RESOLVER HELPER */
+    function getStaticUrl(path) {
+      if (!path) return '';
+      // Strip unrendered Django static tags if present
+      path = path.replace(/\{%\s*static\s+['"]?([^'"]+)['"]?\s*%\}/g, '$1').trim();
+      if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
+        return path;
+      }
+      const isDjango = typeof window !== 'undefined' && (
+        window.location.pathname.includes('/client-review') || 
+        window.location.pathname.includes('/review') ||
+        window.location.pathname.includes('/home')
+      );
+
+      let clean = path;
+      if (clean.startsWith('/static/')) clean = clean.substring(8);
+      if (clean.startsWith('static/')) clean = clean.substring(7);
+      if (clean.startsWith('photos/')) clean = clean.substring(7);
+
+      if (isDjango) {
+        if (clean.startsWith('login/images/')) return `/static/${clean}`;
+        return `/static/${clean}`;
+      } else {
+        if (clean.startsWith('login/images/') || clean.startsWith('images/')) {
+          return clean.startsWith('login/') ? clean : `login/static/login/${clean}`;
+        }
+        return `photos/${clean}`;
+      }
+    }
+
     const ASSET_LIBRARY = [
-      { path: '{% static "home_hero.png" %}', name: 'Home Hero Banner' },
-      { path: '{% static "about_hero.png" %}', name: 'About Us Hero' },
-      { path: '{% static "service_hero.png" %}', name: 'Services Hero' },
-      { path: '{% static "testimonials_hero.png" %}', name: 'Testimonials Hero' },
-      { path: '{% static "contact_hero.png" %}', name: 'Contact Desk Hero' },
-      { path: '{% static "team_sabin.png" %}', name: 'Managing Partner Sabin' },
-      { path: '{% static "avatar_david.png" %}', name: 'Senior Partner David' },
-      { path: '{% static "avatar_emily.png" %}', name: 'Senior Partner Emily' },
-      { path: '{% static "bit_about_us.png" %}', name: 'A Bit About Us' },
-      { path: '{% static "consultation_intro.png" %}', name: 'Consultation Intro' },
-      { path: '{% static "login.png" %}', name: 'Portal Sign In' },
-      { path: '{% static "signup.png" %}', name: 'Portal Sign Up' },
-      { path: '{% static "password-reset.png" %}', name: 'Password Reset' },
-      { path: '{% static "login/images/service_1.jpg" %}', name: 'Ultra HNI Wealth' },
-      { path: '{% static "login/images/service_2.jpg" %}', name: 'Quantitative Advisory' },
-      { path: '{% static "login/images/service_3.jpg" %}', name: 'Family Office' },
-      { path: '{% static "login/images/service_4.jpg" %}', name: 'Tax Structuring' },
+      { path: 'home_hero.png', name: 'Home Hero Banner' },
+      { path: 'about_hero.png', name: 'About Us Hero' },
+      { path: 'service_hero.png', name: 'Services Hero' },
+      { path: 'testimonials_hero.png', name: 'Testimonials Hero' },
+      { path: 'contact_hero.png', name: 'Contact Desk Hero' },
+      { path: 'bit_about_us.png', name: 'A Bit About Us' },
+      { path: 'about_showcase_team.png', name: 'Legacy & Fiduciary Showcase' },
+      { path: 'financial_advisors_team.png', name: 'Financial Advisors Team' },
+      { path: 'team_sabin.png', name: 'Managing Partner Sabin Balan' },
+      { path: 'avatar_david.png', name: 'Chief Investment Officer David Chen' },
+      { path: 'avatar_emily.png', name: 'Partner Emily Watson' },
+      { path: 'avatar_leader1.png', name: 'Eleanor Vance (Leader Avatar 1)' },
+      { path: 'avatar_leader2.png', name: 'Vikramaditya Singhania (Leader Avatar 2)' },
+      { path: 'avatar_leader3.png', name: 'Dr. Ananya Nair (Leader Avatar 3)' },
+      { path: 'avatar_leader4.png', name: 'Arthur Pendelton (Leader Avatar 4)' },
+      { path: 'consultation_intro.png', name: 'Consultation Intro' },
+      { path: 'message_dispatched.png', name: 'Message Dispatched' },
+      { path: 'home_contact.png', name: 'Home Contact Desk' },
+      { path: 'login.png', name: 'Portal Sign In' },
+      { path: 'signup.png', name: 'Portal Sign Up' },
+      { path: 'password-reset.png', name: 'Password Reset' },
+      { path: 'login/images/service_1.jpg', name: 'Ultra HNI Wealth Preservation' },
+      { path: 'login/images/service_2.jpg', name: 'Quantitative Portfolio Alpha' },
+      { path: 'login/images/service_3.jpg', name: 'Multi-Family Office Concierge' },
+      { path: 'login/images/service_4.jpg', name: 'Tax & Cross-Border Structuring' },
     ];
 
     const BASELINE_PAGES = [
@@ -2369,42 +2407,43 @@
             badge: '✨ Institutional Wealth & Multi-Generational Advisory',
             title: 'Preserve, Elevate, Compound — <span class="highlight-text">Institutional Advisory</span>',
             subtitle: 'Bespoke capital preservation, quantitative family office governance, and sovereign asset management for high-net-worth individuals and global enterprises.',
-            image: '{% static "home_hero.png" %}',
+            image: 'home_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             metrics: [
+              { label: 'Heritage of Trust', val: '25+ Yrs' },
               { label: 'Assets Under Advisory', val: '₹15,000+ Cr' },
               { label: 'Client Retention', val: '99.4%' },
-              { label: 'Advisory Heritage', val: '25+ Yrs' },
-              { label: 'Institutional Security', val: 'ISO 27001' }
+              { label: 'Security Certified', val: 'ISO 27001' }
             ]
           },
           {
             id: 'home_showcase',
             type: 'cards',
-            name: '2. Advisory Pillars Showcase',
+            name: '2. "A Bit About Us" & Advisory Pillars',
             badge: '🏛️ Strategic Competencies',
-            title: 'Institutional Wealth Pillars Built for <span class="highlight-text">Generational Growth</span>',
-            subtitle: 'Engineered with deep mathematical rigor, independent fiduciary alignment, and complete capital shielding.',
-            image: '{% static "bit_about_us.png" %}',
+            title: 'Building Wealth. Safeguarding Futures. <span class="highlight-text">Creating Legacies.</span>',
+            subtitle: 'At Sabin Balan Finance, we partner with salaried professionals, entrepreneurs, and families to build, protect, and transfer wealth with structured financial planning, clear retirement roadmaps, and custom management.',
+            image: 'bit_about_us.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             cards: [
-              { title: 'Ultra HNI Wealth Preservation', desc: 'Custom sovereign bonds, tax-sheltered annuities, and cross-border trust structuring.', img: '{% static "login/images/service_1.jpg" %}' },
-              { title: 'Quantitative Portfolio Alpha', desc: 'Factor-based dynamic asset allocation leveraging institutional algorithmic rebalancing.', img: '{% static "login/images/service_2.jpg" %}' },
-              { title: 'Multi-Family Office Concierge', desc: 'Holistic estate succession, philanthropy governance, and private equity syndicate access.', img: '{% static "login/images/service_3.jpg" %}' }
+              { title: 'Ultra HNI Wealth Preservation', desc: 'Custom sovereign bonds, tax-sheltered annuities, and cross-border trust structuring.', img: 'login/images/service_1.jpg' },
+              { title: 'Quantitative Portfolio Alpha', desc: 'Factor-based dynamic asset allocation leveraging institutional algorithmic rebalancing.', img: 'login/images/service_2.jpg' },
+              { title: 'Multi-Family Office Concierge', desc: 'Holistic estate succession, philanthropy governance, and private equity syndicate access.', img: 'login/images/service_3.jpg' },
+              { title: 'Tax & Cross-Border Structuring', desc: 'Optimizing international tax liabilities across USA, UK, India, and EU jurisdictions.', img: 'login/images/service_4.jpg' }
             ]
           },
           {
             id: 'home_simulator',
             type: 'simulator',
             name: '3. Wealth Simulator & Asset Projection Engine',
-            badge: '📊 Compounding Engine (Third Section)',
+            badge: '📊 Compounding Engine',
             title: 'Interactive Private Wealth & <span class="highlight-text">Compounding Simulator</span>',
             subtitle: 'Model your multi-decade portfolio trajectory across conservative, balanced, and dynamic asset allocation regimes.',
-            image: '{% static "service_hero.png" %}',
+            image: 'service_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
@@ -2417,13 +2456,13 @@
             badge: '⭐ Client Success Stories',
             title: 'Endorsed by Global Leaders & <span class="highlight-text">Prominent Families</span>',
             subtitle: 'Authentic testimonials from corporate counsels, business founders, and institutional trustees.',
-            image: '{% static "testimonials_hero.png" %}',
+            image: 'testimonials_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             quote: 'Sabin Balan Finance transformed our family estate with uncompromising fiduciary discipline. Their cross-border structuring saved us millions in avoidable tax friction.',
-            author: 'Vikramaditya Singhania',
-            role: 'Managing Director, Singhania Industrial Holdings',
+            author: 'Eleanor Vance',
+            role: 'Managing Director, Vance Strategies',
             rating: 5
           },
           {
@@ -2433,23 +2472,25 @@
             badge: '❓ Clarity & Governance',
             title: 'Frequently Asked <span class="highlight-text">Advisory Questions</span>',
             subtitle: 'Clear answers on fee transparency, regulatory registration, fiduciary custody, and minimum onboarding tiers.',
-            image: '{% static "about_hero.png" %}',
+            image: 'about_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             faqs: [
               { q: 'What is the minimum portfolio size for private advisory?', a: 'Our private wealth desk typically works with individuals and family trusts with minimum investable liquid assets of ₹1 Crore ($150,000+ USD).' },
-              { q: 'How is Sabin Balan Finance compensated?', a: 'We operate strictly as a fee-only fiduciary advisor. We do not accept hidden broker commissions or proprietary product kickbacks.' }
+              { q: 'How is Sabin Balan Finance compensated?', a: 'We operate strictly as a fee-only fiduciary advisor. We do not accept hidden broker commissions or proprietary product kickbacks.' },
+              { q: 'How are my assets held and secured?', a: 'Assets are held in segregated client accounts under tier-1 regulated custodians with ISO 27001 data security compliance.' },
+              { q: 'Can I schedule a direct briefing with Sabin Balan?', a: 'Yes, high-net-worth clients can reserve direct portfolio briefing sessions with Senior Managing Partner Mr. Sabin Balan.' }
             ]
           },
           {
             id: 'home_contact_preview',
             type: 'cta',
             name: '6. Advisory Dispatch & Booking Desk',
-            badge: '💼 Final Section & Contact Preview',
+            badge: '💼 Reserve Consultation',
             title: 'Connect with Our Private <span class="highlight-text">Advisory Desk</span>',
             subtitle: 'Schedule a confidential 45-minute portfolio consultation with Senior Managing Partner Mr. Sabin Balan.',
-            image: '{% static "home_contact.png" %}',
+            image: 'home_contact.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2468,22 +2509,46 @@
             id: 'about_hero',
             type: 'hero',
             name: '1. Architecture of Enduring Legacy',
-            badge: '🏛️ Executive Heritage',
-            title: 'Architecture of Enduring Legacy — <span class="highlight-text">The Sabin Balan Philosophy</span>',
-            subtitle: 'Rooted in fiduciary excellence, rigorous capital stewardship, and mathematical risk management for over two decades.',
-            image: '{% static "about_hero.png" %}',
+            badge: '✨ Structured Wealth & Advisory Services',
+            title: 'Discover our financial <span class="highlight-text">heritage now!</span>',
+            subtitle: 'At Sabin Balan Finance, we partner with salaried professionals, entrepreneurs, and families to design structured financial planning, wealth management, and retirement strategies.',
+            image: 'about_hero.png',
             status: 'original',
             priority: 'normal',
-            notes: ''
+            notes: '',
+            metrics: [
+              { label: 'Heritage of Trust', val: '25+ Yrs' },
+              { label: 'Assets Under Advisory', val: '₹15,000+ Cr' },
+              { label: 'Client Retention', val: '99.4%' },
+              { label: 'Security Certified', val: 'ISO 27001' }
+            ]
           },
           {
             id: 'about_showcase',
+            type: 'cards',
+            name: '2. "A Bit About Us" & Core Values',
+            badge: '🛡️ Core Mission & Values',
+            title: 'Building Wealth. Safeguarding Futures. <span class="highlight-text">Creating Legacies.</span>',
+            subtitle: 'At Sabin Balan Finance, we partner with salaried professionals, entrepreneurs, and families to build, protect, and transfer wealth with structured financial planning.',
+            image: 'bit_about_us.png',
+            status: 'original',
+            priority: 'normal',
+            notes: '',
+            cards: [
+              { title: 'Integrity', desc: 'We act with honesty and uphold the highest fiduciary standards.', img: 'bit_about_us.png' },
+              { title: 'Client First', desc: 'Your goals, your priorities and your long-term success come first.', img: 'bit_about_us.png' },
+              { title: 'Expertise', desc: 'Decades of institutional experience guiding your multi-generational wealth.', img: 'bit_about_us.png' },
+              { title: 'Trust', desc: 'Enduring client relationships built on mutual respect and clarity.', img: 'bit_about_us.png' }
+            ]
+          },
+          {
+            id: 'about_legacy',
             type: 'media-text',
-            name: '2. "A Bit About Us" & Mission',
-            badge: '🛡️ Core Mission',
-            title: 'Unwavering Fiduciary Alignment & <span class="highlight-text">Zero Conflict of Interest</span>',
-            subtitle: 'Founded by Sabin Balan with a vision to bring institutional-tier treasury and wealth advisory to families and entrepreneurs.',
-            image: '{% static "bit_about_us.png" %}',
+            name: '3. Legacy & Executive Showcase',
+            badge: '🏛️ Executive Heritage',
+            title: 'Crafting Bespoke Wealth Solutions Driven by <span class="highlight-text">Fiduciary Trust</span>',
+            subtitle: 'At Sabin Balan Finance, we place our clients' interests at the center of everything we do. Our team of veteran advisors leverages advanced quantitative strategies to build and compound your capital.',
+            image: 'about_showcase_team.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2491,18 +2556,19 @@
           {
             id: 'about_team',
             type: 'cards',
-            name: '3. Senior Leadership & Advisory Board',
-            badge: '👥 Senior Partners',
-            title: 'Meet Our Managing Partners & <span class="highlight-text">Chief Investment Officers</span>',
+            name: '4. Senior Leadership & Advisory Board',
+            badge: '👥 Professional Advisors',
+            title: 'Meet Our <span class="highlight-text">Professional Advisors</span>',
             subtitle: 'Veteran macroeconomic strategists, quantitative analysts, and seasoned trust attorneys.',
-            image: '{% static "team_sabin.png" %}',
+            image: 'financial_advisors_team.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             cards: [
-              { title: 'Mr. Sabin Balan', desc: 'Founder & Managing Partner. 25+ years in institutional equity research and sovereign wealth.', img: '{% static "team_sabin.png" %}' },
-              { title: 'David Chen, CFA', desc: 'Chief Investment Officer. Former Senior Portfolio Manager at Top-Tier Global Asset Desk.', img: '{% static "avatar_david.png" %}' },
-              { title: 'Emily Watson, JD', desc: 'Partner — Trust, Tax & Cross-Border Succession Law.', img: '{% static "avatar_emily.png" %}' }
+              { title: 'Mr. Sabin Balan', desc: 'Founder & Managing Partner. 25+ years in institutional equity research and sovereign wealth.', img: 'team_sabin.png' },
+              { title: 'David Chen, CFA', desc: 'Chief Investment Officer. Former Senior Portfolio Manager at Top-Tier Global Asset Desk.', img: 'avatar_david.png' },
+              { title: 'Emily Watson, JD', desc: 'Partner — Trust, Tax & Cross-Border Succession Law.', img: 'avatar_emily.png' },
+              { title: 'Financial Advisory Team', desc: 'Senior Wealth Associates & Quantitative Research Analysts.', img: 'financial_advisors_team.png' }
             ]
           }
         ]
@@ -2519,10 +2585,10 @@
             id: 'services_hero',
             type: 'hero',
             name: '1. Services Hero Banner',
-            badge: '💼 Institutional Advisory Solutions',
-            title: 'Institutional-Grade Wealth Architecture & <span class="highlight-text">Bespoke Management</span>',
+            badge: '💼 Bespoke Advisory',
+            title: 'Discover our tailored financial advisory <span class="highlight-text">services!</span>',
             subtitle: 'From algorithmic asset allocation to multi-generational family office governance, explore our tailored capabilities.',
-            image: '{% static "service_hero.png" %}',
+            image: 'service_hero.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2534,15 +2600,15 @@
             badge: '⚡ Six Core Offerings',
             title: 'Comprehensive Wealth & <span class="highlight-text">Asset Management Solutions</span>',
             subtitle: 'Engineered to maximize post-tax compounded returns while systematically hedging downside tail risk.',
-            image: '{% static "service_hero.png" %}',
+            image: 'service_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             cards: [
-              { title: 'Ultra HNI Wealth Preservation', desc: 'Capital shielding, inflation-hedged sovereign debt, and direct private placements.', img: '{% static "login/images/service_1.jpg" %}' },
-              { title: 'Quantitative Portfolio Advisory', desc: 'Dynamic factor investing leveraging proprietary risk models and algorithmic rebalancing.', img: '{% static "login/images/service_2.jpg" %}' },
-              { title: 'Multi-Family Office & Trusts', desc: 'Holistic generational governance, succession structuring, and private trust creation.', img: '{% static "login/images/service_3.jpg" %}' },
-              { title: 'Tax & Cross-Border Structuring', desc: 'Optimizing international tax liabilities across USA, UK, India, and EU jurisdictions.', img: '{% static "login/images/service_4.jpg" %}' }
+              { title: 'Ultra HNI Wealth Preservation', desc: 'Capital shielding, inflation-hedged sovereign debt, and direct private placements.', img: 'login/images/service_1.jpg' },
+              { title: 'Quantitative Portfolio Advisory', desc: 'Dynamic factor investing leveraging proprietary risk models and algorithmic rebalancing.', img: 'login/images/service_2.jpg' },
+              { title: 'Multi-Family Office & Trusts', desc: 'Holistic generational governance, succession structuring, and private trust creation.', img: 'login/images/service_3.jpg' },
+              { title: 'Tax & Cross-Border Structuring', desc: 'Optimizing international tax liabilities across USA, UK, India, and EU jurisdictions.', img: 'login/images/service_4.jpg' }
             ]
           },
           {
@@ -2552,12 +2618,12 @@
             badge: '⚙️ Advisory Methodology',
             title: 'The Sabin Balan 4-Step <span class="highlight-text">Execution Blueprint</span>',
             subtitle: 'Discovery, Quantitative Modeling, Execution, and Active Governance.',
-            image: '{% static "service_hero.png" %}',
+            image: 'service_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             cards: [
-              { title: '1. Discovery & Balance Sheet Audit', desc: 'Comprehensive mapping of all liquid assets, real estate, liabilities, and tax status.' },
+              { title: '1. Discovery & Balance Sheet Audit', desc: 'Comprehensive mapping of liquid assets, real estate, liabilities, and tax status.' },
               { title: '2. Quantitative Risk Modeling', desc: 'Monte Carlo stress-testing across 10,000 macroeconomic market regimes.' },
               { title: '3. Institutional Execution', desc: 'Direct market execution with zero intermediary retail markups.' },
               { title: '4. Continuous Governance', desc: 'Quarterly board reviews and proactive portfolio rebalancing.' }
@@ -2577,10 +2643,10 @@
             id: 'testimonials_hero',
             type: 'hero',
             name: '1. Testimonials Hero Banner',
-            badge: '⭐ Client Reviews & Success Stories',
+            badge: '⭐ Client Reviews',
             title: 'Hear From Our <span class="highlight-text">Global Financial Community!</span>',
             subtitle: 'Discover authentic feedback and verified success stories from salaried professionals, entrepreneurs, and families compounding wealth.',
-            image: '{% static "testimonials_hero.png" %}',
+            image: 'testimonials_hero.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2588,18 +2654,19 @@
           {
             id: 'testimonials_grid',
             type: 'cards',
-            name: '2. Wavy Leadership Portrait & Review Grid',
+            name: '2. Verified Review Grid & Portrait Cards',
             badge: '💬 Verified Endorsements',
             title: 'Executive Endorsements Across <span class="highlight-text">Global Markets</span>',
             subtitle: 'Read unfiltered perspectives from our private wealth and institutional clientele.',
-            image: '{% static "testimonials_hero.png" %}',
+            image: 'testimonials_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             cards: [
-              { title: 'Meera Nambiar (Corporate Counsel, NY)', desc: '⭐⭐⭐⭐⭐ "Clear fiduciary advice with zero product pushiness. Gives me immense confidence in my retirement future."', img: '{% static "avatar_leader1.png" %}' },
-              { title: 'Karan Patel (Logistics Founder, India)', desc: '⭐⭐⭐⭐⭐ "From working capital hedging to personal wealth creation, Sabin Balan Finance has been an invaluable strategic growth partner."', img: '{% static "avatar_leader2.png" %}' },
-              { title: 'Isabelle Dubois (Pension Fund Officer, Paris)', desc: '⭐⭐⭐⭐⭐ "Their institutional risk reporting and factor-based asset allocation provide the high standard expected by our trustees."', img: '{% static "avatar_leader3.png" %}' }
+              { title: 'Eleanor Vance (Vance Strategies, MD)', desc: '⭐⭐⭐⭐⭐ "Sabin Balan Finance transformed our family estate with uncompromising fiduciary discipline."', img: 'avatar_leader1.png' },
+              { title: 'Vikramaditya Singhania (Singhania Group)', desc: '⭐⭐⭐⭐⭐ "Balancing illiquid real estate with liquid yield required exceptional strategy. Highly recommended."', img: 'avatar_leader2.png' },
+              { title: 'Dr. Ananya Nair (Chief Medical Officer)', desc: '⭐⭐⭐⭐⭐ "As a medical professional with limited time, their goal-based financial roadmap has been invaluable."', img: 'avatar_leader3.png' },
+              { title: 'Arthur Pendelton (Endowment Director)', desc: '⭐⭐⭐⭐⭐ "The ISO-27001 data compliance and fee transparency made them our natural choice for endowment stewardship."', img: 'avatar_leader4.png' }
             ]
           }
         ]
@@ -2619,7 +2686,7 @@
             badge: '📅 Reserve Executive Session',
             title: 'Reserve a Private <span class="highlight-text">Wealth Consultation</span>',
             subtitle: 'Schedule a confidential, direct briefing with our Senior Advisory Desk to explore bespoke portfolio strategies.',
-            image: '{% static "consultation_intro.png" %}',
+            image: 'consultation_intro.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2631,14 +2698,14 @@
             badge: '⚡ 3-Step Booking Engine',
             title: 'Select Your Preferred Date, Time Slot & <span class="highlight-text">Advisory Focus</span>',
             subtitle: 'Lock in a boardroom or encrypted video briefing with our Managing Partners.',
-            image: '{% static "consultation_intro.png" %}',
+            image: 'consultation_intro.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             cards: [
               { title: 'Step 1: Choose Advisory Scope', desc: 'Select between Comprehensive Wealth, Portfolio Audit, or Trust Succession.' },
-              { title: 'Step 2: Reserve Time Slot', desc: 'Next business day availability: 10:00 AM, 11:30 AM, 02:00 PM, 04:30 PM.' },
-              { title: 'Step 3: Instant Reference Key', desc: 'Receive a 10-character encrypted key (e.g., GT7K4M9P2X) for real-time tracking.' }
+              { title: 'Step 2: Reserve Time Slot', desc: 'Mon–Fri availability (09:00 AM – 06:00 PM) with 15-min advisory buffers.' },
+              { title: 'Step 3: Instant Reference Key', desc: 'Receive a 10-character reference key (e.g. GT7K4M9P2X) for real-time tracking.' }
             ]
           },
           {
@@ -2648,7 +2715,7 @@
             badge: '🔍 Live Status Verification',
             title: 'Track Your Consultation Lifecycle in <span class="highlight-text">Real-Time</span>',
             subtitle: 'Check calendar confirmation, partner assignment, and rescheduled updates with your reference key.',
-            image: '{% static "message_dispatched.png" %}',
+            image: 'message_dispatched.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2670,7 +2737,7 @@
             badge: '✉️ Private Wealth Advisory Desk',
             title: 'Connect with Our Private <span class="highlight-text">Advisory Desk!</span>',
             subtitle: 'Get in touch with the Sabin Balan Finance team to explore bespoke portfolio strategies, asset management, and wealth solutions.',
-            image: '{% static "contact_hero.png" %}',
+            image: 'contact_hero.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2682,7 +2749,7 @@
             badge: '📝 Direct Dispatch',
             title: 'Submit Your Advisory Inquiry with <span class="highlight-text">Encrypted Dispatch</span>',
             subtitle: 'Our Senior Partners respond within 4 business hours to all qualified wealth inquiries.',
-            image: '{% static "home_contact.png" %}',
+            image: 'home_contact.png',
             status: 'original',
             priority: 'normal',
             notes: ''
@@ -2694,61 +2761,16 @@
             badge: '🌍 Global Presence',
             title: 'Our International Wealth <span class="highlight-text">Advisory Concierges</span>',
             subtitle: 'Visit our executive boardrooms across major global financial hubs.',
-            image: '{% static "contact_hero.png" %}',
+            image: 'contact_hero.png',
             status: 'original',
             priority: 'normal',
             notes: '',
             cards: [
-              { title: 'London Headquarters', desc: '45 Berkeley Square, Mayfair, London W1J 5AS, United Kingdom.' },
-              { title: 'Mumbai Desk', desc: 'Level 18, Maker Maxity, Bandra Kurla Complex (BKC), Mumbai 400051.' },
-              { title: 'Dubai DIFC', desc: 'Gate Precinct 4, Dubai International Financial Centre, UAE.' }
+              { title: 'Mumbai Global HQ', desc: 'Level 18, Express Towers, Nariman Point, Mumbai 400021', img: 'contact_hero.png' },
+              { title: 'London Concierge', desc: '45 Berkeley Square, Mayfair, London W1K 3BN', img: 'contact_hero.png' },
+              { title: 'Dubai DIFC Desk', desc: 'Gate Precinct Building 4, DIFC, Dubai', img: 'contact_hero.png' },
+              { title: 'New York Advisory Desk', desc: '667 Madison Avenue, New York, NY 10065', img: 'contact_hero.png' }
             ]
-          }
-        ]
-      },
-      {
-        id: 'auth',
-        name: 'Client Portal Auth',
-        urlPath: '/login/',
-        badge: 'Auth Portal',
-        icon: '🔐',
-        description: 'Client sign in, onboarding signup, password reset flow, and 256-bit bank-grade protection.',
-        sections: [
-          {
-            id: 'auth_signin',
-            type: 'hero',
-            name: '1. Client Portal Sign In',
-            badge: '🛡️ Bank-Grade 256-Bit Protection',
-            title: 'Master Your Wealth with <span class="highlight-text">Institutional Intelligence</span>',
-            subtitle: 'Access real-time portfolio analytics, quantitative advisory, and seamless wealth control with Sabin Balan Finance.',
-            image: '{% static "login.png" %}',
-            status: 'original',
-            priority: 'normal',
-            notes: ''
-          },
-          {
-            id: 'auth_signup',
-            type: 'media-text',
-            name: '2. Client Onboarding Registration',
-            badge: '📝 Digital KYC Onboarding',
-            title: 'Open Your Private Wealth <span class="highlight-text">Client Account</span>',
-            subtitle: 'Complete frictionless digital KYC and connect your liquid portfolios.',
-            image: '{% static "signup.png" %}',
-            status: 'original',
-            priority: 'normal',
-            notes: ''
-          },
-          {
-            id: 'auth_recovery',
-            type: 'cta',
-            name: '3. Password Recovery & Security Verification',
-            badge: '🔐 Security Verification',
-            title: 'Encrypted Credential Recovery & <span class="highlight-text">2FA Reset</span>',
-            subtitle: 'Self-service recovery links with single-use cryptographic token generator.',
-            image: '{% static "password-reset.png" %}',
-            status: 'original',
-            priority: 'normal',
-            notes: ''
           }
         ]
       }
@@ -3058,7 +3080,7 @@
 
         if (section.type === 'hero') {
           sectionInnerHtml += `
-            <div class="replica-hero" id="hero_bg_${section.id}" style="background-image: url('${section.image}');">
+            <div class="replica-hero" id="hero_bg_${section.id}" style="background-image: url('${getStaticUrl(section.image)}');">
               <div class="hero-overlay"></div>
               <button type="button" class="direct-change-img-overlay" onclick="event.stopPropagation(); openImagePickerForSection('${section.id}')">
                 🖼️ Change Hero Image Live
@@ -3156,7 +3178,7 @@
                       <button type="button" class="btn btn-secondary" style="font-size:0.65rem; padding:0.12rem 0.35rem;" onclick="removeCardFromSection('${section.id}', ${cIdx})" title="Remove Card">🗑️</button>
                     </div>
                   </div>
-                  ${c.img ? `<img src="${c.img}" id="card_img_${section.id}_${cIdx}" alt="${c.title}" class="card-img-thumb" onerror="this.src='{% static "login/images/service_1.jpg" %}'">` : ''}
+                  ${c.img ? `<img src="${getStaticUrl(c.img)}" id="card_img_${section.id}_${cIdx}" alt="${c.title}" class="card-img-thumb" onerror="this.src='{% static "login/images/service_1.jpg" %}'">` : ''}
                   <div class="card-title" contenteditable="true" title="Click to edit card title" onblur="handleCardEdit('${section.id}', ${cIdx}, 'title', this.innerText)">${c.title}</div>
                   <div class="card-desc" contenteditable="true" title="Click to edit description" onblur="handleCardEdit('${section.id}', ${cIdx}, 'desc', this.innerText)">${c.desc}</div>
                 </div>
@@ -3327,7 +3349,7 @@
       const imgDisplayName = section.image && section.image.startsWith('data:') ? 'Custom Uploaded File' : (section.image || 'Default');
       document.getElementById('currentImageName').textContent = imgDisplayName;
 
-      document.getElementById('inspectorScreenshotImg').src = section.image || '{% static "home_hero.png" %}';
+      document.getElementById('inspectorScreenshotImg').src = getStaticUrl(section.image || 'home_hero.png');
 
       const badge = document.getElementById('inspectorStatusBadge');
       badge.className = 'section-tag-pill';
