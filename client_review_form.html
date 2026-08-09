@@ -2546,7 +2546,7 @@
             name: '3. Legacy & Executive Showcase',
             badge: '🏛️ Executive Heritage',
             title: 'Crafting Bespoke Wealth Solutions Driven by <span class="highlight-text">Fiduciary Trust</span>',
-            subtitle: 'At Sabin Balan Finance, we place our clients' interests at the center of everything we do. Our team of veteran advisors leverages advanced quantitative strategies to build and compound your capital.',
+            subtitle: 'At Sabin Balan Finance, we place our clients\' interests at the center of everything we do. Our team of veteran advisors leverages advanced quantitative strategies to build and compound your capital.',
             image: 'about_showcase_team.png',
             status: 'original',
             priority: 'normal',
@@ -3202,7 +3202,7 @@
               <div style="font-size: 1.5rem; color: var(--color-gold); margin-bottom: 0.75rem;">⭐⭐⭐⭐⭐</div>
               <p style="font-size: 1.1rem; color: var(--text-primary); font-style: italic; margin-bottom: 1.25rem; line-height: 1.5;" contenteditable="true" onblur="handleInlineEdit('${section.id}', 'quote', this.innerText)">"${section.quote || ''}"</p>
               <div style="display: flex; align-items: center; gap: 1rem;">
-                <img src="${getStaticUrl(section.image || \'avatar_david.png\')}" id="testimonial_img_${section.id}" alt="Client Avatar" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-gold);" onerror="this.src='photos/team_sabin.png'">
+                <img src="${getStaticUrl(section.image || 'avatar_david.png')}" id="testimonial_img_${section.id}" alt="Client Avatar" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-gold);" onerror="this.src='${getStaticUrl('team_sabin.png')}'">
                 <div>
                   <div style="font-weight: 800; color: var(--color-gold);" contenteditable="true" onblur="handleInlineEdit('${section.id}', 'author', this.innerText)">${section.author || 'Client Name'}</div>
                   <div style="font-size: 0.8rem; color: var(--text-muted);" contenteditable="true" onblur="handleInlineEdit('${section.id}', 'role', this.innerText)">${section.role || 'Executive Role'}</div>
