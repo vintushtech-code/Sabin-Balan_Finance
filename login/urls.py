@@ -31,6 +31,10 @@ urlpatterns = [
     path('signup/', views.SignupView.as_view(), name='signup'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
+    # Admin 2-Way Verification (2FA) Routes
+    path('verify-2fa/', views.Admin2FAVerifyView.as_view(), name='admin_2fa_verify'),
+    path('verify-2fa/resend/', views.Admin2FAResendView.as_view(), name='admin_2fa_resend'),
+
     # Password Reset Flow Routes
     path('password-reset/', views.CustomPasswordResetView.as_view(), name='password_reset'),
     path('password-reset/done/', views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
@@ -40,4 +44,9 @@ urlpatterns = [
     # Social OAuth Routes
     path('oauth/<str:provider>/', views.SocialAuthInitView.as_view(), name='social_init'),
     path('oauth/callback/<str:provider>/', views.SocialAuthCallbackView.as_view(), name='social_callback'),
+
+    # Client First Draft Review & Feedback Portal
+    path('client-review/', views.ClientReviewView.as_view(), name='client_review'),
+    path('review/', views.ClientReviewView.as_view(), name='review'),
 ]
+

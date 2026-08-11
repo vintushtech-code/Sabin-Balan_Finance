@@ -35,10 +35,18 @@ from .forms import (
     CustomUserCreationForm,
     EmailOrUsernameLoginForm,
     CustomPasswordResetForm,
-    CustomSetPasswordForm
+    CustomSetPasswordForm,
+    Admin2FAForm
 )
 from .security import rate_limit, sanitize_input
 from .tokens import password_reset_token_generator
+from .two_factor import (
+    send_2fa_otp,
+    verify_2fa_otp,
+    can_resend_otp,
+    clear_2fa_session,
+    OTP_EXPIRY_SECONDS
+)
 
 User = get_user_model()
 
@@ -73,12 +81,13 @@ class SignupView(FormView):
 
 
 # --------------------------------------------------------------------------
-# 2. User Login
+# 2. User Login & Admin 2-Way Verification Entry
 # --------------------------------------------------------------------------
 @method_decorator(rate_limit(key_type='ip', limit=8, period=60), name='dispatch')
 class LoginView(FormView):
     """
     Handles user authentication via Username or Email + Password.
+    For Administrator / Staff accounts, enforces a 2-Way Verification Passcode.
     Rate-limited against brute-force attacks.
     """
     template_name = 'login/login.html'
@@ -93,7 +102,19 @@ class LoginView(FormView):
     def form_valid(self, form):
         user = form.get_user()
         remember_me = form.cleaned_data.get('remember_me')
+        redirect_to = self.request.GET.get('next') or self.success_url
 
+        # Check if 2FA is required for Admin / Staff Users
+        admin_2fa_enabled = getattr(settings, 'ADMIN_2FA_ENABLED', True)
+        if admin_2fa_enabled and (user.is_staff or user.is_superuser):
+            # Store pre-2FA state in session (ensure strings for JSON session serializer)
+            self.request.session['pre_2fa_remember_me'] = bool(remember_me)
+            self.request.session['pre_2fa_next'] = str(redirect_to)
+            send_2fa_otp(user, self.request)
+            messages.info(self.request, f"2-Way Verification code generated for {user.username}! Check terminal output or email.")
+            return redirect('login:admin_2fa_verify')
+
+        # Standard Client Login
         login(self.request, user)
 
         if not remember_me:
@@ -103,9 +124,117 @@ class LoginView(FormView):
             # Session persists for 14 days
             self.request.session.set_expiry(1209600)
 
-        # Respect 'next' redirect parameter if safe
-        redirect_to = self.request.GET.get('next') or self.success_url
         return redirect(redirect_to)
+
+
+# --------------------------------------------------------------------------
+# 2.1 Admin 2-Way Verification (2FA) Workflows
+# --------------------------------------------------------------------------
+@method_decorator(rate_limit(key_type='ip', limit=10, period=60), name='dispatch')
+class Admin2FAVerifyView(FormView):
+    """
+    Renders 6-digit OTP verification screen for Administrator accounts
+    and handles OTP validation to finalize session login.
+    """
+    template_name = 'login/admin_2fa_verify.html'
+    form_class = Admin2FAForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('login:home')
+
+        pre_user_id = request.session.get('pre_2fa_user_id')
+        if not pre_user_id:
+            messages.warning(request, "No active 2FA login session found. Please sign in.")
+            return redirect('login:login')
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pre_user_id = self.request.session.get('pre_2fa_user_id')
+        target_user = User.objects.filter(pk=pre_user_id).first()
+
+        configured_email = getattr(settings, 'ADMIN_2FA_EMAIL', '').strip()
+        target_email = configured_email if configured_email else (target_user.email if target_user else '')
+
+        context['target_user'] = target_user
+        context['target_email'] = target_email
+        context['expiry_seconds'] = OTP_EXPIRY_SECONDS
+        return context
+
+    def form_valid(self, form):
+        submitted_code = form.cleaned_data.get('otp_code')
+        is_valid, error_msg = verify_2fa_otp(self.request, submitted_code)
+
+        if not is_valid:
+            context = self.get_context_data()
+            context['error'] = error_msg
+            return render(self.request, self.template_name, context)
+
+        # 2FA Verification Successful! Finalize Authentication
+        pre_user_id = self.request.session.get('pre_2fa_user_id')
+        remember_me = self.request.session.get('pre_2fa_remember_me', False)
+        redirect_to = self.request.session.get('pre_2fa_next') or reverse('login:home')
+
+        user = User.objects.filter(pk=pre_user_id).first()
+        if not user or not user.is_active:
+            clear_2fa_session(self.request)
+            messages.error(self.request, "Account is inactive or invalid.")
+            return redirect('login:login')
+
+        login(self.request, user)
+        clear_2fa_session(self.request)
+
+        if not remember_me:
+            self.request.session.set_expiry(0)
+        else:
+            self.request.session.set_expiry(1209600)
+
+        messages.success(self.request, f"Welcome back, Administrator {user.get_display_name()}! 2-Way Verification successful.")
+        return redirect(redirect_to)
+
+    def form_invalid(self, form):
+        context = self.get_context_data()
+        context['error'] = "Please enter a valid 6-digit numeric verification code."
+        return render(self.request, self.template_name, context)
+
+
+class Admin2FAResendView(View):
+    """
+    Handles requests to regenerate and resend the 6-digit OTP code with 30s cooldown protection.
+    """
+    def post(self, request, *args, **kwargs):
+        pre_user_id = request.session.get('pre_2fa_user_id')
+        if not pre_user_id:
+            messages.error(request, "Session expired. Please sign in again.")
+            return redirect('login:login')
+
+        user = User.objects.filter(pk=pre_user_id).first()
+        if not user:
+            clear_2fa_session(request)
+            return redirect('login:login')
+
+        can_resend, wait_sec = can_resend_otp(request)
+        if not can_resend:
+            messages.warning(request, f"Please wait {wait_sec} seconds before requesting a new verification code.")
+            return redirect('login:admin_2fa_verify')
+
+        send_2fa_otp(user, request, is_resend=True)
+        messages.success(request, "A fresh 2-Way Verification code has been printed to the terminal and dispatched to email!")
+        return redirect('login:admin_2fa_verify')
+
+
+def custom_admin_login(request, extra_context=None):
+    """
+    Redirects unauthenticated Django Admin login attempts to the main login view
+    with next=/admin/ so all admin authentication passes through 2FA.
+    """
+    if request.user.is_authenticated and request.user.is_staff:
+        return redirect('/admin/')
+    
+    next_url = request.GET.get('next', '/admin/')
+    return redirect(f"{reverse('login:login')}?next={next_url}")
 
 
 # --------------------------------------------------------------------------
@@ -1151,6 +1280,16 @@ class ConsultationTrackAPIView(View):
             'status': 'success',
             'data': data
         })
+
+
+class ClientReviewView(TemplateView):
+    """
+    Dedicated Client First Draft Review & Feedback Suite for Sabin Balan.
+    Provides interactive page-by-page visual replica review, section editing,
+    image replacement, adding/deleting elements, and instant feedback exporting.
+    """
+    template_name = 'login/client_review.html'
+
 
 
 

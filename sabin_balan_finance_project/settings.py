@@ -232,9 +232,23 @@ LOGIN_URL = 'login:login'
 LOGIN_REDIRECT_URL = 'login:home'
 LOGOUT_REDIRECT_URL = 'login:login'
 
-# Email Configuration (Prints password reset links to terminal in dev mode)
+# Email Configuration (Prints password reset & 2FA links/codes to terminal in dev mode)
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@guardiantreefp.com')
+
+# --------------------------------------------------------------------------
+# 2-Factor Authentication (2FA) & Terminal Verification Settings
+# --------------------------------------------------------------------------
+# Enforces 6-digit 2FA OTP verification for Admin/Staff user logins.
+ADMIN_2FA_ENABLED = os.environ.get('ADMIN_2FA_ENABLED', 'True') == 'True'
+
+# Destination email configuration for 2FA OTP codes:
+# - If ADMIN_2FA_EMAIL is empty/unset, codes are sent to the logged-in admin's email address.
+# - You can set ADMIN_2FA_EMAIL in environment or here (e.g., 'admin@company.com') to route 2FA emails to a specific inbox.
+ADMIN_2FA_EMAIL = os.environ.get('ADMIN_2FA_EMAIL', '')
+
+# Expiration window for 2FA verification codes in seconds (default: 300 seconds = 5 minutes)
+ADMIN_2FA_CODE_EXPIRY_SECONDS = int(os.environ.get('ADMIN_2FA_CODE_EXPIRY_SECONDS', '300'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
