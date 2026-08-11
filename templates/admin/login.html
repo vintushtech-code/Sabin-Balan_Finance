@@ -52,16 +52,10 @@
         {{ form.password.errors }}
         <label for="id_password">{{ form.password.label }}:</label>
         {{ form.password }}
-        <input type="hidden" name="next" value="{{ next }}">
+        <input type="hidden" name="next" value="{% if next and next != '/' and next != '/home/' %}{{ next }}{% else %}{% url 'admin:index' %}{% endif %}">
       </div>
-      {% url 'admin_password_reset' as password_reset_url %}
-      {% if password_reset_url %}
-      <div class="password-reset-link" style="text-align: right; margin-top: 6px; font-size: 0.8rem;">
-        <a href="{{ password_reset_url }}" style="color: var(--admin-gold) !important;">{% translate 'Forgotten your password or username?' %}</a>
-      </div>
-      {% endif %}
       <div class="submit-row">
-        <input type="submit" value="{% translate 'Authenticate & Enter' %}">
+        <input type="submit" value="{% translate 'Authenticate & Proceed to 2FA 🛡️' %}">
       </div>
     </form>
 
