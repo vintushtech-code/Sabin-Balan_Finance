@@ -932,7 +932,7 @@ body.login .submit-row input[type="submit"] {
 }
 
 /* ==========================================================================
-   LIGHT MODE COMPLETE THEME OVERRIDES
+   COMPREHENSIVE LIGHT MODE THEME OVERRIDES FOR ALL ADMIN COMPONENTS
    ========================================================================== */
 html[data-admin-theme="light"],
 body.admin-light-mode {
@@ -966,6 +966,7 @@ body.admin-light-mode {
   --admin-status-cancelled-bg: #FEF2F2;
 }
 
+/* 1. Global & Base Containers */
 html[data-admin-theme="light"] body,
 body.admin-light-mode {
   background-color: #F8FAFC !important;
@@ -976,10 +977,12 @@ html[data-admin-theme="light"] h1,
 html[data-admin-theme="light"] h2,
 html[data-admin-theme="light"] h3,
 html[data-admin-theme="light"] h4,
+html[data-admin-theme="light"] h5,
 body.admin-light-mode h1,
 body.admin-light-mode h2,
 body.admin-light-mode h3,
-body.admin-light-mode h4 {
+body.admin-light-mode h4,
+body.admin-light-mode h5 {
   color: #0F172A !important;
 }
 
@@ -993,6 +996,12 @@ body.admin-light-mode a:hover {
   color: #0F172A !important;
 }
 
+html[data-admin-theme="light"] #container,
+body.admin-light-mode #container {
+  background: #F8FAFC !important;
+}
+
+/* 2. Header & Branding Bar */
 html[data-admin-theme="light"] #header,
 body.admin-light-mode #header {
   background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%) !important;
@@ -1027,6 +1036,13 @@ body.admin-light-mode #user-tools a:hover {
   border-color: #996515 !important;
 }
 
+html[data-admin-theme="light"] #user-tools .user-badge,
+body.admin-light-mode #user-tools .user-badge {
+  background: rgba(184, 134, 11, 0.12) !important;
+  color: #996515 !important;
+  border-color: rgba(184, 134, 11, 0.3) !important;
+}
+
 html[data-admin-theme="light"] .admin-theme-btn,
 body.admin-light-mode .admin-theme-btn {
   background: #F1F5F9 !important;
@@ -1040,6 +1056,7 @@ body.admin-light-mode .admin-theme-btn:hover {
   color: #FFFFFF !important;
 }
 
+/* 3. Breadcrumbs */
 html[data-admin-theme="light"] div.breadcrumbs,
 body.admin-light-mode div.breadcrumbs {
   background: #FFFFFF !important;
@@ -1047,11 +1064,39 @@ body.admin-light-mode div.breadcrumbs {
   color: #64748B !important;
 }
 
-html[data-admin-theme="light"] #container,
-body.admin-light-mode #container {
-  background: #F8FAFC !important;
+html[data-admin-theme="light"] div.breadcrumbs a,
+body.admin-light-mode div.breadcrumbs a {
+  color: #996515 !important;
 }
 
+/* 4. Left Nav Sidebar (Collapsible Drawer) */
+html[data-admin-theme="light"] #nav-sidebar,
+body.admin-light-mode #nav-sidebar {
+  background: #FFFFFF !important;
+  border-right: 1px solid #E2E8F0 !important;
+}
+
+html[data-admin-theme="light"] #nav-sidebar .module th,
+html[data-admin-theme="light"] #nav-sidebar .module caption,
+body.admin-light-mode #nav-sidebar .module th,
+body.admin-light-mode #nav-sidebar .module caption {
+  background: #F8FAFC !important;
+  color: #0F172A !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+html[data-admin-theme="light"] #nav-sidebar a,
+body.admin-light-mode #nav-sidebar a {
+  color: #334155 !important;
+}
+
+html[data-admin-theme="light"] #nav-sidebar tr.current-model a,
+body.admin-light-mode #nav-sidebar tr.current-model a {
+  color: #996515 !important;
+  font-weight: 700 !important;
+}
+
+/* 5. KPI Metrics Grid & Executive Shortcuts */
 html[data-admin-theme="light"] .kpi-card,
 body.admin-light-mode .kpi-card {
   background: #FFFFFF !important;
@@ -1087,6 +1132,7 @@ body.admin-light-mode .qa-btn:hover {
   border-color: #996515 !important;
 }
 
+/* 6. Modules & Tables (Dashboard Apps) */
 html[data-admin-theme="light"] .module,
 body.admin-light-mode .module {
   background: #FFFFFF !important;
@@ -1112,8 +1158,15 @@ html[data-admin-theme="light"] .module table th,
 body.admin-light-mode .module table td,
 body.admin-light-mode .module table th {
   border-top: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
 }
 
+html[data-admin-theme="light"] .module table tr:hover td,
+body.admin-light-mode .module table tr:hover td {
+  background: #F1F5F9 !important;
+}
+
+/* 7. Change List Views (Data Tables, Search, Filter) */
 html[data-admin-theme="light"] #changelist table,
 body.admin-light-mode #changelist table {
   background: #FFFFFF !important;
@@ -1159,15 +1212,47 @@ body.admin-light-mode #changelist-filter {
   background: #FFFFFF !important;
   border: 1px solid #E2E8F0 !important;
   box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04) !important;
+  color: #334155 !important;
 }
 
-html[data-admin-theme="light"] #toolbar form input[type="text"],
-body.admin-light-mode #toolbar form input[type="text"] {
-  background: #FFFFFF !important;
-  border: 1px solid #CBD5E1 !important;
+html[data-admin-theme="light"] #changelist-filter h2,
+body.admin-light-mode #changelist-filter h2 {
   color: #0F172A !important;
+  border-bottom: 1px solid #E2E8F0 !important;
 }
 
+html[data-admin-theme="light"] #changelist-filter h3,
+body.admin-light-mode #changelist-filter h3 {
+  color: #334155 !important;
+}
+
+html[data-admin-theme="light"] #changelist-filter a,
+body.admin-light-mode #changelist-filter a {
+  color: #475569 !important;
+}
+
+html[data-admin-theme="light"] #changelist-filter li.selected a,
+body.admin-light-mode #changelist-filter li.selected a {
+  color: #996515 !important;
+  font-weight: 700 !important;
+}
+
+/* 8. Object Tools (Add / Action Buttons) */
+html[data-admin-theme="light"] .object-tools a,
+body.admin-light-mode .object-tools a {
+  background: #996515 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #704214 !important;
+  box-shadow: 0 2px 8px rgba(153, 101, 21, 0.25) !important;
+}
+
+html[data-admin-theme="light"] .object-tools a:hover,
+body.admin-light-mode .object-tools a:hover {
+  background: #B8860B !important;
+  color: #FFFFFF !important;
+}
+
+/* 9. Forms, Inputs, Textareas, Selects & Fieldsets */
 html[data-admin-theme="light"] input[type="text"],
 html[data-admin-theme="light"] input[type="password"],
 html[data-admin-theme="light"] input[type="email"],
@@ -1187,10 +1272,21 @@ body.admin-light-mode textarea {
   color: #0F172A !important;
 }
 
+html[data-admin-theme="light"] input:focus,
+html[data-admin-theme="light"] select:focus,
+html[data-admin-theme="light"] textarea:focus,
+body.admin-light-mode input:focus,
+body.admin-light-mode select:focus,
+body.admin-light-mode textarea:focus {
+  border-color: #996515 !important;
+  box-shadow: 0 0 8px rgba(153, 101, 21, 0.2) !important;
+}
+
 html[data-admin-theme="light"] fieldset,
 body.admin-light-mode fieldset {
   background: #FFFFFF !important;
   border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
 }
 
 html[data-admin-theme="light"] fieldset h2,
@@ -1199,11 +1295,24 @@ body.admin-light-mode fieldset h2 {
   border-bottom: 1px solid #E2E8F0 !important;
 }
 
+html[data-admin-theme="light"] .form-row,
+body.admin-light-mode .form-row {
+  border-bottom: 1px solid #F1F5F9 !important;
+}
+
 html[data-admin-theme="light"] .form-row label,
 body.admin-light-mode .form-row label {
   color: #334155 !important;
 }
 
+html[data-admin-theme="light"] p.help,
+html[data-admin-theme="light"] .help,
+body.admin-light-mode p.help,
+body.admin-light-mode .help {
+  color: #64748B !important;
+}
+
+/* 10. Sticky Submit Row */
 html[data-admin-theme="light"] .submit-row,
 body.admin-light-mode .submit-row {
   background: #FFFFFF !important;
@@ -1211,9 +1320,103 @@ body.admin-light-mode .submit-row {
   box-shadow: 0 -4px 15px rgba(15, 23, 42, 0.08) !important;
 }
 
+html[data-admin-theme="light"] .submit-row input[type="submit"],
+body.admin-light-mode .submit-row input[type="submit"] {
+  background: #996515 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+}
+
+html[data-admin-theme="light"] .submit-row input[type="submit"]:hover,
+body.admin-light-mode .submit-row input[type="submit"]:hover {
+  background: #B8860B !important;
+}
+
+/* 11. Pagination */
+html[data-admin-theme="light"] .paginator,
+body.admin-light-mode .paginator {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+  padding: 10px 16px !important;
+  border-radius: var(--admin-border-radius-md) !important;
+}
+
+html[data-admin-theme="light"] .paginator a,
+body.admin-light-mode .paginator a {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+}
+
+html[data-admin-theme="light"] .paginator .this-page,
+body.admin-light-mode .paginator .this-page {
+  background: #996515 !important;
+  color: #FFFFFF !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+}
+
+/* 12. Messages & Alerts */
+html[data-admin-theme="light"] .messagelist li,
+body.admin-light-mode .messagelist li {
+  background: #ECFDF5 !important;
+  border: 1px solid #A7F3D0 !important;
+  color: #065F46 !important;
+}
+
+html[data-admin-theme="light"] .messagelist li.error,
+body.admin-light-mode .messagelist li.error {
+  background: #FEF2F2 !important;
+  border: 1px solid #FECDD3 !important;
+  color: #991B1B !important;
+}
+
+html[data-admin-theme="light"] .messagelist li.warning,
+body.admin-light-mode .messagelist li.warning {
+  background: #FFFBEB !important;
+  border: 1px solid #FDE68A !important;
+  color: #92400E !important;
+}
+
+/* 13. Admin Login Page Light Overrides */
+html[data-admin-theme="light"] body.login,
+body.admin-light-mode.login {
+  background: radial-gradient(circle at 50% 15%, rgba(184, 134, 11, 0.08) 0%, rgba(241, 245, 249, 0.98) 70%),
+              linear-gradient(180deg, #F8FAFC 0%, #E2E8F0 100%) !important;
+}
+
+html[data-admin-theme="light"] .login-executive-card,
+body.admin-light-mode .login-executive-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-admin-theme="light"] .login-portal-title,
+body.admin-light-mode .login-portal-title {
+  background: linear-gradient(135deg, #0F172A 40%, #996515 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html[data-admin-theme="light"] .login-portal-subtitle,
+body.admin-light-mode .login-portal-subtitle {
+  color: #64748B !important;
+}
+
+/* 14. Publisher Footer */
 html[data-admin-theme="light"] .admin-publisher-footer,
 body.admin-light-mode .admin-publisher-footer {
   background: #FFFFFF !important;
   border-top: 1px solid #E2E8F0 !important;
   color: #64748B !important;
+}
+
+html[data-admin-theme="light"] .admin-publisher-footer p,
+body.admin-light-mode .admin-publisher-footer p {
+  color: #334155 !important;
 }
