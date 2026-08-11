@@ -1,7 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import format_html
 from .models import CustomUser, SuperUser, FAQ, TeamMember, Testimonial, ConsultationBooking
+
+# ==============================================================================
+# EXECUTIVE PORTAL BRANDING & HEADERS (KP RegTech & VintushTech)
+# ==============================================================================
+admin.site.site_header = "Executive Wealth Admin Suite • KP RegTech & VintushTech"
+admin.site.site_title = "Executive Wealth Admin Portal"
+admin.site.index_title = "Commercial Wealth & Client Operations Dashboard"
+
 
 @admin.register(ConsultationBooking)
 class ConsultationBookingAdmin(admin.ModelAdmin):
@@ -11,9 +20,9 @@ class ConsultationBookingAdmin(admin.ModelAdmin):
     """
     list_display = (
         'reference_key', 'client_name', 'service', 'duration_minutes',
-        'consultation_date', 'consultation_time', 'status', 'payment_status', 'created_at'
+        'consultation_date', 'consultation_time', 'colored_status', 'colored_payment', 'created_at'
     )
-    list_editable = ('status', 'payment_status')
+    list_editable = ()
     list_filter = (
         'status', 'payment_status', 'service', 'duration_minutes',
         'consultation_date', 'preferred_comm', 'created_at'
@@ -22,6 +31,16 @@ class ConsultationBookingAdmin(admin.ModelAdmin):
     date_hierarchy = 'consultation_date'
     ordering = ('-consultation_date', '-consultation_time', '-created_at')
     readonly_fields = ('reference_key', 'end_time', 'ip_address', 'created_at', 'updated_at')
+
+    @admin.display(description=_("Status"), ordering="status")
+    def colored_status(self, obj):
+        css_class = f"status-pill status-pill-{obj.status}"
+        return format_html('<span class="{}">{}</span>', css_class, obj.get_status_display())
+
+    @admin.display(description=_("Payment"), ordering="payment_status")
+    def colored_payment(self, obj):
+        css_class = f"status-pill status-pill-{obj.payment_status}"
+        return format_html('<span class="{}">{}</span>', css_class, obj.get_payment_status_display())
     
     fieldsets = (
         (_('Booking Identification & Client'), {

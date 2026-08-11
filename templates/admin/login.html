@@ -1,0 +1,80 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div class="login-executive-card">
+    <div class="login-brand-logos">
+        <img src="{% static 'kplogo.png' %}" alt="KP RegTech" onerror="this.src='https://kpregtech.com/static/images/kplogo.png';">
+        <div class="pub-divider" style="height: 24px;"></div>
+        <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" onerror="this.src='https://vintushtech.cloud/static/website/images/favicon.png';">
+    </div>
+
+    <h1 class="login-portal-title">Executive Admin Portal</h1>
+    <div class="login-portal-subtitle">Commercial Financial Operations Suite</div>
+
+    {% if form.errors and not form.non_field_errors %}
+    <p class="errornote" style="padding: 10px 14px; border-radius: 6px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #F87171; font-size: 0.84rem; margin-bottom: 16px;">
+    {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+    </p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="errornote" style="padding: 10px 14px; border-radius: 6px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #F87171; font-size: 0.84rem; margin-bottom: 16px;">
+        {{ error }}
+    </p>
+    {% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <p class="errornote" style="padding: 10px 14px; border-radius: 6px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #F59E0B; font-size: 0.84rem; margin-bottom: 16px;">
+    {% blocktranslate trimmed %}
+        You are authenticated as {{ username }}, but are not authorized to
+        access this page. Would you like to login to a different account?
+    {% endblocktranslate %}
+    </p>
+    {% endif %}
+
+    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+      <div class="form-row">
+        {{ form.username.errors }}
+        <label for="id_username">{{ form.username.label }}:</label>
+        {{ form.username }}
+      </div>
+      <div class="form-row">
+        {{ form.password.errors }}
+        <label for="id_password">{{ form.password.label }}:</label>
+        {{ form.password }}
+        <input type="hidden" name="next" value="{{ next }}">
+      </div>
+      {% url 'admin_password_reset' as password_reset_url %}
+      {% if password_reset_url %}
+      <div class="password-reset-link" style="text-align: right; margin-top: 6px; font-size: 0.8rem;">
+        <a href="{{ password_reset_url }}" style="color: var(--admin-gold) !important;">{% translate 'Forgotten your password or username?' %}</a>
+      </div>
+      {% endif %}
+      <div class="submit-row">
+        <input type="submit" value="{% translate 'Authenticate & Enter' %}">
+      </div>
+    </form>
+
+    <div class="login-footer-badge">
+        Published by <span>KP RegTech</span> &amp; <span>VintushTech</span>
+        <div style="margin-top: 8px;">
+            <a href="/" style="color: var(--admin-text-muted) !important; font-size: 0.78rem;">&larr; Return to Public Website</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
