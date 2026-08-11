@@ -757,6 +757,7 @@ a:hover, a:focus {
   color: var(--admin-text-secondary);
   border-bottom: 1px solid var(--admin-border-subtle);
   vertical-align: middle;
+  background: transparent !important;
 }
 
 .crypto-data-table tr:hover td {
@@ -858,6 +859,19 @@ a:hover, a:focus {
 
 .model-widget-card {
   padding: 1rem;
+
+/* Override default Django app_list white backgrounds */
+#content-main .module table,
+#content-main .module table td,
+#content-main .module table th,
+#content-main .module table tr {
+  background: transparent !important;
+}
+
+#content-main .module caption {
+  background: var(--admin-bg-elevated) !important;
+  color: var(--admin-text-primary) !important;
+}
   background: var(--admin-bg-elevated);
   border: 1px solid var(--admin-border-subtle);
   border-radius: var(--admin-radius-md);
