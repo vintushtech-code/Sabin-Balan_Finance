@@ -418,67 +418,32 @@ class HomeView(TemplateView):
         user = self.request.user
         context['user'] = user
         context['page_title'] = "Sabin Balan Finance — Wealth & Institutional Advisory"
+        
         try:
             from contactform.forms import ContactForm
             context['contact_form'] = ContactForm()
         except Exception:
             context['contact_form'] = None
 
-        # Fetch FAQs for Home Page with Auto-Seeding if empty
+        # Fetch FAQs from database only - NO AUTO-SEEDING
         try:
             from .models import FAQ
-            if not FAQ.objects.exists():
-                initial_faqs = [
-                    {
-                        "question": "How does Sabin Balan Finance create a customized financial advisory plan?",
-                        "answer": "Our financial advisory process begins with a comprehensive quantitative analysis of your current net worth, cash flow dynamics, risk tolerance, and tax profile. We design bespoke multi-asset allocation strategies and actionable roadmaps to align your wealth with your short- and long-term life objectives.",
-                        "category": "general",
-                        "order": 1,
-                    },
-                    {
-                        "question": "What is the difference between Wealth Management and Financial Advisory?",
-                        "answer": "While financial advisory focuses on goal-based budgeting, risk management, and strategic asset allocation, wealth management provides an all-inclusive institutional service encompassing multi-asset portfolio management, estate planning, tax optimization, and family office solutions for capital growth and legacy preservation.",
-                        "category": "wealth",
-                        "order": 2,
-                    },
-                    {
-                        "question": "How do you ensure conflict-free advisory and fee transparency?",
-                        "answer": "We operate under a strict fee-only fiduciary model with zero hidden broker commissions, kickbacks, or product markups. Our advisory desk charges a transparent, upfront retainer or fixed AUM fee, ensuring our guidance is 100% aligned with your best financial interests.",
-                        "category": "fiduciary",
-                        "order": 3,
-                    },
-                    {
-                        "question": "What minimum portfolio size or investment amount is required to get started?",
-                        "answer": "We offer flexible entry tiers across our advisory desks. While our institutional private wealth team handles high-net-worth portfolios, individual investors can start building automated, quantitative SIP portfolios with a minimum monthly contribution of ₹5,000.",
-                        "category": "investment",
-                        "order": 4,
-                    },
-                    {
-                        "question": "How does financial advisory assist with tax planning and optimization?",
-                        "answer": "Our advisory desk structures tax-efficient portfolios utilizing loss harvesting, capital gains tax balancing, tax-advantaged rebalancing, and optimal instrument selection (such as ELSS, Sovereign Gold Bonds, and direct growth strategies) to maximize your post-tax returns.",
-                        "category": "investment",
-                        "order": 5,
-                    },
-                    {
-                        "question": "How are my invested capital and personal financial data secured?",
-                        "answer": "Your securities and funds remain directly under your custody with SEBI-registered depositories (NSDL/CDSL). We provide advisory intelligence without taking direct custody of your assets, while all platform interactions are protected using bank-grade 256-bit encryption and ISO-27001 compliant security.",
-                        "category": "fiduciary",
-                        "order": 6,
-                    },
-                ]
-                for item in initial_faqs:
-                    FAQ.objects.create(**item)
-
-            context['faqs'] = FAQ.objects.filter(is_active=True).order_by('order', 'created_at')[:6]
+            faqs = FAQ.objects.filter(is_active=True).order_by('order', 'created_at')[:6]
+            context['faqs'] = faqs
+            context['has_faqs'] = faqs.exists()
         except Exception:
             context['faqs'] = []
+            context['has_faqs'] = False
 
-        # Fetch Top 3 Active Testimonials for Home Page Preview Section (Safe Query)
+        # Fetch Top 3 Active Testimonials from database only
         try:
             from .models import Testimonial
-            context['testimonials'] = list(Testimonial.objects.filter(is_active=True).order_by('order', '-rating')[:3])
+            testimonials = list(Testimonial.objects.filter(is_active=True).order_by('order', '-rating')[:3])
+            context['testimonials'] = testimonials
+            context['has_testimonials'] = bool(testimonials)
         except Exception:
             context['testimonials'] = []
+            context['has_testimonials'] = False
 
         return context
 
@@ -496,7 +461,6 @@ class HomeView(TemplateView):
 
         messages.success(request, "Your profile bio has been updated successfully!")
         return redirect('login:home')
-
 # --------------------------------------------------------------------------
 # 7. About Us Page
 # --------------------------------------------------------------------------
@@ -614,260 +578,36 @@ class TestimonialsView(View):
         
         try:
             from .models import Testimonial
-            if Testimonial.objects.filter(is_active=True).count() < 12:
-                initial_testimonials = [
-                    {
-                        'name': 'Emily Carter',
-                        'role': 'Fintech Founder & CEO',
-                        'location': 'Zurich, Switzerland',
-                        'category': 'entrepreneur',
-                        'rating': 5,
-                        'quote': 'Sabin Balan Finance transformed our corporate treasury and personal liquidity structure. Their quantitative risk modeling gave us absolute clarity during our Series B expansion.',
-                        'avatar_image': '/static/avatar_emily.png',
-                        'order': 1,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'cyan',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Manish Agrawal',
-                        'role': 'Managing Director, Zenith Capital',
-                        'location': 'Mumbai, India',
-                        'category': 'portfolio_manager',
-                        'rating': 5,
-                        'quote': 'The multi-asset portfolio optimization and tax-loss harvesting strategies provided by the advisory desk have consistently outperformed our benchmark targets while keeping downside volatility minimal.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80',
-                        'order': 2,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'emerald',
-                        'card_type': 'bubble',
-                    },
-                    {
-                        'name': 'David Vance',
-                        'role': 'Senior Vice President, CloudScale',
-                        'location': 'San Francisco, USA',
-                        'category': 'saver',
-                        'rating': 5,
-                        'quote': 'Transitioning equity compensation into a diversified global asset allocation plan felt seamless. The fee-only transparency is a breath of fresh air compared to traditional wealth managers.',
-                        'avatar_image': '/static/avatar_david.png',
-                        'order': 3,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'amber',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Priya Sharma',
-                        'role': 'Family Office Trustee',
-                        'location': 'London, UK',
-                        'category': 'institutional',
-                        'rating': 5,
-                        'quote': 'GuardianTree FP brought rigorous governance and institutional-grade risk monitoring to our family trust. Their fiduciary dedication to protecting multi-generational capital is unmatched.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80',
-                        'order': 4,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'violet',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Vikramaditya Roy',
-                        'role': 'E-Commerce Founder',
-                        'location': 'Bengaluru, India',
-                        'category': 'entrepreneur',
-                        'rating': 5,
-                        'quote': 'As an entrepreneur with dynamic cash flow, having a personalized SIP strategy and emergency capital shield gave me total peace of mind to reinvest aggressively in business growth.',
-                        'avatar_image': '/static/avatar_leader1.png',
-                        'order': 5,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'cyan',
-                        'card_type': 'bubble',
-                    },
-                    {
-                        'name': 'Sophia Al-Maktoum',
-                        'role': 'Chief Investment Officer',
-                        'location': 'Dubai, UAE',
-                        'category': 'portfolio_manager',
-                        'rating': 5,
-                        'quote': 'Their deep market intelligence and dynamic rebalancing tools helped us navigate global inflation cycles effortlessly. Truly a world-class advisory partner.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&auto=format&fit=crop&q=80',
-                        'order': 6,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'amber',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Marcus Sterling',
-                        'role': 'Real Estate Investor & Developer',
-                        'location': 'Singapore',
-                        'category': 'entrepreneur',
-                        'rating': 5,
-                        'quote': 'Balancing illiquid real estate holdings with liquid market yield required exceptional strategy. Sabin Balan Finance constructed a high-yield portfolio perfectly matching our debt schedules.',
-                        'avatar_image': '/static/avatar_leader2.png',
-                        'order': 7,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'emerald',
-                        'card_type': 'bubble',
-                    },
-                    {
-                        'name': 'Dr. Ananya Nair',
-                        'role': 'Chief Medical Officer',
-                        'location': 'New Delhi, India',
-                        'category': 'saver',
-                        'rating': 5,
-                        'quote': 'As a medical professional with limited time for market tracking, their automated goal-based financial roadmap has been invaluable in building long-term wealth for my family.',
-                        'avatar_image': '/static/avatar_leader3.png',
-                        'order': 8,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'violet',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Arthur Pendelton',
-                        'role': 'Endowment Fund Director',
-                        'location': 'Boston, USA',
-                        'category': 'institutional',
-                        'rating': 5,
-                        'quote': 'The institutional security, ISO-27001 data compliance, and conflict-free fee structure made GuardianTree FP our natural choice for institutional endowment stewardship.',
-                        'avatar_image': '/static/avatar_leader4.png',
-                        'order': 9,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'cyan',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Tushar Kumar',
-                        'role': 'VP of Engineering & AI Lead',
-                        'location': 'Bengaluru, India',
-                        'category': 'saver',
-                        'rating': 5,
-                        'quote': 'The quantitative analytics dashboard and clear tax optimization strategy made tracking and compounding my tech equity holdings incredibly straightforward.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80',
-                        'order': 10,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'emerald',
-                        'card_type': 'bubble',
-                    },
-                    {
-                        'name': 'Elena Rostova',
-                        'role': 'Private Equity Principal',
-                        'location': 'Frankfurt, Germany',
-                        'category': 'portfolio_manager',
-                        'rating': 5,
-                        'quote': 'Extremely impressed by their macro asset allocation algorithms. The level of analytical precision and direct access to senior wealth advisors sets them apart.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80',
-                        'order': 11,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'amber',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Rajesh Kulkarni',
-                        'role': 'Manufacturing Group Chairman',
-                        'location': 'Pune, India',
-                        'category': 'entrepreneur',
-                        'rating': 5,
-                        'quote': 'Their succession planning and estate structuring advisory ensured our business succession was executed smoothly without unexpected tax liabilities.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&auto=format&fit=crop&q=80',
-                        'order': 12,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'violet',
-                        'card_type': 'bubble',
-                    },
-                    {
-                        'name': 'Clara Lindqvist',
-                        'role': 'Sustainable Energy Executive',
-                        'location': 'Stockholm, Sweden',
-                        'category': 'saver',
-                        'rating': 5,
-                        'quote': 'Finding wealth managers who specialize in ESG-aligned high-growth portfolios was difficult until I partnered with Sabin Balan Finance. Highly recommended!',
-                        'avatar_image': 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&auto=format&fit=crop&q=80',
-                        'order': 13,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'emerald',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Siddharth Mehta',
-                        'role': 'Partner, Apex Venture Capital',
-                        'location': 'Mumbai, India',
-                        'category': 'portfolio_manager',
-                        'rating': 5,
-                        'quote': 'Their wealth management team handles liquidity events with surgical precision. Post-IPO capital preservation strategies were executed faultlessly.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&auto=format&fit=crop&q=80',
-                        'order': 14,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'cyan',
-                        'card_type': 'bubble',
-                    },
-                    {
-                        'name': 'Hannah Brooks',
-                        'role': 'Corporate Counsel & Partner',
-                        'location': 'New York, USA',
-                        'category': 'saver',
-                        'rating': 5,
-                        'quote': 'Clear fiduciary advice with zero product pushiness. Knowing that every decision is made purely in my best interest gives me immense confidence in my financial future.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&auto=format&fit=crop&q=80',
-                        'order': 15,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'amber',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Karan Patel',
-                        'role': 'Logistics Enterprise Founder',
-                        'location': 'Ahmedabad, India',
-                        'category': 'entrepreneur',
-                        'rating': 5,
-                        'quote': 'From working capital hedging to personal wealth creation, Sabin Balan Finance has been an invaluable strategic growth partner for our entire executive board.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&auto=format&fit=crop&q=80',
-                        'order': 16,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'violet',
-                        'card_type': 'bubble',
-                    },
-                    {
-                        'name': 'Isabelle Dubois',
-                        'role': 'Pension Fund Investment Officer',
-                        'location': 'Paris, France',
-                        'category': 'institutional',
-                        'rating': 5,
-                        'quote': 'Their institutional risk reporting, factor-based asset allocation, and dedicated advisory desk provide the high standard of governance expected by our trustees.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=300&auto=format&fit=crop&q=80',
-                        'order': 17,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'cyan',
-                        'card_type': 'glass_card',
-                    },
-                    {
-                        'name': 'Arjun Kapoor',
-                        'role': 'Tech Angel Investor',
-                        'location': 'Hyderabad, India',
-                        'category': 'portfolio_manager',
-                        'rating': 5,
-                        'quote': 'Their cross-border wealth advisory and currency hedging tools helped me build a resilient global portfolio while keeping tax compliance completely seamless.',
-                        'avatar_image': 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&auto=format&fit=crop&q=80',
-                        'order': 18,
-                        'is_verified_linkedin': True,
-                        'badge_theme': 'amber',
-                        'card_type': 'bubble',
-                    }
-                ]
-                for item in initial_testimonials:
-                    Testimonial.objects.get_or_create(name=item['name'], defaults=item)
-
-            testimonials_list = list(Testimonial.objects.filter(is_active=True).order_by('order', '-rating'))
+            
+            # Get only active testimonials ordered by rating and creation date
+            testimonials_list = list(
+                Testimonial.objects.filter(is_active=True)
+                .order_by('-rating', '-created_at')  # Show highest rated first, then newest
+            )
+            
             context['testimonials'] = testimonials_list
             
-            cols = [[] for _ in range(9)]
-            for idx, item in enumerate(testimonials_list):
-                cols[idx % 9].append(item)
-            context['testimonials_cols'] = cols
+            # Check if there are any testimonials
+            if testimonials_list:
+                # Distribute testimonials into 9 columns for masonry layout
+                cols = [[] for _ in range(9)]
+                for idx, item in enumerate(testimonials_list):
+                    cols[idx % 9].append(item)
+                context['testimonials_cols'] = cols
+                context['has_testimonials'] = True
+            else:
+                # No testimonials available
+                context['testimonials_cols'] = [[] for _ in range(9)]
+                context['has_testimonials'] = False
+                context['no_testimonials_message'] = "No client testimonials available at the moment. Be the first to share your experience!"
+                
         except Exception as e:
             context['testimonials'] = []
             context['testimonials_cols'] = [[] for _ in range(9)]
+            context['has_testimonials'] = False
+            context['no_testimonials_message'] = "Testimonials are currently unavailable. Please check back later."
 
         return context
-
-
 # --------------------------------------------------------------------------
 # 10. Private Wealth Consultation Booking & Tracking Flow
 # --------------------------------------------------------------------------
