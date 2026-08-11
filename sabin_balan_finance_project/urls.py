@@ -8,6 +8,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from login.views import custom_admin_login
+
+# Enforce 2-Way Verification (2FA) for Django Admin site authentication
+admin.site.login = custom_admin_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),

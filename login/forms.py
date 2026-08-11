@@ -159,6 +159,29 @@ class EmailOrUsernameLoginForm(forms.Form):
         return getattr(self, 'user_cache', None)
 
 
+class Admin2FAForm(forms.Form):
+    """
+    Form for validating 6-digit OTP verification code during Admin 2FA login.
+    """
+    otp_code = forms.CharField(
+        max_length=6,
+        min_length=6,
+        required=True,
+        widget=forms.HiddenInput(),
+        error_messages={
+            'required': _("Please enter the 6-digit verification code."),
+            'min_length': _("The verification code must be exactly 6 digits."),
+            'max_length': _("The verification code must be exactly 6 digits."),
+        }
+    )
+
+    def clean_otp_code(self):
+        code = self.cleaned_data.get('otp_code', '').strip()
+        if not code.isdigit() or len(code) != 6:
+            raise ValidationError(_("Verification code must consist of exactly 6 numbers."))
+        return code
+
+
 class CustomPasswordResetForm(PasswordResetForm):
     """
     Password Reset Email Request Form.

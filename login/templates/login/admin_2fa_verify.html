@@ -1,0 +1,319 @@
+{% extends 'theme_config/base.html' %}
+{% load static %}
+
+{% block title %}Admin 2-Way Verification — Sabin Balan Finance{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+<style>
+  .login-bg {
+    background-image: url("{% static 'login.png' %}");
+  }
+
+  /* OTP 6-Digit Box Inputs */
+  .otp-input-container {
+    display: flex;
+    gap: 0.65rem;
+    justify-content: center;
+    margin: 1.75rem 0;
+  }
+
+  .otp-box {
+    width: 52px;
+    height: 60px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-align: center;
+    color: #FFD700;
+    background: rgba(11, 25, 44, 0.85);
+    border: 2px solid rgba(212, 175, 55, 0.35);
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+    outline: none;
+  }
+
+  .otp-box:focus {
+    border-color: #D4AF37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4), inset 0 2px 4px rgba(0,0,0,0.5);
+    background: rgba(11, 25, 44, 1);
+    transform: translateY(-2px);
+  }
+
+  .terminal-notice-box {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-left: 4px solid #D4AF37;
+    border-radius: 10px;
+    padding: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #E2E8F0;
+  }
+
+  .terminal-notice-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 0.4rem;
+  }
+
+  .timer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    color: #FFF9D2;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .btn-resend {
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: #D4AF37;
+    padding: 0.65rem 1.25rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .btn-resend:hover:not(:disabled) {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #D4AF37;
+    color: #FFFFFF;
+  }
+
+  .btn-resend:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: rgba(255,255,255,0.15);
+    color: #94A3B8;
+  }
+
+  @media (max-width: 480px) {
+    .otp-box {
+      width: 42px;
+      height: 52px;
+      font-size: 1.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-split-wrapper-fullscreen">
+
+  <!-- Left Side: Security Hero Panel -->
+  <div class="auth-split-image-fullscreen login-bg">
+    <div class="auth-image-content" style="position: relative; z-index: 10; max-width: 540px; color: #ffffff;">
+      <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">
+        🛡️ Administrator Security Gate
+      </span>
+      <h2 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff;">
+        Two-Way Verification <span class="highlight-text">Enforced</span>
+      </h2>
+      <p style="font-size: 1.05rem; color: rgba(255, 255, 255, 0.85); line-height: 1.6;">
+        To protect institutional assets and administrative controls, a 6-digit one-time passkey (OTP) has been dispatched.
+      </p>
+
+      <div style="margin-top: 2rem; padding: 1.25rem; background: rgba(11, 25, 44, 0.7); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 14px;">
+        <div style="font-size: 0.9rem; color: #FFD700; font-weight: 700; margin-bottom: 0.5rem;">
+          💻 Development Terminal Output Active
+        </div>
+        <p style="font-size: 0.85rem; color: #CBD5E1; margin: 0;">
+          Check your running terminal console window (<code>python manage.py runserver</code>) for the printed verification code, or check your registered email address.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: 2FA Input Panel -->
+  <div class="auth-split-form-fullscreen">
+    <div class="auth-header" style="text-align: left; margin-bottom: 1.5rem;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--color-gold); font-size: 1.5rem; margin-bottom: 1rem;">
+        🔑
+      </div>
+      <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">2-Way Verification <span class="highlight-text">Security Code</span></h1>
+      <p class="subtitle" style="font-size: 0.95rem;">
+        Enter the 6-digit verification code generated for <strong>{{ target_user.username }}</strong>
+      </p>
+    </div>
+
+    <!-- Messages / Error Banner -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}error{% else %}{{ message.tags }}{% endif %}" style="margin-bottom: 1.25rem;">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if error %}
+      <div class="alert alert-error" style="margin-bottom: 1.25rem;">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <!-- Terminal Code Notice Box -->
+    <div class="terminal-notice-box">
+      <div class="terminal-notice-header">
+        <span>⚡ Verification Code Dispatched</span>
+        <span class="timer-badge" style="margin-left: auto;">
+          ⏳ <span id="countdown-timer">05:00</span>
+        </span>
+      </div>
+      <div style="font-size: 0.85rem; line-height: 1.5; color: #CBD5E1;">
+        The 6-digit code has been output to your <strong>Terminal Console</strong> and sent to <strong>{{ target_email }}</strong>.
+      </div>
+    </div>
+
+    <!-- 2FA OTP Form -->
+    <form method="post" action="{% url 'login:admin_2fa_verify' %}" id="otp-form" class="auth-form" novalidate>
+      {% csrf_token %}
+      
+      <input type="hidden" name="otp_code" id="otp_code_hidden">
+
+      <div class="form-group">
+        <label class="form-label" style="text-align: center; display: block; font-weight: 700; color: #F8FAFC;">
+          Enter 6-Digit Passcode
+        </label>
+        
+        <div class="otp-input-container">
+          <input type="text" class="otp-box" maxlength="1" pattern="[0-9]" inputmode="numeric" autofocus id="digit1">
+          <input type="text" class="otp-box" maxlength="1" pattern="[0-9]" inputmode="numeric" id="digit2">
+          <input type="text" class="otp-box" maxlength="1" pattern="[0-9]" inputmode="numeric" id="digit3">
+          <input type="text" class="otp-box" maxlength="1" pattern="[0-9]" inputmode="numeric" id="digit4">
+          <input type="text" class="otp-box" maxlength="1" pattern="[0-9]" inputmode="numeric" id="digit5">
+          <input type="text" class="otp-box" maxlength="1" pattern="[0-9]" inputmode="numeric" id="digit6">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-gold" id="btn-verify" style="width: 100%; margin-top: 0.5rem; font-size: 1.05rem; padding: 0.85rem;">
+        Authorize & Complete Sign In &rarr;
+      </button>
+    </form>
+
+    <!-- Resend & Cancel Controls -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.1);">
+      <form method="post" action="{% url 'login:admin_2fa_resend' %}" style="margin: 0;">
+        {% csrf_token %}
+        <button type="submit" class="btn-resend" id="resend-btn">
+          🔄 Resend OTP Code
+        </button>
+      </form>
+
+      <a href="{% url 'login:login' %}" style="color: #94A3B8; font-size: 0.88rem; text-decoration: none; font-weight: 600;" onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='#94A3B8'">
+        ✕ Cancel Login
+      </a>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const boxes = [
+      document.getElementById('digit1'),
+      document.getElementById('digit2'),
+      document.getElementById('digit3'),
+      document.getElementById('digit4'),
+      document.getElementById('digit5'),
+      document.getElementById('digit6')
+    ];
+    const hiddenInput = document.getElementById('otp_code_hidden');
+    const form = document.getElementById('otp-form');
+
+    // Auto-focus first digit box
+    if (boxes[0]) boxes[0].focus();
+
+    function updateHiddenCode() {
+      const code = boxes.map(b => b.value).join('');
+      hiddenInput.value = code;
+    }
+
+    boxes.forEach((box, idx) => {
+      box.addEventListener('input', function(e) {
+        // Strip non-digits
+        this.value = this.value.replace(/[^0-9]/g, '');
+        
+        if (this.value && idx < 5) {
+          boxes[idx + 1].focus();
+        }
+        updateHiddenCode();
+
+        // Auto submit when all 6 digits entered
+        if (hiddenInput.value.length === 6) {
+          form.submit();
+        }
+      });
+
+      box.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace') {
+          if (!this.value && idx > 0) {
+            boxes[idx - 1].focus();
+            boxes[idx - 1].value = '';
+            updateHiddenCode();
+          }
+        }
+      });
+
+      // Handle Paste Event (Full 6 digits paste)
+      box.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, '');
+        if (pasteData.length >= 6) {
+          for (let i = 0; i < 6; i++) {
+            boxes[i].value = pasteData[i];
+          }
+          boxes[5].focus();
+          updateHiddenCode();
+          form.submit();
+        } else if (pasteData.length > 0) {
+          for (let i = 0; i < pasteData.length && (idx + i) < 6; i++) {
+            boxes[idx + i].value = pasteData[i];
+          }
+          const nextIdx = Math.min(5, idx + pasteData.length);
+          boxes[nextIdx].focus();
+          updateHiddenCode();
+        }
+      });
+    });
+
+    // Countdown Timer (5 Minutes)
+    let totalSeconds = {{ expiry_seconds|default:300 }};
+    const timerElem = document.getElementById('countdown-timer');
+
+    function updateTimer() {
+      if (totalSeconds <= 0) {
+        timerElem.textContent = "00:00 (Expired)";
+        timerElem.style.color = "#FF4D4D";
+        return;
+      }
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      timerElem.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      totalSeconds--;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  });
+</script>
+{% endblock %}
