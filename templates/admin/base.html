@@ -21,6 +21,15 @@
 {% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
 <link rel="icon" href="{% static 'vintushtech_logo.png' %}">
+<script>
+  (function() {
+    try {
+      if (localStorage.getItem('admin_theme') === 'light') {
+        document.documentElement.setAttribute('data-admin-theme', 'light');
+      }
+    } catch(e) {}
+  })();
+</script>
 </head>
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
@@ -35,13 +44,16 @@
         <div id="branding">
         {% block branding %}{% endblock %}
         </div>
-        {% block usertools %}
+{% block usertools %}
         {% if has_permission %}
         <div id="user-tools">
             {% block welcome-msg %}
                 <span class="user-badge">&#9679; {{ user.get_username }}</span>
             {% endblock %}
             {% block userlinks %}
+                <button id="admin-theme-toggle" type="button" class="admin-theme-btn" onclick="toggleAdminTheme()" title="Switch Light / Dark Theme">
+                    <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
+                </button>
                 <a href="/" target="_blank" title="View Public Client Website">&#127760; View Live Site</a>
                 {% if site_url %}
                     <a href="{{ site_url }}">{% translate 'View site' %}</a>
@@ -124,6 +136,46 @@
     </div>
 </div>
 <!-- END Container -->
+
+<script>
+  function toggleAdminTheme() {
+    const isLight = document.documentElement.getAttribute('data-admin-theme') === 'light';
+    const newTheme = isLight ? 'dark' : 'light';
+    
+    if (newTheme === 'light') {
+      document.documentElement.setAttribute('data-admin-theme', 'light');
+      document.body.classList.add('admin-light-mode');
+    } else {
+      document.documentElement.removeAttribute('data-admin-theme');
+      document.body.classList.remove('admin-light-mode');
+    }
+    
+    try { localStorage.setItem('admin_theme', newTheme); } catch(e) {}
+    updateThemeToggleUI(newTheme);
+  }
+
+  function updateThemeToggleUI(theme) {
+    const icon = document.getElementById('theme-icon');
+    const text = document.getElementById('theme-text');
+    if (icon && text) {
+      if (theme === 'light') {
+        icon.textContent = '🌙';
+        text.textContent = 'Dark Mode';
+      } else {
+        icon.textContent = '☀️';
+        text.textContent = 'Light Mode';
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentTheme = localStorage.getItem('admin_theme') || 'dark';
+    if (currentTheme === 'light') {
+      document.body.classList.add('admin-light-mode');
+    }
+    updateThemeToggleUI(currentTheme);
+  });
+</script>
 
 </body>
 </html>

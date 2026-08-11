@@ -907,3 +907,313 @@ body.login .submit-row input[type="submit"] {
   color: var(--admin-gold-light);
   font-weight: 600;
 }
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON STYLING
+   ========================================================================== */
+.admin-theme-btn {
+  background: rgba(197, 160, 89, 0.15);
+  border: 1px solid var(--admin-gold-border);
+  color: var(--admin-gold-light);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.admin-theme-btn:hover {
+  background: var(--admin-gold);
+  color: #050B08 !important;
+}
+
+/* ==========================================================================
+   LIGHT MODE COMPLETE THEME OVERRIDES
+   ========================================================================== */
+html[data-admin-theme="light"],
+body.admin-light-mode {
+  --admin-bg-deep: #F8FAFC;
+  --admin-bg-surface: #FFFFFF;
+  --admin-bg-surface-elevated: #F1F5F9;
+  --admin-bg-hover: #E2E8F0;
+  --admin-bg-input: #FFFFFF;
+  
+  --admin-gold: #996515;
+  --admin-gold-light: #B8860B;
+  --admin-gold-dark: #704214;
+  --admin-gold-glow: rgba(184, 134, 11, 0.15);
+  --admin-gold-border: rgba(184, 134, 11, 0.3);
+  
+  --admin-emerald: #059669;
+  --admin-emerald-dark: #047857;
+  --admin-emerald-glow: rgba(5, 150, 105, 0.15);
+  
+  --admin-text-primary: #0F172A;
+  --admin-text-secondary: #334155;
+  --admin-text-muted: #64748B;
+  
+  --admin-status-confirmed: #059669;
+  --admin-status-confirmed-bg: #ECFDF5;
+  --admin-status-pending: #D97706;
+  --admin-status-pending-bg: #FFFBEB;
+  --admin-status-paid: #16A34A;
+  --admin-status-paid-bg: #F0FDF4;
+  --admin-status-cancelled: #DC2626;
+  --admin-status-cancelled-bg: #FEF2F2;
+}
+
+html[data-admin-theme="light"] body,
+body.admin-light-mode {
+  background-color: #F8FAFC !important;
+  color: #334155 !important;
+}
+
+html[data-admin-theme="light"] h1,
+html[data-admin-theme="light"] h2,
+html[data-admin-theme="light"] h3,
+html[data-admin-theme="light"] h4,
+body.admin-light-mode h1,
+body.admin-light-mode h2,
+body.admin-light-mode h3,
+body.admin-light-mode h4 {
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] a,
+body.admin-light-mode a {
+  color: #996515 !important;
+}
+
+html[data-admin-theme="light"] a:hover,
+body.admin-light-mode a:hover {
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] #header,
+body.admin-light-mode #header {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%) !important;
+  border-bottom: 1px solid rgba(184, 134, 11, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+html[data-admin-theme="light"] .publisher-logos-wrap,
+body.admin-light-mode .publisher-logos-wrap {
+  background: #F8FAFC !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+}
+
+html[data-admin-theme="light"] .brand-portal-title h1,
+body.admin-light-mode .brand-portal-title h1 {
+  background: linear-gradient(135deg, #0F172A 30%, #996515 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html[data-admin-theme="light"] #user-tools a,
+body.admin-light-mode #user-tools a {
+  background: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #334155 !important;
+}
+
+html[data-admin-theme="light"] #user-tools a:hover,
+body.admin-light-mode #user-tools a:hover {
+  background: #996515 !important;
+  color: #FFFFFF !important;
+  border-color: #996515 !important;
+}
+
+html[data-admin-theme="light"] .admin-theme-btn,
+body.admin-light-mode .admin-theme-btn {
+  background: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] .admin-theme-btn:hover,
+body.admin-light-mode .admin-theme-btn:hover {
+  background: #996515 !important;
+  color: #FFFFFF !important;
+}
+
+html[data-admin-theme="light"] div.breadcrumbs,
+body.admin-light-mode div.breadcrumbs {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+}
+
+html[data-admin-theme="light"] #container,
+body.admin-light-mode #container {
+  background: #F8FAFC !important;
+}
+
+html[data-admin-theme="light"] .kpi-card,
+body.admin-light-mode .kpi-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-admin-theme="light"] .kpi-value,
+body.admin-light-mode .kpi-value,
+html[data-admin-theme="light"] .kpi-value a,
+body.admin-light-mode .kpi-value a {
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] .executive-quick-actions,
+body.admin-light-mode .executive-quick-actions {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
+}
+
+html[data-admin-theme="light"] .qa-btn,
+body.admin-light-mode .qa-btn {
+  background: #F8FAFC !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] .qa-btn:hover,
+body.admin-light-mode .qa-btn:hover {
+  background: #996515 !important;
+  color: #FFFFFF !important;
+  border-color: #996515 !important;
+}
+
+html[data-admin-theme="light"] .module,
+body.admin-light-mode .module {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-admin-theme="light"] .module caption,
+html[data-admin-theme="light"] .module h2,
+body.admin-light-mode .module caption,
+body.admin-light-mode .module h2 {
+  background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%) !important;
+  color: #FFD700 !important;
+}
+
+html[data-admin-theme="light"] .module table th a,
+body.admin-light-mode .module table th a {
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] .module table td,
+html[data-admin-theme="light"] .module table th,
+body.admin-light-mode .module table td,
+body.admin-light-mode .module table th {
+  border-top: 1px solid #E2E8F0 !important;
+}
+
+html[data-admin-theme="light"] #changelist table,
+body.admin-light-mode #changelist table {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-admin-theme="light"] #changelist table thead th,
+body.admin-light-mode #changelist table thead th {
+  background: #1E293B !important;
+  color: #FFD700 !important;
+}
+
+html[data-admin-theme="light"] #changelist table tbody tr:nth-child(even),
+body.admin-light-mode #changelist table tbody tr:nth-child(even) {
+  background: #F8FAFC !important;
+}
+
+html[data-admin-theme="light"] #changelist table tbody tr:hover,
+body.admin-light-mode #changelist table tbody tr:hover {
+  background: #F1F5F9 !important;
+}
+
+html[data-admin-theme="light"] #changelist table tbody td,
+html[data-admin-theme="light"] #changelist table tbody th,
+body.admin-light-mode #changelist table tbody td,
+body.admin-light-mode #changelist table tbody th {
+  color: #334155 !important;
+  border-top: 1px solid #E2E8F0 !important;
+}
+
+html[data-admin-theme="light"] #changelist table tbody th a,
+body.admin-light-mode #changelist table tbody th a {
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] #toolbar,
+html[data-admin-theme="light"] div.actions,
+html[data-admin-theme="light"] #changelist-filter,
+body.admin-light-mode #toolbar,
+body.admin-light-mode div.actions,
+body.admin-light-mode #changelist-filter {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04) !important;
+}
+
+html[data-admin-theme="light"] #toolbar form input[type="text"],
+body.admin-light-mode #toolbar form input[type="text"] {
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] input[type="text"],
+html[data-admin-theme="light"] input[type="password"],
+html[data-admin-theme="light"] input[type="email"],
+html[data-admin-theme="light"] input[type="url"],
+html[data-admin-theme="light"] input[type="number"],
+html[data-admin-theme="light"] select,
+html[data-admin-theme="light"] textarea,
+body.admin-light-mode input[type="text"],
+body.admin-light-mode input[type="password"],
+body.admin-light-mode input[type="email"],
+body.admin-light-mode input[type="url"],
+body.admin-light-mode input[type="number"],
+body.admin-light-mode select,
+body.admin-light-mode textarea {
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html[data-admin-theme="light"] fieldset,
+body.admin-light-mode fieldset {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+html[data-admin-theme="light"] fieldset h2,
+body.admin-light-mode fieldset h2 {
+  color: #996515 !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+html[data-admin-theme="light"] .form-row label,
+body.admin-light-mode .form-row label {
+  color: #334155 !important;
+}
+
+html[data-admin-theme="light"] .submit-row,
+body.admin-light-mode .submit-row {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 -4px 15px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-admin-theme="light"] .admin-publisher-footer,
+body.admin-light-mode .admin-publisher-footer {
+  background: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+}
