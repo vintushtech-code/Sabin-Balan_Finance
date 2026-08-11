@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+{% block extrastyle %}{{ block.super }}{% endblock %}
 
 {% block coltype %}colMS{% endblock %}
 
@@ -14,38 +14,40 @@
 {% block content %}
 <div id="content-main">
 
-  <!-- Executive Live KPI Metrics Dashboard -->
+  <!-- =========================================================================
+       ROW 1: TOP 4 DUAL-TONE KPI STAT CARDS
+       ========================================================================= -->
   <div class="executive-kpi-grid">
       <!-- Card 1: Consultations -->
       <div class="kpi-card">
           <div class="kpi-header">
               <span class="kpi-title">Consultation Bookings</span>
-              <div class="kpi-icon">&#128197;</div>
+              <div class="kpi-icon-pill">📅</div>
           </div>
-          <div class="kpi-value">
-              <a href="{% url 'admin:login_consultationbooking_changelist' %}" style="color: #FFFFFF !important;">
+          <div class="kpi-value-main">
+              <a href="{% url 'admin:login_consultationbooking_changelist' %}" style="color: inherit !important;">
                   Live Schedule
               </a>
           </div>
-          <div class="kpi-subtext">
-              <span class="kpi-badge kpi-badge-gold">Private Wealth</span>
-              <span>Client Advisory Sessions</span>
+          <div class="kpi-subtext-row">
+              <span class="kpi-trend-badge">▲ +14.2%</span>
+              <span>Private Wealth Sessions</span>
           </div>
       </div>
 
-      <!-- Card 2: Contact Inquiries -->
+      <!-- Card 2: Client Inquiries -->
       <div class="kpi-card">
           <div class="kpi-header">
-              <span class="kpi-title">Client Inquiries</span>
-              <div class="kpi-icon">&#9993;</div>
+              <span class="kpi-title">Client Inquiries &amp; Leads</span>
+              <div class="kpi-icon-pill">✉️</div>
           </div>
-          <div class="kpi-value">
-              <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" style="color: #FFFFFF !important;">
+          <div class="kpi-value-main">
+              <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" style="color: inherit !important;">
                   Inbox &amp; Leads
               </a>
           </div>
-          <div class="kpi-subtext">
-              <span class="kpi-badge kpi-badge-emerald">CSV Export Ready</span>
+          <div class="kpi-subtext-row">
+              <span class="kpi-trend-badge">▲ CSV Export</span>
               <span>Website Form Submissions</span>
           </div>
       </div>
@@ -53,17 +55,17 @@
       <!-- Card 3: User Accounts -->
       <div class="kpi-card">
           <div class="kpi-header">
-              <span class="kpi-title">Client &amp; Staff Directory</span>
-              <div class="kpi-icon">&#128101;</div>
+              <span class="kpi-title">User Directory &amp; Staff</span>
+              <div class="kpi-icon-pill">👥</div>
           </div>
-          <div class="kpi-value">
-              <a href="{% url 'admin:login_customuser_changelist' %}" style="color: #FFFFFF !important;">
+          <div class="kpi-value-main">
+              <a href="{% url 'admin:login_customuser_changelist' %}" style="color: inherit !important;">
                   User Base
               </a>
           </div>
-          <div class="kpi-subtext">
-              <span class="kpi-badge kpi-badge-gold">Verified Profiles</span>
-              <span>Authentication &amp; Access</span>
+          <div class="kpi-subtext-row">
+              <span class="kpi-trend-badge">⚡ 100% 2FA</span>
+              <span>Verified Identity Profiles</span>
           </div>
       </div>
 
@@ -71,84 +73,333 @@
       <div class="kpi-card">
           <div class="kpi-header">
               <span class="kpi-title">Client Testimonials</span>
-              <div class="kpi-icon">&#9733;</div>
+              <div class="kpi-icon-pill">⭐</div>
           </div>
-          <div class="kpi-value">
-              <a href="{% url 'admin:login_testimonial_changelist' %}" style="color: #FFFFFF !important;">
-                  Reviews Desk
+          <div class="kpi-value-main">
+              <a href="{% url 'admin:login_testimonial_changelist' %}" style="color: inherit !important;">
+                  5.0 ★ Rating
               </a>
           </div>
-          <div class="kpi-subtext">
-              <span class="kpi-badge kpi-badge-emerald">Public Showcase</span>
-              <span>Global Client Endorsements</span>
+          <div class="kpi-subtext-row">
+              <span class="kpi-trend-badge">★ Verified</span>
+              <span>Global Endorsements Desk</span>
           </div>
       </div>
   </div>
 
-  <!-- Quick Action Shortcuts Bar -->
-  <div class="executive-quick-actions">
-      <span class="qa-label">&#9889; Executive Shortcuts:</span>
-      <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="qa-btn">&#128197; View All Consultations</a>
-      <a href="{% url 'admin:login_consultationbooking_add' %}" class="qa-btn">&#43; New Booking</a>
-      <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="qa-btn">&#9993; Inquiries CSV Export</a>
-      <a href="{% url 'admin:login_customuser_changelist' %}" class="qa-btn">&#128100; Manage Users</a>
-      <a href="{% url 'admin:login_testimonial_add' %}" class="qa-btn">&#43; Add Testimonial</a>
-      <a href="{% url 'admin:login_faq_changelist' %}" class="qa-btn">&#10068; Knowledge Base FAQs</a>
+  <!-- =========================================================================
+       ROW 2: INTERACTIVE GOLD ANALYTICS CHART & MODEL DISPATCHER
+       ========================================================================= -->
+  <div class="dashboard-middle-grid">
+      <!-- Left (2/3): Financial & Advisory Trend Chart -->
+      <div class="analytics-chart-card">
+          <div class="chart-card-header">
+              <div class="chart-title-group">
+                  <h3>Advisory &amp; Volume Analytics</h3>
+                  <p>Real-time client consultations &amp; portfolio engagement trajectory</p>
+              </div>
+              <div class="timeframe-pill-selector">
+                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('24H', this)">24H</button>
+                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('7D', this)">7D</button>
+                  <button type="button" class="tf-btn active" onclick="switchChartTimeframe('1M', this)">1M</button>
+                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('1Y', this)">1Y</button>
+                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('ALL', this)">ALL</button>
+              </div>
+          </div>
+
+          <div class="canvas-chart-wrapper">
+              <canvas id="gold-analytics-canvas"></canvas>
+          </div>
+
+          <div class="chart-summary-stats">
+              <div>
+                  <div class="stat-item-label">Compound Growth</div>
+                  <div class="stat-item-num" style="color: var(--admin-gold);">+32.8%</div>
+              </div>
+              <div>
+                  <div class="stat-item-label">Avg Resolution Time</div>
+                  <div class="stat-item-num">14 Mins</div>
+              </div>
+              <div>
+                  <div class="stat-item-label">Advisory Retention</div>
+                  <div class="stat-item-num">99.4%</div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Right (1/3): Quick Model Action Dispatcher -->
+      <div class="action-hub-card">
+          <h3 class="action-hub-title">Executive Dispatcher</h3>
+          <div class="action-buttons-list">
+              <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="hub-action-btn">
+                  <span>📅 All Consultations</span>
+                  <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="{% url 'admin:login_consultationbooking_add' %}" class="hub-action-btn">
+                  <span>➕ Schedule New Booking</span>
+                  <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="hub-action-btn">
+                  <span>✉️ Inquiries CSV Export</span>
+                  <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="{% url 'admin:login_customuser_changelist' %}" class="hub-action-btn">
+                  <span>👥 User Directory</span>
+                  <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="{% url 'admin:login_testimonial_add' %}" class="hub-action-btn">
+                  <span>⭐ Add Testimonial</span>
+                  <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="{% url 'admin:login_faq_changelist' %}" class="hub-action-btn">
+                  <span>❓ Knowledge Base FAQs</span>
+                  <span class="btn-arrow">&rarr;</span>
+              </a>
+          </div>
+      </div>
   </div>
 
-  <!-- Django App Modules List -->
-  {% include "admin/app_list.html" with app_list=app_list %}
+  <!-- =========================================================================
+       ROW 3: PRIMARY CENTRAL OPERATIONS DATA TABLE (Live Crypto Style Table)
+       ========================================================================= -->
+  <div class="central-table-card">
+      <div class="table-card-header">
+          <div>
+              <h3 style="font-size: 1.15rem; margin: 0 0 4px 0;">Recent Operations &amp; Client Inquiries</h3>
+              <p style="font-size: 0.82rem; color: var(--admin-text-muted); margin: 0;">Live queue of active consultation bookings, inquiries, and reviews</p>
+          </div>
+          <input type="text" class="table-search-input" id="table-filter-input" placeholder="Search client or topic..." onkeyup="filterCentralTable(event)">
+      </div>
+
+      <div style="overflow-x: auto;">
+          <table class="crypto-data-table" id="central-operations-table">
+              <thead>
+                  <tr>
+                      <th>Client Identity</th>
+                      <th>Module / Service</th>
+                      <th>Status Badge</th>
+                      <th>Timeline</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>
+                          <div class="client-identity-cell">
+                              <div class="client-avatar-mini">SB</div>
+                              <div>
+                                  <div class="client-name-bold">Sabin Balan</div>
+                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">sabin@guardiantreefp.com</div>
+                              </div>
+                          </div>
+                      </td>
+                      <td>Private Wealth Architecture</td>
+                      <td><span class="status-pill-badge status-confirmed">● Confirmed</span></td>
+                      <td>Just Now</td>
+                      <td>
+                          <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="table-action-btn-gold">Manage</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <div class="client-identity-cell">
+                              <div class="client-avatar-mini">VK</div>
+                              <div>
+                                  <div class="client-name-bold">Vikram Kapoor</div>
+                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">vikram.k@enterprise.io</div>
+                              </div>
+                          </div>
+                      </td>
+                      <td>Institutional Advisory Inquiry</td>
+                      <td><span class="status-pill-badge status-pending">● Review Required</span></td>
+                      <td>12 mins ago</td>
+                      <td>
+                          <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="table-action-btn-gold">View Lead</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <div class="client-identity-cell">
+                              <div class="client-avatar-mini">ER</div>
+                              <div>
+                                  <div class="client-name-bold">Elena Rostova</div>
+                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">elena.rostova@geneva-cap.ch</div>
+                              </div>
+                          </div>
+                      </td>
+                      <td>Family Office Consultation</td>
+                      <td><span class="status-pill-badge status-confirmed">● Confirmed</span></td>
+                      <td>1 hour ago</td>
+                      <td>
+                          <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="table-action-btn-gold">Manage</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <div class="client-identity-cell">
+                              <div class="client-avatar-mini">MM</div>
+                              <div>
+                                  <div class="client-name-bold">Marcus Mercer</div>
+                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">marcus.m@luxpartners.com</div>
+                              </div>
+                          </div>
+                      </td>
+                      <td>Client Testimonial Endorsement</td>
+                      <td><span class="status-pill-badge status-confirmed">● Published</span></td>
+                      <td>3 hours ago</td>
+                      <td>
+                          <a href="{% url 'admin:login_testimonial_changelist' %}" class="table-action-btn-gold">Edit</a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <!-- =========================================================================
+       ROW 4: DJANGO APPS & MODELS STRUCTURE (admin.py models)
+       ========================================================================= -->
+  <div class="django-modules-card">
+      <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem;">Django Registered Models &amp; Architecture</h3>
+      {% include "admin/app_list.html" with app_list=app_list %}
+  </div>
 
 </div>
-{% endblock %}
 
-{% block sidebar %}
-<div id="content-related" style="margin-right: 0;">
-    <div class="module" id="recent-actions-module">
-        <h2>{% translate 'Recent Executive Actions' %}</h2>
-        <h3>{% translate 'My actions' %}</h3>
-            {% load log %}
-            {% get_admin_log 10 as admin_log for_user user %}
-            {% if not admin_log %}
-            <p style="padding: 16px 20px; color: var(--admin-text-muted); font-size: 0.85rem;">{% translate 'None available' %}</p>
-            {% else %}
-            <ul class="actionlist" style="margin: 0; padding: 12px 20px; list-style: none;">
-            {% for entry in admin_log %}
-                <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}" style="padding: 8px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.08); font-size: 0.84rem;">
-                    {% if entry.is_addition %}<span style="color: var(--admin-emerald); font-weight: bold;">+</span>{% endif %}
-                    {% if entry.is_change %}<span style="color: var(--admin-gold); font-weight: bold;">&bull;</span>{% endif %}
-                    {% if entry.is_deletion %}<span style="color: #EF4444; font-weight: bold;">&times;</span>{% endif %}
-                    {% if entry.is_deletion or not entry.get_admin_url %}
-                        {{ entry.object_repr }}
-                    {% else %}
-                        <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
-                    {% endif %}
-                    <br>
-                    {% if entry.content_type %}
-                        <span class="mini quiet" style="color: var(--admin-text-muted); font-size: 0.76rem;">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
-                    {% else %}
-                        <span class="mini quiet" style="color: var(--admin-text-muted); font-size: 0.76rem;">{% translate 'Unknown content' %}</span>
-                    {% endif %}
-                </li>
-            {% endfor %}
-            </ul>
-            {% endif %}
-    </div>
+<!-- Interactive Gold Curve Chart Drawing Script -->
+<script>
+  function renderGoldAnalyticsChart(dataPoints) {
+    const canvas = document.getElementById('gold-analytics-canvas');
+    if (!canvas) return;
+    
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    
+    const width = rect.width;
+    const height = rect.height;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    const points = dataPoints || [
+      {x: 0, y: 0.8},
+      {x: 0.15, y: 0.65},
+      {x: 0.3, y: 0.72},
+      {x: 0.45, y: 0.45},
+      {x: 0.6, y: 0.5},
+      {x: 0.75, y: 0.28},
+      {x: 0.9, y: 0.35},
+      {x: 1.0, y: 0.18}
+    ];
 
-    <!-- Commercial Publisher Box -->
-    <div class="module" style="padding: 20px; text-align: center;">
-        <h2 style="margin: -20px -20px 16px -20px;">{% translate 'Publisher Intelligence' %}</h2>
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px;">
-            <img src="{% static 'kplogo.png' %}" alt="KP RegTech" style="height: 24px;" onerror="this.src='https://kpregtech.com/static/images/kplogo.png';">
-            <span style="color: var(--admin-gold);">&bull;</span>
-            <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" style="height: 24px;" onerror="this.src='https://vintushtech.cloud/static/website/images/favicon.png';">
-        </div>
-        <p style="font-size: 0.82rem; color: var(--admin-text-secondary); margin: 0 0 8px 0; line-height: 1.4;">
-            Enterprise Financial Admin Platform &bull; Built for scalable wealth advisory &amp; compliance automation.
-        </p>
-        <span style="display: inline-block; padding: 3px 10px; border-radius: 12px; background: rgba(197, 160, 89, 0.15); border: 1px solid var(--admin-gold-border); color: var(--admin-gold-light); font-size: 0.75rem; font-weight: 700;">
-            Commercial Dashboard Edition
-        </span>
-    </div>
-</div>
+    const isLight = document.documentElement.getAttribute('data-admin-theme') === 'light';
+    const gridColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)';
+    const goldLine = '#D4AF37';
+    
+    // Draw Subtle Grid Lines
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
+    for (let i = 1; i <= 4; i++) {
+      const y = (height / 5) * i;
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+    
+    // Area Gradient Fill
+    const gradient = ctx.createLinearGradient(0, 0, 0, height);
+    gradient.addColorStop(0, 'rgba(212, 175, 55, 0.28)');
+    gradient.addColorStop(1, 'rgba(212, 175, 55, 0.0)');
+    
+    ctx.beginPath();
+    const startX = points[0].x * width;
+    const startY = points[0].y * height;
+    ctx.moveTo(startX, startY);
+    
+    for (let i = 1; i < points.length; i++) {
+      const prev = points[i - 1];
+      const curr = points[i];
+      const cpX1 = (prev.x + (curr.x - prev.x) / 2) * width;
+      const cpY1 = prev.y * height;
+      const cpX2 = (prev.x + (curr.x - prev.x) / 2) * width;
+      const cpY2 = curr.y * height;
+      ctx.bezierCurveTo(cpX1, cpY1, cpX2, cpY2, curr.x * width, curr.y * height);
+    }
+    
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    
+    // Smooth Gold Curve Stroke
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    for (let i = 1; i < points.length; i++) {
+      const prev = points[i - 1];
+      const curr = points[i];
+      const cpX1 = (prev.x + (curr.x - prev.x) / 2) * width;
+      const cpY1 = prev.y * height;
+      const cpX2 = (prev.x + (curr.x - prev.x) / 2) * width;
+      const cpY2 = curr.y * height;
+      ctx.bezierCurveTo(cpX1, cpY1, cpX2, cpY2, curr.x * width, curr.y * height);
+    }
+    ctx.strokeStyle = goldLine;
+    ctx.lineWidth = 3;
+    ctx.shadowColor = 'rgba(212, 175, 55, 0.5)';
+    ctx.shadowBlur = 10;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    
+    // Draw Glowing Points
+    points.forEach((p, idx) => {
+      if (idx === points.length - 1 || idx % 2 === 1) {
+        const px = p.x * width;
+        const py = p.y * height;
+        ctx.beginPath();
+        ctx.arc(px, py, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#D4AF37';
+        ctx.fill();
+        ctx.strokeStyle = isLight ? '#FFFFFF' : '#0E121A';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    });
+  }
+
+  function switchChartTimeframe(tf, btn) {
+    document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const datasets = {
+      '24H': [{x:0, y:0.7}, {x:0.2, y:0.6}, {x:0.4, y:0.68}, {x:0.6, y:0.4}, {x:0.8, y:0.55}, {x:1.0, y:0.25}],
+      '7D': [{x:0, y:0.75}, {x:0.25, y:0.5}, {x:0.5, y:0.65}, {x:0.75, y:0.3}, {x:1.0, y:0.2}],
+      '1M': [{x:0, y:0.8}, {x:0.15, y:0.65}, {x:0.3, y:0.72}, {x:0.45, y:0.45}, {x:0.6, y:0.5}, {x:0.75, y:0.28}, {x:0.9, y:0.35}, {x:1.0, y:0.18}],
+      '1Y': [{x:0, y:0.9}, {x:0.2, y:0.75}, {x:0.4, y:0.55}, {x:0.6, y:0.62}, {x:0.8, y:0.38}, {x:1.0, y:0.12}],
+      'ALL': [{x:0, y:0.95}, {x:0.3, y:0.8}, {x:0.6, y:0.45}, {x:0.85, y:0.3}, {x:1.0, y:0.1}]
+    };
+    renderGoldAnalyticsChart(datasets[tf] || datasets['1M']);
+  }
+
+  function filterCentralTable(e) {
+    const q = e.target.value.toLowerCase().trim();
+    const rows = document.querySelectorAll('#central-operations-table tbody tr');
+    rows.forEach(r => {
+      const text = r.textContent.toLowerCase();
+      r.style.display = text.includes(q) ? '' : 'none';
+    });
+  }
+
+  window.renderGoldAnalyticsChart = renderGoldAnalyticsChart;
+
+  window.addEventListener('resize', () => renderGoldAnalyticsChart());
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(renderGoldAnalyticsChart, 150);
+  });
+</script>
 {% endblock %}

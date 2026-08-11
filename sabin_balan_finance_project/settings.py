@@ -226,11 +226,14 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Secret unguessable slug for Administrator Portal (configurable via env)
+ADMIN_SECRET_PATH = os.environ.get('ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip('/')
+
 # Custom User Model & Authentication Redirects
 AUTH_USER_MODEL = 'login.CustomUser'
-LOGIN_URL = 'login:login'
-LOGIN_REDIRECT_URL = 'login:home'
-LOGOUT_REDIRECT_URL = 'login:login'
+LOGIN_URL = f'/{ADMIN_SECRET_PATH}/login/'
+LOGIN_REDIRECT_URL = f'/{ADMIN_SECRET_PATH}/'
+LOGOUT_REDIRECT_URL = 'login:home'
 
 # Email Configuration (Prints password reset & 2FA links/codes to terminal in dev mode)
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
