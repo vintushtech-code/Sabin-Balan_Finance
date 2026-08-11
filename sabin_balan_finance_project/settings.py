@@ -92,6 +92,28 @@ if os.path.exists(_gen_consult_hero):
     except Exception:
         pass
 
+# Publisher Logos Auto-Sync (KP RegTech & VintushTech)
+_kp_logo_target = BASE_DIR / "photos" / "kplogo.png"
+_vintush_logo_target = BASE_DIR / "photos" / "vintushtech_logo.png"
+
+try:
+    import urllib.request
+    if not os.path.exists(_kp_logo_target):
+        req = urllib.request.Request("https://kpregtech.com/static/images/kplogo.png", headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=5) as response, open(_kp_logo_target, 'wb') as out_file:
+            out_file.write(response.read())
+except Exception:
+    pass
+
+try:
+    import urllib.request
+    if not os.path.exists(_vintush_logo_target):
+        req = urllib.request.Request("https://vintushtech.cloud/static/website/images/favicon.png", headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=5) as response, open(_vintush_logo_target, 'wb') as out_file:
+            out_file.write(response.read())
+except Exception:
+    pass
+
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@wlg*897qb*$lo1_ek^5&5c#bldttck@9$9iah37-)qcf!zd)7')
 
@@ -137,7 +159,7 @@ ROOT_URLCONF = 'sabin_balan_finance_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -28,14 +28,22 @@ def export_submissions_to_csv(modeladmin, request, queryset):
         ])
     return response
 
+from django.utils.html import format_html
+
 @admin.register(ContactSubmission)
 class ContactSubmissionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'ip_address', 'created_at')
+    list_display = ('name', 'email', 'subject', 'message_snippet', 'ip_address', 'created_at')
     list_filter = ('created_at',)
     search_fields = ('name', 'email', 'subject', 'message')
     # Make all submissions read-only in the admin to prevent tampering
     readonly_fields = ('name', 'email', 'subject', 'message', 'ip_address', 'created_at')
     actions = [export_submissions_to_csv]
+
+    @admin.display(description="Message Preview")
+    def message_snippet(self, obj):
+        text = obj.message or ""
+        snippet = (text[:60] + '...') if len(text) > 60 else text
+        return format_html('<span style="color: var(--admin-text-secondary); font-style: italic;">{}</span>', snippet)
 
     def has_add_permission(self, request):
         """Disable manual creation of contact form inquiries via Admin."""

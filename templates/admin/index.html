@@ -1,0 +1,154 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+  <!-- Executive Live KPI Metrics Dashboard -->
+  <div class="executive-kpi-grid">
+      <!-- Card 1: Consultations -->
+      <div class="kpi-card">
+          <div class="kpi-header">
+              <span class="kpi-title">Consultation Bookings</span>
+              <div class="kpi-icon">&#128197;</div>
+          </div>
+          <div class="kpi-value">
+              <a href="{% url 'admin:login_consultationbooking_changelist' %}" style="color: #FFFFFF !important;">
+                  Live Schedule
+              </a>
+          </div>
+          <div class="kpi-subtext">
+              <span class="kpi-badge kpi-badge-gold">Private Wealth</span>
+              <span>Client Advisory Sessions</span>
+          </div>
+      </div>
+
+      <!-- Card 2: Contact Inquiries -->
+      <div class="kpi-card">
+          <div class="kpi-header">
+              <span class="kpi-title">Client Inquiries</span>
+              <div class="kpi-icon">&#9993;</div>
+          </div>
+          <div class="kpi-value">
+              <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" style="color: #FFFFFF !important;">
+                  Inbox &amp; Leads
+              </a>
+          </div>
+          <div class="kpi-subtext">
+              <span class="kpi-badge kpi-badge-emerald">CSV Export Ready</span>
+              <span>Website Form Submissions</span>
+          </div>
+      </div>
+
+      <!-- Card 3: User Accounts -->
+      <div class="kpi-card">
+          <div class="kpi-header">
+              <span class="kpi-title">Client &amp; Staff Directory</span>
+              <div class="kpi-icon">&#128101;</div>
+          </div>
+          <div class="kpi-value">
+              <a href="{% url 'admin:login_customuser_changelist' %}" style="color: #FFFFFF !important;">
+                  User Base
+              </a>
+          </div>
+          <div class="kpi-subtext">
+              <span class="kpi-badge kpi-badge-gold">Verified Profiles</span>
+              <span>Authentication &amp; Access</span>
+          </div>
+      </div>
+
+      <!-- Card 4: Reviews & Testimonials -->
+      <div class="kpi-card">
+          <div class="kpi-header">
+              <span class="kpi-title">Client Testimonials</span>
+              <div class="kpi-icon">&#9733;</div>
+          </div>
+          <div class="kpi-value">
+              <a href="{% url 'admin:login_testimonial_changelist' %}" style="color: #FFFFFF !important;">
+                  Reviews Desk
+              </a>
+          </div>
+          <div class="kpi-subtext">
+              <span class="kpi-badge kpi-badge-emerald">Public Showcase</span>
+              <span>Global Client Endorsements</span>
+          </div>
+      </div>
+  </div>
+
+  <!-- Quick Action Shortcuts Bar -->
+  <div class="executive-quick-actions">
+      <span class="qa-label">&#9889; Executive Shortcuts:</span>
+      <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="qa-btn">&#128197; View All Consultations</a>
+      <a href="{% url 'admin:login_consultationbooking_add' %}" class="qa-btn">&#43; New Booking</a>
+      <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="qa-btn">&#9993; Inquiries CSV Export</a>
+      <a href="{% url 'admin:login_customuser_changelist' %}" class="qa-btn">&#128100; Manage Users</a>
+      <a href="{% url 'admin:login_testimonial_add' %}" class="qa-btn">&#43; Add Testimonial</a>
+      <a href="{% url 'admin:login_faq_changelist' %}" class="qa-btn">&#10068; Knowledge Base FAQs</a>
+  </div>
+
+  <!-- Django App Modules List -->
+  {% include "admin/app_list.html" with app_list=app_list %}
+
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related" style="margin-right: 0;">
+    <div class="module" id="recent-actions-module">
+        <h2>{% translate 'Recent Executive Actions' %}</h2>
+        <h3>{% translate 'My actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p style="padding: 16px 20px; color: var(--admin-text-muted); font-size: 0.85rem;">{% translate 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist" style="margin: 0; padding: 12px 20px; list-style: none;">
+            {% for entry in admin_log %}
+                <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}" style="padding: 8px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.08); font-size: 0.84rem;">
+                    {% if entry.is_addition %}<span style="color: var(--admin-emerald); font-weight: bold;">+</span>{% endif %}
+                    {% if entry.is_change %}<span style="color: var(--admin-gold); font-weight: bold;">&bull;</span>{% endif %}
+                    {% if entry.is_deletion %}<span style="color: #EF4444; font-weight: bold;">&times;</span>{% endif %}
+                    {% if entry.is_deletion or not entry.get_admin_url %}
+                        {{ entry.object_repr }}
+                    {% else %}
+                        <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                    {% endif %}
+                    <br>
+                    {% if entry.content_type %}
+                        <span class="mini quiet" style="color: var(--admin-text-muted); font-size: 0.76rem;">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                    {% else %}
+                        <span class="mini quiet" style="color: var(--admin-text-muted); font-size: 0.76rem;">{% translate 'Unknown content' %}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+
+    <!-- Commercial Publisher Box -->
+    <div class="module" style="padding: 20px; text-align: center;">
+        <h2 style="margin: -20px -20px 16px -20px;">{% translate 'Publisher Intelligence' %}</h2>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px;">
+            <img src="{% static 'kplogo.png' %}" alt="KP RegTech" style="height: 24px;" onerror="this.src='https://kpregtech.com/static/images/kplogo.png';">
+            <span style="color: var(--admin-gold);">&bull;</span>
+            <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" style="height: 24px;" onerror="this.src='https://vintushtech.cloud/static/website/images/favicon.png';">
+        </div>
+        <p style="font-size: 0.82rem; color: var(--admin-text-secondary); margin: 0 0 8px 0; line-height: 1.4;">
+            Enterprise Financial Admin Platform &bull; Built for scalable wealth advisory &amp; compliance automation.
+        </p>
+        <span style="display: inline-block; padding: 3px 10px; border-radius: 12px; background: rgba(197, 160, 89, 0.15); border: 1px solid var(--admin-gold-border); color: var(--admin-gold-light); font-size: 0.75rem; font-weight: 700;">
+            Commercial Dashboard Edition
+        </span>
+    </div>
+</div>
+{% endblock %}

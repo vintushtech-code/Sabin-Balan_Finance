@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Executive Wealth & Client Operations Portal{% endblock %}
+
+{% block branding %}
+<div class="executive-header-brand">
+    <div class="publisher-logos-wrap" title="Published by KP RegTech & VintushTech">
+        <a href="{% url 'admin:index' %}" style="display: flex; align-items: center; gap: 10px;">
+            <img src="{% static 'kplogo.png' %}" alt="KP RegTech" class="pub-logo-img" onerror="this.src='https://kpregtech.com/static/images/kplogo.png';">
+            <div class="pub-divider"></div>
+            <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" class="pub-logo-img" onerror="this.src='https://vintushtech.cloud/static/website/images/favicon.png';">
+        </a>
+    </div>
+    <div class="brand-portal-title">
+        <h1>Executive Wealth Admin Suite</h1>
+        <div class="brand-portal-subtitle">Commercial Edition &bull; Published by <span>KP RegTech</span> &amp; <span>VintushTech</span></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav-global %}
+{% endblock %}
