@@ -31,13 +31,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="auth-split-wrapper-fullscreen" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; width: 100% !important;">
+  <div class="auth-split-wrapper-fullscreen" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; width: 100% !important; background-image: url('{% static 'login.png' %}'); background-size: cover; background-position: center; background-attachment: fixed; position: relative;">
+
+    <!-- Full-screen unified glass overlay to prevent any seams -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(8, 15, 11, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 0;"></div>
 
     <!-- Left Side: Admin Portal Branding & Banner -->
-    <div class="auth-split-image-fullscreen" style="flex: 0 0 50% !important; width: 50% !important; max-width: 50% !important; background-image: url('{% static 'login.png' %}'); background-size: cover; background-position: center; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 3rem 2.5rem; overflow: hidden;">
-      
-      <!-- Dark blurred overlay -->
-      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(5, 11, 8, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 1;"></div>
+    <div class="auth-split-image-fullscreen" style="flex: 0 0 50% !important; width: 50% !important; max-width: 50% !important; background: transparent !important; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 3rem 2.5rem; overflow: hidden; z-index: 10;">
       
       <!-- Decorative Glow behind the card -->
       <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 70%; background: radial-gradient(circle, rgba(197,160,89,0.2) 0%, transparent 60%); z-index: 2; pointer-events: none;"></div>
@@ -67,7 +67,7 @@
     </div>
 
     <!-- Right Side: Login Form Column -->
-    <div class="auth-split-form-fullscreen" style="flex: 0 0 50% !important; width: 50% !important; max-width: 50% !important;">
+    <div class="auth-split-form-fullscreen" style="flex: 0 0 50% !important; width: 50% !important; max-width: 50% !important; background: transparent !important; position: relative; z-index: 10;">
     <div class="auth-header" style="text-align: left; margin-bottom: 2rem;">
       <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--color-gold); font-size: 1.3rem; margin-bottom: 1rem;">
         🔐
