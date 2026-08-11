@@ -7,40 +7,73 @@
 {% block footer %}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'login/css/login.css' %}?v=1.3">
 <style>
-  .login-bg {
-    background-image: url("{% static 'login.png' %}");
+  /* Force side-by-side layout on ALL screens unconditionally */
+  .auth-split-wrapper-fullscreen {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+  }
+  .auth-split-image-fullscreen {
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-height: 100vh !important;
+  }
+  .auth-split-form-fullscreen {
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-height: 100vh !important;
   }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="auth-split-wrapper-fullscreen">
+<div class="auth-split-wrapper-fullscreen" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; width: 100% !important;">
 
-  <!-- Left Side: Financial Hero Image & Brand Overlay -->
-  <div class="auth-split-image-fullscreen login-bg">
-    <div class="auth-image-content" style="position: relative; z-index: 10; max-width: 540px; color: #ffffff;">
-      <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 9999px; color: var(--color-gold); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem;">
-        🛡️ Bank-Grade 256-Bit Protection
-      </span>
-      <h2 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff;">
-        Master Your Wealth with <span class="highlight-text">Institutional Intelligence</span>
-      </h2>
-      <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
-        Access real-time portfolio analytics, quantitative advisory, and seamless wealth control with GuardianTree FP.
-      </p>
+    <!-- Left Side: Admin Portal Branding & Banner -->
+    <div class="auth-split-image-fullscreen" style="flex: 0 0 50% !important; width: 50% !important; max-width: 50% !important; background-image: url('{% static 'login.png' %}'); background-size: cover; background-position: center; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 3rem 2.5rem; overflow: hidden;">
+      
+      <!-- Dark blurred overlay -->
+      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(5, 11, 8, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 1;"></div>
+      
+      <!-- Decorative Glow behind the card -->
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 70%; background: radial-gradient(circle, rgba(197,160,89,0.2) 0%, transparent 60%); z-index: 2; pointer-events: none;"></div>
+
+      <!-- Top Left Badge -->
+      <div style="position: relative; z-index: 10; align-self: flex-start; margin-bottom: 2rem;">
+        <span class="auth-image-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; background: rgba(10, 20, 15, 0.65); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 30px; color: #E5C158; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 0L0 3.11111V7.77778C0 11.6667 3.01 15.2222 7 16C10.99 15.2222 14 11.6667 14 7.77778V3.11111L7 0ZM7 3.55556C8.54 3.55556 9.8 4.81556 9.8 6.35556C9.8 7.89556 8.54 9.15556 7 9.15556C5.46 9.15556 4.2 7.89556 4.2 6.35556C4.2 4.81556 5.46 3.55556 7 3.55556ZM7 12.8889C5.32 12.8889 3.85 11.8889 3.15 10.4267C3.15 9.15556 5.74 8.44444 7 8.44444C8.26 8.44444 10.85 9.15556 10.85 10.4267C10.15 11.8889 8.68 12.8889 7 12.8889Z" fill="#E5C158"/></svg>
+          Enterprise Grade Security
+        </span>
+      </div>
+
+      <!-- Center Banner -->
+      <div style="position: relative; z-index: 10; display: flex; justify-content: center; align-items: center; width: 100%; flex: 1;">
+        <div style="padding: 2px; background: linear-gradient(135deg, rgba(229,193,88,0.5) 0%, rgba(229,193,88,0.05) 50%, rgba(229,193,88,0.5) 100%); border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 0 0 35px rgba(197,160,89,0.15); display: inline-block;">
+          <img src="{% static 'admin_portal_banner.jpg' %}" alt="Admin Portal Configuration" style="width: 100%; max-width: 580px; height: auto; object-fit: contain; border-radius: 10px; display: block; border: 2px solid #050B08;">
+        </div>
+      </div>
+
+      <!-- Bottom Description Text -->
+      <div style="position: relative; z-index: 10; max-width: 520px; margin: 2rem auto 0 auto; text-align: center; background: rgba(10, 20, 15, 0.45); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+        <h3 style="color: #ffffff; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.02em;">Secure Executive Operations</h3>
+        <p style="color: #A0B0A8; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+          Authenticate to access institutional analytics, manage wealth portfolios, and oversee system configurations securely.
+        </p>
+      </div>
     </div>
-  </div>
 
-  <!-- Right Side: Login Form Column -->
-  <div class="auth-split-form-fullscreen">
+    <!-- Right Side: Login Form Column -->
+    <div class="auth-split-form-fullscreen" style="flex: 0 0 50% !important; width: 50% !important; max-width: 50% !important;">
     <div class="auth-header" style="text-align: left; margin-bottom: 2rem;">
       <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--color-gold); font-size: 1.3rem; margin-bottom: 1rem;">
         🔐
       </div>
-      <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Client Portal <span class="highlight-text">Sign In</span></h1>
-      <p class="subtitle" style="font-size: 0.95rem;">Enter your credentials to access your advisory dashboard</p>
+      <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Admin Portal <span class="highlight-text">Sign In</span></h1>
+      <p class="subtitle" style="font-size: 0.95rem;">Enter your executive credentials to access the portal</p>
     </div>
 
     {% if form.non_field_errors %}

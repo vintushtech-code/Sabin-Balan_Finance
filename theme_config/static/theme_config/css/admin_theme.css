@@ -753,7 +753,7 @@ body.login {
 body.login #container {
   background: transparent !important;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   padding: 20px;
 }
 
@@ -782,42 +782,20 @@ body.login #header {
   background: linear-gradient(90deg, var(--admin-gold), var(--admin-emerald));
 }
 
-.login-brand-logos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
-  background: rgba(5, 11, 8, 0.6);
-  padding: 10px 18px;
-  border-radius: var(--admin-border-radius-md);
-  border: 1px solid var(--admin-gold-border);
-}
-
-.login-brand-logos img {
-  height: 34px;
-  max-width: 120px;
-  object-fit: contain;
-}
-
-.login-portal-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin: 0 0 4px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background: linear-gradient(135deg, #FFFFFF 40%, var(--admin-gold-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.login-portal-subtitle {
-  font-size: 0.78rem;
-  color: var(--admin-text-muted);
+.login-portal-banner {
+  width: 100%;
   margin-bottom: 24px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  border-radius: var(--admin-border-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--admin-gold-border);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(197, 160, 89, 0.1);
+  background: var(--admin-bg-deep);
+}
+
+.login-portal-banner img.admin-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 body.login .form-row {
