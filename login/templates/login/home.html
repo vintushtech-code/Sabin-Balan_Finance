@@ -1733,19 +1733,81 @@
     margin-bottom: 0.5rem;
   }
 
-  /* No Results Fallback */
+  /* No Results Fallback Card */
   .faq-no-results {
     text-align: center;
-    padding: 3rem 1.5rem;
+    padding: 3.5rem 2rem;
     background: var(--color-secondary, #121620);
-    border: 1px dashed var(--color-border, rgba(255, 255, 255, 0.15));
-    border-radius: var(--radius-xl, 18px);
-    color: var(--color-subtext, #94a3b8);
+    border: 1.5px solid var(--color-border, rgba(212, 175, 55, 0.25));
+    border-radius: var(--radius-xl, 22px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25), 0 0 25px rgba(212, 175, 55, 0.08);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    animation: faqFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .no-results-icon {
-    font-size: 2.2rem;
-    margin-bottom: 0.75rem;
+  html[data-theme="light"] .faq-no-results,
+  body.light-theme .faq-no-results {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .faq-empty-crest {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1.5px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    margin-bottom: 1.25rem;
+  }
+
+  .faq-empty-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-primary, #ffffff);
+    margin: 0 0 0.5rem 0;
+  }
+
+  html[data-theme="light"] .faq-empty-title,
+  body.light-theme .faq-empty-title {
+    color: #0f172a !important;
+  }
+
+  .faq-empty-subtitle {
+    font-size: 0.95rem;
+    color: var(--color-subtext, #94a3b8);
+    max-width: 440px;
+    margin: 0 auto 1.85rem auto;
+    line-height: 1.6;
+  }
+
+  html[data-theme="light"] .faq-empty-subtitle,
+  body.light-theme .faq-empty-subtitle {
+    color: #64748b !important;
+  }
+
+  .faq-empty-cta-btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+
+  @keyframes faqFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   /* Pagination Bar */
@@ -2704,10 +2766,22 @@
 
         <!-- No Results Fallback State -->
         <div class="faq-no-results" id="faq-no-results" style="display: none;">
-          <div class="no-results-icon">🔍</div>
-          <p>No matching questions found for your search.</p>
-          <button type="button" class="btn-gold-sm" onclick="clearFaqSearch()" style="margin-top: 1rem;">View All
-            FAQs</button>
+          <div class="faq-empty-crest">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold, #D4AF37)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </div>
+          <h3 class="faq-empty-title">No Matching Questions Found</h3>
+          <p class="faq-empty-subtitle">We couldn't find any advisory answers matching your search. Browse our full knowledge library or reset your filter.</p>
+          <button type="button" class="showcase-cta-btn faq-empty-cta-btn" onclick="clearFaqSearch()">
+            <span>View All FAQs</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
         </div>
 
         <!-- Smooth Pagination Bar (3 at a time) -->
