@@ -5,125 +5,257 @@
 <title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
 <link rel="stylesheet" href="{% static 'theme_config/css/admin_theme.css' %}">
-<link rel="stylesheet" href="{% static 'admin/css/admin_theme.css' %}">
-{% block dark-mode-vars %}
-  <link rel="stylesheet" href="{% static "admin/css/dark_mode.css" %}">
-{% endblock %}
-{% if not is_popup and is_nav_sidebar_enabled %}
-  <link rel="stylesheet" href="{% static "admin/css/nav_sidebar.css" %}">
-  <script src="{% static "admin/js/nav_sidebar.js" %}" defer></script>
-{% endif %}
+{% block dark-mode-vars %}{% endblock %}
 {% block extrahead %}{% endblock %}
 {% block responsive %}
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" href="{% static "admin/css/responsive.css" %}">
-    {% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
 {% endblock %}
-{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+<meta name="robots" content="NONE,NOARCHIVE">
 <link rel="icon" href="{% static 'vintushtech_logo.png' %}">
+<script>
+  (function() {
+    try {
+      if (localStorage.getItem('admin_theme') === 'light') {
+        document.documentElement.setAttribute('data-admin-theme', 'light');
+      }
+    } catch(e) {}
+  })();
+</script>
 </head>
 
-<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
-  data-admin-utc-offset="{% now "Z" %}">
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
 <a href="#content-start" class="skip-to-content-link">{% translate 'Skip to main content' %}</a>
 
 <div id="container">
 
-    {% if not is_popup %}
-    <!-- Executive Header -->
-    <div id="header">
-        <div id="branding">
-        {% block branding %}{% endblock %}
+    {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
+    <!-- Crypto / Financial Executive Top Header -->
+    <header id="header">
+        <div class="header-left-group">
+            <button type="button" class="sidebar-toggle-btn" id="sidebar-toggle-btn" onclick="toggleAdminSidebar()" title="Toggle Navigation Sidebar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            {% block branding %}{% endblock %}
+
+            <div class="header-search-bar">
+                <svg class="search-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="global-admin-search" placeholder="Quick search models, bookings, inquiries... (Ctrl + K)" onkeyup="filterAdminModels(event)">
+                <span class="search-shortcut-tag">⌘ K</span>
+            </div>
         </div>
+
         {% block usertools %}
         {% if has_permission %}
-        <div id="user-tools">
-            {% block welcome-msg %}
-                <span class="user-badge">&#9679; {{ user.get_username }}</span>
-            {% endblock %}
-            {% block userlinks %}
-                <a href="/" target="_blank" title="View Public Client Website">&#127760; View Live Site</a>
-                {% if site_url %}
-                    <a href="{{ site_url }}">{% translate 'View site' %}</a>
-                {% endif %}
-                {% if user.is_active and user.is_staff %}
-                    {% url 'django-admindocs-docroot' as docsroot %}
-                    {% if docsroot %}
-                        <a href="{{ docsroot }}">{% translate 'Documentation' %}</a>
-                    {% endif %}
-                {% endif %}
-                {% if user.has_usable_password %}
-                <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a>
-                {% endif %}
-                <form id="logout-form" method="post" action="{% url 'admin:logout' %}" style="display:inline; margin:0;">
-                    {% csrf_token %}
-                    <button type="submit" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #F87171; padding: 5px 12px; border-radius: 6px; font-weight: 600; cursor: pointer;">{% translate 'Log out' %}</button>
-                </form>
-            {% endblock %}
+        <div class="header-right-group">
+            <!-- 2FA Live Security Indicator -->
+            <div class="live-security-badge" title="Cryptographic 2FA Enforced via sys.stdout & Email">
+                <span class="live-dot-pulse"></span>
+                <span>2FA SECURED</span>
+            </div>
+
+            <!-- Theme Toggle Switch -->
+            <button id="admin-theme-toggle" type="button" class="theme-toggle-btn" onclick="toggleAdminTheme()" title="Switch Light / Dark Theme">
+                <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
+            </button>
+
+            <!-- Live Site Link -->
+            <a href="/" target="_blank" class="theme-toggle-btn" style="text-decoration: none;" title="Open Public Client Website">
+                <span>🌐</span> <span>Live Site</span>
+            </a>
+
+            <!-- User Profile Pill -->
+            <div class="admin-user-pill">
+                <div class="user-avatar-circle">
+                    {{ user.get_initials|default:"AD" }}
+                </div>
+                <div class="user-info-text">
+                    <span class="user-name-text">{{ user.username|default:"Admin" }}</span>
+                </div>
+            </div>
+
+            <!-- Logout Button -->
+            <form id="logout-form" method="post" action="{% url 'admin:logout' %}" style="display:inline; margin:0;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn-header" title="Terminate Admin Session">Log Out</button>
+            </form>
         </div>
         {% endif %}
         {% endblock %}
-        {% block nav-global %}{% endblock %}
-    </div>
-    <!-- END Header -->
-    {% block breadcrumbs %}
-    <div class="breadcrumbs">
-    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
-    {% if title %} &rsaquo; {{ title }}{% endif %}
-    </div>
-    {% endblock %}
+    </header>
     {% endif %}
 
-    <div class="main shifted" id="main">
-      {% if not is_popup and is_nav_sidebar_enabled %}
-        {% block nav-sidebar %}
-          {% include "admin/nav_sidebar.html" %}
-        {% endblock %}
-      {% endif %}
-      <div class="content">
-        {% block messages %}
-          {% if messages %}
-            <ul class="messagelist" style="margin: 0 0 20px 0; padding: 0; list-style: none;">
-            {% for message in messages %}
-              <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="padding: 12px 18px; border-radius: 8px; margin-bottom: 10px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #34D399; font-weight: 600;">{{ message|capfirst }}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endblock messages %}
-        <!-- Content -->
-        <div id="content" class="{% block coltype %}colM{% endblock %}">
-          {% block pretitle %}{% endblock %}
-          {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
-          {% block content_subtitle %}{% if subtitle %}<h2>{{ subtitle }}</h2>{% endif %}{% endblock %}
-          {% block content %}
-            {% block object-tools %}{% endblock %}
-            {{ content }}
-          {% endblock %}
-          {% block sidebar %}{% endblock %}
-          <br class="clear">
-        </div>
-        <!-- END Content -->
+    <div class="main {% if user.is_authenticated and not 'login' in bodyclass %}shifted{% endif %}" id="main">
+        {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
+        <!-- Collapsible Left Vertical Navigation Sidebar -->
+        <aside class="nav-sidebar" id="nav-sidebar">
+            <div class="sidebar-top-section">
+                <!-- Group 1: Core Navigation -->
+                <div class="sidebar-nav-group">
+                    <div class="sidebar-group-title">Executive Core</div>
+                    <a href="{% url 'admin:index' %}" class="sidebar-nav-item {% if request.path == '/x7K9mQp2LrT4/' or request.resolver_match.url_name == 'index' %}active{% endif %}">
+                        <span class="sidebar-nav-icon">📊</span>
+                        <span>Dashboard Overview</span>
+                    </a>
+                </div>
 
-        {% if not is_popup %}
-        <!-- Publisher Footer -->
-        <footer class="admin-publisher-footer">
-            <div class="footer-logos-row">
-                <img src="{% static 'kplogo.png' %}" alt="KP RegTech" onerror="this.src='https://kpregtech.com/static/images/kplogo.png';">
-                <span style="color: var(--admin-gold); font-size: 0.9rem;">&bull;</span>
-                <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" onerror="this.src='https://vintushtech.cloud/static/website/images/favicon.png';">
+                <!-- Group 2: Client & Wealth Advisory Models -->
+                <div class="sidebar-nav-group">
+                    <div class="sidebar-group-title">Wealth &amp; Advisory Models</div>
+                    <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="sidebar-nav-item {% if 'consultationbooking' in request.path %}active{% endif %}">
+                        <span class="sidebar-nav-icon">📅</span>
+                        <span>Consultation Bookings</span>
+                    </a>
+                    <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="sidebar-nav-item {% if 'contactsubmission' in request.path %}active{% endif %}">
+                        <span class="sidebar-nav-icon">✉️</span>
+                        <span>Client Form Inquiries</span>
+                    </a>
+                    <a href="{% url 'admin:login_customuser_changelist' %}" class="sidebar-nav-item {% if 'customuser' in request.path %}active{% endif %}">
+                        <span class="sidebar-nav-icon">👥</span>
+                        <span>User Base &amp; Staff</span>
+                    </a>
+                    <a href="{% url 'admin:login_testimonial_changelist' %}" class="sidebar-nav-item {% if 'testimonial' in request.path %}active{% endif %}">
+                        <span class="sidebar-nav-icon">⭐</span>
+                        <span>Client Testimonials</span>
+                    </a>
+                    <a href="{% url 'admin:login_faq_changelist' %}" class="sidebar-nav-item {% if 'faq' in request.path %}active{% endif %}">
+                        <span class="sidebar-nav-icon">❓</span>
+                        <span>Knowledge FAQs</span>
+                    </a>
+                </div>
+
+                <!-- Group 3: Operations & Support -->
+                <div class="sidebar-nav-group">
+                    <div class="sidebar-group-title">Operations &amp; Tools</div>
+                    <a href="{% url 'login:client_review' %}" target="_blank" class="sidebar-nav-item">
+                        <span class="sidebar-nav-icon">📝</span>
+                        <span>Client Review Desk</span>
+                    </a>
+                    <a href="{% url 'admin:password_change' %}" class="sidebar-nav-item {% if 'password_change' in request.path %}active{% endif %}">
+                        <span class="sidebar-nav-icon">🔑</span>
+                        <span>Security Credentials</span>
+                    </a>
+                </div>
             </div>
-            <p><strong>Enterprise Wealth Operations &amp; Client Intelligence Portal</strong></p>
-            <p style="font-size: 0.76rem; color: var(--admin-text-muted);">
-                Published &amp; Maintained by <span class="pub-highlight">KP RegTech</span> &amp; <span class="pub-highlight">VintushTech</span> &bull; All Rights Reserved &bull; Commercial License Edition
-            </p>
-        </footer>
+
+            <!-- Sidebar Persistent Consortium Badge -->
+            <div class="sidebar-consortium-badge">
+                <div class="consortium-label">Architecture Consortium</div>
+                <div class="consortium-brand-title">Powered by BlinkaStack &amp; KPTechTech</div>
+                <div style="font-size: 0.7rem; color: var(--admin-text-muted); margin-top: 4px;">Enterprise Wealth Engine &bull; v2.6.4</div>
+            </div>
+        </aside>
         {% endif %}
 
-        {% block footer %}<div id="footer"></div>{% endblock %}
-      </div>
+        <!-- Main Content Area -->
+        <main class="content" id="content-main-wrapper">
+            {% block messages %}
+            {% if messages %}
+            <ul class="messagelist" style="margin: 0 0 20px 0; padding: 0; list-style: none;">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="padding: 12px 18px; border-radius: var(--admin-radius-md); margin-bottom: 10px; background: var(--admin-gold-muted); border: 1px solid var(--admin-gold-border); color: var(--admin-gold); font-weight: 700;">
+                    🛡️ {{ message|capfirst }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endblock messages %}
+
+            {% block content %}{% endblock %}
+
+            {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
+            <!-- Persistent Dashboard Bottom Attribution -->
+            <footer class="admin-publisher-footer">
+                <div class="consortium-seal-badge">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--admin-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <span>Powered by BlinkaStack &amp; KPTechTech</span>
+                </div>
+                <p class="footer-legal-copy">
+                    <strong>Enterprise Wealth &amp; Operations Intelligence Suite</strong> &bull; &copy; 2026 GuardianTree FP. All Rights Reserved. &bull; Licensed Consortium Deployment
+                </p>
+            </footer>
+            {% endif %}
+        </main>
     </div>
 </div>
-<!-- END Container -->
+
+<!-- Core Dashboard Vanilla JavaScript -->
+<script>
+  function toggleAdminTheme() {
+    const isLight = document.documentElement.getAttribute('data-admin-theme') === 'light';
+    const newTheme = isLight ? 'dark' : 'light';
+    
+    if (newTheme === 'light') {
+      document.documentElement.setAttribute('data-admin-theme', 'light');
+      document.body.classList.add('admin-light-mode');
+    } else {
+      document.documentElement.removeAttribute('data-admin-theme');
+      document.body.classList.remove('admin-light-mode');
+    }
+    
+    try { localStorage.setItem('admin_theme', newTheme); } catch(e) {}
+    updateThemeToggleUI(newTheme);
+    if (window.renderGoldAnalyticsChart) {
+      window.renderGoldAnalyticsChart();
+    }
+  }
+
+  function updateThemeToggleUI(theme) {
+    const icon = document.getElementById('theme-icon');
+    const text = document.getElementById('theme-text');
+    if (icon && text) {
+      if (theme === 'light') {
+        icon.textContent = '🌙';
+        text.textContent = 'Dark Mode';
+      } else {
+        icon.textContent = '☀️';
+        text.textContent = 'Light Mode';
+      }
+    }
+  }
+
+  function toggleAdminSidebar() {
+    const sidebar = document.getElementById('nav-sidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('mobile-open');
+    }
+  }
+
+  function filterAdminModels(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const modelCards = document.querySelectorAll('.model-widget-card, .crypto-data-table tbody tr');
+    modelCards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? '' : 'none';
+    });
+  }
+
+  // Global Ctrl + K search shortcut
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      const searchInput = document.getElementById('global-admin-search');
+      if (searchInput) searchInput.focus();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentTheme = localStorage.getItem('admin_theme') || 'dark';
+    if (currentTheme === 'light') {
+      document.body.classList.add('admin-light-mode');
+    }
+    updateThemeToggleUI(currentTheme);
+  });
+</script>
 
 </body>
 </html>

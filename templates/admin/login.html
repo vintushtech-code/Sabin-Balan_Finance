@@ -1,79 +1,104 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
 
-{% block bodyclass %}{{ block.super }} login{% endblock %}
+{% block bodyclass %}{{ block.super }} login admin-login-fullscreen{% endblock %}
 
 {% block usertools %}{% endblock %}
-
 {% block nav-global %}{% endblock %}
-
 {% block nav-sidebar %}{% endblock %}
-
 {% block content_title %}{% endblock %}
-
 {% block breadcrumbs %}{% endblock %}
 
 {% block content %}
-<div class="login-executive-card">
-    <div class="login-brand-logos">
-        <img src="{% static 'kplogo.png' %}" alt="KP RegTech" onerror="this.src='https://kpregtech.com/static/images/kplogo.png';">
-        <div class="pub-divider" style="height: 24px;"></div>
-        <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" onerror="this.src='https://vintushtech.cloud/static/website/images/favicon.png';">
-    </div>
+<div class="admin-login-wrapper">
+    <div class="login-executive-card">
+        <!-- Brand Header with Luxury Emblem -->
+        <div class="login-header-section">
+            <div class="login-brand-crest">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--admin-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+            <h1 class="login-suite-title">GUARDIANTREE <span style="color: var(--admin-gold);">FP</span></h1>
+            <p class="login-suite-subtitle">Executive Wealth Operations &amp; Intelligence Suite</p>
+        </div>
 
-    <h1 class="login-portal-title">Executive Admin Portal</h1>
-    <div class="login-portal-subtitle">Commercial Financial Operations Suite</div>
+        <!-- Banner Image Showcase -->
+        <div class="login-portal-banner">
+            <img src="{% static 'admin_portal_banner.jpg' %}" alt="Executive Admin Portal" class="admin-banner-img" onerror="this.style.display='none';">
+        </div>
 
-    {% if form.errors and not form.non_field_errors %}
-    <p class="errornote" style="padding: 10px 14px; border-radius: 6px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #F87171; font-size: 0.84rem; margin-bottom: 16px;">
-    {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
-    </p>
-    {% endif %}
+        <!-- Security Gateway Badge -->
+        <div class="login-security-notice">
+            <span class="security-shield-icon">🛡️</span>
+            <span>2-Way Cryptographic 2FA Enforced Gateway</span>
+        </div>
 
-    {% if form.non_field_errors %}
-    {% for error in form.non_field_errors %}
-    <p class="errornote" style="padding: 10px 14px; border-radius: 6px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #F87171; font-size: 0.84rem; margin-bottom: 16px;">
-        {{ error }}
-    </p>
-    {% endfor %}
-    {% endif %}
+        <!-- Error Notifications -->
+        {% if form.errors and not form.non_field_errors %}
+        <div class="login-error-box">
+            {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+        </div>
+        {% endif %}
 
-    {% if user.is_authenticated %}
-    <p class="errornote" style="padding: 10px 14px; border-radius: 6px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #F59E0B; font-size: 0.84rem; margin-bottom: 16px;">
-    {% blocktranslate trimmed %}
-        You are authenticated as {{ username }}, but are not authorized to
-        access this page. Would you like to login to a different account?
-    {% endblocktranslate %}
-    </p>
-    {% endif %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="login-error-box">
+            {{ error }}
+        </div>
+        {% endfor %}
+        {% endif %}
 
-    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
-      <div class="form-row">
-        {{ form.username.errors }}
-        <label for="id_username">{{ form.username.label }}:</label>
-        {{ form.username }}
-      </div>
-      <div class="form-row">
-        {{ form.password.errors }}
-        <label for="id_password">{{ form.password.label }}:</label>
-        {{ form.password }}
-        <input type="hidden" name="next" value="{{ next }}">
-      </div>
-      {% url 'admin_password_reset' as password_reset_url %}
-      {% if password_reset_url %}
-      <div class="password-reset-link" style="text-align: right; margin-top: 6px; font-size: 0.8rem;">
-        <a href="{{ password_reset_url }}" style="color: var(--admin-gold) !important;">{% translate 'Forgotten your password or username?' %}</a>
-      </div>
-      {% endif %}
-      <div class="submit-row">
-        <input type="submit" value="{% translate 'Authenticate & Enter' %}">
-      </div>
-    </form>
+        {% if user.is_authenticated %}
+        <div class="login-warning-box">
+            {% blocktranslate trimmed %}
+                You are authenticated as {{ username }}, but are not authorized to access this page.
+            {% endblocktranslate %}
+        </div>
+        {% endif %}
 
-    <div class="login-footer-badge">
-        Published by <span>KP RegTech</span> &amp; <span>VintushTech</span>
-        <div style="margin-top: 8px;">
-            <a href="/" style="color: var(--admin-text-muted) !important; font-size: 0.78rem;">&larr; Return to Public Website</a>
+        <!-- Credentials Form -->
+        <form action="{{ app_path }}" method="post" id="login-form" class="login-executive-form">
+            {% csrf_token %}
+            
+            <div class="login-form-group">
+                <label for="id_username">Administrator Email or Username</label>
+                <div class="input-icon-wrapper">
+                    <svg class="input-svg-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    {{ form.username }}
+                </div>
+            </div>
+
+            <div class="login-form-group">
+                <label for="id_password">Security Password</label>
+                <div class="input-icon-wrapper">
+                    <svg class="input-svg-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    {{ form.password }}
+                </div>
+                <input type="hidden" name="next" value="{% if next and next != '/' and next != '/home/' %}{{ next }}{% else %}{% url 'admin:index' %}{% endif %}">
+            </div>
+
+            <div class="login-submit-group">
+                <button type="submit" class="login-btn-gold">
+                    Authenticate &amp; Proceed to 2FA 🛡️
+                </button>
+            </div>
+        </form>
+
+        <!-- Consortium Attribution Footer -->
+        <div class="login-footer-attribution">
+            <div class="consortium-mini-text">
+                Architecture Consortium: <span>BlinkaStack &amp; KPTechTech</span>
+            </div>
+            <div class="return-link-wrap">
+                <a href="/" class="return-public-link">&larr; Return to Public Website</a>
+            </div>
         </div>
     </div>
 </div>

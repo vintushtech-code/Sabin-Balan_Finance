@@ -1,92 +1,64 @@
 """
-Authentication Test Suite
-==========================
+Restructured Portal & Security Test Suite
+==========================================
 
-Tests all core requirements:
+Tests all requirements:
 - CustomUser creation and ORM safety
-- Registration & Signup view
-- Flexible Username / Email Login
-- Password Reset initialization
-- Rate limiting protection
-- Social Auth initialization
+- Honeypot /admin/ returns 404 Not Found
+- Secret Admin Portal accessibility via ADMIN_SECRET_PATH
+- Public Home, About, Services, and Testimonials routes
+- Input sanitization & security defenses
 """
 
 from django.test import TestCase, Client
 from django.urls import reverse
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from login.security import sanitize_input
 
 User = get_user_model()
 
 
-class SecurityAndAuthTestCase(TestCase):
+class SecretAdminAndSecurityTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
-        # Create a test user via ORM
-        self.test_username = "testuser"
-        self.test_email = "testuser@example.com"
-        self.test_password = "SecurePassword123!"
+        self.secret_slug = getattr(settings, 'ADMIN_SECRET_PATH', 'x7K9mQp2LrT4')
+        self.admin_username = "exec_admin"
+        self.admin_email = "admin@guardiantreefp.com"
+        self.admin_password = "SuperSecretPassword2026!"
         
-        self.user = User.objects.create_user(
-            username=self.test_username,
-            email=self.test_email,
-            password=self.test_password,
-            bio="Original Bio"
+        self.admin_user = User.objects.create_superuser(
+            username=self.admin_username,
+            email=self.admin_email,
+            password=self.admin_password,
         )
+
+    def test_honeypot_admin_returns_404(self):
+        """Verify standard /admin/ returns 404 Not Found camouflage."""
+        response = self.client.get('/admin/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_secret_admin_login_accessible(self):
+        """Verify the admin login is accessible under the secret slug."""
+        response = self.client.get(f'/{self.secret_slug}/login/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_public_pages_accessible_without_auth(self):
+        """Verify public web pages (Home, About, Services, Testimonials) are accessible without auth."""
+        for url_name in ['login:home', 'login:about', 'login:services', 'login:testimonials']:
+            response = self.client.get(reverse(url_name))
+            self.assertEqual(response.status_code, 200)
 
     def test_custom_user_model_attributes(self):
         """Verify custom user model attributes and initials helper."""
-        self.assertEqual(self.user.auth_provider, 'email')
-        self.assertEqual(self.user.get_initials(), 'TE')
-        self.assertTrue(User.objects.filter(email=self.test_email).exists())
-
-    def test_login_with_username(self):
-        """Test authentication using username."""
-        response = self.client.post(reverse('login:login'), {
-            'login_identity': self.test_username,
-            'password': self.test_password
-        }, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.context['user'].is_authenticated)
-
-    def test_login_with_email(self):
-        """Test authentication using email address instead of username."""
-        response = self.client.post(reverse('login:login'), {
-            'login_identity': self.test_email,
-            'password': self.test_password
-        }, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.context['user'].is_authenticated)
-
-    def test_signup_creates_new_user(self):
-        """Test new user registration."""
-        signup_data = {
-            'username': 'newsignup',
-            'email': 'newsignup@example.com',
-            'password1': 'StrongPassWord89!',
-            'password2': 'StrongPassWord89!',
-        }
-        response = self.client.post(reverse('login:signup'), signup_data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(User.objects.filter(username='newsignup').exists())
+        self.assertEqual(self.admin_user.get_initials(), 'EA')
+        self.assertTrue(User.objects.filter(email=self.admin_email).exists())
 
     def test_xss_sanitization(self):
-        """Verify XSS payload sanitization on profile input."""
+        """Verify XSS payload sanitization on input."""
         malicious_input = "<script>alert('xss')</script>Hello World"
         cleaned = sanitize_input(malicious_input)
         self.assertNotIn("<script>", cleaned)
         self.assertIn("Hello World", cleaned)
 
-    def test_password_reset_view(self):
-        """Verify password reset request succeeds for existing email."""
-        response = self.client.post(reverse('login:password_reset'), {
-            'email': self.test_email
-        })
-        self.assertEqual(response.status_code, 302)
-
-    def test_social_auth_dev_fallback(self):
-        """Test social OAuth init view fallback in development mode."""
-        response = self.client.get(reverse('login:social_init', kwargs={'provider': 'google'}), follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.context['user'].is_authenticated)

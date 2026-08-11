@@ -1,23 +1,26 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Executive Wealth & Client Operations Portal{% endblock %}
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Executive Wealth & Operations Suite{% endblock %}
 
 {% block branding %}
 <div class="executive-header-brand">
-    <div class="publisher-logos-wrap" title="Published by KP RegTech & VintushTech">
-        <a href="{% url 'admin:index' %}" style="display: flex; align-items: center; gap: 10px;">
-            <img src="{% static 'kplogo.png' %}" alt="KP RegTech" class="pub-logo-img" onerror="this.src='https://kpregtech.com/static/images/kplogo.png';">
-            <div class="pub-divider"></div>
-            <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" class="pub-logo-img" onerror="this.src='https://vintushtech.cloud/static/website/images/favicon.png';">
+    <div class="publisher-logos-wrap" title="Powered by BlinkaStack & KPTechTech">
+        <a href="{% url 'admin:index' %}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+            <div class="brand-crest-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--admin-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+            <div class="brand-portal-title">
+                <span class="portal-main-name">GUARDIANTREE <span style="color: var(--admin-gold);">FP</span></span>
+                <span class="brand-portal-subtitle">Executive Suite &bull; <span class="consortium-highlight">Powered by BlinkaStack &amp; KPTechTech</span></span>
+            </div>
         </a>
-    </div>
-    <div class="brand-portal-title">
-        <h1>Executive Wealth Admin Suite</h1>
-        <div class="brand-portal-subtitle">Commercial Edition &bull; Published by <span>KP RegTech</span> &amp; <span>VintushTech</span></div>
     </div>
 </div>
 {% endblock %}
 
 {% block nav-global %}
 {% endblock %}
+

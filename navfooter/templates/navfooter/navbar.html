@@ -10,7 +10,7 @@
 
     <!-- Far Left: Savings & Growth 3D Gold Badge -->
     <div class="finance-left-badge-group">
-      <a href="{% if user.is_authenticated %}{% url 'login:home' %}{% else %}{% url 'login:login' %}{% endif %}"
+      <a href="{% url 'login:home' %}"
         class="finance-circle-badge" aria-label="{{ brand_name|default:'Sabin Balan Finance' }}">
         <div class="finance-circle-inner">
           {% if navbar_settings.logo_image_file %}
@@ -124,7 +124,7 @@
         </div>
 
         <!-- CENTER EMBLEM (3D GOLD SHIELD LINKING TO HOME PAGE) -->
-        <a href="{% if user.is_authenticated %}{% url 'login:home' %}{% else %}{% url 'login:login' %}{% endif %}" class="finance-emblem-wrapper" style="text-decoration: none;" aria-label="Go to Home Page">
+        <a href="{% url 'login:home' %}" class="finance-emblem-wrapper" style="text-decoration: none;" aria-label="Go to Home Page">
           <img src="{% static 'navfooter/images/shield_emblem_nobg.png' %}" alt="Premier Finance Crest"
             class="finance-emblem-real-img"
             onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" />
@@ -268,18 +268,16 @@
                 <span>Toggle Theme</span> <span id="theme-icon-dropdown">🌙</span>
               </button>
 
-              <a href="{% url 'login:home' %}" class="dropdown-item">Client Portal</a>
+              <a href="{% url 'login:book_consultation' %}" class="dropdown-item" style="color: var(--color-gold, #C5A059); font-weight: 700;">📅 Book Consultation</a>
+              <a href="{% url 'login:client_review' %}" class="dropdown-item">📝 Client Review Desk</a>
 
+              {% if user.is_authenticated and user.is_staff %}
               <div class="dropdown-divider"></div>
-
-              {% if user.is_authenticated %}
+              <a href="{% url 'admin:index' %}" class="dropdown-item" style="color: #60A5FA; font-weight: 700;">🛡️ Executive Portal</a>
               <form action="{% url 'login:logout' %}" method="post" class="logout-form">
                 {% csrf_token %}
                 <button type="submit" class="dropdown-item btn-logout" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer; color: var(--color-error, #d9534f);">Logout</button>
               </form>
-              {% else %}
-              <a href="{% url 'login:login' %}" class="dropdown-item">Sign In</a>
-              <a href="{% url 'login:signup' %}" class="dropdown-item highlight">Create Account</a>
               {% endif %}
             </div>
 
@@ -351,15 +349,22 @@
         <span>Theme Toggle</span> <span id="mobile-theme-icon">🌙</span>
       </button>
 
-      {% if user.is_authenticated %}
-      <a href="{% url 'login:home' %}" class="mobile-nav-link mobile-btn-highlight">Client Portal</a>
+      <a href="{% url 'login:book_consultation' %}" class="mobile-nav-link mobile-btn-highlight">
+        <span class="mobile-nav-icon">📅</span> Book Consultation
+      </a>
+      <a href="{% url 'login:client_review' %}" class="mobile-nav-link">
+        <span class="mobile-nav-icon">📝</span> Review Desk
+      </a>
+
+      {% if user.is_authenticated and user.is_staff %}
+      <div class="mobile-nav-divider"></div>
+      <a href="{% url 'admin:index' %}" class="mobile-nav-link" style="color: #60A5FA;">
+        <span class="mobile-nav-icon">🛡️</span> Executive Portal
+      </a>
       <form action="{% url 'login:logout' %}" method="post" style="width:100%; margin-top:0.5rem;">
         {% csrf_token %}
         <button type="submit" class="mobile-nav-link mobile-btn-logout">Logout</button>
       </form>
-      {% else %}
-      <a href="{% url 'login:login' %}" class="mobile-nav-link">Sign In</a>
-      <a href="{% url 'login:signup' %}" class="mobile-nav-link mobile-btn-highlight">Create Account</a>
       {% endif %}
     </div>
   </div>
