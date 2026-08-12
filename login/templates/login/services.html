@@ -1583,7 +1583,8 @@
         position: relative;
     }
 
-    .spotlight-image img {
+    .spotlight-image img,
+    .spotlight-image video {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -2480,7 +2481,7 @@
     <div class="container">
         <div class="spotlight-box">
             <div class="spotlight-image">
-                <img src="{% static 'login/images/service_2.jpg' %}" alt="Senior Wealth Managing Director">
+                <video src="{% static 'login/videos/video.mp4' %}" autoplay loop muted playsinline></video>
                 <div class="spotlight-overlay"></div>
             </div>
             <div class="spotlight-content">
