@@ -1094,7 +1094,6 @@ class ConsultationTrackAPIView(View):
             'created_at': booking.created_at.strftime("%d %B %Y at %I:%M %p"),
             'timeline': timeline,
         }
-
         return JsonResponse({
             'status': 'success',
             'data': data
