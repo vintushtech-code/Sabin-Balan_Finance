@@ -429,6 +429,40 @@ class ConsultationBooking(models.Model):
         return mapping.get(self.status, 'badge-secondary')
 
 
+class MediaMention(models.Model):
+    """
+    Model for 'As featured in' media logos (Trust Signals).
+    """
+    name = models.CharField(_('Publication Name'), max_length=150)
+    logo = models.ImageField(_('Logo Image'), upload_to='trust_signals/media_mentions/', blank=True, null=True)
+    link = models.URLField(_('Article Link'), blank=True, default='')
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+    is_active = models.BooleanField(_('Is Active'), default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Media Mention')
+        verbose_name_plural = _('Media Mentions')
+        ordering = ['order', '-created_at']
+
+    def __str__(self):
+        return self.name
 
 
+class PartnerIntegration(models.Model):
+    """
+    Model for banking/institutional partners (Trust Signals).
+    """
+    name = models.CharField(_('Partner Name'), max_length=150)
+    logo = models.ImageField(_('Partner Logo'), upload_to='trust_signals/partners/', blank=True, null=True)
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+    is_active = models.BooleanField(_('Is Active'), default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = _('Partner Integration')
+        verbose_name_plural = _('Partner Integrations')
+        ordering = ['order', '-created_at']
+
+    def __str__(self):
+        return self.name
