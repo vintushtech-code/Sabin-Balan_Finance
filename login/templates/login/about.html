@@ -418,8 +418,13 @@
     color: #ffffff;
   }
 
-  .a-bit-about-us-title span.highlight-gold {
-    color: var(--color-gold);
+  .highlight-gold,
+  .highlight-text {
+    color: #FFD700;
+    background: linear-gradient(185deg, #FFF9C4 0%, #FFD700 35%, #F59E0B 75%, #B45309 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: #ffd70091;
     display: inline-block;
   }
 
@@ -640,10 +645,10 @@
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 5rem 2rem;
+    padding: 6rem 2rem;
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 4rem;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5rem;
     align-items: center;
     overflow: hidden;
   }
@@ -791,8 +796,8 @@
   @media (max-width: 992px) {
     .executive-showcase-container {
       grid-template-columns: 1fr;
-      gap: 3rem;
-      padding: 4rem 1.5rem;
+      gap: 3.5rem;
+      padding: 5rem 1.5rem;
     }
   }
 
@@ -1097,13 +1102,823 @@
     box-shadow: 0 0 8px var(--color-gold);
   }
 
+  /* -------------------------------------------------------------
+     OUR MISSION & OUR VISION SECTION — Reference UI Aesthetic
+     ------------------------------------------------------------- */
+  .about-mission-vision-wrapper {
+    width: 100%;
+    background: transparent;
+    padding: 4rem 0 5rem;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .about-mission-vision-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 2rem 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 5rem;
+    align-items: center;
+    box-sizing: border-box;
+   
+  }
+
+  /* Left Side Text Content */
+  .mission-vision-right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .mv-section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(255, 234, 179, 0.24);
+    color: #B45309;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .mv-section-title {
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    font-weight: 900;
+    color: #111827;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.25rem;
+    max-width: 720px;
+  }
+
+  .mv-section-title span.highlight-gold {
+    display: inline-block;
+  }
+
+  .mv-section-subtitle {
+    font-size: 1.03rem;
+    line-height: 1.85;
+    color: #4B5563;
+    margin-bottom: 1.85rem;
+    max-width: 780px;
+  }
+
+  .vision-mission-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .vision-mission-card {
+    
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 244, 229, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-radius: 26px;
+    box-shadow: 0 30px 70px rgba(15, 23, 42, 0.08);
+    padding: 1.75rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .vision-mission-image {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    background: rgba(255, 255, 255, 0.9);
+    display: grid;
+    place-items: center;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.75);
+  }
+
+  .vision-mission-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .vision-mission-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .vision-mission-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #B45309;
+  }
+
+  .vision-mission-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .vision-mission-card p {
+    margin: 0;
+    color: #4B5563;
+    line-height: 1.8;
+  }
+
+  .mv-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-mv-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 2.25rem;
+    background: linear-gradient(135deg, #D4AF37 0%, #FCD34D 100%);
+    border: none;
+    border-radius: 999px;
+    color: #0F172A;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 18px 35px rgba(212, 175, 55, 0.24);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-mv-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 45px rgba(212, 175, 55, 0.3);
+  }
+
+  .mv-call-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: #111827;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.95rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .mv-call-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 244, 179, 0.95);
+    color: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .about-hero-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    width: 100%;
+  }
+
+  .about-hero-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.9rem 1.4rem;
+    border-radius: 999px;
+    background: rgba(255, 234, 179, 0.65);
+    color: #92400E;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+  }
+
+  .about-hero-image-card {
+    position: relative;
+    width: min(100%, 520px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    padding: 1.5rem;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.18);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .about-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid rgba(212, 175, 55, 0.24);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55), 0 20px 50px rgba(15, 23, 42, 0.16);
+  }
+
+  .about-hero-circle-outline {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 1px dashed rgba(212, 175, 55, 0.5);
+    pointer-events: none;
+  }
+
+  .about-hero-extras {
+    width: 100%;
+    max-width: 520px;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .about-hero-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.75rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(255, 234, 179, 0.45);
+    color: #92400E;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .about-hero-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .about-hero-stat-card {
+    padding: 1.25rem 1.35rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.14);
+    border-radius: 20px;
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+  }
+
+  .about-hero-stat-card .stat-number {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 0.45rem;
+  }
+
+  .about-hero-stat-card .stat-label {
+    color: #4B5563;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1120px) {
+    .about-mission-vision-container {
+      grid-template-columns: 1fr;
+      padding: 3rem 1.5rem 3rem 1.5rem;
+    }
+
+    .about-hero-image-card {
+      width: min(100%, 420px);
+    }
+
+    .mv-pillars-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 768px) {
-    .team-member-card.team-member-hidden {
-      height: 0 !important;
-      min-height: 0 !important;
-      max-height: 0 !important;
-      margin-bottom: -1.5rem !important;
-      margin-right: 0 !important;
+    .about-mission-vision-wrapper {
+      padding: 3rem 0 4rem;
+    }
+
+    .about-mission-vision-container {
+      gap: 3rem;
+    }
+
+    .mv-pillars-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mv-section-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .mission-vision-right-content {
+    display: none;
+  }
+
+  .mv-section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1.25rem;
+  }
+
+  .mv-section-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+  }
+
+  .mv-section-title span.highlight-gold {
+    display: inline-block;
+  }
+
+  .mv-section-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-subtext);
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+  }
+
+  /* 4 Pillars 2x2 Grid */
+  .mv-pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .mv-pillar-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1.75rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 24px;
+    box-shadow: 0 28px 70px rgba(5, 10, 21, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(18px);
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+
+  .mv-pillar-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 38%);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .mv-pillar-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mv-pillar-card:hover {
+    border-color: rgba(212, 175, 55, 0.38);
+    box-shadow: 0 32px 90px rgba(5, 10, 21, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    transform: translateY(-4px);
+  }
+
+  .mv-pillar-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(255, 244, 176, 0.95), rgba(212, 175, 55, 0.95) 45%, rgba(165, 129, 20, 0.88));
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.55), 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .mv-pillar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+  }
+
+  .mv-pillar-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-subtext);
+  }
+
+  /* Action Row */
+  .mv-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-mv-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 2.2rem;
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    border: none;
+    border-radius: var(--radius-pill);
+    color: #0F172A;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-mv-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+  }
+
+  .mv-call-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .mv-call-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .about-mission-vision-container {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+
+    .mv-pillars-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* -------------------------------------------------------------
+     TOP ADVISORY SECTION 1: WHY OUR ADVISORY WILL BE INVALUABLE TO YOU
+     ------------------------------------------------------------- */
+  .advisory-top-section-1 {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5rem;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .advisory-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.5px;
+  }
+
+  .advisory-breadcrumb span.crumb-muted {
+    color: var(--color-subtext);
+  }
+
+  .advisory-section-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+  }
+
+  .advisory-section-title span.highlight-gold,
+  .advisory-section-title span.highlight-text {
+    display: inline-block;
+  }
+
+  .advisory-section-desc {
+    
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-subtext);
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+
+  /* Right Side Image & Overlapping Rotating Emblem Badge */
+  .advisory-image-container-1 {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .advisory-main-img-1 {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 28px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 30px rgba(212, 175, 55, 0.1);
+    display: block;
+  }
+
+  .advisory-circular-badge {
+    position: absolute;
+    bottom: -28px;
+    left: -28px;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .badge-arrow-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    color: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.45);
+    z-index: 2;
+  }
+
+  .badge-text-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: rotateRing 16s linear infinite;
+  }
+
+  @keyframes rotateRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .badge-text-ring svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--color-gold);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  /* -------------------------------------------------------------
+     MIDDLE HIGHLIGHT QUOTE & COUNTER STATS BANNER
+     ------------------------------------------------------------- */
+  .advisory-middle-banner-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    margin: 4rem auto 4.5rem auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
+
+  .advisory-middle-banner-content {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .advisory-center-quote {
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    font-weight: 600;
+    line-height: 1.65;
+    color: var(--color-primary);
+    max-width: 1020px;
+    margin: 0 auto;
+    letter-spacing: -0.01em;
+  }
+
+  .advisory-center-quote span.highlight-bold {
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .advisory-center-quote span.highlight-muted {
+    color: var(--color-subtext);
+    font-weight: 500;
+  }
+
+  /* 4-Column Stat Counters Grid */
+  .advisory-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .advisory-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .advisory-stat-number {
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+  }
+
+  .advisory-stat-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-subtext);
+    text-transform: capitalize;
+    letter-spacing: 0.2px;
+  }
+
+  /* -------------------------------------------------------------
+     TOP ADVISORY SECTION 2: FOR WHOM ARE WE THE BEST-FIT ADVISORS?
+     ------------------------------------------------------------- */
+  .advisory-top-section-2 {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto 5rem auto;
+    padding: 3rem 2rem 5rem 2rem;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 5rem;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* Double Overlapping Image Composition */
+  .advisory-double-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .advisory-base-img {
+    width: 82%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 28px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
+  .advisory-overlay-img-card {
+    position: absolute;
+    bottom: -35px;
+    right: 0;
+    width: 62%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 24px;
+    border: 4px solid var(--color-bg, #060910);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 25px rgba(212, 175, 55, 0.15);
+  }
+
+  [data-theme='light'] .advisory-overlay-img-card {
+    border-color: #ffffff;
+  }
+
+  /* Right Side Content Block & Target List */
+  .advisory-right-content-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .advisory-target-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .advisory-target-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .advisory-check-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #22c55e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .advisory-top-section-1,
+    .advisory-top-section-2 {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 3.5rem 1.5rem;
+    }
+
+    .advisory-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .advisory-double-image-wrapper {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .advisory-stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .advisory-circular-badge {
+      width: 90px;
+      height: 90px;
+      bottom: -15px;
+      left: -15px;
+    }
+
+    .badge-arrow-btn {
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
     }
   }
 </style>
@@ -1203,6 +2018,199 @@
     </div>
     {% endif %}
 
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- OUR MISSION & OUR VISION SECTION — UI Reference Grid -->
+<!-- ============================================================= -->
+<section class="about-mission-vision-wrapper">
+  <div class="about-mission-vision-container">
+    <div class="about-mission-content">
+      <div class="mv-section-tag">
+        <span>👤 Our About Us & Fiduciary Core</span>
+      </div>
+
+      <h2 class="mv-section-title">
+        Built on Trust. Driven<span class="highlight-gold"> by Purpose</span>
+      </h2>
+
+      <p class="mv-section-subtitle">
+        Sabin Balan Finance is a premier wealth advisory firm serving as a trusted fiduciary to families, entrepreneurs, and executive leaders across global markets. Our mission is simple: deliver nourishing, high-quality financial strategies that support people, businesses, and generational wealth.
+      </p>
+
+      <div class="vision-mission-grid">
+        <div class="vision-mission-card">
+          <div class="vision-mission-image">
+            <img src="{% static 'about_mission_vision_circle.png' %}" alt="Our Vision" />
+          </div>
+          <div class="vision-mission-content">
+            <span class="vision-mission-label">Our Vision</span>
+            <h3>To be the most trusted fiduciary wealth partner for generations to come.</h3>
+            <p>We envision a world where every financial decision is made with integrity, every relationship is built on trust, and every legacy is stronger than the last.</p>
+          </div>
+        </div>
+
+        <div class="vision-mission-card">
+          <div class="vision-mission-image">
+            <img src="{% static 'about_mission_vision_board.png' %}" alt="Our Mission" />
+          </div>
+          <div class="vision-mission-content">
+            <span class="vision-mission-label">Our Mission</span>
+            <h3>To deliver personalized wealth solutions with unwavering fiduciary commitment.</h3>
+            <p>We partner with our clients to simplify complexity, manage risk, and unlock opportunities that create meaningful, lasting impact.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mv-cta-row">
+        <a href="{% url 'contactform:contact' %}" class="btn-mv-primary">
+          <span>Discover More</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+
+        <a href="tel:+18005550199" class="mv-call-pill">
+          <div class="mv-call-icon">📞</div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--color-subtext); font-weight: 500;">Speak with an Advisor</div>
+            <div>+1 (800) 555-0199</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="about-hero-panel">
+      <div class="about-hero-flag">Trusted Today</div>
+
+      <div class="about-hero-image-card">
+        <img class="about-hero-image" src="{% static 'about_mission_vision_hero.png' %}" alt="Fiduciary Wealth Advisory Scene">
+        <div class="about-hero-circle-outline"></div>
+      </div>
+
+      <div class="about-hero-extras">
+        <div class="about-hero-stats-grid">
+          <div class="about-hero-stat-card">
+            <div class="stat-number">25+</div>
+            <div class="stat-label">Years of Fiduciary Excellence</div>
+          </div>
+          <div class="about-hero-stat-card">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Dedicated Advisory Clients</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- TOP ADVISORY SECTION 1: WHY OUR ADVISORY WILL BE INVALUABLE TO YOU -->
+<!-- ============================================================= -->
+<section class="advisory-top-section-1">
+  <div class="advisory-left-content-1">
+    <div class="advisory-breadcrumb">
+      <span class="crumb-muted">Home /</span>
+      <span>About</span>
+    </div>
+
+    <h2 class="advisory-section-title">
+      Why Our Advisory Will Be<br>
+      <span class="highlight-gold">Invaluable To You.</span>
+    </h2>
+
+    <p class="advisory-section-desc">
+      At Sabin Balan Finance we believe in the power of collaboration to achieve outstanding results. With a team of skilled professionals and a commitment to quality, we work hand-in-hand with our clients to bring their ideas to life. Together, we create spaces and solutions that stand the test of time.
+    </p>
+  </div>
+
+  <div class="advisory-image-container-1">
+    <img class="advisory-main-img-1" src="{% static 'about_advisory_invaluable.png' %}" alt="Why Our Advisory Will Be Invaluable To You — Sabin Balan Finance">
+    
+    <!-- Rotating Emblem Circular Badge -->
+    <div class="advisory-circular-badge">
+      <div class="badge-arrow-btn">↗</div>
+      <div class="badge-text-ring">
+        <svg viewBox="0 0 100 100">
+          <path id="ringPath" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"/>
+          <text>
+            <textPath href="#ringPath" startOffset="0%">SABIN BALAN • ADVISORY • SABIN BALAN •</textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- MIDDLE HIGHLIGHT STATEMENT & STAT COUNTERS ROW -->
+<!-- ============================================================= -->
+<div class="advisory-middle-banner-wrapper">
+  <div class="advisory-middle-banner-content">
+    <p class="advisory-center-quote">
+      At Sabin Balan Finance we are committed to revolutionizing the wealth advisory industry with innovative, sustainable, and cost-effective solutions. With a proven track record of delivering exceptional portfolios, we combine <span class="highlight-bold">state-of-the-art technology</span>, <span class="highlight-muted">skilled expertise, and customer-centric approaches to bring visions to life.</span>
+    </p>
+  </div>
+
+  <div class="advisory-stats-grid">
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">150+</div>
+      <div class="advisory-stat-label">Complete Portfolios</div>
+    </div>
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">100+</div>
+      <div class="advisory-stat-label">Team Members</div>
+    </div>
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">200+</div>
+      <div class="advisory-stat-label">Client Reviews</div>
+    </div>
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">30</div>
+      <div class="advisory-stat-label">Winning Awards</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- TOP ADVISORY SECTION 2: FOR WHOM ARE WE THE BEST-FIT ADVISORS? -->
+<!-- ============================================================= -->
+<section class="advisory-top-section-2">
+  <div class="advisory-double-image-wrapper">
+    <img class="advisory-base-img" src="{% static 'about_best_fit_advisors.png' %}" alt="Financial Blueprints & Strategic Planning">
+    <img class="advisory-overlay-img-card" src="{% static 'financial_advisors_team.png' %}" alt="Fiduciary Advisory Team Discussion">
+  </div>
+
+  <div class="advisory-right-content-2">
+    <h2 class="advisory-section-title">
+      For Whom Are We the<br>
+      <span class="highlight-gold">Best-Fit Advisors?</span>
+    </h2>
+
+    <p class="advisory-section-desc">
+      To provide exceptional wealth advisory services that exceed client expectations through innovation, quality craftsmanship, and a commitment to sustainability. We aim to build lasting relationships and create solutions that enhance the lives of our clients and communities. Through precision, expertise, and a customer-centric approach, we strive to exceed expectations in every project.
+    </p>
+
+    <div class="advisory-target-list">
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Fostering Sustainable Growth and Green Development</span>
+      </div>
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Innovating for a Sustainable Future</span>
+      </div>
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Customer-Centric Approach</span>
+      </div>
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Building Stronger Communities</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1328,7 +2336,8 @@
           Trust</span></h2>
       <p class="showcase-subtitle">
         At Sabin Balan Finance, we place our clients' interests at the center of everything we do. Our team of veteran
-        advisors leverages advanced quantitative strategies to build and compound your capital.
+        advisors leverages advanced quantitative strategies to build and compound your capital, blending global fidelity
+        with deep India market expertise to support both domestic growth and cross-border wealth preservation.
       </p>
 
       <a href="{% url 'contactform:contact' %}" class="showcase-cta-btn">

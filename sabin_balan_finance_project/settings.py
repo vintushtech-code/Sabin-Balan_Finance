@@ -92,6 +92,50 @@ if os.path.exists(_gen_consult_hero):
     except Exception:
         pass
 
+# Top About Us Advisory Sections Auto-Sync
+_gen_advisory_invaluable = r"C:\Users\hp\.gemini\antigravity-ide\brain\0c81e8e0-392a-44bb-93d5-3e2cb3e15094\about_advisory_invaluable_1786520125025.png"
+_target_advisory_invaluable = BASE_DIR / "photos" / "about_advisory_invaluable.png"
+if os.path.exists(_gen_advisory_invaluable):
+    try:
+        shutil.copy(_gen_advisory_invaluable, _target_advisory_invaluable)
+    except Exception:
+        pass
+
+_gen_best_fit = r"C:\Users\hp\.gemini\antigravity-ide\brain\0c81e8e0-392a-44bb-93d5-3e2cb3e15094\about_best_fit_advisors_1786520222976.png"
+_target_best_fit = BASE_DIR / "photos" / "about_best_fit_advisors.png"
+if os.path.exists(_gen_best_fit):
+    try:
+        shutil.copy(_gen_best_fit, _target_best_fit)
+    except Exception:
+        pass
+
+# Our Mission & Vision Section Auto-Sync
+_gen_mv_hero = r"C:\Users\hp\.gemini\antigravity-ide\brain\0c81e8e0-392a-44bb-93d5-3e2cb3e15094\about_mission_vision_hero_1786522626826.png"
+_target_mv_hero = BASE_DIR / "photos" / "about_mission_vision_hero.png"
+if os.path.exists(_gen_mv_hero):
+    try:
+        shutil.copy(_gen_mv_hero, _target_mv_hero)
+    except Exception:
+        pass
+
+_gen_mv_circle = r"C:\Users\hp\.gemini\antigravity-ide\brain\0c81e8e0-392a-44bb-93d5-3e2cb3e15094\about_mission_vision_circle_1786522687112.png"
+_target_mv_circle = BASE_DIR / "photos" / "about_mission_vision_circle.png"
+if os.path.exists(_gen_mv_circle):
+    try:
+        shutil.copy(_gen_mv_circle, _target_mv_circle)
+    except Exception:
+        pass
+
+_gen_mv_board = r"C:\Users\hp\.gemini\antigravity-ide\brain\0c81e8e0-392a-44bb-93d5-3e2cb3e15094\about_mission_vision_board_1786522756897.png"
+_target_mv_board = BASE_DIR / "photos" / "about_mission_vision_board.png"
+if os.path.exists(_gen_mv_board):
+    try:
+        shutil.copy(_gen_mv_board, _target_mv_board)
+    except Exception:
+        pass
+
+
+
 # Publisher Logos Auto-Sync (KP RegTech & VintushTech)
 _kp_logo_target = BASE_DIR / "photos" / "kplogo.png"
 _vintush_logo_target = BASE_DIR / "photos" / "vintushtech_logo.png"
