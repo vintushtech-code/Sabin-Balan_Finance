@@ -2010,10 +2010,140 @@
     color: #0A0D14;
     box-shadow: 0 0 18px rgba(212, 175, 55, 0.5);
   }
+  /* Trust Signals Section */
+  .trust-signals-wrapper {
+    background: var(--color-bg);
+    padding: 3rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+  .trust-badge-col {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+  }
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  .trust-badge svg {
+    color: var(--color-gold);
+    width: 20px;
+    height: 20px;
+  }
+  .trust-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    opacity: 0.7;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+  }
+  .trust-logos:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+  .trust-logo-item {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-subtext);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .trust-logo-item img {
+    max-height: 40px;
+    object-fit: contain;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- LIVE MARKET TICKER -->
+<style>
+  .market-ticker-container {
+    background: #0A0D14;
+    color: var(--color-subtext);
+    padding: 0.5rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+  }
+  .ticker-track {
+    display: inline-flex;
+    gap: 3rem;
+    animation: scrollTicker 30s linear infinite;
+  }
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .ticker-symbol {
+    color: var(--color-primary);
+  }
+  .ticker-price {
+    color: var(--color-gold);
+  }
+  .ticker-change.up {
+    color: #10B981;
+  }
+  .ticker-change.down {
+    color: #EF4444;
+  }
+  @keyframes scrollTicker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>
+<div class="market-ticker-container">
+  <div class="ticker-track">
+    <!-- Duplicate items for seamless scrolling loop -->
+    <div class="ticker-item"><span class="ticker-symbol">SENSEX</span><span class="ticker-price">80,123.45</span><span class="ticker-change up">▲ +0.45%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">NIFTY 50</span><span class="ticker-price">24,354.10</span><span class="ticker-change up">▲ +0.32%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">GOLD (10g)</span><span class="ticker-price">₹74,500</span><span class="ticker-change down">▼ -0.15%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">USD/INR</span><span class="ticker-price">83.45</span><span class="ticker-change up">▲ +0.05%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">S&P 500</span><span class="ticker-price">5,432.80</span><span class="ticker-change up">▲ +0.78%</span></div>
+    <!-- Duplicates -->
+    <div class="ticker-item"><span class="ticker-symbol">SENSEX</span><span class="ticker-price">80,123.45</span><span class="ticker-change up">▲ +0.45%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">NIFTY 50</span><span class="ticker-price">24,354.10</span><span class="ticker-change up">▲ +0.32%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">GOLD (10g)</span><span class="ticker-price">₹74,500</span><span class="ticker-change down">▼ -0.15%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">USD/INR</span><span class="ticker-price">83.45</span><span class="ticker-change up">▲ +0.05%</span></div>
+    <div class="ticker-item"><span class="ticker-symbol">S&P 500</span><span class="ticker-price">5,432.80</span><span class="ticker-change up">▲ +0.78%</span></div>
+  </div>
+</div>
+
 
 <!-- 1. EXECUTIVE HERO BANNER WITH BACKGROUND IMAGE -->
 <section class="hero-banner">
@@ -2112,6 +2242,7 @@
   </div>
 </section>
 
+<!-- Removed Trust Signals Section completely -->
 <!-- 1.5 EXECUTIVE SHOWCASE SECTION (JUST AFTER HERO) -->
 <div class="executive-showcase-wrapper">
   <section class="executive-showcase-container">
@@ -2313,8 +2444,150 @@
   </div>
 </section>
 
+<!-- HOW IT WORKS (PROCESS STEPS) -->
+<style>
+  .process-steps-wrapper {
+    background: var(--color-secondary);
+    padding: 5rem 2rem;
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .process-steps-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  .process-step {
+    text-align: center;
+    position: relative;
+  }
+  .step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    border-radius: 50%;
+    color: #0A0D14;
+    font-size: 1.5rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+  }
+  .step-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  .step-desc {
+    color: var(--color-subtext);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* RESOURCE CENTER */
+  .resource-center-wrapper {
+    background: var(--color-bg);
+    padding: 5rem 2rem;
+    position: relative;
+  }
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .resource-card {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+  .resource-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-5px);
+  }
+  .resource-type {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .resource-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  .resource-link {
+    color: #60A5FA;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .resource-link:hover {
+    text-decoration: underline;
+  }
+</style>
 
+<section class="process-steps-wrapper">
+  <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+    <div class="section-tag">Our Process</div>
+    <h2 class="section-title">How We Build Your <span class="highlight-text">Wealth Architecture</span></h2>
+  </div>
+  <div class="process-steps-container">
+    <div class="process-step">
+      <div class="step-number">1</div>
+      <h3 class="step-title">Discovery & Audit</h3>
+      <p class="step-desc">We begin with a comprehensive fiduciary review of your current assets, liabilities, and long-term financial goals.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">2</div>
+      <h3 class="step-title">Strategic Allocation</h3>
+      <p class="step-desc">Our experts design a multi-asset quantitative portfolio optimized for maximum risk-adjusted yield and tax efficiency.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">3</div>
+      <h3 class="step-title">Execution & Growth</h3>
+      <p class="step-desc">Your bespoke strategy goes live with real-time institutional monitoring and dynamic rebalancing to ensure continuous growth.</p>
+    </div>
+  </div>
+</section>
 
+<!-- RESOURCE CENTER -->
+<section class="resource-center-wrapper">
+  <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+    <div class="section-tag">Market Intelligence</div>
+    <h2 class="section-title">Insights & <span class="highlight-text">Resources</span></h2>
+  </div>
+  <div class="resource-grid">
+    <div class="resource-card">
+      <span class="resource-type">Market Insight</span>
+      <h3 class="resource-title">Q4 Macroeconomic Equity Outlook & Yield Curves</h3>
+      <p class="step-desc" style="margin-bottom: 1.5rem;">Explore how changing interest rates impact equity valuations and fixed-income strategies.</p>
+      <a href="javascript:void(0)" class="resource-link" onclick="showToast('Loading report...', 'success')">Read Full Report →</a>
+    </div>
+    <div class="resource-card">
+      <span class="resource-type">Whitepaper</span>
+      <h3 class="resource-title">The Blueprint for Tax-Advantaged Corporate Treasury</h3>
+      <p class="step-desc" style="margin-bottom: 1.5rem;">A deep dive into optimizing liquidity buffers while minimizing corporate tax drag.</p>
+      <a href="javascript:void(0)" class="resource-link" onclick="showToast('Downloading PDF...', 'success')">Download PDF →</a>
+    </div>
+    <div class="resource-card">
+      <span class="resource-type">Guide</span>
+      <h3 class="resource-title">Structuring Your Family Office: 2026 Edition</h3>
+      <p class="step-desc" style="margin-bottom: 1.5rem;">Master class on setting up private trusts, legacy planning, and multi-generational wealth transfer.</p>
+      <a href="javascript:void(0)" class="resource-link" onclick="showToast('Opening Guide...', 'success')">View Guide →</a>
+    </div>
+  </div>
+</section>
 
 
 

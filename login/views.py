@@ -437,13 +437,18 @@ class HomeView(TemplateView):
 
         # Fetch Top 3 Active Testimonials from database only
         try:
-            from .models import Testimonial
+            from .models import Testimonial, MediaMention, PartnerIntegration
             testimonials = list(Testimonial.objects.filter(is_active=True).order_by('order', '-rating')[:3])
             context['testimonials'] = testimonials
             context['has_testimonials'] = bool(testimonials)
+            
+            context['media_mentions'] = MediaMention.objects.filter(is_active=True).order_by('order', '-created_at')
+            context['partners'] = PartnerIntegration.objects.filter(is_active=True).order_by('order', '-created_at')
         except Exception:
             context['testimonials'] = []
             context['has_testimonials'] = False
+            context['media_mentions'] = []
+            context['partners'] = []
 
         return context
 

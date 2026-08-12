@@ -1,6 +1,111 @@
 {% load static %}
 <!-- Finance Luxury Skeuomorphic Master Navbar -->
+<style>
+  .utility-bar {
+    background: #0A0D14;
+    color: #E2E8F0;
+    padding: 0.35rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    z-index: 1100;
+    position: relative;
+  }
+  .utility-left {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .utility-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .utility-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+  }
+  .utility-item:hover {
+    color: var(--color-gold, #D4AF37);
+  }
+  /* Sticky adjustment */
+  .finance-navbar-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* Mega Menu Styles */
+  .mega-menu-trigger {
+    position: relative;
+  }
+  .mega-menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    width: 600px;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    z-index: 9999;
+  }
+  .mega-menu-trigger:hover .mega-menu-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+  .mega-col-title {
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+  .mega-link {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-subtext);
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+  }
+  .mega-link strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .mega-link:hover strong {
+    color: var(--color-gold);
+  }
+</style>
 <div class="finance-navbar-wrapper">
+  <!-- UTILITY BAR -->
+  <div class="utility-bar">
+    <div class="utility-left">
+      <div class="utility-item" onclick="showToast('Language & Currency options coming soon.', 'info')">🌐 EN / INR</div>
+      <div class="utility-item" onclick="showToast('Accessibility mode engaged.', 'success')">♿ Accessibility Mode</div>
+    </div>
+    <div class="utility-right">
+      <div class="utility-item" onclick="showToast('Global Search is currently under maintenance.', 'info')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        Search
+      </div>
+    </div>
+  </div>
 
   <!-- Accessible & test compatibility metadata -->
   <span style="display: none;">{{ brand_name|default:"GuardianTree FP" }}</span>
@@ -113,14 +218,39 @@
             <div class="finance-active-indicator"></div>
           </a>
 
-          <!-- SERVICES -->
-          <a href="{% url 'login:services' %}" class="finance-nav-item {% if 'services' in request.path %}active{% endif %}">
+          <!-- SERVICES MEGA MENU -->
+          <div class="finance-nav-item mega-menu-trigger {% if 'services' in request.path %}active{% endif %}">
             <svg class="finance-icon" viewBox="0 0 24 24">
               <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
             </svg>
-            <span class="finance-label">SERVICES</span>
+            <span class="finance-label">SERVICES ▾</span>
             <div class="finance-active-indicator"></div>
-          </a>
+            
+            <div class="mega-menu-dropdown">
+              <div>
+                <div class="mega-col-title">Wealth Management</div>
+                <a href="{% url 'login:services' %}" class="mega-link">
+                  <strong>Portfolio Strategy</strong>
+                  <span>Multi-asset allocation & risk parity</span>
+                </a>
+                <a href="{% url 'login:services' %}" class="mega-link">
+                  <strong>Retirement Planning</strong>
+                  <span>Tax-advantaged legacy building</span>
+                </a>
+              </div>
+              <div>
+                <div class="mega-col-title">Corporate Advisory</div>
+                <a href="{% url 'login:services' %}" class="mega-link">
+                  <strong>Institutional Treasury</strong>
+                  <span>Liquidity and cash management</span>
+                </a>
+                <a href="{% url 'login:services' %}" class="mega-link">
+                  <strong>Fiduciary Services</strong>
+                  <span>Trust structuring and compliance</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- CENTER EMBLEM (3D GOLD SHIELD LINKING TO HOME PAGE) -->
