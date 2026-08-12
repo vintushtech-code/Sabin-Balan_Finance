@@ -513,8 +513,6 @@ img, video, iframe, embed, object, svg {
 .hero-banner,
 .hero-content-wrapper,
 .app-container,
-.executive-showcase-wrapper,
-.executive-showcase-container,
 .lead-gen-container,
 .simulator-layout,
 .wealth-simulator-wrapper,
@@ -542,7 +540,6 @@ img, video, iframe, embed, object, svg {
   .section-container,
   .hero-content-wrapper,
   .app-container,
-  .executive-showcase-container,
   .lead-gen-container,
   .simulator-layout,
   .contact-preview-card {
@@ -637,7 +634,6 @@ img, video, iframe, embed, object, svg {
     gap: 1.5rem !important;
   }
 
-  .executive-showcase-container,
   .lead-gen-container,
   .simulator-layout,
   .contact-preview-card,
