@@ -418,8 +418,13 @@
     color: #ffffff;
   }
 
-  .a-bit-about-us-title span.highlight-gold {
-    color: var(--color-gold);
+  .highlight-gold,
+  .highlight-text {
+    color: #FFD700;
+    background: linear-gradient(185deg, #FFF9C4 0%, #FFD700 35%, #F59E0B 75%, #B45309 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: #ffd70091;
     display: inline-block;
   }
 
@@ -1103,110 +1108,326 @@
   .about-mission-vision-wrapper {
     width: 100%;
     background: transparent;
-    padding: 3rem 0;
+    padding: 4rem 0 5rem;
     box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .about-mission-vision-container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 4rem 2rem 5rem 2rem;
+    padding: 3rem 2rem 3rem 2rem;
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: 4.5rem;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 5rem;
     align-items: center;
     box-sizing: border-box;
+   
   }
 
-  /* Left Side Multi-Card Image Grid Composition */
-  .mission-vision-image-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  /* Left Side Text Content */
+  .mission-vision-right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1.5rem;
-    position: relative;
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
+  }
+
+  .mv-section-tag {
+    display: inline-flex;
     align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(255, 234, 179, 0.24);
+    color: #B45309;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
-  .mv-left-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  .mv-section-title {
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    font-weight: 900;
+    color: #111827;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.25rem;
+    max-width: 720px;
   }
 
-  .mv-right-col {
-    display: flex;
-    flex-direction: column;
+  .mv-section-title span.highlight-gold {
+    display: inline-block;
+  }
+
+  .mv-section-subtitle {
+    font-size: 1.03rem;
+    line-height: 1.85;
+    color: #4B5563;
+    margin-bottom: 1.85rem;
+    max-width: 780px;
+  }
+
+  .vision-mission-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .vision-mission-card {
+    
+    grid-template-columns: auto 1fr;
     gap: 1.25rem;
     align-items: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 244, 229, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-radius: 26px;
+    box-shadow: 0 30px 70px rgba(15, 23, 42, 0.08);
+    padding: 1.75rem;
+    backdrop-filter: blur(10px);
   }
 
-  .mv-tall-card-img {
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
-    border-radius: 120px 120px 32px 32px;
-    border: 1px solid var(--color-border);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
-    display: block;
-  }
-
-  .mv-circle-card-img {
-    width: 190px;
-    height: 190px;
-    object-fit: cover;
+  .vision-mission-image {
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
-    border: 3px solid var(--color-gold);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    background: rgba(255, 255, 255, 0.9);
+    display: grid;
+    place-items: center;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.75);
   }
 
-  .mv-bottom-card-img {
+  .vision-mission-image img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
-    border-radius: 32px 32px 120px 120px;
-    border: 1px solid var(--color-border);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
-    display: block;
   }
 
-  /* Overlapping Badge */
-  .mv-experience-badge {
-    position: absolute;
-    bottom: -20px;
-    left: 0;
+  .vision-mission-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .vision-mission-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #B45309;
+  }
+
+  .vision-mission-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .vision-mission-card p {
+    margin: 0;
+    color: #4B5563;
+    line-height: 1.8;
+  }
+
+  .mv-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-mv-primary {
     display: inline-flex;
     align-items: center;
     gap: 0.85rem;
-    padding: 0.75rem 1.4rem;
-    background: var(--color-gold);
+    padding: 1rem 2.25rem;
+    background: linear-gradient(135deg, #D4AF37 0%, #FCD34D 100%);
+    border: none;
+    border-radius: 999px;
     color: #0F172A;
-    border-radius: var(--radius-pill);
     font-weight: 800;
-    font-size: 0.92rem;
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-    z-index: 10;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 18px 35px rgba(212, 175, 55, 0.24);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .mv-experience-icon {
-    width: 32px;
-    height: 32px;
+  .btn-mv-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 45px rgba(212, 175, 55, 0.3);
+  }
+
+  .mv-call-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: #111827;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.95rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .mv-call-icon {
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: rgba(15, 23, 42, 0.2);
+    background: rgba(255, 244, 179, 0.95);
+    color: #0F172A;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
   }
 
-  /* Right Side Content Block */
-  .mission-vision-right-content {
+  .about-hero-panel {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 1.75rem;
+    width: 100%;
+  }
+
+  .about-hero-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.9rem 1.4rem;
+    border-radius: 999px;
+    background: rgba(255, 234, 179, 0.65);
+    color: #92400E;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+  }
+
+  .about-hero-image-card {
+    position: relative;
+    width: min(100%, 520px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    padding: 1.5rem;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.18);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .about-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid rgba(212, 175, 55, 0.24);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55), 0 20px 50px rgba(15, 23, 42, 0.16);
+  }
+
+  .about-hero-circle-outline {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 1px dashed rgba(212, 175, 55, 0.5);
+    pointer-events: none;
+  }
+
+  .about-hero-extras {
+    width: 100%;
+    max-width: 520px;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .about-hero-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.75rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(255, 234, 179, 0.45);
+    color: #92400E;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .about-hero-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .about-hero-stat-card {
+    padding: 1.25rem 1.35rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.14);
+    border-radius: 20px;
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+  }
+
+  .about-hero-stat-card .stat-number {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 0.45rem;
+  }
+
+  .about-hero-stat-card .stat-label {
+    color: #4B5563;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1120px) {
+    .about-mission-vision-container {
+      grid-template-columns: 1fr;
+      padding: 3rem 1.5rem 3rem 1.5rem;
+    }
+
+    .about-hero-image-card {
+      width: min(100%, 420px);
+    }
+
+    .mv-pillars-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-mission-vision-wrapper {
+      padding: 3rem 0 4rem;
+    }
+
+    .about-mission-vision-container {
+      gap: 3rem;
+    }
+
+    .mv-pillars-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mv-section-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .mission-vision-right-content {
+    display: none;
   }
 
   .mv-section-tag {
@@ -1231,7 +1452,7 @@
   }
 
   .mv-section-title span.highlight-gold {
-    color: var(--color-gold);
+    display: inline-block;
   }
 
   .mv-section-subtitle {
@@ -1252,34 +1473,53 @@
   }
 
   .mv-pillar-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
-    padding: 1.25rem;
-    background: var(--color-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-subtle);
-    transition: var(--transition-smooth);
+    gap: 0.85rem;
+    padding: 1.75rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 24px;
+    box-shadow: 0 28px 70px rgba(5, 10, 21, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(18px);
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+
+  .mv-pillar-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 38%);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .mv-pillar-card > * {
+    position: relative;
+    z-index: 1;
   }
 
   .mv-pillar-card:hover {
-    border-color: var(--color-gold);
+    border-color: rgba(212, 175, 55, 0.38);
+    box-shadow: 0 32px 90px rgba(5, 10, 21, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
     transform: translateY(-4px);
   }
 
   .mv-pillar-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: rgba(212, 175, 55, 0.15);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    color: var(--color-gold);
+    width: 50px;
+    height: 50px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(255, 244, 176, 0.95), rgba(212, 175, 55, 0.95) 45%, rgba(165, 129, 20, 0.88));
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #0F172A;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.55), 0 10px 30px rgba(0, 0, 0, 0.15);
   }
 
   .mv-pillar-title {
@@ -1401,11 +1641,11 @@
 
   .advisory-section-title span.highlight-gold,
   .advisory-section-title span.highlight-text {
-    color: var(--color-gold);
     display: inline-block;
   }
 
   .advisory-section-desc {
+    
     font-size: 1.1rem;
     line-height: 1.7;
     color: var(--color-subtext);
@@ -1786,69 +2026,43 @@
 <!-- ============================================================= -->
 <section class="about-mission-vision-wrapper">
   <div class="about-mission-vision-container">
-    <!-- Left Side Multi-Card Composition -->
-    <div class="mission-vision-image-grid">
-      <div class="mv-left-col">
-        <img class="mv-tall-card-img" src="{% static 'about_mission_vision_hero.png' %}" alt="Executive Wealth Advisor — Sabin Balan Finance">
-      </div>
-      <div class="mv-right-col">
-        <img class="mv-circle-card-img" src="{% static 'about_mission_vision_circle.png' %}" alt="Fiduciary Advisory Board Meeting">
-        <img class="mv-bottom-card-img" src="{% static 'about_mission_vision_board.png' %}" alt="Strategic Wealth Analysis">
-      </div>
-
-      <!-- Overlapping Experience Badge -->
-      <div class="mv-experience-badge">
-        <div class="mv-experience-icon">🛡️</div>
-        <span>25+ Years Of Fiduciary Excellence</span>
-      </div>
-    </div>
-
-    <!-- Right Side Content -->
-    <div class="mission-vision-right-content">
+    <div class="about-mission-content">
       <div class="mv-section-tag">
         <span>👤 Our About Us & Fiduciary Core</span>
       </div>
 
       <h2 class="mv-section-title">
-        At the Heart of Client Wealth & <span class="highlight-gold">Fiduciary Growth</span>
+        Built on Trust. Driven<span class="highlight-gold"> by Purpose</span>
       </h2>
 
       <p class="mv-section-subtitle">
         Sabin Balan Finance is a premier wealth advisory firm serving as a trusted fiduciary to families, entrepreneurs, and executive leaders across global markets. Our mission is simple: deliver nourishing, high-quality financial strategies that support people, businesses, and generational wealth.
       </p>
 
-      <!-- 4 Pillars 2x2 Grid -->
-      <div class="mv-pillars-grid">
-        <!-- Pillar 1: Our Story -->
-        <div class="mv-pillar-card">
-          <div class="mv-pillar-icon-box">📖</div>
-          <div class="mv-pillar-title">Our Story</div>
-          <div class="mv-pillar-desc">From humble beginnings to a global portfolio of trusted client accounts, our wealth advisory journey.</div>
+      <div class="vision-mission-grid">
+        <div class="vision-mission-card">
+          <div class="vision-mission-image">
+            <img src="{% static 'about_mission_vision_circle.png' %}" alt="Our Vision" />
+          </div>
+          <div class="vision-mission-content">
+            <span class="vision-mission-label">Our Vision</span>
+            <h3>To be the most trusted fiduciary wealth partner for generations to come.</h3>
+            <p>We envision a world where every financial decision is made with integrity, every relationship is built on trust, and every legacy is stronger than the last.</p>
+          </div>
         </div>
 
-        <!-- Pillar 2: Our Corporate Values -->
-        <div class="mv-pillar-card">
-          <div class="mv-pillar-icon-box">🛡️</div>
-          <div class="mv-pillar-title">Our Corporate Values</div>
-          <div class="mv-pillar-desc">We are committed to safeguarding capital through responsible fiduciary governance and risk management.</div>
-        </div>
-
-        <!-- Pillar 3: Our Mission & Values -->
-        <div class="mv-pillar-card">
-          <div class="mv-pillar-icon-box">⚖️</div>
-          <div class="mv-pillar-title">Our Mission</div>
-          <div class="mv-pillar-desc">We believe good wealth advisory shouldn't come at the expense of transparency or uncalculated risk.</div>
-        </div>
-
-        <!-- Pillar 4: Our Global Reach -->
-        <div class="mv-pillar-card">
-          <div class="mv-pillar-icon-box">🌐</div>
-          <div class="mv-pillar-title">Our Global Reach</div>
-          <div class="mv-pillar-desc">Serving institutional and private clients from across global market jurisdictions with quantitative strategies.</div>
+        <div class="vision-mission-card">
+          <div class="vision-mission-image">
+            <img src="{% static 'about_mission_vision_board.png' %}" alt="Our Mission" />
+          </div>
+          <div class="vision-mission-content">
+            <span class="vision-mission-label">Our Mission</span>
+            <h3>To deliver personalized wealth solutions with unwavering fiduciary commitment.</h3>
+            <p>We partner with our clients to simplify complexity, manage risk, and unlock opportunities that create meaningful, lasting impact.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Action Row -->
       <div class="mv-cta-row">
         <a href="{% url 'contactform:contact' %}" class="btn-mv-primary">
           <span>Discover More</span>
@@ -1865,6 +2079,28 @@
             <div>+1 (800) 555-0199</div>
           </div>
         </a>
+      </div>
+    </div>
+
+    <div class="about-hero-panel">
+      <div class="about-hero-flag">Trusted Today</div>
+
+      <div class="about-hero-image-card">
+        <img class="about-hero-image" src="{% static 'about_mission_vision_hero.png' %}" alt="Fiduciary Wealth Advisory Scene">
+        <div class="about-hero-circle-outline"></div>
+      </div>
+
+      <div class="about-hero-extras">
+        <div class="about-hero-stats-grid">
+          <div class="about-hero-stat-card">
+            <div class="stat-number">25+</div>
+            <div class="stat-label">Years of Fiduciary Excellence</div>
+          </div>
+          <div class="about-hero-stat-card">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Dedicated Advisory Clients</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2100,7 +2336,8 @@
           Trust</span></h2>
       <p class="showcase-subtitle">
         At Sabin Balan Finance, we place our clients' interests at the center of everything we do. Our team of veteran
-        advisors leverages advanced quantitative strategies to build and compound your capital.
+        advisors leverages advanced quantitative strategies to build and compound your capital, blending global fidelity
+        with deep India market expertise to support both domestic growth and cross-border wealth preservation.
       </p>
 
       <a href="{% url 'contactform:contact' %}" class="showcase-cta-btn">
