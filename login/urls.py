@@ -32,9 +32,5 @@ urlpatterns = [
 
     # Staff / Admin Session Termination
     path('logout/', views.LogoutView.as_view(), name='logout'),
-
-    # Client First Draft Review & Feedback Portal
-    path('client-review/', views.ClientReviewView.as_view(), name='client_review'),
-    path('review/', views.ClientReviewView.as_view(), name='review'),
 ]
 

@@ -1097,13 +1097,588 @@
     box-shadow: 0 0 8px var(--color-gold);
   }
 
-  @media (max-width: 768px) {
-    .team-member-card.team-member-hidden {
-      height: 0 !important;
-      min-height: 0 !important;
-      max-height: 0 !important;
-      margin-bottom: -1.5rem !important;
-      margin-right: 0 !important;
+  /* -------------------------------------------------------------
+     OUR MISSION & OUR VISION SECTION — Reference UI Aesthetic
+     ------------------------------------------------------------- */
+  .about-mission-vision-wrapper {
+    width: 100%;
+    background: transparent;
+    padding: 3rem 0;
+    box-sizing: border-box;
+  }
+
+  .about-mission-vision-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 4rem 2rem 5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 4.5rem;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* Left Side Multi-Card Image Grid Composition */
+  .mission-vision-image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .mv-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mv-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .mv-tall-card-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 120px 120px 32px 32px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
+  .mv-circle-card-img {
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--color-gold);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
+  .mv-bottom-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 32px 32px 120px 120px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
+  /* Overlapping Badge */
+  .mv-experience-badge {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 1.4rem;
+    background: var(--color-gold);
+    color: #0F172A;
+    border-radius: var(--radius-pill);
+    font-weight: 800;
+    font-size: 0.92rem;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    z-index: 10;
+  }
+
+  .mv-experience-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  /* Right Side Content Block */
+  .mission-vision-right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mv-section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1.25rem;
+  }
+
+  .mv-section-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+  }
+
+  .mv-section-title span.highlight-gold {
+    color: var(--color-gold);
+  }
+
+  .mv-section-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-subtext);
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+  }
+
+  /* 4 Pillars 2x2 Grid */
+  .mv-pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .mv-pillar-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-subtle);
+    transition: var(--transition-smooth);
+  }
+
+  .mv-pillar-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-4px);
+  }
+
+  .mv-pillar-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+  }
+
+  .mv-pillar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+  }
+
+  .mv-pillar-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-subtext);
+  }
+
+  /* Action Row */
+  .mv-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-mv-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 2.2rem;
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    border: none;
+    border-radius: var(--radius-pill);
+    color: #0F172A;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-mv-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+  }
+
+  .mv-call-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .mv-call-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .about-mission-vision-container {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+
+    .mv-pillars-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* -------------------------------------------------------------
+     TOP ADVISORY SECTION 1: WHY OUR ADVISORY WILL BE INVALUABLE TO YOU
+     ------------------------------------------------------------- */
+  .advisory-top-section-1 {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5rem;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .advisory-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.5px;
+  }
+
+  .advisory-breadcrumb span.crumb-muted {
+    color: var(--color-subtext);
+  }
+
+  .advisory-section-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+  }
+
+  .advisory-section-title span.highlight-gold,
+  .advisory-section-title span.highlight-text {
+    color: var(--color-gold);
+    display: inline-block;
+  }
+
+  .advisory-section-desc {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-subtext);
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+
+  /* Right Side Image & Overlapping Rotating Emblem Badge */
+  .advisory-image-container-1 {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .advisory-main-img-1 {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 28px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 30px rgba(212, 175, 55, 0.1);
+    display: block;
+  }
+
+  .advisory-circular-badge {
+    position: absolute;
+    bottom: -28px;
+    left: -28px;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .badge-arrow-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+    color: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.45);
+    z-index: 2;
+  }
+
+  .badge-text-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: rotateRing 16s linear infinite;
+  }
+
+  @keyframes rotateRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .badge-text-ring svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--color-gold);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  /* -------------------------------------------------------------
+     MIDDLE HIGHLIGHT QUOTE & COUNTER STATS BANNER
+     ------------------------------------------------------------- */
+  .advisory-middle-banner-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    margin: 4rem auto 4.5rem auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
+
+  .advisory-middle-banner-content {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .advisory-center-quote {
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    font-weight: 600;
+    line-height: 1.65;
+    color: var(--color-primary);
+    max-width: 1020px;
+    margin: 0 auto;
+    letter-spacing: -0.01em;
+  }
+
+  .advisory-center-quote span.highlight-bold {
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .advisory-center-quote span.highlight-muted {
+    color: var(--color-subtext);
+    font-weight: 500;
+  }
+
+  /* 4-Column Stat Counters Grid */
+  .advisory-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .advisory-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .advisory-stat-number {
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+  }
+
+  .advisory-stat-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-subtext);
+    text-transform: capitalize;
+    letter-spacing: 0.2px;
+  }
+
+  /* -------------------------------------------------------------
+     TOP ADVISORY SECTION 2: FOR WHOM ARE WE THE BEST-FIT ADVISORS?
+     ------------------------------------------------------------- */
+  .advisory-top-section-2 {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto 5rem auto;
+    padding: 3rem 2rem 5rem 2rem;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 5rem;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* Double Overlapping Image Composition */
+  .advisory-double-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .advisory-base-img {
+    width: 82%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 28px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
+  .advisory-overlay-img-card {
+    position: absolute;
+    bottom: -35px;
+    right: 0;
+    width: 62%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 24px;
+    border: 4px solid var(--color-bg, #060910);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 25px rgba(212, 175, 55, 0.15);
+  }
+
+  [data-theme='light'] .advisory-overlay-img-card {
+    border-color: #ffffff;
+  }
+
+  /* Right Side Content Block & Target List */
+  .advisory-right-content-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .advisory-target-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .advisory-target-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .advisory-check-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #22c55e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .advisory-top-section-1,
+    .advisory-top-section-2 {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 3.5rem 1.5rem;
+    }
+
+    .advisory-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .advisory-double-image-wrapper {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .advisory-stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .advisory-circular-badge {
+      width: 90px;
+      height: 90px;
+      bottom: -15px;
+      left: -15px;
+    }
+
+    .badge-arrow-btn {
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
     }
   }
 </style>
@@ -1203,6 +1778,203 @@
     </div>
     {% endif %}
 
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- OUR MISSION & OUR VISION SECTION — UI Reference Grid -->
+<!-- ============================================================= -->
+<section class="about-mission-vision-wrapper">
+  <div class="about-mission-vision-container">
+    <!-- Left Side Multi-Card Composition -->
+    <div class="mission-vision-image-grid">
+      <div class="mv-left-col">
+        <img class="mv-tall-card-img" src="{% static 'about_mission_vision_hero.png' %}" alt="Executive Wealth Advisor — Sabin Balan Finance">
+      </div>
+      <div class="mv-right-col">
+        <img class="mv-circle-card-img" src="{% static 'about_mission_vision_circle.png' %}" alt="Fiduciary Advisory Board Meeting">
+        <img class="mv-bottom-card-img" src="{% static 'about_mission_vision_board.png' %}" alt="Strategic Wealth Analysis">
+      </div>
+
+      <!-- Overlapping Experience Badge -->
+      <div class="mv-experience-badge">
+        <div class="mv-experience-icon">🛡️</div>
+        <span>25+ Years Of Fiduciary Excellence</span>
+      </div>
+    </div>
+
+    <!-- Right Side Content -->
+    <div class="mission-vision-right-content">
+      <div class="mv-section-tag">
+        <span>👤 Our About Us & Fiduciary Core</span>
+      </div>
+
+      <h2 class="mv-section-title">
+        At the Heart of Client Wealth & <span class="highlight-gold">Fiduciary Growth</span>
+      </h2>
+
+      <p class="mv-section-subtitle">
+        Sabin Balan Finance is a premier wealth advisory firm serving as a trusted fiduciary to families, entrepreneurs, and executive leaders across global markets. Our mission is simple: deliver nourishing, high-quality financial strategies that support people, businesses, and generational wealth.
+      </p>
+
+      <!-- 4 Pillars 2x2 Grid -->
+      <div class="mv-pillars-grid">
+        <!-- Pillar 1: Our Story -->
+        <div class="mv-pillar-card">
+          <div class="mv-pillar-icon-box">📖</div>
+          <div class="mv-pillar-title">Our Story</div>
+          <div class="mv-pillar-desc">From humble beginnings to a global portfolio of trusted client accounts, our wealth advisory journey.</div>
+        </div>
+
+        <!-- Pillar 2: Our Corporate Values -->
+        <div class="mv-pillar-card">
+          <div class="mv-pillar-icon-box">🛡️</div>
+          <div class="mv-pillar-title">Our Corporate Values</div>
+          <div class="mv-pillar-desc">We are committed to safeguarding capital through responsible fiduciary governance and risk management.</div>
+        </div>
+
+        <!-- Pillar 3: Our Mission & Values -->
+        <div class="mv-pillar-card">
+          <div class="mv-pillar-icon-box">⚖️</div>
+          <div class="mv-pillar-title">Our Mission</div>
+          <div class="mv-pillar-desc">We believe good wealth advisory shouldn't come at the expense of transparency or uncalculated risk.</div>
+        </div>
+
+        <!-- Pillar 4: Our Global Reach -->
+        <div class="mv-pillar-card">
+          <div class="mv-pillar-icon-box">🌐</div>
+          <div class="mv-pillar-title">Our Global Reach</div>
+          <div class="mv-pillar-desc">Serving institutional and private clients from across global market jurisdictions with quantitative strategies.</div>
+        </div>
+      </div>
+
+      <!-- Action Row -->
+      <div class="mv-cta-row">
+        <a href="{% url 'contactform:contact' %}" class="btn-mv-primary">
+          <span>Discover More</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+
+        <a href="tel:+18005550199" class="mv-call-pill">
+          <div class="mv-call-icon">📞</div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--color-subtext); font-weight: 500;">Speak with an Advisor</div>
+            <div>+1 (800) 555-0199</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- TOP ADVISORY SECTION 1: WHY OUR ADVISORY WILL BE INVALUABLE TO YOU -->
+<!-- ============================================================= -->
+<section class="advisory-top-section-1">
+  <div class="advisory-left-content-1">
+    <div class="advisory-breadcrumb">
+      <span class="crumb-muted">Home /</span>
+      <span>About</span>
+    </div>
+
+    <h2 class="advisory-section-title">
+      Why Our Advisory Will Be<br>
+      <span class="highlight-gold">Invaluable To You.</span>
+    </h2>
+
+    <p class="advisory-section-desc">
+      At Sabin Balan Finance we believe in the power of collaboration to achieve outstanding results. With a team of skilled professionals and a commitment to quality, we work hand-in-hand with our clients to bring their ideas to life. Together, we create spaces and solutions that stand the test of time.
+    </p>
+  </div>
+
+  <div class="advisory-image-container-1">
+    <img class="advisory-main-img-1" src="{% static 'about_advisory_invaluable.png' %}" alt="Why Our Advisory Will Be Invaluable To You — Sabin Balan Finance">
+    
+    <!-- Rotating Emblem Circular Badge -->
+    <div class="advisory-circular-badge">
+      <div class="badge-arrow-btn">↗</div>
+      <div class="badge-text-ring">
+        <svg viewBox="0 0 100 100">
+          <path id="ringPath" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"/>
+          <text>
+            <textPath href="#ringPath" startOffset="0%">SABIN BALAN • ADVISORY • SABIN BALAN •</textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- MIDDLE HIGHLIGHT STATEMENT & STAT COUNTERS ROW -->
+<!-- ============================================================= -->
+<div class="advisory-middle-banner-wrapper">
+  <div class="advisory-middle-banner-content">
+    <p class="advisory-center-quote">
+      At Sabin Balan Finance we are committed to revolutionizing the wealth advisory industry with innovative, sustainable, and cost-effective solutions. With a proven track record of delivering exceptional portfolios, we combine <span class="highlight-bold">state-of-the-art technology</span>, <span class="highlight-muted">skilled expertise, and customer-centric approaches to bring visions to life.</span>
+    </p>
+  </div>
+
+  <div class="advisory-stats-grid">
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">150+</div>
+      <div class="advisory-stat-label">Complete Portfolios</div>
+    </div>
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">100+</div>
+      <div class="advisory-stat-label">Team Members</div>
+    </div>
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">200+</div>
+      <div class="advisory-stat-label">Client Reviews</div>
+    </div>
+    <div class="advisory-stat-card">
+      <div class="advisory-stat-number">30</div>
+      <div class="advisory-stat-label">Winning Awards</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- TOP ADVISORY SECTION 2: FOR WHOM ARE WE THE BEST-FIT ADVISORS? -->
+<!-- ============================================================= -->
+<section class="advisory-top-section-2">
+  <div class="advisory-double-image-wrapper">
+    <img class="advisory-base-img" src="{% static 'about_best_fit_advisors.png' %}" alt="Financial Blueprints & Strategic Planning">
+    <img class="advisory-overlay-img-card" src="{% static 'financial_advisors_team.png' %}" alt="Fiduciary Advisory Team Discussion">
+  </div>
+
+  <div class="advisory-right-content-2">
+    <h2 class="advisory-section-title">
+      For Whom Are We the<br>
+      <span class="highlight-gold">Best-Fit Advisors?</span>
+    </h2>
+
+    <p class="advisory-section-desc">
+      To provide exceptional wealth advisory services that exceed client expectations through innovation, quality craftsmanship, and a commitment to sustainability. We aim to build lasting relationships and create solutions that enhance the lives of our clients and communities. Through precision, expertise, and a customer-centric approach, we strive to exceed expectations in every project.
+    </p>
+
+    <div class="advisory-target-list">
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Fostering Sustainable Growth and Green Development</span>
+      </div>
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Innovating for a Sustainable Future</span>
+      </div>
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Customer-Centric Approach</span>
+      </div>
+      <div class="advisory-target-item">
+        <div class="advisory-check-badge">✔</div>
+        <span>Building Stronger Communities</span>
+      </div>
+    </div>
   </div>
 </section>
 

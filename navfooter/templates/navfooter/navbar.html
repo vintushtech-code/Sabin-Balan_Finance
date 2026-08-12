@@ -269,7 +269,6 @@
               </button>
 
               <a href="{% url 'login:book_consultation' %}" class="dropdown-item" style="color: var(--color-gold, #C5A059); font-weight: 700;">📅 Book Consultation</a>
-              <a href="{% url 'login:client_review' %}" class="dropdown-item">📝 Client Review Desk</a>
 
               {% if user.is_authenticated and user.is_staff %}
               <div class="dropdown-divider"></div>
@@ -351,9 +350,6 @@
 
       <a href="{% url 'login:book_consultation' %}" class="mobile-nav-link mobile-btn-highlight">
         <span class="mobile-nav-icon">📅</span> Book Consultation
-      </a>
-      <a href="{% url 'login:client_review' %}" class="mobile-nav-link">
-        <span class="mobile-nav-icon">📝</span> Review Desk
       </a>
 
       {% if user.is_authenticated and user.is_staff %}

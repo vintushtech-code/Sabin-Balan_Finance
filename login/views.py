@@ -1089,20 +1089,10 @@ class ConsultationTrackAPIView(View):
             'created_at': booking.created_at.strftime("%d %B %Y at %I:%M %p"),
             'timeline': timeline,
         }
-
         return JsonResponse({
             'status': 'success',
             'data': data
         })
-
-
-class ClientReviewView(TemplateView):
-    """
-    Dedicated Client First Draft Review & Feedback Suite for Sabin Balan.
-    Provides interactive page-by-page visual replica review, section editing,
-    image replacement, adding/deleting elements, and instant feedback exporting.
-    """
-    template_name = 'login/client_review.html'
 
 
 
