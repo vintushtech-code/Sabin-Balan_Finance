@@ -166,12 +166,11 @@
                 © 2026 GuardianTree FP. All Rights Reserved.
             </div>
             <div class="legal-links">
-                <a href="#"><i class="fa-solid fa-lock"></i> Privacy Policy</a>
-                <a href="#"><i class="fa-solid fa-cookie"></i> Cookie Policy</a>
-                <a href="#"><i class="fa-regular fa-file-lines"></i> Terms & Conditions</a>
-                <a href="#"><i class="fa-solid fa-file-contract"></i> AML / KYC</a>
-                <a href="#"><i class="fa-solid fa-shield-halved"></i> Disclaimer</a>
-                <a href="#"><i class="fa-solid fa-sitemap"></i> Sitemap</a>
+                <a href="{% url 'login:privacy_policy' %}"><i class="fa-solid fa-lock"></i> Privacy Policy</a>
+                <a href="{% url 'login:cookie_policy' %}"><i class="fa-solid fa-cookie"></i> Cookie Policy</a>
+                <a href="{% url 'login:terms_conditions' %}"><i class="fa-regular fa-file-lines"></i> Terms & Conditions</a>
+                <a href="{% url 'login:aml_kyc' %}"><i class="fa-solid fa-file-contract"></i> AML / KYC</a>
+                <a href="{% url 'login:disclaimer' %}"><i class="fa-solid fa-shield-halved"></i> Disclaimer</a>
             </div>
             <div class="security-badge">
                 <div class="badge-icon"><i class="fa-solid fa-shield-halved"></i></div>
