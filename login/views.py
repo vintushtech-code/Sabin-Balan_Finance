@@ -1100,7 +1100,6 @@ class ConsultationTrackAPIView(View):
         })
 
 
-# --------------------------------------------------------------------------
 # Custom HTTP Error Handlers (404 & 500)
 # --------------------------------------------------------------------------
 def custom_404_view(request, exception=None):
@@ -1115,4 +1114,73 @@ def custom_500_view(request):
     Renders custom 500 Internal Server Error page with full theme support.
     """
     return render(request, '500.html', status=500)
+
+
+# --------------------------------------------------------------------------
+# 11. Institutional Documentation & Legal Compliance Suite
+# --------------------------------------------------------------------------
+class PrivacyPolicyView(TemplateView):
+    """
+    Publicly accessible Privacy Policy & Data Protection page (privacy_policy.html).
+    """
+    template_name = 'login/legal/privacy_policy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Privacy Policy & Data Protection — GuardianTree FP"
+        context['current_doc'] = 'privacy'
+        return context
+
+
+class CookiePolicyView(TemplateView):
+    """
+    Publicly accessible Cookie Policy & Tracking Preferences page (cookie_policy.html).
+    """
+    template_name = 'login/legal/cookie_policy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Cookie Policy & Tracking Preferences — GuardianTree FP"
+        context['current_doc'] = 'cookie'
+        return context
+
+
+class TermsConditionsView(TemplateView):
+    """
+    Publicly accessible Terms & Conditions & Fiduciary Agreement page (terms_conditions.html).
+    """
+    template_name = 'login/legal/terms_conditions.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Terms & Conditions — GuardianTree FP"
+        context['current_doc'] = 'terms'
+        return context
+
+
+class AMLKYCView(TemplateView):
+    """
+    Publicly accessible AML / KYC Compliance Policy page (aml_kyc.html).
+    """
+    template_name = 'login/legal/aml_kyc.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "AML / KYC Compliance Policy — GuardianTree FP"
+        context['current_doc'] = 'aml_kyc'
+        return context
+
+
+class DisclaimerView(TemplateView):
+    """
+    Publicly accessible Regulatory Disclaimer & Risk Warning page (disclaimer.html).
+    """
+    template_name = 'login/legal/disclaimer.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Regulatory Disclaimer & Risk Disclosure — GuardianTree FP"
+        context['current_doc'] = 'disclaimer'
+        return context
+
 

@@ -36,6 +36,14 @@ urlpatterns = [
     # Direct Preview Routes for Custom Error Pages (404 & 500)
     path('404/', views.custom_404_view, name='error_404'),
     path('500/', views.custom_500_view, name='error_500'),
+
+    # Institutional Documentation & Legal Compliance Suite
+    path('privacy-policy/', views.PrivacyPolicyView.as_view(), name='privacy_policy'),
+    path('cookie-policy/', views.CookiePolicyView.as_view(), name='cookie_policy'),
+    path('terms-and-conditions/', views.TermsConditionsView.as_view(), name='terms_conditions'),
+    path('aml-kyc/', views.AMLKYCView.as_view(), name='aml_kyc'),
+    path('disclaimer/', views.DisclaimerView.as_view(), name='disclaimer'),
+
 ]
 
 
