@@ -33,5 +33,11 @@ urlpatterns = [
     # Staff / Admin Session Termination
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
+    # Institutional Documentation & Legal Compliance Suite
+    path('privacy-policy/', views.PrivacyPolicyView.as_view(), name='privacy_policy'),
+    path('cookie-policy/', views.CookiePolicyView.as_view(), name='cookie_policy'),
+    path('terms-and-conditions/', views.TermsConditionsView.as_view(), name='terms_conditions'),
+    path('aml-kyc/', views.AMLKYCView.as_view(), name='aml_kyc'),
+    path('disclaimer/', views.DisclaimerView.as_view(), name='disclaimer'),
 ]
 
