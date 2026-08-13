@@ -1098,3 +1098,21 @@ class ConsultationTrackAPIView(View):
             'status': 'success',
             'data': data
         })
+
+
+# --------------------------------------------------------------------------
+# Custom HTTP Error Handlers (404 & 500)
+# --------------------------------------------------------------------------
+def custom_404_view(request, exception=None):
+    """
+    Renders custom 404 Page Not Found error page with full theme support.
+    """
+    return render(request, '404.html', status=404)
+
+
+def custom_500_view(request):
+    """
+    Renders custom 500 Internal Server Error page with full theme support.
+    """
+    return render(request, '500.html', status=500)
+

@@ -33,5 +33,9 @@ urlpatterns = [
     # Staff / Admin Session Termination
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
+    # Direct Preview Routes for Custom Error Pages (404 & 500)
+    path('404/', views.custom_404_view, name='error_404'),
+    path('500/', views.custom_500_view, name='error_500'),
 ]
+
 

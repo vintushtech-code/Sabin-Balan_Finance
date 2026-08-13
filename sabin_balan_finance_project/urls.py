@@ -36,4 +36,8 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# Global Custom Error Handlers for 404 Page Not Found and 500 Internal Server Error
+handler404 = 'login.views.custom_404_view'
+handler500 = 'login.views.custom_500_view'
+
 
