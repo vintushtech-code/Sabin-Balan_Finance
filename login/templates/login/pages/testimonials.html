@@ -10,33 +10,25 @@
 {% block content %}
 <!-- 1. HERO BANNER SECTION -->
 <section class="hero-banner">
-  <!-- Customized Background Image from photos folder -->
   <img class="hero-video-bg" src="{% static 'testimonials_hero.png' %}" alt="GuardianTree FP Global Partners & Leaders">
-
-  <!-- Ambient Gold Glow Backdrop -->
   <div class="hero-glow-gold"></div>
 
   <div class="hero-content-wrapper">
     <div class="hero-left-section">
-
-      <!-- Gold Pill Badge -->
       <div class="hero-pill-badge">
         <span>⭐ Client Reviews &amp; Success Stories</span>
       </div>
 
-      <!-- Headline matching Home Page styling -->
       <h1 class="hero-image-styled-title">
         Hear from our<br>
         global financial<br>
         <span class="highlight-text">community!</span>
       </h1>
 
-      <!-- Subtitle -->
       <p class="hero-image-styled-subtitle">
         Discover authentic feedback and verified success stories from salaried professionals, entrepreneurs, and families compounding wealth and securing their retirement with GuardianTree FP.
       </p>
 
-      <!-- Pill Search & Filter Bar -->
       <div class="hero-pill-bar">
         <div class="pill-left-content">
           <span class="pill-icon">💬</span>
@@ -74,18 +66,13 @@
         <div class="metric-label">Institutional Security</div>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- 2. WAVY LEADERS PORTRAIT GRID SECTION -->
 <div class="testimonials-galaxy-page">
-
-  <!-- Staggered Portrait Grid of Leaders -->
   <div class="leaders-wavy-wrapper">
     <div class="leaders-wavy-grid">
-
-      <!-- DYNAMIC DB SUBMITTED TESTIMONIALS (DISPLAYED IN 9 COLUMNS) -->
       {% for col_items in testimonials_cols %}
       <div class="grid-col">
         {% if not col_items %}
@@ -107,7 +94,6 @@
         {% endfor %}
       </div>
       {% endfor %}
-
     </div>
   </div>
 
@@ -119,7 +105,6 @@
       Learn why professionals trust our wealth management solutions to secure and compound their financial futures.
     </p>
 
-    <!-- Write Your Own Testimonial CTA Button & Schedule Consultation -->
     <div style="display: flex; gap: 1.25rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem;">
       <a href="{% url 'login:consultation' %}" class="btn-gold-lg-glow" style="text-decoration: none;">
         <span>Book a Private Consultation</span>

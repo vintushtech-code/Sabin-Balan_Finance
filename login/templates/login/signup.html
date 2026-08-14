@@ -111,16 +111,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-  function togglePasswordVisibility(fieldId, btn) {
-    const input = document.getElementById(fieldId);
-    if (input.type === "password") {
-      input.type = "text";
-      btn.textContent = "Hide";
-    } else {
-      input.type = "password";
-      btn.textContent = "Show";
-    }
-  }
-</script>
+<script src="{% static 'login/js/auth.js' %}"></script>
 {% endblock %}
