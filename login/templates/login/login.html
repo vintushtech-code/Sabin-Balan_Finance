@@ -8,33 +8,13 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'login/css/login.css' %}?v=1.3">
-<style>
-  /* Force side-by-side layout on ALL screens unconditionally */
-  .auth-split-wrapper-fullscreen {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-  }
-  .auth-split-image-fullscreen {
-    flex: 0 0 50% !important;
-    width: 50% !important;
-    max-width: 50% !important;
-    min-height: 100vh !important;
-  }
-  .auth-split-form-fullscreen {
-    flex: 0 0 50% !important;
-    width: 50% !important;
-    max-width: 50% !important;
-    min-height: 100vh !important;
-  }
-</style>
 {% endblock %}
 
 {% block content %}
-  <div class="auth-split-wrapper-fullscreen" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; width: 100% !important; background-image: url('{% static "login.png" %}'); background-size: cover; background-position: center; background-attachment: fixed; position: relative;">
+  <div class="auth-split-wrapper-fullscreen login-portal-bg">
 
     <!-- Full-screen unified glass overlay to prevent any seams -->
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(8, 15, 11, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 0;"></div>
+    <div class="login-portal-glass-overlay"></div>
 
     <!-- Left Side: Admin Portal Branding & Banner -->
     <div class="auth-split-image-fullscreen" style="flex: 0 0 50% !important; width: 50% !important; max-width: 50% !important; background: transparent !important; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 3rem 2.5rem; overflow: hidden; z-index: 10;">

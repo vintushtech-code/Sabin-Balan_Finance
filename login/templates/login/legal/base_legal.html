@@ -83,7 +83,7 @@
       <!-- 1. Corporate Letterhead with Logo Above Statements -->
       <header class="clean-letterhead">
         <div class="letterhead-identity">
-          <img src="{% static 'logo.png' %}" alt="GuardianTree FP Logo" class="clean-company-logo" onerror="this.src='{% static 'navfooter/images/shield_emblem_nobg.png' %}'">
+          <img src="{% static 'logo.png' %}" alt="GuardianTree FP Logo" class="clean-company-logo" data-fallback="{% static 'navfooter/images/shield_emblem_nobg.png' %}" onerror="this.onerror=null; this.src=this.getAttribute('data-fallback');">
           <div class="letterhead-credentials">
             <h2>GUARDIANTREE FP &middot; SABIN BALAN FINANCE</h2>
             <p><span class="highlight-text">Institutional Wealth &amp; Fiduciary Financial Advisory</span></p>
