@@ -182,7 +182,7 @@ class SecretAdminAndSecurityTestCase(TestCase):
 
         res = self.client.get(track_url)
         data = res.json()['data']
-        self.assertEqual(data['payment_status'], 'Complimentary / 100% Retainer Waived')
+        self.assertEqual(data['payment_status'], 'Complimentary / Fee Waived')
         self.assertEqual(data['net_amount'], 0.00)
 
     def test_consultation_automated_emails(self):
