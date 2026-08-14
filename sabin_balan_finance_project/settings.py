@@ -279,19 +279,38 @@ LOGIN_URL = f'/{ADMIN_SECRET_PATH}/login/'
 LOGIN_REDIRECT_URL = f'/{ADMIN_SECRET_PATH}/'
 LOGOUT_REDIRECT_URL = 'login:home'
 
-# Email Configuration (Prints password reset & 2FA links/codes to terminal in dev mode)
+# ==============================================================================
+# EMAIL DISPATCH CONFIGURATION (Terminal / Console Mode)
+# ==============================================================================
+# In Terminal Mode (Development), all emails (Consultations, Status Updates, 
+# Contact Confirmations, Testimonials, and Admin 2FA OTPs) print directly to the 
+# terminal console with styled ASCII headers without requiring SMTP servers.
+#
+# WHEN READY TO SWITCH TO REAL EMAILS:
+# 1. Change EMAIL_BACKEND to 'django.core.mail.backends.smtp.EmailBackend'
+# 2. Configure SMTP credentials (e.g. Gmail App Password, SendGrid, Amazon SES, Mailgun):
+#    EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+#    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+#    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+#    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'your_account@gmail.com')
+#    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'your_app_password')
+# ==============================================================================
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@guardiantreefp.com')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'Sabin Balan Finance <advisory@sabinbalanfinance.com>')
+ADMIN_NOTIFICATION_EMAIL = os.environ.get('ADMIN_NOTIFICATION_EMAIL', 'admin@sabinbalanfinance.com')
+CONTACT_FORM_EMAIL_RECIPIENT = ADMIN_NOTIFICATION_EMAIL
+SITE_NAME = 'Sabin Balan Finance'
+SITE_URL = os.environ.get('SITE_URL', 'http://127.0.0.1:8000')
 
 # --------------------------------------------------------------------------
 # 2-Factor Authentication (2FA) & Terminal Verification Settings
 # --------------------------------------------------------------------------
-# Enforces 6-digit 2FA OTP verification for Admin/Staff user logins.
+# Enforces 6-digit 2FA OTP verification strictly for Admin/Staff user logins.
 ADMIN_2FA_ENABLED = os.environ.get('ADMIN_2FA_ENABLED', 'True') == 'True'
 
 # Destination email configuration for 2FA OTP codes:
 # - If ADMIN_2FA_EMAIL is empty/unset, codes are sent to the logged-in admin's email address.
-# - You can set ADMIN_2FA_EMAIL in environment or here (e.g., 'admin@company.com') to route 2FA emails to a specific inbox.
+# - You can set ADMIN_2FA_EMAIL in environment or here to route 2FA emails to a specific inbox.
 ADMIN_2FA_EMAIL = os.environ.get('ADMIN_2FA_EMAIL', '')
 
 # Expiration window for 2FA verification codes in seconds (default: 300 seconds = 5 minutes)

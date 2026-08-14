@@ -1,20 +1,10 @@
 {% extends 'theme_config/base.html' %}
 {% load static %}
 
+{% block title %}Message Dispatched — Sabin Balan Finance{% endblock %}
+
 {% block extra_css %}
-<style>
-  .contact-success-hero {
-    flex: 1;
-    min-height: 100vh;
-    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(10, 13, 20, 0.75) 100%), url("{% static 'message_dispatched.png' %}");
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-end;
-    padding: 4rem;
-    position: relative;
-  }
-</style>
+<link rel="stylesheet" href="{% static 'contactform/css/contact.css' %}">
 {% endblock %}
 
 {% block content %}

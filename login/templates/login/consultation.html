@@ -4,14 +4,7 @@
 {% block title %}Book Your Consultation — Private Wealth Advisory | Sabin Balan Finance{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'login/css/consultation.css' %}">
-<style>
-  /* Extra inline overrides to ensure absolute fidelity with luxury theme */
-  .consultation-page {
-    position: relative;
-    z-index: 1;
-  }
-</style>
+<link rel="stylesheet" href="{% static 'login/css/consultation.css' %}?v=1.2">
 {% endblock %}
 
 {% block content %}
@@ -157,40 +150,6 @@
         </div>
 
         <!-- ONBOARDING PROGRESS INDICATOR -->
-        <style>
-          .consult-progress-wrapper {
-            margin-bottom: 3rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-          }
-          .progress-bar-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-          }
-          .progress-bar-fill {
-            height: 100%;
-            width: 33%;
-            background: var(--color-gold, #D4AF37);
-            transition: width 0.4s ease;
-          }
-          .progress-steps-labels {
-            display: flex;
-            justify-content: space-between;
-            color: var(--color-subtext, #9CA3AF);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-          }
-          .progress-step-label.active {
-            color: var(--color-gold, #D4AF37);
-          }
-        </style>
-        
         <div class="consult-progress-wrapper" id="consult-progress-wrapper">
           <div class="progress-bar-container">
             <div class="progress-bar-fill" id="progress-bar-fill"></div>
@@ -218,23 +177,23 @@
               <div class="consult-duration-cards-row">
                 <div class="duration-card-item" data-duration="30" onclick="selectDuration(30)">
                   <div class="duration-tag">30 MIN</div>
+                  <div class="duration-price-tag">₹3,000</div>
                   <div class="duration-name">Focused Consultation</div>
-                  <div class="duration-desc">Targeted analysis for specific queries, SIP limits, or initial assessments.
-                  </div>
+                  <div class="duration-desc">Targeted analysis for specific queries, SIP limits, or initial assessments.</div>
                 </div>
 
                 <div class="duration-card-item selected" data-duration="45" onclick="selectDuration(45)">
                   <div class="duration-tag">45 MIN</div>
+                  <div class="duration-price-tag">₹5,000</div>
                   <div class="duration-name">Strategic Consultation</div>
-                  <div class="duration-desc">Recommended — Deep dive into goals, asset allocation, and tax balancing.
-                  </div>
+                  <div class="duration-desc">Recommended — Deep dive into goals, asset allocation, and tax balancing.</div>
                 </div>
 
                 <div class="duration-card-item" data-duration="60" onclick="selectDuration(60)">
                   <div class="duration-tag">60 MIN</div>
+                  <div class="duration-price-tag">₹8,000</div>
                   <div class="duration-name">Comprehensive</div>
-                  <div class="duration-desc">Full institutional portfolio diagnostic &amp; family office legacy roadmap.
-                  </div>
+                  <div class="duration-desc">Full institutional portfolio diagnostic &amp; family office legacy roadmap.</div>
                 </div>
               </div>
             </div>
@@ -424,20 +383,19 @@
                 <div class="consult-summary-grid">
                   <div>
                     <div class="consult-summary-item-label">Advisory Service</div>
-                    <div class="consult-summary-item-value" id="summary-service-text">Investment &amp; Multi-Asset
-                      Strategy</div>
+                    <div class="consult-summary-item-value" id="summary-service-text">Investment &amp; Multi-Asset Strategy</div>
                   </div>
                   <div>
                     <div class="consult-summary-item-label">Consultation Duration</div>
                     <div class="consult-summary-item-value" id="summary-duration-text">45 Minutes</div>
                   </div>
                   <div>
-                    <div class="consult-summary-item-label">Selected Date</div>
-                    <div class="consult-summary-item-value" id="summary-date-text">{{ default_date_display|default:"Tuesday, 18 August 2026" }}</div>
+                    <div class="consult-summary-item-label">Consultation Fee</div>
+                    <div class="consult-summary-item-value" id="summary-fee-text" style="color: var(--color-gold, #D4AF37); font-weight: 700;">₹5,000 INR</div>
                   </div>
                   <div>
-                    <div class="consult-summary-item-label">Selected Time Slot</div>
-                    <div class="consult-summary-item-value" id="summary-time-text">10:00 AM – 10:45 AM</div>
+                    <div class="consult-summary-item-label">Selected Date &amp; Time</div>
+                    <div class="consult-summary-item-value" id="summary-datetime-text">{{ default_date_display|default:"Tuesday, 18 August 2026" }} at 10:00 AM</div>
                   </div>
                 </div>
               </div>
@@ -525,9 +483,9 @@
             <i class="fa-solid fa-magnifying-glass"></i>
             <span>Track Consultation Status Now</span>
           </a>
-          <button type="button" class="btn-consult-secondary" onclick="window.print()">
-            <i class="fa-solid fa-print"></i>
-            <span>Print Confirmation</span>
+          <button type="button" class="btn-consult-secondary" onclick="openReceiptModal()">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>View &amp; Print Confirmation Statement</span>
           </button>
         </div>
       </div>
@@ -578,7 +536,7 @@
               </span>
             </div>
 
-            <!-- Rescheduled Visual Schedule Diff (Requirement 20) -->
+            <!-- Rescheduled Visual Schedule Diff -->
             {% if tracked_booking.status == 'rescheduled' or tracked_booking.previous_date %}
             <div class="rescheduled-diff-banner">
               <div class="rescheduled-diff-title">
@@ -612,7 +570,7 @@
             </div>
             {% endif %}
 
-            <!-- Interactive Visual Timeline (Requirement 21) -->
+            <!-- Interactive Visual Timeline -->
             <div class="timeline-stepper">
               <div class="timeline-step-item completed">
                 <div class="timeline-node">1</div>
@@ -765,612 +723,203 @@
 
   </div>
 </div>
+
+<!-- ====================================================================
+     EXECUTIVE CONSULTATION CONFIRMATION & BILLING RECEIPT MODAL
+     ==================================================================== -->
+<div class="receipt-modal-overlay" id="consultation-receipt-modal" onclick="if(event.target === this) closeReceiptModal()">
+  <div class="receipt-modal-dialog">
+    
+    <!-- Modal Control Toolbar -->
+    <div class="receipt-modal-toolbar">
+      <div class="receipt-toolbar-left">
+        <span class="receipt-doc-tag"><i class="fa-solid fa-shield-halved"></i> OFFICIAL FIDUCIARY RECORD</span>
+      </div>
+      <div class="receipt-toolbar-actions">
+        <button type="button" class="btn-receipt-action btn-receipt-copy" onclick="copyReceiptDetails()">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copy-receipt-btn-label">Copy Summary</span>
+        </button>
+        <button type="button" class="btn-receipt-action btn-receipt-print" onclick="printReceiptDirectly()">
+          <i class="fa-solid fa-print"></i>
+          <span>Print Official Statement</span>
+        </button>
+        <button type="button" class="btn-receipt-close" onclick="closeReceiptModal()" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Official Printable Paper Slip Container -->
+    <div class="receipt-paper" id="consultation-printable-receipt">
+      
+      <!-- Top Brand & Header Section -->
+      <div class="receipt-header">
+        <div class="receipt-brand-block">
+          <img src="{% static 'logo.png' %}" alt="Sabin Balan Finance Logo" class="receipt-firm-logo" data-fallback="{% static 'navfooter/images/shield_emblem_nobg.png' %}" onerror="this.onerror=null; this.src=this.getAttribute('data-fallback');">
+          <div class="receipt-firm-info">
+            <h3 class="receipt-firm-title">SABIN BALAN FINANCE</h3>
+            <div class="receipt-firm-subtitle">Institutional Wealth Advisory &amp; Fiduciary Management</div>
+            <div class="receipt-firm-meta">Geneva &bull; London &bull; New York &bull; Fiduciary ID #SB-70492</div>
+          </div>
+        </div>
+
+        <div class="receipt-doc-meta">
+          <div class="receipt-meta-pill">CONSULTATION CONFIRMATION</div>
+          <div class="receipt-ref-code-title">REFERENCE KEY</div>
+          <div class="receipt-ref-code-val" id="rcpt-ref-key">{% firstof confirmed_key tracked_booking.reference_key "GT7K4M9P2X" %}</div>
+          <div class="receipt-issue-date">Issued: <span id="rcpt-issue-date">{% now "F j, Y" %}</span></div>
+        </div>
+      </div>
+
+      <div class="receipt-divider-gold"></div>
+
+      <!-- Status Banner -->
+      <div class="receipt-status-banner">
+        <div class="receipt-status-badge">
+          <span class="status-indicator-dot" id="rcpt-status-dot"></span>
+          <span id="rcpt-status-badge-text">STATUS: {% if tracked_booking %}{{ tracked_booking.get_status_display|upper }}{% else %}CONFIRMED &amp; ALLOCATED{% endif %}</span>
+        </div>
+        <div class="receipt-security-stamp">
+          <i class="fa-solid fa-lock"></i> 256-BIT ENCRYPTED FIDUCIARY RECORD
+        </div>
+      </div>
+
+      <!-- Two Column Overview (Client & Appointment) -->
+      <div class="receipt-info-grid">
+        <div class="receipt-info-card">
+          <div class="receipt-card-header"><i class="fa-solid fa-user-tie"></i> CLIENT CREDENTIALS</div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Client Name:</span>
+            <span class="receipt-info-value" id="rcpt-client-name">{% firstof tracked_booking.client_name "Eleanor Vance" %}</span>
+          </div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Contact Email:</span>
+            <span class="receipt-info-value" id="rcpt-client-email">{% firstof tracked_booking.email "client@advisory.guardiantreefp.com" %}</span>
+          </div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Contact Phone:</span>
+            <span class="receipt-info-value" id="rcpt-client-phone">{% firstof tracked_booking.phone "+91 98765 43210" %}</span>
+          </div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Account Privilege:</span>
+            <span class="receipt-info-value">Private Client / Institutional</span>
+          </div>
+        </div>
+
+        <div class="receipt-info-card">
+          <div class="receipt-card-header"><i class="fa-solid fa-calendar-check"></i> APPOINTMENT SCHEDULE</div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Date &amp; Time:</span>
+            <span class="receipt-info-value highlight" id="rcpt-datetime">
+              {% if tracked_booking %}
+              {{ tracked_booking.consultation_date|date:"l, d F Y" }} at {{ tracked_booking.consultation_time|time:"h:i A" }}
+              {% else %}
+              Tuesday, 18 August 2026 at 10:00 AM
+              {% endif %}
+            </span>
+          </div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Session Duration:</span>
+            <span class="receipt-info-value" id="rcpt-duration">{% firstof tracked_booking.duration_label "45 Minutes (Strategic Consultation)" %}</span>
+          </div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Meeting Channel:</span>
+            <span class="receipt-info-value" id="rcpt-channel">{% firstof tracked_booking.get_preferred_comm_display "Secure Video Conference" %}</span>
+          </div>
+          <div class="receipt-info-row">
+            <span class="receipt-info-label">Fiduciary Desk:</span>
+            <span class="receipt-info-value" id="rcpt-fiduciary-desk">{% firstof tracked_booking.fiduciary_desk "Senior Wealth Advisory Desk" %}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advisory Scope & Service Mandate -->
+      <div class="receipt-mandate-card">
+        <div class="receipt-card-header"><i class="fa-solid fa-compass-drafting"></i> ADVISORY ENGAGEMENT MANDATE</div>
+        <div class="receipt-mandate-name" id="rcpt-service-name">{% firstof tracked_booking.get_service_display "Investment & Multi-Asset Portfolio Strategy" %}</div>
+        <p class="receipt-mandate-desc" id="rcpt-service-desc">
+          Discretionary capital cultivation, multi-generational balance sheet forensic audit, liability restructuring, and non-correlated downside risk buffers.
+        </p>
+      </div>
+
+      <!-- Itemized Billing & Retainer Statement Table (Dynamic in ₹ INR) -->
+      <div class="receipt-billing-card">
+        <div class="receipt-card-header"><i class="fa-solid fa-receipt"></i> BILLING &amp; RETAINER SUMMARY (INR)</div>
+        <table class="receipt-table">
+          <thead>
+            <tr>
+              <th>Description / Fiduciary Service</th>
+              <th>Standard Fee</th>
+              <th>Discount / Waiver</th>
+              <th style="text-align: right;">Net Payable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong id="rcpt-table-service-title">Private Wealth Advisory Consultation</strong>
+                <div class="table-subtext" id="rcpt-table-service-sub">Fiduciary Review &amp; Strategic Portfolio Consultation (<span id="rcpt-table-duration">{% firstof tracked_booking.duration_label "45 Minutes" %}</span>)</div>
+              </td>
+              <td id="rcpt-fee-rate">{% if tracked_booking %}{{ tracked_booking.fee_amount_display }}{% else %}₹5,000.00{% endif %}</td>
+              <td id="rcpt-discount-amount" style="color: #059669;">{% if tracked_booking %}-{{ tracked_booking.discount_amount_display }}{% else %}-₹0.00{% endif %}</td>
+              <td style="text-align: right; font-weight: 700;" id="rcpt-net-total">{% if tracked_booking %}{{ tracked_booking.net_amount_display }}{% else %}₹5,000.00{% endif %}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" style="text-align: right; font-weight: 700;">TOTAL AMOUNT DUE / PAID:</td>
+              <td style="text-align: right; font-weight: 800; font-size: 1.15rem; color: #059669;" id="rcpt-grand-total">
+                {% if tracked_booking %}{{ tracked_booking.net_amount_display }} INR{% else %}₹5,000.00 INR{% endif %}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="receipt-payment-meta">
+          <span><strong>Payment Status:</strong> <span style="font-weight: 700;" id="rcpt-payment-status">{% firstof tracked_booking.get_payment_status_display "UNPAID / PAYMENT DUE" %}</span></span>
+          <span><strong>Invoice / Tax Ref:</strong> <span id="rcpt-invoice-id">{% firstof tracked_booking.invoice_number "INV-2026-GT7K4M" %}</span></span>
+        </div>
+      </div>
+
+      <!-- Pre-Session Guidance Checklist -->
+      <div class="receipt-instructions-box">
+        <div class="instructions-title"><i class="fa-solid fa-list-check"></i> Pre-Consultation Preparation Checklist:</div>
+        <ul class="instructions-list" id="rcpt-instructions-list">
+          <li><strong>Encrypted Meeting Room:</strong> Your dedicated secure conference link will be dispatched to your email 30 minutes prior to session time.</li>
+          <li><strong>Document Readiness:</strong> Please have your current asset allocation summary, tax returns, or enterprise balance sheet available for reference.</li>
+          <li><strong>Rescheduling Policy:</strong> Kindly provide a minimum of 24 hours notice for calendar adjustments using your Reference Key above.</li>
+        </ul>
+      </div>
+
+      <!-- Official Sign-off & Seal Footer -->
+      <div class="receipt-footer">
+        <div class="receipt-seal-block">
+          <div class="fiduciary-seal-emblem">
+            <i class="fa-solid fa-certificate"></i>
+          </div>
+          <div class="fiduciary-seal-text">
+            <div style="font-weight: 800; font-size: 0.85rem; color: #1e293b;">OFFICIALLY VERIFIED &amp; REGISTERED</div>
+            <div style="font-size: 0.72rem; color: #64748b;">Sabin Balan Finance Global Fiduciary Governance Desk</div>
+          </div>
+        </div>
+
+        <div class="receipt-signature-block">
+          <div class="signature-line-mark">Sabin Balan</div>
+          <div class="signature-caption">Managing Partner &amp; Chief Fiduciary Officer</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  /* ==========================================================================
-     CLIENT-SIDE INTERACTIVE SCHEDULING ENGINE & CALENDAR LOGIC
-     ========================================================================== */
-
-  // State Management
-  let currentYear, currentMonth;
-  let selectedDateStr = "{{ default_date }}";
-  let selectedDuration = parseInt("{{ default_duration|default:45 }}") || 45;
-  let selectedTimeStr = "10:00";
-  let selectedTimeDisplay = "10:00 AM";
-  let selectedEndTimeDisplay = "10:45 AM";
-
-  document.addEventListener('DOMContentLoaded', function () {
-    // Initialize date object
-    const initDate = selectedDateStr ? new Date(selectedDateStr + 'T00:00:00') : new Date();
-    currentYear = initDate.getFullYear();
-    currentMonth = initDate.getMonth();
-
-    renderCalendar(currentYear, currentMonth);
-    fetchAvailableSlots(selectedDateStr, selectedDuration);
-    applyConsultationPrefillFromUrl();
-  });
-
-  /* --------------------------------------------------------------------------
-     1. Interactive Calendar Renderer
-     -------------------------------------------------------------------------- */
-  function renderCalendar(year, month) {
-    const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-
-    const monthTitle = document.getElementById('calendar-month-year');
-    if (monthTitle) {
-      monthTitle.textContent = `${monthNames[month]} ${year}`;
-    }
-
-    const grid = document.getElementById('calendar-days-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-
-    const firstDayIndex = new Date(year, month, 1).getDay(); // 0 is Sunday
-    // Shift Sunday (0) to index 6, Monday (1) to index 0
-    const startOffset = (firstDayIndex === 0) ? 6 : firstDayIndex - 1;
-
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // Render empty prefix cells
-    for (let i = 0; i < startOffset; i++) {
-      const emptyCell = document.createElement('div');
-      emptyCell.className = 'calendar-day-btn empty';
-      grid.appendChild(emptyCell);
-    }
-
-    // Render days in active month
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateObj = new Date(year, month, day);
-      dateObj.setHours(0, 0, 0, 0);
-
-      const dayOfWeek = dateObj.getDay(); // 0 = Sun, 6 = Sat
-      const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
-      const isPast = dateObj < today;
-      const isToday = dateObj.getTime() === today.getTime();
-
-      const yyyy = year;
-      const mm = String(month + 1).padStart(2, '0');
-      const dd = String(day).padStart(2, '0');
-      const dateStr = `${yyyy}-${mm}-${dd}`;
-
-      const isSelected = (dateStr === selectedDateStr);
-
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'calendar-day-btn';
-      btn.textContent = day;
-      btn.setAttribute('data-date', dateStr);
-
-      if (isToday) btn.classList.add('today');
-      if (isSelected) btn.classList.add('selected');
-
-      if (isWeekend) {
-        btn.classList.add('weekend');
-        btn.disabled = true;
-        btn.title = "Advisory Desk Closed on Weekends";
-      } else if (isPast) {
-        btn.classList.add('past');
-        btn.disabled = true;
-        btn.title = "Past Date Unavailable";
-      } else {
-        btn.addEventListener('click', function () {
-          selectDate(dateStr, dateObj);
-        });
-      }
-
-      grid.appendChild(btn);
-    }
-  }
-
-  function prevMonth() {
-    currentMonth--;
-    if (currentMonth < 0) {
-      currentMonth = 11;
-      currentYear--;
-    }
-    renderCalendar(currentYear, currentMonth);
-  }
-
-  function nextMonth() {
-    currentMonth++;
-    if (currentMonth > 11) {
-      currentMonth = 0;
-      currentYear++;
-    }
-    renderCalendar(currentYear, currentMonth);
-  }
-
-  function selectDate(dateStr, dateObj) {
-    selectedDateStr = dateStr;
-
-    // Update hidden field
-    const dateInput = document.getElementById('id_consultation_date');
-    if (dateInput) dateInput.value = dateStr;
-
-    // Update active highlight in calendar
-    document.querySelectorAll('.calendar-day-btn').forEach(btn => {
-      btn.classList.remove('selected');
-      if (btn.getAttribute('data-date') === dateStr) {
-        btn.classList.add('selected');
-      }
-    });
-
-    // Format human readable date
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const displayDate = dateObj.toLocaleDateString('en-US', options);
-
-    const infoBarText = document.getElementById('calendar-selected-date-text');
-    if (infoBarText) infoBarText.textContent = displayDate;
-
-    updateSummaryCard();
-    fetchAvailableSlots(dateStr, selectedDuration);
-  }
-
-  /* --------------------------------------------------------------------------
-     2. Duration Selection
-     -------------------------------------------------------------------------- */
-  function selectDuration(dur) {
-    selectedDuration = parseInt(dur);
-
-    const durationInput = document.getElementById('id_duration_minutes');
-    if (durationInput) durationInput.value = selectedDuration;
-
-    document.querySelectorAll('.duration-card-item').forEach(card => {
-      card.classList.remove('selected');
-      if (parseInt(card.getAttribute('data-duration')) === selectedDuration) {
-        card.classList.add('selected');
-      }
-    });
-
-    updateSummaryCard();
-    if (selectedDateStr) {
-      fetchAvailableSlots(selectedDateStr, selectedDuration);
-    }
-  }
-
-  /* --------------------------------------------------------------------------
-     3. Fetch Dynamic Available Slots via Server API
-     -------------------------------------------------------------------------- */
-  function fetchAvailableSlots(dateStr, duration) {
-    const slotsGrid = document.getElementById('time-slots-grid');
-    const slotsMeta = document.getElementById('slots-count-meta');
-    if (!slotsGrid) return;
-
-    slotsGrid.innerHTML = `
-      <div class="time-slots-empty-state">
-        <i class="fa-solid fa-spinner fa-spin" style="color: var(--c-gold); margin-right: 6px;"></i> 
-        Calculating available 15-min buffered slots...
-      </div>
-    `;
-
-    fetch(`{% url 'login:consultation_slots_api' %}?date=${dateStr}&duration=${duration}`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'weekend') {
-          slotsGrid.innerHTML = `
-            <div class="time-slots-empty-state" style="color: #94A3B8;">
-              <i class="fa-regular fa-calendar-xmark" style="font-size: 1.3rem; margin-bottom: 6px; display: block;"></i>
-              ${data.message}
-            </div>
-          `;
-          if (slotsMeta) slotsMeta.textContent = '0 slots';
-          return;
-        }
-
-        if (data.status !== 'success' || !data.slots || data.slots.length === 0) {
-          slotsGrid.innerHTML = `
-            <div class="time-slots-empty-state">
-              <i class="fa-solid fa-circle-info" style="font-size: 1.2rem; margin-bottom: 6px; display: block; color: var(--c-gold);"></i>
-              No consultation times are available for this date.<br>
-              <strong>Please choose another date.</strong>
-            </div>
-          `;
-          if (slotsMeta) slotsMeta.textContent = '0 available';
-          return;
-        }
-
-        slotsGrid.innerHTML = '';
-        let foundDefault = false;
-
-        data.slots.forEach(slot => {
-          const slotBtn = document.createElement('button');
-          slotBtn.type = 'button';
-          slotBtn.className = 'time-slot-btn';
-          slotBtn.setAttribute('data-time', slot.time);
-          slotBtn.setAttribute('data-time-display', slot.time_display);
-          slotBtn.setAttribute('data-end-display', slot.end_time_display);
-
-          if (!slot.is_available) {
-            slotBtn.classList.add('disabled');
-            if (slot.is_booked) slotBtn.classList.add('booked');
-            slotBtn.disabled = true;
-            slotBtn.innerHTML = `
-              <span class="slot-time-primary">${slot.time_display}</span>
-              <span class="slot-booked-tag">${slot.reason}</span>
-            `;
-          } else {
-            // First available or previously selected
-            const isMatch = (slot.time === selectedTimeStr);
-            if (isMatch || (!foundDefault && !selectedTimeStr)) {
-              slotBtn.classList.add('selected');
-              selectedTimeStr = slot.time;
-              selectedTimeDisplay = slot.time_display;
-              selectedEndTimeDisplay = slot.end_time_display;
-              foundDefault = true;
-
-              const timeInput = document.getElementById('id_consultation_time');
-              if (timeInput) timeInput.value = slot.time;
-            }
-
-            slotBtn.innerHTML = `
-              <span class="slot-time-primary">${slot.time_display}</span>
-              <span class="slot-time-sub">to ${slot.end_time_display}</span>
-            `;
-
-            slotBtn.addEventListener('click', function () {
-              document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
-              slotBtn.classList.add('selected');
-              selectedTimeStr = slot.time;
-              selectedTimeDisplay = slot.time_display;
-              selectedEndTimeDisplay = slot.end_time_display;
-
-              const timeInput = document.getElementById('id_consultation_time');
-              if (timeInput) timeInput.value = slot.time;
-
-              updateSummaryCard();
-            });
-          }
-
-          slotsGrid.appendChild(slotBtn);
-        });
-
-        if (slotsMeta) {
-          slotsMeta.textContent = `${data.available_count} available (${data.duration}m)`;
-        }
-
-        updateSummaryCard();
-      })
-      .catch(err => {
-        slotsGrid.innerHTML = `
-          <div class="time-slots-empty-state" style="color: #DC2626;">
-            Unable to connect to slot scheduling server. Please try again.
-          </div>
-        `;
-      });
-  }
-
-  /* --------------------------------------------------------------------------
-     4. Update Live Dynamic Booking Summary Card
-     -------------------------------------------------------------------------- */
-  function updateSummaryCard() {
-    // Progress Bar Logic
-    const bar = document.getElementById('progress-bar-fill');
-    if (bar) {
-      document.querySelectorAll('.progress-step-label').forEach(el => el.classList.remove('active'));
-      let step = 1;
-      let width = '33%';
-      if (selectedDateStr) {
-        step = 2;
-        width = '66%';
-      }
-      if (selectedTimeStr) {
-        step = 3;
-        width = '100%';
-      }
-      bar.style.width = width;
-      const activeLabel = document.getElementById('label-step-' + step);
-      if (activeLabel) activeLabel.classList.add('active');
-    }
-
-    // Service
-    const serviceSelect = document.getElementById('id_service');
-    const serviceSummary = document.getElementById('summary-service-text');
-    if (serviceSelect && serviceSummary) {
-      serviceSummary.textContent = serviceSelect.options[serviceSelect.selectedIndex].text;
-    }
-
-    // Duration
-    const durationSummary = document.getElementById('summary-duration-text');
-    if (durationSummary) {
-      const labels = {
-        30: '30 Minutes (Focused Consultation)',
-        45: '45 Minutes (Strategic Consultation)',
-        60: '60 Minutes (Comprehensive Consultation)'
-      };
-      durationSummary.textContent = labels[selectedDuration] || `${selectedDuration} Minutes`;
-    }
-
-    // Date
-    const infoBarText = document.getElementById('calendar-selected-date-text');
-    const dateSummary = document.getElementById('summary-date-text');
-    if (infoBarText && dateSummary) {
-      dateSummary.textContent = infoBarText.textContent;
-    }
-
-    // Time
-    const timeSummary = document.getElementById('summary-time-text');
-    if (timeSummary) {
-      timeSummary.textContent = `${selectedTimeDisplay} – ${selectedEndTimeDisplay}`;
-    }
-  }
-
-  function getUrlParameter(name) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(name) || '';
-  }
-
-  function applyConsultationPrefillFromUrl() {
-    const name = getUrlParameter('client_name');
-    const email = getUrlParameter('email');
-    const service = getUrlParameter('service');
-    const subject = getUrlParameter('subject');
-    const message = getUrlParameter('message');
-
-    if (name) {
-      const nameField = document.getElementById('id_client_name');
-      if (nameField) nameField.value = decodeURIComponent(name);
-    }
-    if (email) {
-      const emailField = document.getElementById('id_email');
-      if (emailField) emailField.value = decodeURIComponent(email);
-    }
-    if (service) {
-      const serviceSelect = document.getElementById('id_service');
-      if (serviceSelect) {
-        for (let i = 0; i < serviceSelect.options.length; i++) {
-          if (serviceSelect.options[i].value === service) {
-            serviceSelect.selectedIndex = i;
-            break;
-          }
-        }
-      }
-    }
-    if (subject) {
-      const subjectField = document.getElementById('id_subject');
-      if (subjectField) subjectField.value = decodeURIComponent(subject);
-    }
-    if (message) {
-      const messageField = document.getElementById('id_message');
-      if (messageField) messageField.value = decodeURIComponent(message);
-    }
-
-    updateSummaryCard();
-  }
-
-  /* --------------------------------------------------------------------------
-     5. Handle Booking Form Submission via AJAX
-     -------------------------------------------------------------------------- */
-  function handleBookingSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const submitBtn = document.getElementById('btn-submit-booking');
-    const origBtnHtml = submitBtn ? submitBtn.innerHTML : '';
-
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Securing Consultation...`;
-    }
-
-    const formData = new FormData(form);
-    formData.append('ajax', '1');
-
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = origBtnHtml;
-        }
-
-        if (data.status === 'success') {
-          // Render Confirmation Card with 10-char Key
-          const confCard = document.getElementById('confirmation-card');
-          const keyDisplay = document.getElementById('display-reference-key');
-          const clientNameDisplay = document.getElementById('conf-client-name');
-          const serviceDisplay = document.getElementById('conf-service');
-          const dateTimeDisplay = document.getElementById('conf-datetime');
-          const durationDisplay = document.getElementById('conf-duration');
-
-          if (keyDisplay) keyDisplay.textContent = data.reference_key;
-          if (clientNameDisplay) clientNameDisplay.textContent = data.client_name;
-          if (serviceDisplay) serviceDisplay.textContent = data.service;
-          if (dateTimeDisplay) dateTimeDisplay.textContent = `${data.date} at ${data.time}`;
-          if (durationDisplay) durationDisplay.textContent = data.duration_label;
-
-          if (confCard) {
-            confCard.style.display = 'block';
-            confCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-
-          // Pre-fill tracking lookup
-          const trackInput = document.getElementById('track-reference-key-input');
-          if (trackInput) trackInput.value = data.reference_key;
-
-          // Trigger real-time tracking display
-          renderTrackData(data.data);
-        } else {
-          alert(data.message || 'There was an issue processing your booking. Please review your selections.');
-        }
-      })
-      .catch(err => {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = origBtnHtml;
-        }
-        form.submit(); // Fallback to normal post
-      });
-  }
-
-  /* --------------------------------------------------------------------------
-     6. Copy 10-Character Reference Key
-     -------------------------------------------------------------------------- */
-  function copyReferenceKey() {
-    const keyEl = document.getElementById('display-reference-key');
-    const copyLabel = document.getElementById('copy-btn-label');
-    if (!keyEl) return;
-
-    const textToCopy = keyEl.textContent.trim();
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      if (copyLabel) copyLabel.textContent = 'Copied!';
-      setTimeout(() => {
-        if (copyLabel) copyLabel.textContent = 'Copy Key';
-      }, 2500);
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     7. Live Consultation Status Tracking
-     -------------------------------------------------------------------------- */
-  function handleTrackingSearch(event) {
-    if (event) event.preventDefault();
-    const input = document.getElementById('track-reference-key-input');
-    if (!input) return;
-
-    const key = input.value.trim().toUpperCase();
-    if (key.length !== 10) {
-      alert("Please enter a valid 10-character reference key (e.g. GT7K4M9P2X).");
-      return;
-    }
-
-    const btn = document.getElementById('btn-track-submit');
-    const origHtml = btn ? btn.innerHTML : '';
-    if (btn) {
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Searching...`;
-    }
-
-    fetch(`{% url 'login:consultation_track_api' %}?key=${key}`)
-      .then(response => response.json())
-      .then(res => {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = origHtml;
-        }
-
-        if (res.status === 'success' && res.data) {
-          renderTrackData(res.data);
-          const resultContainer = document.getElementById('tracking-result-container');
-          if (resultContainer) {
-            resultContainer.style.display = 'block';
-            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        } else {
-          alert(res.message || `No consultation record was found matching reference key '${key}'.`);
-        }
-      })
-      .catch(err => {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = origHtml;
-        }
-        alert("Failed to connect to tracking server. Please verify your reference key.");
-      });
-  }
-
-  function lookupSpecificKey(key) {
-    const input = document.getElementById('track-reference-key-input');
-    if (input) {
-      input.value = key;
-      handleTrackingSearch(null);
-    }
-  }
-
-  function renderTrackData(data) {
-    const container = document.getElementById('tracking-result-container');
-    if (!container) return;
-
-    let rescheduledHtml = '';
-    if (data.is_rescheduled || data.previous_schedule) {
-      rescheduledHtml = `
-        <div class="rescheduled-diff-banner">
-          <div class="rescheduled-diff-title">
-            <i class="fa-solid fa-calendar-days"></i>
-            <span>CONSULTATION SCHEDULE REVISION NOTIFICATION</span>
-          </div>
-          <div class="rescheduled-diff-grid">
-            <div class="diff-schedule-box previous">
-              <div class="diff-label">Previous Schedule</div>
-              <div class="diff-time">${data.previous_schedule || 'Tuesday, 18 August — 10:00 AM'}</div>
-            </div>
-            <div class="diff-schedule-box updated">
-              <div class="diff-label">Updated Schedule</div>
-              <div class="diff-time">${data.updated_schedule}</div>
-            </div>
-          </div>
-          <div class="rescheduled-reason-note">
-            <strong>Advisory Desk Note:</strong> ${data.rescheduled_reason || 'The schedule was updated by the advisory desk to allocate senior partner boardroom resources.'}
-          </div>
-        </div>
-      `;
-    }
-
-    let timelineHtml = '<div class="timeline-stepper">';
-    if (data.timeline && data.timeline.length) {
-      data.timeline.forEach(step => {
-        timelineHtml += `
-          <div class="timeline-step-item ${step.state}">
-            <div class="timeline-node">${step.step}</div>
-            <div class="timeline-label">${step.title}</div>
-            <div class="timeline-subtext">${step.description}</div>
-          </div>
-        `;
-      });
-    }
-    timelineHtml += '</div>';
-
-    container.innerHTML = `
-      <div class="tracking-result-box">
-        <div class="tracking-result-header">
-          <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
-            <span class="tracking-ref-badge">${data.reference_key}</span>
-            <div>
-              <strong style="font-size: 1.05rem; color: var(--c-navy);">${data.client_name}</strong>
-              <div style="font-size: 0.8rem; color: var(--c-subtext);">${data.service}</div>
-            </div>
-          </div>
-          <span class="tracking-status-pill ${data.status_badge}">${data.status_label}</span>
-        </div>
-
-        ${rescheduledHtml}
-        ${timelineHtml}
-
-        <div class="confirmation-details-summary" style="margin-bottom: 0;">
-          <div class="confirmation-summary-grid">
-            <div>
-              <div class="consult-summary-item-label">Consultation Schedule</div>
-              <div class="consult-summary-item-value">${data.consultation_date} at ${data.consultation_time}</div>
-            </div>
-            <div>
-              <div class="consult-summary-item-label">Duration &amp; Mode</div>
-              <div class="consult-summary-item-value">${data.duration_label} (${data.preferred_comm})</div>
-            </div>
-            <div>
-              <div class="consult-summary-item-label">Client Email</div>
-              <div class="consult-summary-item-value">${data.email}</div>
-            </div>
-            <div>
-              <div class="consult-summary-item-label">Payment Status</div>
-              <div class="consult-summary-item-value" style="color: #059669;">${data.payment_status}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    container.style.display = 'block';
-  }
+  window.DEFAULT_DATE = "{{ default_date }}";
+  window.DEFAULT_DURATION = parseInt("{{ default_duration|default:45 }}") || 45;
+  window.SLOTS_API_URL = "{% url 'login:consultation_slots' %}";
+  window.TRACK_API_URL = "{% url 'login:consultation_track' %}";
 </script>
+<script src="{% static 'login/js/consultation.js' %}?v=1.2"></script>
 {% endblock %}

@@ -267,6 +267,12 @@ class ConsultationBooking(models.Model):
     Includes unique 10-character reference key, dynamic scheduling buffers,
     status workflows, and admin rescheduling tracking with before/after comparison.
     """
+    CONSULTATION_FEES = {
+        30: 3000.00,
+        45: 5000.00,
+        60: 8000.00,
+    }
+
     SERVICE_CHOICES = (
         ('financial_planning', 'Comprehensive Financial Planning'),
         ('investment', 'Investment & Multi-Asset Portfolio Strategy'),
@@ -280,9 +286,9 @@ class ConsultationBooking(models.Model):
     )
 
     DURATION_CHOICES = (
-        (30, '30 Minutes — Focused Consultation'),
-        (45, '45 Minutes — Strategic Consultation'),
-        (60, '60 Minutes — Comprehensive Consultation'),
+        (30, '30 Minutes — Focused Consultation (₹3,000)'),
+        (45, '45 Minutes — Strategic Consultation (₹5,000)'),
+        (60, '60 Minutes — Comprehensive Consultation (₹8,000)'),
     )
 
     COMM_CHOICES = (
@@ -295,18 +301,18 @@ class ConsultationBooking(models.Model):
     STATUS_CHOICES = (
         ('received', 'Booking Received'),
         ('under_review', 'Pending Confirmation / Under Review'),
-        ('confirmed', 'Confirmed'),
-        ('paid', 'Paid / Confirmed'),
-        ('payment_pending', 'Payment Pending'),
+        ('confirmed', 'Confirmed & Fiduciary Allocated'),
+        ('paid', 'Paid & Confirmed'),
         ('rescheduled', 'Rescheduled'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     )
 
     PAYMENT_CHOICES = (
-        ('pending', 'Payment Pending'),
-        ('completed', 'Payment Received'),
-        ('waived', 'Complimentary / Executive Waiver'),
+        ('unpaid', 'Unpaid / Payment Due'),
+        ('paid', 'Paid / Completed'),
+        ('waived', 'Complimentary / Fee Waived'),
+        ('pending', 'Payment Processing / Pending Verification'),
         ('refunded', 'Refunded'),
     )
 
@@ -326,6 +332,21 @@ class ConsultationBooking(models.Model):
     consultation_time = models.TimeField(_('Consultation Start Time'))
     end_time = models.TimeField(_('Consultation End Time'), blank=True, null=True)
     
+    # Financial Billing & Retainer Attributes (Dynamic Pricing in ₹ / INR)
+    fee_amount = models.DecimalField(_('Consultation Fee (₹)'), max_digits=10, decimal_places=2, default=5000.00, help_text=_("Standard advisory fee in INR (₹3,000 for 30m, ₹5,000 for 45m, ₹8,000 for 60m)."))
+    discount_amount = models.DecimalField(_('Discount / Waiver (₹)'), max_digits=10, decimal_places=2, default=0.00, help_text=_("Fee reduction or institutional promotional credit in INR."))
+    net_amount = models.DecimalField(_('Net Amount Due (₹)'), max_digits=10, decimal_places=2, default=5000.00, help_text=_("Final net amount due or paid."))
+    invoice_number = models.CharField(_('Invoice / Tax Ref Number'), max_length=50, blank=True, default='')
+    payment_method = models.CharField(_('Payment Mode'), max_length=50, blank=True, default='UPI / Net Banking / Card')
+    transaction_id = models.CharField(_('Transaction ID / UTR Ref'), max_length=100, blank=True, default='')
+    fiduciary_desk = models.CharField(_('Assigned Fiduciary / Desk'), max_length=150, blank=True, default='Senior Wealth Advisory & Fiduciary Desk')
+    meeting_link = models.CharField(_('Encrypted Meeting URL / Room Link'), max_length=500, blank=True, default='')
+    client_instructions = models.TextField(
+        _('Pre-Session Preparation Checklist'),
+        blank=True,
+        default='1. Secure encrypted meeting link will be dispatched 30 mins prior to schedule.\n2. Please have recent asset allocation summaries or tax returns ready.\n3. 24-hour advance notice requested for calendar adjustments.'
+    )
+
     subject = models.CharField(_('Subject / Purpose'), max_length=255, blank=True, default='')
     message = models.TextField(_('Requirements / Message'), blank=True, default='')
     preferred_comm = models.CharField(
@@ -345,7 +366,7 @@ class ConsultationBooking(models.Model):
         _('Payment Status'),
         max_length=30,
         choices=PAYMENT_CHOICES,
-        default='pending'
+        default='unpaid'
     )
     
     admin_notes = models.TextField(_('Advisor / Admin Internal Notes'), blank=True, default='')
@@ -365,7 +386,9 @@ class ConsultationBooking(models.Model):
         ordering = ['-consultation_date', '-consultation_time', '-created_at']
 
     def __str__(self):
-        return f"[{self.reference_key}] {self.client_name} — {self.get_service_display()} ({self.consultation_date} at {self.consultation_time.strftime('%I:%M %p')})"
+        time_str = self.consultation_time.strftime('%I:%M %p') if hasattr(self.consultation_time, 'strftime') else str(self.consultation_time or '')
+        fee_str = f"₹{float(self.net_amount):,.0f}" if self.net_amount is not None else "₹0"
+        return f"[{self.reference_key}] {self.client_name} — {self.get_service_display()} ({self.consultation_date} at {time_str}) - {fee_str}"
 
     @staticmethod
     def generate_unique_reference_key():
@@ -382,8 +405,27 @@ class ConsultationBooking(models.Model):
 
     def save(self, *args, **kwargs):
         import datetime
+        from decimal import Decimal
+
         if not self.reference_key:
             self.reference_key = ConsultationBooking.generate_unique_reference_key()
+
+        # Dynamic pricing rule: 30m = ₹3000, 45m = ₹5000, 60m = ₹8000
+        if not self.fee_amount or self.fee_amount == Decimal('0.00'):
+            self.fee_amount = Decimal(str(self.CONSULTATION_FEES.get(self.duration_minutes, 5000.00)))
+
+        discount = Decimal(str(self.discount_amount or 0.00))
+        fee = Decimal(str(self.fee_amount or 5000.00))
+        
+        # If marked as waived, set discount equal to full fee
+        if self.payment_status == 'waived':
+            discount = fee
+            self.discount_amount = discount
+
+        self.net_amount = max(Decimal('0.00'), fee - discount)
+
+        if not self.invoice_number and self.reference_key:
+            self.invoice_number = f"INV-{datetime.datetime.now().year}-{self.reference_key[:6]}"
 
         # Automatically calculate end_time based on consultation_time + duration_minutes
         if self.consultation_time and self.duration_minutes:
@@ -391,10 +433,19 @@ class ConsultationBooking(models.Model):
             end_datetime = base_datetime + datetime.timedelta(minutes=self.duration_minutes)
             self.end_time = end_datetime.time()
 
-        # Rescheduling detection when updated via admin
-        if self.pk:
+        # Rescheduling & Status Change Detection when updated
+        is_new = self.pk is None
+        old_status = None
+        old_payment_status = None
+        is_rescheduled = False
+        previous_schedule = None
+        updated_schedule = None
+
+        if not is_new:
             orig = ConsultationBooking.objects.filter(pk=self.pk).first()
             if orig:
+                old_status = orig.status
+                old_payment_status = orig.payment_status
                 date_changed = orig.consultation_date != self.consultation_date
                 time_changed = orig.consultation_time != self.consultation_time
                 if date_changed or time_changed:
@@ -402,8 +453,34 @@ class ConsultationBooking(models.Model):
                     self.previous_time = orig.consultation_time
                     if self.status not in ['cancelled', 'completed']:
                         self.status = 'rescheduled'
+                    is_rescheduled = True
+                    if orig.consultation_date and orig.consultation_time:
+                        previous_schedule = f"{orig.consultation_date.strftime('%A, %d %B %Y')} at {orig.consultation_time.strftime('%I:%M %p')}"
+                    if self.consultation_date and self.consultation_time:
+                        updated_schedule = f"{self.consultation_date.strftime('%A, %d %B %Y')} at {self.consultation_time.strftime('%I:%M %p')}"
 
         super().save(*args, **kwargs)
+
+        # Dispatch automated luxury email notifications
+        try:
+            from .emails import send_consultation_booking_email, send_consultation_status_email
+            if is_new:
+                send_consultation_booking_email(self)
+            else:
+                status_changed = (old_status is not None and old_status != self.status)
+                payment_changed = (old_payment_status is not None and old_payment_status != self.payment_status)
+                if status_changed or payment_changed or is_rescheduled:
+                    send_consultation_status_email(
+                        self,
+                        old_status=old_status,
+                        old_payment_status=old_payment_status,
+                        is_rescheduled=is_rescheduled,
+                        previous_schedule=previous_schedule,
+                        updated_schedule=updated_schedule
+                    )
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).error(f"Error dispatching consultation email: {e}")
 
     @property
     def duration_label(self):
@@ -415,18 +492,40 @@ class ConsultationBooking(models.Model):
         return labels.get(self.duration_minutes, f'{self.duration_minutes} Minutes')
 
     @property
+    def fee_amount_display(self):
+        return f"₹{self.fee_amount:,.2f}"
+
+    @property
+    def discount_amount_display(self):
+        return f"₹{self.discount_amount:,.2f}"
+
+    @property
+    def net_amount_display(self):
+        return f"₹{self.net_amount:,.2f}"
+
+    @property
     def status_badge_class(self):
         mapping = {
             'received': 'badge-info',
             'under_review': 'badge-warning',
             'confirmed': 'badge-success',
             'paid': 'badge-gold',
-            'payment_pending': 'badge-warning',
             'rescheduled': 'badge-orange',
             'completed': 'badge-primary',
             'cancelled': 'badge-danger',
         }
         return mapping.get(self.status, 'badge-secondary')
+
+    @property
+    def payment_badge_class(self):
+        mapping = {
+            'paid': 'badge-success',
+            'waived': 'badge-success',
+            'unpaid': 'badge-danger',
+            'pending': 'badge-warning',
+            'refunded': 'badge-secondary',
+        }
+        return mapping.get(self.payment_status, 'badge-warning')
 
 
 class MediaMention(models.Model):

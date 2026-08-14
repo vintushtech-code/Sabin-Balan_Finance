@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from login.views import admin_2fa_login
 
 # Enforce 2-Way Verification (2FA) for Django Admin site authentication
@@ -21,7 +21,11 @@ ADMIN_SECRET_PATH = getattr(settings, 'ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip
 def admin_honeypot_404(request):
     raise Http404("Page not found")
 
+def favicon_view(request):
+    return HttpResponse(status=204)
+
 urlpatterns = [
+    path('favicon.ico', favicon_view),
     # Honeypot: Standard /admin/ access returns instant 404 camouflage
     path('admin/', admin_honeypot_404),
     

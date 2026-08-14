@@ -29,8 +29,9 @@
     })();
   </script>
 
-  <!-- Master Executive Theme Stylesheet -->
+  <!-- Master Executive Theme Stylesheets -->
   <link rel="stylesheet" href="{% static 'theme_config/css/theme.css' %}">
+  <link rel="stylesheet" href="{% static 'theme_config/css/chat_widget.css' %}">
   <link rel="stylesheet" href="{% static 'navfooter/css/navfooter.css' %}">
   {% block extra_css %}{% endblock %}
 </head>
@@ -63,59 +64,6 @@
     {% endif %}
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const toasts = document.querySelectorAll('.toast-message-item');
-      toasts.forEach(function(toast) {
-        setTimeout(function() {
-          dismissToast(toast);
-        }, 3000);
-      });
-    });
-
-    function dismissToast(toastEl) {
-      if (!toastEl || toastEl.classList.contains('dismissing')) return;
-      toastEl.classList.add('dismissing');
-      toastEl.style.animation = 'toastSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-      setTimeout(function() {
-        if (toastEl.parentElement && toastEl.parentElement.querySelectorAll('.toast-message-item').length === 1) {
-          // Keep container, just remove child
-          toastEl.remove();
-        } else {
-          toastEl.remove();
-        }
-      }, 400);
-    }
-
-    function showToast(message, type='info') {
-      const container = document.getElementById('toast-messages-container');
-      if (!container) return;
-      
-      const toast = document.createElement('div');
-      toast.className = `toast-message-item alert-${type}`;
-      toast.setAttribute('role', 'alert');
-      
-      let icon = 'ℹ';
-      if (type === 'success') icon = '✓';
-      else if (type === 'error' || type === 'danger') icon = '✕';
-      
-      toast.innerHTML = `
-        <div class="toast-message-content">
-          <span class="toast-icon">${icon}</span>
-          <span class="toast-text">${message}</span>
-        </div>
-        <button type="button" class="toast-close-btn" onclick="dismissToast(this.parentElement)" aria-label="Close notification">&times;</button>
-        <div class="toast-progress-bar"></div>
-      `;
-      
-      container.appendChild(toast);
-      
-      setTimeout(() => {
-        dismissToast(toast);
-      }, 3000);
-    }
-  </script>
-
   <!-- Application Main Content Area -->
   <main class="app-container">
     {% block content %}
@@ -128,150 +76,14 @@
   {% endblock %}
 
   <!-- FLOATING LIVE CHAT WIDGET -->
-  <style>
-    .live-chat-widget {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 1050;
-    }
-    .chat-btn {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, var(--color-gold, #D4AF37) 0%, #A8801C 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0A0D14;
-      font-size: 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-      transition: all 0.3s ease;
-      border: none;
-    }
-    .chat-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.6);
-    }
-    .chat-panel {
-      position: absolute;
-      bottom: 80px;
-      right: 0;
-      width: 320px;
-      background: var(--color-secondary, #1B1712);
-      border: 1px solid var(--color-border, #332D23);
-      border-radius: var(--radius-lg, 12px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      transform-origin: bottom right;
-      animation: chatPopUp 0.3s ease forwards;
-    }
-    .chat-panel.active {
-      display: flex;
-    }
-    .chat-header {
-      background: var(--color-gold, #D4AF37);
-      color: #0A0D14;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 700;
-    }
-    .chat-close {
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-    .chat-body {
-      padding: 1rem;
-      height: 250px;
-      overflow-y: auto;
-      color: var(--color-subtext, #9CA3AF);
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .chat-message {
-      max-width: 85%;
-      width: fit-content;
-    }
-    .chat-message.bot {
-      align-self: flex-start;
-      background: rgba(255,255,255,0.05);
-      padding: 0.8rem;
-      border-radius: 8px;
-      border-left: 3px solid var(--color-gold, #D4AF37);
-    }
-    .chat-message.user {
-      align-self: flex-end;
-      background: rgba(212, 175, 55, 0.1);
-      padding: 0.8rem;
-      border-radius: 8px;
-      border-right: 3px solid var(--color-gold, #D4AF37);
-      text-align: right;
-      color: var(--color-primary, #F3F4F6);
-    }
-    .typing-indicator {
-      display: flex;
-      gap: 4px;
-      padding: 0.8rem;
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      border-left: 3px solid var(--color-gold);
-      align-self: flex-start;
-      width: fit-content;
-      align-items: center;
-    }
-    .typing-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--color-gold);
-      border-radius: 50%;
-      animation: typing 1.4s infinite ease-in-out both;
-    }
-    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-    @keyframes typing {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-    .chat-input {
-      display: flex;
-      border-top: 1px solid var(--color-border, #332D23);
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 1rem;
-      background: transparent;
-      border: none;
-      color: var(--color-primary, #F3F4F6);
-      outline: none;
-    }
-    .chat-input button {
-      background: none;
-      border: none;
-      color: var(--color-gold, #D4AF37);
-      padding: 0 1rem;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    @keyframes chatPopUp {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-  </style>
   <div class="live-chat-widget">
-    <button class="chat-btn" onclick="document.getElementById('chat-panel').classList.toggle('active')">
+    <button class="chat-btn" onclick="toggleChatPanel()" aria-label="Open support chat">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
     </button>
     <div class="chat-panel" id="chat-panel">
       <div class="chat-header">
         <span>GuardianTree Support</span>
-        <span class="chat-close" onclick="document.getElementById('chat-panel').classList.remove('active')">&times;</span>
+        <span class="chat-close" onclick="closeChatPanel()">&times;</span>
       </div>
       <div class="chat-body" id="chat-body">
         <div class="chat-message bot">
@@ -285,50 +97,8 @@
     </div>
   </div>
 
-  <script>
-    function sendChatMessage() {
-      const input = document.getElementById('chat-input-field');
-      const body = document.getElementById('chat-body');
-      const text = input.value.trim();
-      if (!text) return;
-      
-      const userMsg = document.createElement('div');
-      userMsg.className = 'chat-message user';
-      userMsg.textContent = text;
-      body.appendChild(userMsg);
-      
-      input.value = '';
-      body.scrollTop = body.scrollHeight;
-      
-      const typingInd = document.createElement('div');
-      typingInd.className = 'typing-indicator';
-      typingInd.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-      body.appendChild(typingInd);
-      body.scrollTop = body.scrollHeight;
-      
-      setTimeout(() => {
-        if (body.contains(typingInd)) body.removeChild(typingInd);
-        
-        const botMsg = document.createElement('div');
-        botMsg.className = 'chat-message bot';
-        
-        const lowerText = text.toLowerCase();
-        let reply = "Thank you for your message. An advisor will be with you shortly.";
-        if (lowerText.includes('hello') || lowerText.includes('hi')) {
-            reply = "Hello! How can we assist you with our wealth management services?";
-        } else if (lowerText.includes('pricing') || lowerText.includes('cost') || lowerText.includes('fee')) {
-            reply = "Our advisory fees are structured transparently based on AUM. We'd love to schedule a consultation to discuss this in detail.";
-        } else if (lowerText.includes('help')) {
-            reply = "Sure! You can navigate to 'Services' in the menu or book a consultation below.";
-        }
-        
-        botMsg.textContent = reply;
-        body.appendChild(botMsg);
-        body.scrollTop = body.scrollHeight;
-      }, 1500);
-    }
-  </script>
-
+  <!-- Core Theme JavaScript -->
+  <script src="{% static 'theme_config/js/theme_base.js' %}" defer></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

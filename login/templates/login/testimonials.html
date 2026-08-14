@@ -4,288 +4,11 @@
 {% block title %}Client Testimonials | GuardianTree FP{% endblock %}
 
 {% block extra_css %}
-<!-- Load Testimonials External CSS -->
 <link rel="stylesheet" href="{% static 'login/css/testimonials.css' %}">
-
-<!-- Inline Style Overrides to Guarantee 100% Correct Home-style Hero Rendering -->
-<style>
-  .hero-banner {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background: transparent;
-    overflow: hidden;
-    overflow-x: hidden;
-    padding: 6.5rem 2rem 3.5rem 2rem;
-    margin-top: 0;
-    border-bottom: none;
-    box-sizing: border-box;
-  }
-
-  .hero-video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-    pointer-events: none;
-    filter: none !important;
-    opacity: 1 !important;
-  }
-
-  .hero-glow-gold {
-    position: absolute;
-    top: -100px;
-    left: 20%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    z-index: 3;
-    background: radial-gradient(circle, rgba(245, 215, 127, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
-    filter: blur(60px);
-    pointer-events: none;
-    animation: pulseGlow 6s ease-in-out infinite;
-  }
-
-  .hero-content-wrapper {
-    position: relative;
-    z-index: 10;
-    max-width: 1280px;
-    width: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 3.5rem;
-  }
-
-  .hero-left-section {
-    max-width: 720px;
-    width: 100%;
-    text-align: left;
-    margin-left: 0;
-    margin-top: 30px;
-  }
-
-  .hero-pill-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.45rem 1.25rem;
-    background: rgba(212, 175, 55, 0.14);
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    border-radius: var(--radius-pill);
-    color: var(--color-gold);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 1.75rem;
-    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
-  }
-
-  .hero-image-styled-title {
-    font-size: clamp(2.35rem, 5vw + 1rem, 4.25rem);
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.06;
-    letter-spacing: -0.035em;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
-  }
-
-  .highlight-text {
-    color: #FFD700;
-    background: linear-gradient(185deg, #FFF9C4 0%, #FFD700 35%, #F59E0B 75%, #B45309 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-  }
-
-  .hero-image-styled-subtitle {
-    font-size: 1.2rem;
-    color: rgba(241, 245, 249, 0.9);
-    max-width: 580px;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  }
-
-  .hero-pill-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(16px);
-    border-radius: 9999px;
-    padding: 0.45rem 0.45rem 0.45rem 1.25rem;
-    max-width: 540px;
-    width: 100%;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.4);
-    transition: all 0.3s ease;
-  }
-
-  .hero-pill-bar:focus-within {
-    transform: translateY(-2px);
-    background: #ffffff;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 3px rgba(212, 175, 55, 0.4);
-  }
-
-  .pill-left-content {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .pill-icon {
-    font-size: 1.15rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(212, 175, 55, 0.12);
-    color: var(--color-gold);
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-
-  .pill-store-name {
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #0f172a;
-    white-space: nowrap;
-    letter-spacing: -0.01em;
-  }
-
-  .pill-divider {
-    color: #cbd5e1;
-    font-weight: 300;
-    font-size: 1.2rem;
-    user-select: none;
-  }
-
-  .pill-input {
-    border: none;
-    background: transparent;
-    outline: none;
-    font-size: 0.95rem;
-    color: #0f172a;
-    width: 100%;
-    font-family: inherit;
-  }
-
-  .pill-submit-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FFD700 0%, #D97706 100%);
-    border: none;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.45);
-    transition: all 0.25s ease;
-  }
-
-  .metrics-ticker-wrapper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    width: 100%;
-    max-width: 920px;
-    margin: 0;
-    padding: 0.75rem 1.5rem;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    backdrop-filter: blur(24px);
-    border-radius: var(--radius-pill);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 12px rgba(212, 175, 55, 0.08);
-    transition: var(--transition-smooth);
-  }
-
-  .metric-item {
-    text-align: center;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0.15rem 0.5rem;
-  }
-
-  .metric-value {
-    font-size: 1.35rem;
-    font-weight: 800;
-    font-family: var(--font-heading);
-    color: #B45309;
-    background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #92400E 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.05rem;
-    line-height: 1.2;
-  }
-
-  .metric-label {
-    font-size: 0.72rem;
-    color: #334155;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  [data-theme='dark'] .metrics-ticker-wrapper {
-    background: rgba(6, 9, 16, 0.88);
-    border-color: rgba(212, 175, 55, 0.35);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 14px rgba(212, 175, 55, 0.1);
-  }
-
-  [data-theme='dark'] .metric-value {
-    color: #FFD700;
-    background: linear-gradient(135deg, #FFFFFF 0%, #FFF59D 35%, #FFD700 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-  }
-
-  [data-theme='dark'] .metric-label {
-    color: #E2E8F0;
-  }
-
-  /* Initial Letter Fallback Profile Styles */
-  .card-avatar-initials {
-    width: 100%;
-    height: 160px;
-    background: linear-gradient(135deg, #FFD700 0%, #D97706 100%);
-    color: #0A0D14;
-    font-size: 3.5rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  }
-</style>
 {% endblock %}
 
 {% block content %}
-
-<!-- 1. HERO BANNER SECTION (EXACTLY SAME CODE AS HOME'S HERO SECTION BUT WITH CUSTOMIZED TESTIMONIALS TEXT & BACKGROUND IMAGE) -->
+<!-- 1. HERO BANNER SECTION -->
 <section class="hero-banner">
   <!-- Customized Background Image from photos folder -->
   <img class="hero-video-bg" src="{% static 'testimonials_hero.png' %}" alt="GuardianTree FP Global Partners & Leaders">
@@ -313,16 +36,16 @@
         Discover authentic feedback and verified success stories from salaried professionals, entrepreneurs, and families compounding wealth and securing their retirement with GuardianTree FP.
       </p>
 
-      <!-- Pill Search & Filter Bar (Matching Home Page Pill Bar) -->
+      <!-- Pill Search & Filter Bar -->
       <div class="hero-pill-bar">
         <div class="pill-left-content">
           <span class="pill-icon">💬</span>
           <span class="pill-store-name">Reviews</span>
           <span class="pill-divider">|</span>
           <input type="text" id="testimonialSearchInput" class="pill-input"
-            placeholder="Search by name, title, or location..." onkeyup="filterLeadersGridSearch()">
+            placeholder="Search by name, title, or location...">
         </div>
-        <button type="button" class="pill-submit-btn" aria-label="Search reviews" onclick="filterLeadersGridSearch()">
+        <button type="button" class="pill-submit-btn" aria-label="Search reviews">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
@@ -332,7 +55,7 @@
       </div>
     </div>
 
-    <!-- Live Financial Market Metrics Ticker (Matching Home Page Ticker) -->
+    <!-- Live Financial Market Metrics Ticker -->
     <div class="metrics-ticker-wrapper">
       <div class="metric-item">
         <div class="metric-value">₹15,000+ Cr</div>
@@ -355,17 +78,16 @@
   </div>
 </section>
 
-<!-- 2. WAVY LEADERS PORTRAIT GRID SECTION (PLACED AFTER THE HERO SECTION) -->
+<!-- 2. WAVY LEADERS PORTRAIT GRID SECTION -->
 <div class="testimonials-galaxy-page">
 
-  <!-- Staggered Portrait Grid of Leaders (Exactly matching your reference image layout) -->
+  <!-- Staggered Portrait Grid of Leaders -->
   <div class="leaders-wavy-wrapper">
     <div class="leaders-wavy-grid">
 
-      <!-- DYNAMIC DB SUBMITTED TESTIMONIALS (ONLY REAL REVIEWS ARE DISPLAYED HERE IN EXACTLY 9 COLUMNS) -->
+      <!-- DYNAMIC DB SUBMITTED TESTIMONIALS (DISPLAYED IN 9 COLUMNS) -->
       {% for col_items in testimonials_cols %}
       <div class="grid-col">
-        <!-- Render a placeholder only if the column has no testimonials -->
         {% if not col_items %}
         <div class="grid-placeholder"></div>
         {% endif %}
@@ -392,8 +114,7 @@
   <!-- Central Header Content & Review Submission Button -->
   <div class="center-content-section">
     <div class="testimonials-pill-badge">Testimonials</div>
-    <h2 class="main-headline-bold">Trusted by leaders<br><span class="highlight-text">from various industries</span>
-    </h2>
+    <h2 class="main-headline-bold">Trusted by leaders<br><span class="highlight-text">from various industries</span></h2>
     <p class="main-description-text">
       Learn why professionals trust our wealth management solutions to secure and compound their financial futures.
     </p>
@@ -411,9 +132,6 @@
     </div>
   </div>
 
-  <!-- Search & Category Filter Dock -->
-
-
   <!-- MODAL A: READ TESTIMONIAL DETAIL OVERLAY -->
   <div class="modal-overlay" id="detailModal" onclick="closeReviewModal(event)">
     <div class="modal-container" onclick="event.stopPropagation()">
@@ -425,19 +143,15 @@
             style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-gold); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
         </div>
         <div>
-          <h3 id="mName" style="color: var(--color-primary); font-size: 1.35rem; margin-bottom: 0.2rem;">Emily Carter
-          </h3>
-          <div id="mRole" style="color: var(--color-gold); font-weight: 700; font-size: 0.9rem;">Fintech Entrepreneur
-          </div>
-          <div id="mLocation" style="color: var(--color-subtext); font-size: 0.82rem; margin-top: 0.2rem;">📍 Zurich
-          </div>
+          <h3 id="mName" style="color: var(--color-primary); font-size: 1.35rem; margin-bottom: 0.2rem;">Emily Carter</h3>
+          <div id="mRole" style="color: var(--color-gold); font-weight: 700; font-size: 0.9rem;">Fintech Entrepreneur</div>
+          <div id="mLocation" style="color: var(--color-subtext); font-size: 0.82rem; margin-top: 0.2rem;">📍 Zurich</div>
         </div>
       </div>
 
       <div
         style="background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); padding: 0.75rem 1.1rem; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
-        <span style="color: var(--color-gold); font-weight: 700; font-size: 0.9rem;" id="mHighlight">Verified Client
-          Member</span>
+        <span style="color: var(--color-gold); font-weight: 700; font-size: 0.9rem;" id="mHighlight">Verified Client Member</span>
         <span style="color: #fbbf24; font-size: 0.95rem;" id="mStars">⭐⭐⭐⭐⭐</span>
       </div>
 
@@ -462,7 +176,7 @@
     </div>
   </div>
 
-  <!-- MODAL B: WRITE YOUR OWN TESTIMONIAL FORM OVERLAY (WITH MULTIPART FILE UPLOAD SUPPORT) -->
+  <!-- MODAL B: WRITE YOUR OWN TESTIMONIAL FORM OVERLAY -->
   <div class="modal-overlay" id="writeModal" onclick="closeWriteModal(event)">
     <div class="modal-container" onclick="event.stopPropagation()">
       <button class="modal-close-btn" onclick="closeWriteModal()">&times;</button>
@@ -518,123 +232,9 @@
       </form>
     </div>
   </div>
+</div>
+{% endblock %}
 
-  {% endblock %}
-
-  {% block extra_js %}
-  <script>
-    // Open Review Details Modal
-    var activeCategory = 'all';
-
-    function openReviewModal(name, role, location, quote, rating, avatar, highlight) {
-      document.getElementById('mName').textContent = name;
-      document.getElementById('mRole').textContent = role;
-      document.getElementById('mLocation').textContent = '📍 ' + location;
-      document.getElementById('mQuote').textContent = '"' + quote + '"';
-      document.getElementById('mStars').textContent = rating;
-      document.getElementById('mHighlight').textContent = highlight || 'Verified Fiduciary Account';
-
-      const avatarWrapper = document.getElementById('mAvatarWrapper');
-      if (avatar && avatar !== '') {
-        avatarWrapper.innerHTML = `<img id="mAvatar" src="${avatar}" alt="${name}" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-gold); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">`;
-      } else {
-        const firstLetter = name.charAt(0).toUpperCase();
-        avatarWrapper.innerHTML = `
-        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%); color: #0A0D14; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.6rem; border: 2px solid var(--color-gold); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
-          ${firstLetter}
-        </div>
-      `;
-      }
-
-      const modal = document.getElementById('detailModal');
-      modal.classList.add('active');
-    }
-
-    function closeReviewModal(e) {
-      if (e && e.target !== document.getElementById('detailModal') && !e.target.classList.contains('modal-close-btn')) {
-        return;
-      }
-      const modal = document.getElementById('detailModal');
-      modal.classList.remove('active');
-    }
-
-    // Open Write Testimonial Form Modal
-    function openWriteModal() {
-      const modal = document.getElementById('writeModal');
-      modal.classList.add('active');
-    }
-
-    function closeWriteModal(e) {
-      if (e && e.target !== document.getElementById('writeModal') && !e.target.classList.contains('modal-close-btn')) {
-        return;
-      }
-      const modal = document.getElementById('writeModal');
-      modal.classList.remove('active');
-    }
-
-    // Filter leaders portrait cards by Category Pill
-    function filterCategory(btn) {
-      const btns = document.querySelectorAll('.dock-filter-btn');
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      activeCategory = btn.getAttribute('data-category');
-      applyCombinedFilters();
-    }
-
-    // Search input change handler in dock
-    function filterLeadersGrid() {
-      applyCombinedFilters();
-    }
-
-    // Hero Search Input handler
-    document.getElementById('testimonialSearchInput').addEventListener('keyup', () => {
-      const query = document.getElementById('testimonialSearchInput').value;
-      document.getElementById('dockSearchInput').value = query;
-      applyCombinedFilters();
-    });
-
-    // Unified Filter Application
-    function applyCombinedFilters() {
-      const query = document.getElementById('dockSearchInput').value.toLowerCase().trim();
-      const portraitCards = document.querySelectorAll('.leader-portrait-card');
-
-      portraitCards.forEach(card => {
-        const cardOnclick = card.getAttribute('onclick') || '';
-        const lowerOnclick = cardOnclick.toLowerCase();
-
-        // Category Match
-        let categoryMatch = false;
-        if (activeCategory === 'all') {
-          categoryMatch = true;
-        } else if (activeCategory === 'entrepreneur' && lowerOnclick.includes('entrepreneur')) {
-          categoryMatch = true;
-        } else if (activeCategory === 'portfolio_manager' && lowerOnclick.includes('portfolio manager')) {
-          categoryMatch = true;
-        } else if (activeCategory === 'saver' && lowerOnclick.includes('saver')) {
-          categoryMatch = true;
-        } else if (activeCategory === 'institutional' && (lowerOnclick.includes('trustee') || lowerOnclick.includes('executive') || lowerOnclick.includes('institutional'))) {
-          categoryMatch = true;
-        }
-
-        // Keyword Match
-        let keywordMatch = false;
-        if (!query || lowerOnclick.includes(query)) {
-          keywordMatch = true;
-        }
-
-        const colElement = card.parentElement;
-        if (categoryMatch && keywordMatch) {
-          colElement.style.display = 'flex';
-          card.style.opacity = '1';
-          card.style.transform = 'scale(1)';
-          card.style.pointerEvents = 'auto';
-        } else {
-          card.style.opacity = '0.15';
-          card.style.transform = 'scale(0.85)';
-          card.style.pointerEvents = 'none';
-        }
-      });
-    }
-  </script>
-  {% endblock %}
+{% block extra_js %}
+<script src="{% static 'login/js/testimonials.js' %}"></script>
+{% endblock %}

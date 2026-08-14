@@ -23,8 +23,19 @@ urlpatterns = [
     path('consultation/', views.ConsultationView.as_view(), name='consultation'),
     path('book-consultation/', views.ConsultationView.as_view(), name='book_consultation'),
     path('consultation/track/', views.ConsultationView.as_view(), name='consultation_track'),
-    path('consultation/api/slots/', views.ConsultationSlotsAPIView.as_view(), name='consultation_slots_api'),
+    path('consultation/api/slots/', views.ConsultationSlotsAPIView.as_view(), name='consultation_slots'),
+    path('consultation/api/slots/v1/', views.ConsultationSlotsAPIView.as_view(), name='consultation_slots_api'),
     path('consultation/api/track/', views.ConsultationTrackAPIView.as_view(), name='consultation_track_api'),
+
+    # Client Authentication Suite
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('signup/', views.SignupView.as_view(), name='signup'),
+    path('password-reset/', views.CustomPasswordResetView.as_view(), name='password_reset'),
+    path('password-reset/done/', views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('password-reset/confirm/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password-reset/complete/', views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('auth/<str:provider>/', views.SocialAuthInitView.as_view(), name='social_init'),
+    path('auth/<str:provider>/callback/', views.SocialAuthCallbackView.as_view(), name='social_callback'),
 
     # Administrator 2-Way Verification (2FA) Routes
     path('verify-2fa/', views.Admin2FAVerifyView.as_view(), name='admin_2fa_verify'),

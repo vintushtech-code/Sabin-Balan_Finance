@@ -253,65 +253,6 @@ a {
     padding: 6px 14px;
 }
 
-/* Header */
-.main-header {
-    padding: 20px 0;
-    background-color: var(--header-bg);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid var(--header-border);
-    transition: var(--transition-smooth);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h1 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    background: linear-gradient(135deg, var(--color-heading-text) 60%, var(--color-gold-light) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 28px;
-}
-
-.main-nav a {
-    color: var(--color-text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-}
-
-.main-nav a:hover,
-.main-nav a.active {
-    color: var(--color-gold-light);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.contact-info {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-}
-
 /* Hero Section with Video Background */
 .hero-video-section {
     position: relative;
