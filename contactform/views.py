@@ -138,26 +138,10 @@ class ContactFormView(FormView):
         # 3. Save utilizing Django ORM (which uses parameterized queries)
         submission.save()
 
-        # 4. Email notification to target recipient
-        recipient = getattr(settings, 'CONTACT_FORM_EMAIL_RECIPIENT', 'admin@example.com')
-        subject = f"New Contact Submission: {submission.subject}"
-        message_body = (
-            f"You have received a new contact submission:\n\n"
-            f"Name: {submission.name}\n"
-            f"Email: {submission.email}\n"
-            f"IP Address: {submission.ip_address}\n\n"
-            f"Message:\n{submission.message}\n"
-        )
-        sender = getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@example.com')
-        
+        # 4. Dispatch luxury emails to client (acknowledgment) and admin (alert)
         try:
-            send_mail(
-                subject,
-                message_body,
-                sender,
-                [recipient],
-                fail_silently=False,
-            )
+            from login.emails import send_contact_form_emails
+            send_contact_form_emails(submission)
         except Exception as e:
             logger.error(f"Failed to send contact notification email: {e}")
 

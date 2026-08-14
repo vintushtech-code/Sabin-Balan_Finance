@@ -567,6 +567,11 @@ class TestimonialsView(View):
                 # Set blank so initials template badge is rendered
                 testimonial.avatar_image = ""
             testimonial.save()
+            try:
+                from .emails import send_testimonial_email
+                send_testimonial_email(testimonial)
+            except Exception as e:
+                logger.error(f"Error dispatching testimonial notification: {e}")
             messages.success(request, "Your testimonial has been submitted successfully! It is now pending admin moderation.")
             return redirect('login:testimonials')
         
@@ -838,10 +843,24 @@ class ConsultationView(View):
             'consultation_time': b.consultation_time.strftime("%I:%M %p"),
             'end_time': b.end_time.strftime("%I:%M %p") if b.end_time else "",
             'preferred_comm': b.get_preferred_comm_display(),
+            'fee_amount': float(b.fee_amount or 5000.00),
+            'fee_display': f"₹{b.fee_amount:,.2f}",
+            'discount_amount': float(b.discount_amount or 0.00),
+            'discount_display': f"₹{b.discount_amount:,.2f}",
+            'net_amount': float(b.net_amount or 5000.00),
+            'net_display': f"₹{b.net_amount:,.2f}",
+            'invoice_number': b.invoice_number or f"INV-2026-{b.reference_key[:6]}",
+            'payment_status': b.get_payment_status_display(),
+            'payment_status_code': b.payment_status,
+            'payment_badge': b.payment_badge_class,
+            'payment_method': b.payment_method,
+            'transaction_id': b.transaction_id,
+            'fiduciary_desk': b.fiduciary_desk or "Senior Wealth Advisory & Fiduciary Desk",
+            'meeting_link': b.meeting_link,
+            'client_instructions': b.client_instructions,
             'status': b.status,
             'status_label': b.get_status_display(),
             'status_badge': b.status_badge_class,
-            'payment_status': b.get_payment_status_display(),
             'is_rescheduled': b.status == 'rescheduled' or bool(b.previous_date),
             'previous_date': b.previous_date.strftime("%A, %d %B %Y") if b.previous_date else "",
             'previous_time': b.previous_time.strftime("%I:%M %p") if b.previous_time else "",
@@ -1078,10 +1097,24 @@ class ConsultationTrackAPIView(View):
             'consultation_time': booking.consultation_time.strftime("%I:%M %p"),
             'end_time': booking.end_time.strftime("%I:%M %p") if booking.end_time else "",
             'preferred_comm': booking.get_preferred_comm_display(),
+            'fee_amount': float(booking.fee_amount or 5000.00),
+            'fee_display': f"₹{booking.fee_amount:,.2f}",
+            'discount_amount': float(booking.discount_amount or 0.00),
+            'discount_display': f"₹{booking.discount_amount:,.2f}",
+            'net_amount': float(booking.net_amount or 5000.00),
+            'net_display': f"₹{booking.net_amount:,.2f}",
+            'invoice_number': booking.invoice_number or f"INV-2026-{booking.reference_key[:6]}",
+            'payment_status': booking.get_payment_status_display(),
+            'payment_status_code': booking.payment_status,
+            'payment_badge': booking.payment_badge_class,
+            'payment_method': booking.payment_method,
+            'transaction_id': booking.transaction_id,
+            'fiduciary_desk': booking.fiduciary_desk or "Senior Wealth Advisory & Fiduciary Desk",
+            'meeting_link': booking.meeting_link,
+            'client_instructions': booking.client_instructions,
             'status': booking.status,
             'status_label': booking.get_status_display(),
             'status_badge': booking.status_badge_class,
-            'payment_status': booking.get_payment_status_display(),
             'is_rescheduled': booking.status == 'rescheduled' or bool(booking.previous_date),
             'previous_date': booking.previous_date.strftime("%A, %d %B %Y") if booking.previous_date else "",
             'previous_time': booking.previous_time.strftime("%I:%M %p") if booking.previous_time else "",

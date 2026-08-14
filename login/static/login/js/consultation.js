@@ -300,6 +300,12 @@ function fetchAvailableSlots(dateStr, duration) {
     });
 }
 
+const DURATION_FEES = {
+  30: { fee: 3000, display: '₹3,000 INR', label: '30 Minutes (Focused Consultation)' },
+  45: { fee: 5000, display: '₹5,000 INR', label: '45 Minutes (Strategic Consultation)' },
+  60: { fee: 8000, display: '₹8,000 INR', label: '60 Minutes (Comprehensive Consultation)' }
+};
+
 /* --------------------------------------------------------------------------
    4. Update Live Dynamic Booking Summary Card
    -------------------------------------------------------------------------- */
@@ -330,29 +336,30 @@ function updateSummaryCard() {
     serviceSummary.textContent = serviceSelect.options[serviceSelect.selectedIndex].text;
   }
 
-  // Duration
+  // Duration & Advisory Fee (₹3,000 for 30m, ₹5,000 for 45m, ₹8,000 for 60m)
   const durationSummary = document.getElementById('summary-duration-text');
+  const feeSummary = document.getElementById('summary-fee-text');
+  const feeInfo = DURATION_FEES[selectedDuration] || DURATION_FEES[45];
+  
   if (durationSummary) {
-    const labels = {
-      30: '30 Minutes (Focused Consultation)',
-      45: '45 Minutes (Strategic Consultation)',
-      60: '60 Minutes (Comprehensive Consultation)'
-    };
-    durationSummary.textContent = labels[selectedDuration] || `${selectedDuration} Minutes`;
+    durationSummary.textContent = feeInfo.label;
+  }
+  if (feeSummary) {
+    feeSummary.textContent = feeInfo.display;
   }
 
-  // Date
+  // Date & Time
   const infoBarText = document.getElementById('calendar-selected-date-text');
   const dateSummary = document.getElementById('summary-date-text');
-  if (infoBarText && dateSummary) {
-    dateSummary.textContent = infoBarText.textContent;
-  }
-
-  // Time
+  const datetimeSummary = document.getElementById('summary-datetime-text');
   const timeSummary = document.getElementById('summary-time-text');
-  if (timeSummary) {
-    timeSummary.textContent = `${selectedTimeDisplay} – ${selectedEndTimeDisplay}`;
-  }
+  
+  const dateLabel = (infoBarText ? infoBarText.textContent : (selectedDateStr || 'Tuesday, 18 August 2026'));
+  const timeLabel = selectedTimeDisplay ? `${selectedTimeDisplay} – ${selectedEndTimeDisplay}` : '10:00 AM – 10:45 AM';
+
+  if (dateSummary) dateSummary.textContent = dateLabel;
+  if (timeSummary) timeSummary.textContent = timeLabel;
+  if (datetimeSummary) datetimeSummary.textContent = `${dateLabel} at ${selectedTimeDisplay || '10:00 AM'}`;
 }
 
 function getUrlParameter(name) {
@@ -614,17 +621,173 @@ function renderTrackData(data) {
             <div class="consult-summary-item-value">${data.duration_label} (${data.preferred_comm})</div>
           </div>
           <div>
-            <div class="consult-summary-item-label">Client Email</div>
-            <div class="consult-summary-item-value">${data.email}</div>
+            <div class="consult-summary-item-label">Advisory Fee &amp; Net Due</div>
+            <div class="consult-summary-item-value" style="font-weight: 700; color: var(--color-primary);">${data.net_display || data.fee_display || '₹5,000.00'}</div>
           </div>
           <div>
             <div class="consult-summary-item-label">Payment Status</div>
-            <div class="consult-summary-item-value" style="color: #059669;">${data.payment_status}</div>
+            <div class="consult-summary-item-value" style="font-weight: 700; color: ${data.payment_status_code === 'paid' || data.payment_status_code === 'waived' ? '#059669' : '#dc2626'};">${data.payment_status}</div>
           </div>
         </div>
+      </div>
+
+      <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end; gap: 0.75rem; flex-wrap: wrap;">
+        <button type="button" class="btn-consult-secondary" style="padding: 0.55rem 1.25rem; font-size: 0.82rem;" onclick="openReceiptModal()">
+          <i class="fa-solid fa-file-invoice"></i>
+          <span>View &amp; Print Confirmation Statement</span>
+        </button>
       </div>
     </div>
   `;
 
+  // Save current data for receipt modal
+  activeReceiptData = data;
   container.style.display = 'block';
 }
+
+/* --------------------------------------------------------------------------
+   8. Executive Consultation Confirmation & Billing Receipt Modal Logic
+   -------------------------------------------------------------------------- */
+let activeReceiptData = null;
+
+function openReceiptModal(customData) {
+  const modal = document.getElementById('consultation-receipt-modal');
+  if (!modal) return;
+
+  const data = customData || activeReceiptData || {};
+
+  // Extract fallback values from DOM or state
+  const refKey = data.reference_key || document.getElementById('display-reference-key')?.textContent.trim() || document.getElementById('track-reference-key-input')?.value.trim() || 'GT7K4M9P2X';
+  const clientName = data.client_name || document.getElementById('conf-client-name')?.textContent.trim() || document.getElementById('id_client_name')?.value.trim() || 'Eleanor Vance';
+  const email = data.email || document.getElementById('id_email')?.value.trim() || 'client@advisory.guardiantreefp.com';
+  const phone = data.phone || document.getElementById('id_phone')?.value.trim() || '+91 98765 43210';
+  const service = data.service || document.getElementById('conf-service')?.textContent.trim() || document.getElementById('id_service')?.selectedOptions?.[0]?.text || 'Investment & Multi-Asset Portfolio Strategy';
+  const datetime = (data.consultation_date && data.consultation_time) ? `${data.consultation_date} at ${data.consultation_time}` : (document.getElementById('conf-datetime')?.textContent.trim() || 'Tuesday, 18 August 2026 at 10:00 AM');
+  
+  const durationMinutes = data.duration_minutes || selectedDuration || 45;
+  const feeInfo = DURATION_FEES[durationMinutes] || DURATION_FEES[45];
+  const durationLabel = data.duration_label || document.getElementById('conf-duration')?.textContent.trim() || feeInfo.label;
+  const channel = data.preferred_comm || document.getElementById('id_preferred_comm')?.selectedOptions?.[0]?.text || 'Secure Video Conference';
+  const fiduciaryDesk = data.fiduciary_desk || 'Senior Wealth Advisory Desk';
+  
+  const feeDisplay = data.fee_display || `₹${feeInfo.fee.toLocaleString('en-IN')}.00`;
+  const discountDisplay = data.discount_display ? `-${data.discount_display}` : '-₹0.00';
+  const netDisplay = data.net_display || feeDisplay;
+  
+  const paymentStatus = data.payment_status || (data.payment_status_code === 'paid' ? 'PAID / COMPLETED' : 'UNPAID / PAYMENT DUE');
+  const isPaidOrWaived = data.payment_status_code === 'paid' || data.payment_status_code === 'waived' || paymentStatus.toLowerCase().includes('paid') || paymentStatus.toLowerCase().includes('waived');
+  const invoiceNumber = data.invoice_number || `INV-${new Date().getFullYear()}-${refKey.slice(0, 6)}`;
+  const statusLabel = (data.status_label || 'CONFIRMED & ALLOCATED').toUpperCase();
+
+  // Populate receipt elements
+  const elKey = document.getElementById('rcpt-ref-key');
+  const elName = document.getElementById('rcpt-client-name');
+  const elEmail = document.getElementById('rcpt-client-email');
+  const elPhone = document.getElementById('rcpt-client-phone');
+  const elService = document.getElementById('rcpt-service-name');
+  const elDatetime = document.getElementById('rcpt-datetime');
+  const elDuration = document.getElementById('rcpt-duration');
+  const elChannel = document.getElementById('rcpt-channel');
+  const elDesk = document.getElementById('rcpt-fiduciary-desk');
+  const elFee = document.getElementById('rcpt-fee-rate');
+  const elDiscount = document.getElementById('rcpt-discount-amount');
+  const elNet = document.getElementById('rcpt-net-total');
+  const elGrand = document.getElementById('rcpt-grand-total');
+  const elPayment = document.getElementById('rcpt-payment-status');
+  const elInvoice = document.getElementById('rcpt-invoice-id');
+  const elIssueDate = document.getElementById('rcpt-issue-date');
+  const elStatusBadge = document.getElementById('rcpt-status-badge-text');
+  const elStatusDot = document.getElementById('rcpt-status-dot');
+  const elTableDuration = document.getElementById('rcpt-table-duration');
+
+  if (elKey) elKey.textContent = refKey;
+  if (elName) elName.textContent = clientName;
+  if (elEmail) elEmail.textContent = email;
+  if (elPhone) elPhone.textContent = phone;
+  if (elService) elService.textContent = service;
+  if (elDatetime) elDatetime.textContent = datetime;
+  if (elDuration) elDuration.textContent = durationLabel;
+  if (elChannel) elChannel.textContent = channel;
+  if (elDesk) elDesk.textContent = fiduciaryDesk;
+  if (elTableDuration) elTableDuration.textContent = `${durationMinutes} Minutes`;
+  if (elFee) elFee.textContent = feeDisplay;
+  if (elDiscount) elDiscount.textContent = discountDisplay;
+  if (elNet) elNet.textContent = netDisplay;
+  
+  if (elGrand) {
+    elGrand.textContent = `${netDisplay} INR`;
+    elGrand.style.color = isPaidOrWaived ? '#059669' : '#dc2626';
+  }
+
+  if (elPayment) {
+    elPayment.textContent = paymentStatus.toUpperCase();
+    elPayment.style.color = isPaidOrWaived ? '#059669' : '#dc2626';
+  }
+
+  if (elInvoice) elInvoice.textContent = invoiceNumber;
+  if (elStatusBadge) elStatusBadge.textContent = `STATUS: ${statusLabel}`;
+  if (elStatusDot) {
+    elStatusDot.style.background = isPaidOrWaived ? '#059669' : '#d97706';
+  }
+
+  if (elIssueDate) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    elIssueDate.textContent = new Date().toLocaleDateString('en-US', options);
+  }
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReceiptModal() {
+  const modal = document.getElementById('consultation-receipt-modal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
+  document.body.style.overflow = '';
+}
+
+function printReceiptDirectly() {
+  window.print();
+}
+
+function copyReceiptDetails() {
+  const refKey = document.getElementById('rcpt-ref-key')?.textContent.trim() || 'GT7K4M9P2X';
+  const clientName = document.getElementById('rcpt-client-name')?.textContent.trim() || 'Client';
+  const service = document.getElementById('rcpt-service-name')?.textContent.trim() || 'Advisory Consultation';
+  const datetime = document.getElementById('rcpt-datetime')?.textContent.trim() || '';
+  const duration = document.getElementById('rcpt-duration')?.textContent.trim() || '45 Minutes';
+  const channel = document.getElementById('rcpt-channel')?.textContent.trim() || 'Encrypted Video';
+  const fee = document.getElementById('rcpt-grand-total')?.textContent.trim() || '₹5,000.00 INR';
+  const payment = document.getElementById('rcpt-payment-status')?.textContent.trim() || 'UNPAID';
+  const invoice = document.getElementById('rcpt-invoice-id')?.textContent.trim() || 'INV-2026';
+
+  const summaryText = `SABIN BALAN FINANCE — CONSULTATION CONFIRMATION & BILLING RECEIPT
+======================================================================
+Booking Reference: #${refKey}
+Invoice / Tax Ref: ${invoice}
+Client Name:       ${clientName}
+Advisory Mandate:  ${service}
+Schedule Date:     ${datetime}
+Duration:          ${duration}
+Meeting Channel:   ${channel}
+Advisory Fee:      ${fee}
+Payment Status:    ${payment}
+Fiduciary Entity:  Sabin Balan Finance Advisory Group (#SB-70492)
+======================================================================`;
+
+  const btnLabel = document.getElementById('copy-receipt-btn-label');
+  navigator.clipboard.writeText(summaryText).then(() => {
+    if (btnLabel) btnLabel.textContent = 'Copied!';
+    setTimeout(() => {
+      if (btnLabel) btnLabel.textContent = 'Copy Summary';
+    }, 2500);
+  });
+}
+
+// Close receipt modal on ESC key
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    closeReceiptModal();
+  }
+});

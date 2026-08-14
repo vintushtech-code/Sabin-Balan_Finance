@@ -101,7 +101,7 @@ Enter this 6-digit code on the 2FA Verification Page to complete login.
     logger.info(f"Admin 2FA OTP generated for user '{user.username}' -> Code: {code}")
 
     # ----------------------------------------------------------------------
-    # 2. Send Email via Django Email System
+    # 2. Send Luxury HTML Email (Terminal Mode in Dev / Real SMTP in Prod)
     # ----------------------------------------------------------------------
     subject = f"[{code}] Admin 2-Way Verification Security Code — Sabin Balan Finance"
     context = {
@@ -113,26 +113,12 @@ Enter this 6-digit code on the 2FA Verification Page to complete login.
     }
 
     try:
-        html_content = render_to_string('login/email_2fa_code.html', context)
-    except Exception:
-        html_content = None
-
-    text_content = (
-        f"Hello {user.get_display_name()},\n\n"
-        f"Your Sabin Balan Finance Admin Login 2-Factor Verification Code is:\n\n"
-        f"    *** {code} ***\n\n"
-        f"This code will expire in {OTP_EXPIRY_SECONDS // 60} minutes.\n"
-        f"If you did not initiate this login attempt, please secure your account immediately.\n"
-    )
-
-    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@guardiantreefp.com')
-    try:
-        send_mail(
+        from .emails import send_luxury_email
+        send_luxury_email(
             subject=subject,
-            message=text_content,
-            from_email=from_email,
+            template_name='emails/email_2fa_code.html',
+            context=context,
             recipient_list=[target_email],
-            html_message=html_content,
             fail_silently=True
         )
     except Exception as e:
