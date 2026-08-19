@@ -33,13 +33,13 @@
   </div>
 
   <!-- =========================================================================
-       ROW 1: 4 DYNAMIC KPI METRIC CARDS (BLACK, WHITE & GOLD)
+       ROW 1: 4 DYNAMIC VIBRANT KPI METRIC CARDS (EMERALD, CYAN, PURPLE & AMBER)
        ========================================================================= -->
   <div class="admin-metrics-grid">
-      <!-- Card 1: Featured Obsidian & Gold Card (Total Consultations) -->
-      <div class="admin-metric-card featured-card">
+      <!-- Card 1: Vibrant Emerald Forest (Total Consultations) -->
+      <div class="admin-metric-card card-emerald">
           <div class="admin-metric-card-header">
-              <span class="admin-metric-header-title">Total Consultations</span>
+              <span class="admin-metric-header-title">📅 Total Consultations</span>
               <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/" class="admin-metric-action-btn" title="View All Consultations">
                   ↗
               </a>
@@ -48,14 +48,14 @@
               <h2 class="admin-metric-value">{{ kpi_total_consultations|default:'0' }}</h2>
           </div>
           <div class="admin-metric-footer">
-              <span class="admin-metric-trend-pill">{{ kpi_confirmed_consultations|default:'0' }} Confirmed / Paid</span>
+              <span class="admin-metric-trend-pill">● {{ kpi_confirmed_consultations|default:'0' }} Confirmed / Paid</span>
           </div>
       </div>
 
-      <!-- Card 2: Client Leads & Inquiries (Crisp White Card) -->
-      <div class="admin-metric-card standard-card">
+      <!-- Card 2: Radiant Sapphire & Sky Cyan (Client Leads & Inquiries) -->
+      <div class="admin-metric-card card-cyan">
           <div class="admin-metric-card-header">
-              <span class="admin-metric-header-title">Client Inquiries &amp; Leads</span>
+              <span class="admin-metric-header-title">✉️ Client Inquiries &amp; Leads</span>
               <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/contactform/contactsubmission/" class="admin-metric-action-btn" title="View Contact Submissions">
                   ↗
               </a>
@@ -64,14 +64,14 @@
               <h2 class="admin-metric-value">{{ kpi_total_inquiries|default:'0' }}</h2>
           </div>
           <div class="admin-metric-footer">
-              <span class="admin-metric-trend-pill">Direct from Web Desk</span>
+              <span class="admin-metric-trend-pill">● Direct from Web Desk</span>
           </div>
       </div>
 
-      <!-- Card 3: Active Wealth Advisors (Crisp White Card) -->
-      <div class="admin-metric-card standard-card">
+      <!-- Card 3: Royal Purple & Indigo (Active Advisory Team) -->
+      <div class="admin-metric-card card-purple">
           <div class="admin-metric-card-header">
-              <span class="admin-metric-header-title">Active Advisory Team</span>
+              <span class="admin-metric-header-title">👔 Active Advisory Team</span>
               <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/teammember/" class="admin-metric-action-btn" title="View Wealth Advisors">
                   ↗
               </a>
@@ -80,14 +80,14 @@
               <h2 class="admin-metric-value">{{ advisory_team|length|default:'4' }}</h2>
           </div>
           <div class="admin-metric-footer">
-              <span class="admin-metric-trend-pill">Wealth Advisors &amp; Fiduciaries</span>
+              <span class="admin-metric-trend-pill">● Wealth Advisors &amp; Fiduciaries</span>
           </div>
       </div>
 
-      <!-- Card 4: Pending Consultations (Crisp White Card) -->
-      <div class="admin-metric-card standard-card">
+      <!-- Card 4: Sunset Amber & Gold (Pending Consultations) -->
+      <div class="admin-metric-card card-amber">
           <div class="admin-metric-card-header">
-              <span class="admin-metric-header-title">Pending Consultations</span>
+              <span class="admin-metric-header-title">⏳ Pending Consultations</span>
               <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/?status__exact=received" class="admin-metric-action-btn" title="View Pending Bookings">
                   ↗
               </a>
@@ -96,7 +96,7 @@
               <h2 class="admin-metric-value">{{ kpi_pending_consultations|default:'0' }}</h2>
           </div>
           <div class="admin-metric-footer">
-              <span class="admin-metric-trend-pill" style="background: rgba(212, 175, 55, 0.15); color: #8C6D1F; border: 1px solid rgba(212, 175, 55, 0.3);">Under Executive Review</span>
+              <span class="admin-metric-trend-pill">● Under Executive Review</span>
           </div>
       </div>
   </div>
@@ -106,14 +106,14 @@
        ========================================================================= -->
   <div class="admin-grid-two-col">
       
-      <!-- Weekly Activity Bar Chart (Black & Gold Hatching) -->
+      <!-- Weekly Activity Bar Chart (Multi-Color Glowing Pillars) -->
       <div class="admin-card-container">
           <div class="admin-card-header">
               <div>
                   <h3 class="admin-card-title">Activity &amp; Booking Trajectory</h3>
                   <p class="admin-card-subtitle">Dynamic week-over-week consultation and inquiry volume</p>
               </div>
-              <span class="admin-badge-gold">Live Telemetry</span>
+              <span class="admin-badge-emerald">Live Telemetry</span>
           </div>
           
           <div class="admin-weekly-chart-wrapper">
@@ -128,14 +128,14 @@
                   <span class="admin-chart-day-label {% if day.is_current %}active-day{% endif %}">{{ day.abbr }}</span>
               </div>
               {% empty %}
-              <!-- Default chart pillars -->
-              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 35%;"></div></div><span class="admin-chart-day-label">S</span></div>
-              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 60%;"></div></div><span class="admin-chart-day-label">M</span></div>
-              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 45%;"></div></div><span class="admin-chart-day-label">T</span></div>
-              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-tooltip">74% Peak</div><div class="admin-chart-bar gold-peak" style="height: 90%;"></div></div><span class="admin-chart-day-label active-day">W</span></div>
-              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 70%;"></div></div><span class="admin-chart-day-label">T</span></div>
-              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 55%;"></div></div><span class="admin-chart-day-label">F</span></div>
-              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 40%;"></div></div><span class="admin-chart-day-label">S</span></div>
+              <!-- Default chart pillars with distinct colors -->
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 38%;"></div></div><span class="admin-chart-day-label">S</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 65%;"></div></div><span class="admin-chart-day-label">M</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 50%;"></div></div><span class="admin-chart-day-label">T</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-tooltip">74% Peak</div><div class="admin-chart-bar gold-peak" style="height: 92%;"></div></div><span class="admin-chart-day-label active-day">W</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 75%;"></div></div><span class="admin-chart-day-label">T</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 58%;"></div></div><span class="admin-chart-day-label">F</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 42%;"></div></div><span class="admin-chart-day-label">S</span></div>
               {% endfor %}
           </div>
       </div>
@@ -147,7 +147,7 @@
                   <h3 class="admin-card-title">Upcoming Consultations &amp; Reminders</h3>
                   <p class="admin-card-subtitle">Scheduled wealth advisory appointments</p>
               </div>
-              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/" class="admin-badge-black">View All</a>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/" class="admin-badge-gold">View All</a>
           </div>
 
           {% for booking in upcoming_consultations %}
@@ -159,7 +159,7 @@
                       <p class="admin-reminder-meta">{{ booking.get_service_display|default:booking.service|title }} &bull; {{ booking.consultation_date }} at {{ booking.consultation_time|time:"H:i" }}</p>
                   </div>
               </div>
-              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/{{ booking.id }}/change/" class="admin-btn-gold" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/{{ booking.id }}/change/" class="admin-btn-gold" style="padding: 0.4rem 0.85rem; font-size: 0.75rem;">
                   Manage &rarr;
               </a>
           </div>
@@ -172,7 +172,7 @@
                       <p class="admin-reminder-meta">All scheduled bookings are up-to-date.</p>
                   </div>
               </div>
-              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/add/" class="admin-btn-gold" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/add/" class="admin-btn-gold" style="padding: 0.4rem 0.85rem; font-size: 0.75rem;">
                   + Add Booking
               </a>
           </div>
@@ -192,7 +192,7 @@
                   <h3 class="admin-card-title">Wealth Advisory Team</h3>
                   <p class="admin-card-subtitle">Active fiduciaries &amp; portfolio managers</p>
               </div>
-              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/teammember/" class="admin-badge-gold">Manage</a>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/teammember/" class="admin-badge-emerald">Manage</a>
           </div>
 
           {% for member in advisory_team %}
@@ -204,7 +204,7 @@
                       <p class="admin-team-role">{{ member.role }}</p>
                   </div>
               </div>
-              <span class="admin-badge-gold">Active</span>
+              <span class="admin-badge-emerald">Active</span>
           </div>
           {% empty %}
           <div class="admin-team-row">
@@ -220,17 +220,25 @@
           {% endfor %}
       </div>
 
-      <!-- Consultation Progress Radial Arc Gauge (41% / Dynamic Rate) -->
+      <!-- Consultation Progress Radial Arc Gauge (Dynamic Multi-Color Gradient) -->
       <div class="admin-card-container" style="text-align: center;">
           <div class="admin-card-header">
               <div>
                   <h3 class="admin-card-title">Delivery Rate</h3>
                   <p class="admin-card-subtitle">Completed &amp; confirmed consultations</p>
               </div>
+              <span class="admin-badge-cyan">Dynamic</span>
           </div>
 
           <div class="admin-radial-container">
               <svg class="admin-radial-svg" viewBox="0 0 100 100">
+                  <defs>
+                      <linearGradient id="gaugeGradientEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#34D399" />
+                          <stop offset="50%" stop-color="#06B6D4" />
+                          <stop offset="100%" stop-color="#F59E0B" />
+                      </linearGradient>
+                  </defs>
                   <circle class="admin-radial-bg-circle" cx="50" cy="50" r="38"></circle>
                   <circle class="admin-radial-progress-circle" cx="50" cy="50" r="38"
                           stroke-dasharray="238.76"
@@ -241,30 +249,30 @@
                   {{ kpi_completion_rate|default:'41' }}%
               </div>
           </div>
-          <p style="font-size: 0.82rem; color: #6B7280; margin: 0;">
-              <strong>{{ kpi_confirmed_consultations|default:'10' }}</strong> of <strong>{{ kpi_total_consultations|default:'24' }}</strong> client consultations confirmed.
+          <p style="font-size: 0.85rem; color: var(--admin-text-secondary); margin: 0;">
+              <strong style="color: var(--admin-emerald-bright);">{{ kpi_confirmed_consultations|default:'10' }}</strong> of <strong style="color: #FFFFFF;">{{ kpi_total_consultations|default:'24' }}</strong> client consultations confirmed.
           </p>
       </div>
 
-      <!-- Time Tracker Widget (Obsidian & Gold) -->
-      <div class="admin-card-container" style="background: linear-gradient(145deg, #141815 0%, #080A09 100%); color: #FFFFFF; border-color: rgba(212, 175, 55, 0.4);">
+      <!-- Executive Time Tracker Widget -->
+      <div class="admin-card-container" style="background: linear-gradient(145deg, #0D261C 0%, #061610 100%); color: #FFFFFF; border-color: var(--admin-border-card);">
           <div class="admin-card-header">
               <div>
                   <h3 class="admin-card-title" style="color: #FFFFFF;">Executive Time Tracker</h3>
-                  <p class="admin-card-subtitle" style="color: rgba(255, 255, 255, 0.6);">Advisory session stopwatch</p>
+                  <p class="admin-card-subtitle" style="color: var(--admin-text-secondary);">Advisory session stopwatch</p>
               </div>
               <span class="admin-badge-gold">Live Clock</span>
           </div>
 
           <div style="text-align: center; padding: 1.5rem 0;">
-              <div id="stopwatch-display" style="font-family: var(--admin-font-heading); font-size: 2.25rem; font-weight: 800; color: #FFFFFF; letter-spacing: 0.05em; margin-bottom: 1.25rem;">
+              <div id="stopwatch-display" style="font-family: var(--admin-font-mono); font-size: 2.35rem; font-weight: 800; color: var(--admin-emerald-bright); text-shadow: 0 0 15px rgba(52, 211, 153, 0.4); letter-spacing: 0.05em; margin-bottom: 1.35rem;">
                   01:24:08
               </div>
-              <div style="display: flex; justify-content: center; gap: 0.75rem;">
-                  <button type="button" id="timer-toggle-btn" class="admin-btn-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="toggleStopwatch()">
+              <div style="display: flex; justify-content: center; gap: 0.85rem;">
+                  <button type="button" id="timer-toggle-btn" class="admin-btn-gold" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="toggleStopwatch()">
                       ⏸ Pause
                   </button>
-                  <button type="button" class="admin-btn-black" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="resetStopwatch()">
+                  <button type="button" class="admin-btn-black" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="resetStopwatch()">
                       ⏹ Reset
                   </button>
               </div>
@@ -279,16 +287,16 @@
       <div class="admin-vault-header">
           <div>
               <h2 class="admin-vault-title">Continuous Data Vault &amp; <span>1-Click Restore Console</span></h2>
-              <p style="font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); margin: 0.35rem 0 0 0;">
-                  Engineered by <strong>VintushTech &amp; KPRegTech</strong> for <strong>Sabin Balan (GreenTree FD)</strong>. 
+              <p style="font-size: 0.85rem; color: var(--admin-text-secondary); margin: 0.35rem 0 0 0;">
+                  Engineered by <strong style="color: var(--admin-emerald-bright);">VintushTech &amp; KPRegTech</strong> for <strong style="color: var(--admin-gold-bright);">Sabin Balan (GreenTree FD)</strong>. 
                   Every modification in the admin panel triggers an atomic snapshot copy.
               </p>
           </div>
-          <div style="display: flex; gap: 0.75rem;">
+          <div style="display: flex; gap: 0.85rem; flex-wrap: wrap;">
               <!-- Upload External Backup Form -->
               <form method="post" enctype="multipart/form-data" action="{% url 'login:admin_upload_backup' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; margin: 0;">
                   {% csrf_token %}
-                  <label for="backup-upload-input" class="admin-btn-black" style="cursor: pointer; padding: 0.5rem 0.9rem; font-size: 0.78rem;">
+                  <label for="backup-upload-input" class="admin-btn-black" style="cursor: pointer; padding: 0.55rem 1rem; font-size: 0.8rem;">
                       📤 Upload &amp; Restore .sqlite3
                   </label>
                   <input type="file" id="backup-upload-input" name="backup_file" accept=".sqlite3,.db" style="display: none;" onchange="if(confirm('Restore database from uploaded file? This will overwrite the live database with your uploaded file.')) this.form.submit();">
@@ -315,7 +323,7 @@
               {% for backup in vault_backups %}
               <tr>
                   <td>
-                      <span style="font-family: monospace; color: #FFFFFF; font-weight: 600;">{{ backup.filename }}</span>
+                      <span style="font-family: var(--admin-font-mono); color: #FFFFFF; font-weight: 700;">{{ backup.filename }}</span>
                       {% if backup.is_latest %}
                       <span class="admin-badge-gold" style="margin-left: 0.5rem; font-size: 0.65rem;">LATEST</span>
                       {% endif %}
@@ -323,7 +331,7 @@
                   <td>{{ backup.timestamp }}</td>
                   <td>{{ backup.size_kb }} KB</td>
                   <td>
-                      <span style="color: var(--admin-gold-bright); font-size: 0.78rem;">● SYNCHRONIZED</span>
+                      <span style="color: var(--admin-emerald-bright); font-size: 0.8rem; font-weight: 700;">● SYNCHRONIZED</span>
                   </td>
                   <td>
                       <div class="admin-vault-action-btn-group">
@@ -342,7 +350,7 @@
               </tr>
               {% empty %}
               <tr>
-                  <td colspan="5" style="text-align: center; color: rgba(255, 255, 255, 0.6); padding: 2rem;">
+                  <td colspan="5" style="text-align: center; color: var(--admin-text-muted); padding: 2.25rem;">
                       No saved snapshots found in vault yet. Click <strong>+ Take Snapshot Now</strong> above to create your first backup.
                   </td>
               </tr>
@@ -360,23 +368,25 @@
               <h3 class="admin-card-title">Registered Models &amp; Institutional Governance</h3>
               <p class="admin-card-subtitle">Direct access to manage all database tables and business entities</p>
           </div>
+          <span class="admin-badge-cyan">Active Models</span>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem;">
           {% for app in app_list %}
-          <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: var(--admin-radius-md); padding: 1.25rem;">
-              <h4 style="font-size: 0.95rem; font-weight: 700; color: #0C0F0D; margin: 0 0 0.75rem 0; border-bottom: 1px solid #E5E7EB; padding-bottom: 0.5rem;">
-                  {{ app.name }}
+          <div style="background: rgba(7, 22, 16, 0.75); border: 1px solid var(--admin-border-card); border-radius: var(--admin-radius-md); padding: 1.35rem; transition: all 0.25s ease;">
+              <h4 style="font-size: 1rem; font-weight: 800; color: var(--admin-gold-bright); margin: 0 0 0.85rem 0; border-bottom: 1px solid var(--admin-border-subtle); padding-bottom: 0.6rem; display: flex; align-items: center; justify-content: space-between;">
+                  <span>{{ app.name }}</span>
+                  <span style="font-size: 0.7rem; color: var(--admin-emerald-bright); font-weight: 700; background: rgba(16, 185, 129, 0.15); padding: 0.15rem 0.5rem; border-radius: var(--admin-radius-pill);">App</span>
               </h4>
               <ul style="list-style: none; padding: 0; margin: 0;">
                   {% for model in app.models %}
-                  <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0;">
-                      <a href="{{ model.admin_url }}" style="color: #374151; font-size: 0.85rem; font-weight: 600;">
-                          {{ model.name }}
+                  <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.55rem 0; border-bottom: 1px solid rgba(52, 211, 153, 0.08);">
+                      <a href="{{ model.admin_url }}" style="color: #FFFFFF; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+                          <span style="color: var(--admin-emerald-bright);">▸</span> {{ model.name }}
                       </a>
                       <div style="display: flex; gap: 0.4rem;">
                           {% if model.add_url %}
-                          <a href="{{ model.add_url }}" style="font-size: 0.72rem; color: var(--admin-gold-dark); font-weight: 700; background: rgba(212, 175, 55, 0.15); padding: 0.15rem 0.45rem; border-radius: 4px;">+ Add</a>
+                          <a href="{{ model.add_url }}" style="font-size: 0.74rem; color: #04100C; font-weight: 800; background: var(--admin-emerald-gradient); padding: 0.2rem 0.55rem; border-radius: 6px; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);">+ Add</a>
                           {% endif %}
                       </div>
                   </li>
