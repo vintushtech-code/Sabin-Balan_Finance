@@ -78,7 +78,7 @@
     .provider-title {
       font-size: 1.25rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: #FFD700;
       letter-spacing: -0.02em;
     }
 
@@ -123,14 +123,14 @@
       font-family: 'Outfit', sans-serif;
       font-size: 2.35rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: #00E676;
       margin: 0 0 12px 0;
       letter-spacing: -0.02em;
     }
 
     .hero-lock-desc {
       font-size: 1.05rem;
-      color: #CBD5E1;
+      color: #86EFAC;
       max-width: 720px;
       margin: 0 auto;
       line-height: 1.6;
@@ -153,14 +153,14 @@
 
     .data-preservation-title {
       font-weight: 700;
-      color: #FFFFFF;
+      color: #FFD700;
       font-size: 1rem;
       margin: 0 0 4px 0;
     }
 
     .data-preservation-text {
       font-size: 0.88rem;
-      color: #CBD5E1;
+      color: #86EFAC;
       margin: 0;
     }
 
@@ -173,7 +173,7 @@
 
     .plan-card {
       background: var(--saas-card);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 230, 118, 0.2);
       border-radius: 20px;
       padding: 26px 20px;
       display: flex;
@@ -213,7 +213,7 @@
     .plan-name {
       font-size: 1.15rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #FFD700;
       margin: 0 0 8px 0;
     }
 
@@ -229,7 +229,7 @@
 
     .plan-period {
       font-size: 0.8rem;
-      color: #94A3B8;
+      color: #86EFAC;
     }
 
     .plan-features-list {
@@ -237,7 +237,7 @@
       padding: 0;
       margin: 0 0 24px 0;
       font-size: 0.82rem;
-      color: #CBD5E1;
+      color: #86EFAC;
       line-height: 1.8;
     }
 
@@ -278,11 +278,11 @@
     }
 
     .license-input {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(6, 10, 8, 0.9);
+      border: 1px solid rgba(0, 230, 118, 0.3);
       border-radius: 12px;
       padding: 12px 18px;
-      color: #FFFFFF;
+      color: #00E676;
       font-size: 0.95rem;
       letter-spacing: 0.05em;
       min-width: 320px;
@@ -465,8 +465,8 @@
     <!-- License Key Instant Activation -->
     <div class="license-activation-section">
       <div>
-        <h4 style="color: #FFFFFF; margin: 0 0 4px 0; font-size: 1.05rem;">Have a Master License Key?</h4>
-        <p style="color: #94A3B8; margin: 0; font-size: 0.85rem;">Enter your KPRegTech / VintushTech license key for instant offline activation.</p>
+        <h4 style="color: #FFD700; margin: 0 0 4px 0; font-size: 1.05rem;">Have a Master License Key?</h4>
+        <p style="color: #86EFAC; margin: 0; font-size: 0.85rem;">Enter your KPRegTech / VintushTech license key for instant offline activation.</p>
       </div>
       <form method="post" action="{% url 'login:saas_unlock' %}" style="display: flex; gap: 10px; flex-wrap: wrap;">
         {% csrf_token %}

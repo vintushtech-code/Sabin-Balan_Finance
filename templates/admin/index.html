@@ -250,22 +250,22 @@
               </div>
           </div>
           <p style="font-size: 0.85rem; color: var(--admin-text-secondary); margin: 0;">
-              <strong style="color: var(--admin-emerald-bright);">{{ kpi_confirmed_consultations|default:'10' }}</strong> of <strong style="color: #FFFFFF;">{{ kpi_total_consultations|default:'24' }}</strong> client consultations confirmed.
+              <strong style="color: var(--admin-emerald-bright);">{{ kpi_confirmed_consultations|default:'10' }}</strong> of <strong style="color: var(--admin-gold);">{{ kpi_total_consultations|default:'24' }}</strong> client consultations confirmed.
           </p>
       </div>
 
       <!-- Executive Time Tracker Widget -->
-      <div class="admin-card-container" style="background: linear-gradient(145deg, #0D261C 0%, #061610 100%); color: #FFFFFF; border-color: var(--admin-border-card);">
+      <div class="admin-card-container" style="background: linear-gradient(145deg, #0A1610 0%, #050B08 100%); color: var(--admin-text-primary); border-color: var(--admin-border-card);">
           <div class="admin-card-header">
               <div>
-                  <h3 class="admin-card-title" style="color: #FFFFFF;">Executive Time Tracker</h3>
+                  <h3 class="admin-card-title" style="color: var(--admin-gold);">Executive Time Tracker</h3>
                   <p class="admin-card-subtitle" style="color: var(--admin-text-secondary);">Advisory session stopwatch</p>
               </div>
               <span class="admin-badge-gold">Live Clock</span>
           </div>
 
           <div style="text-align: center; padding: 1.5rem 0;">
-              <div id="stopwatch-display" style="font-family: var(--admin-font-mono); font-size: 2.35rem; font-weight: 800; color: var(--admin-emerald-bright); text-shadow: 0 0 15px rgba(52, 211, 153, 0.4); letter-spacing: 0.05em; margin-bottom: 1.35rem;">
+              <div id="stopwatch-display" style="font-family: var(--admin-font-mono); font-size: 2.35rem; font-weight: 800; color: var(--admin-emerald-bright); text-shadow: 0 0 15px rgba(0, 230, 118, 0.4); letter-spacing: 0.05em; margin-bottom: 1.35rem;">
                   01:24:08
               </div>
               <div style="display: flex; justify-content: center; gap: 0.85rem;">
@@ -323,7 +323,7 @@
               {% for backup in vault_backups %}
               <tr>
                   <td>
-                      <span style="font-family: var(--admin-font-mono); color: #FFFFFF; font-weight: 700;">{{ backup.filename }}</span>
+                      <span style="font-family: var(--admin-font-mono); color: var(--admin-gold); font-weight: 700;">{{ backup.filename }}</span>
                       {% if backup.is_latest %}
                       <span class="admin-badge-gold" style="margin-left: 0.5rem; font-size: 0.65rem;">LATEST</span>
                       {% endif %}
@@ -381,8 +381,8 @@
               <ul style="list-style: none; padding: 0; margin: 0;">
                   {% for model in app.models %}
                   <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.55rem 0; border-bottom: 1px solid rgba(52, 211, 153, 0.08);">
-                      <a href="{{ model.admin_url }}" style="color: #FFFFFF; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
-                          <span style="color: var(--admin-emerald-bright);">▸</span> {{ model.name }}
+                      <a href="{{ model.admin_url }}" style="color: var(--admin-emerald-bright); font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+                          <span style="color: var(--admin-gold);">▸</span> {{ model.name }}
                       </a>
                       <div style="display: flex; gap: 0.4rem;">
                           {% if model.add_url %}

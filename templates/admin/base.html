@@ -24,6 +24,9 @@
 <div id="container" class="admin-root-container">
 
     {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
+    <!-- Mobile Backdrop Overlay -->
+    <div class="admin-sidebar-backdrop" id="admin-sidebar-backdrop" onclick="toggleAdminSidebar()"></div>
+
     <!-- Luxury Obsidian & Gold Sidebar -->
     <aside class="admin-sidebar" id="nav-sidebar">
         <div class="admin-sidebar-top-wrap">
@@ -36,6 +39,8 @@
                     <h2 class="admin-sidebar-title">GreenTree <span>FD</span></h2>
                     <span class="admin-sidebar-subtitle">Executive Suite</span>
                 </div>
+                <!-- Close button inside drawer for mobile -->
+                <button type="button" class="admin-sidebar-close-btn" onclick="toggleAdminSidebar()" aria-label="Close navigation">✕</button>
             </div>
 
             <!-- MENU ITEMS CORRESPONDING EXACTLY TO ACTIVE MODELS -->
@@ -135,13 +140,22 @@
     <!-- Main Content Canvas -->
     <div id="content" class="admin-main-canvas">
         {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
-        <!-- Top Header Navigation Bar (Donezo Style) -->
+        <!-- Top Header Navigation Bar -->
         <header class="admin-top-header">
-            <!-- Search Bar with Shortcut -->
-            <div class="admin-search-wrapper">
-                <span class="admin-search-icon">🔍</span>
-                <input type="text" id="global-admin-search" class="admin-search-input" placeholder="Search consultations, users, models... (⌘ F)" onkeyup="filterAdminCards(event)">
-                <span class="admin-search-shortcut">⌘ F</span>
+            <!-- Left: Mobile Menu Toggle & Search Bar -->
+            <div class="admin-top-header-left">
+                <button type="button" class="admin-mobile-menu-toggle" id="admin-mobile-menu-toggle" aria-label="Toggle navigation menu" onclick="toggleAdminSidebar()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Search Bar with Shortcut -->
+                <div class="admin-search-wrapper">
+                    <span class="admin-search-icon">🔍</span>
+                    <input type="text" id="global-admin-search" class="admin-search-input" placeholder="Search consultations, users... (⌘ F)" onkeyup="filterAdminCards(event)">
+                    <span class="admin-search-shortcut">⌘ F</span>
+                </div>
             </div>
 
             <!-- Right Actions, Logos, Trial Status & User Pill -->
@@ -150,13 +164,13 @@
                 <div class="admin-partner-pill" title="Developed by KPRegTech &amp; VintushTech">
                     <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" class="admin-partner-pill-logo">
                     <img src="{% static 'kplogo.png' %}" alt="KPRegTech" class="admin-partner-pill-logo">
-                    <span class="admin-partner-pill-text">KP &bull; VintushTech</span>
+                    <span class="admin-partner-pill-text">KP &bull; Vintush</span>
                 </div>
 
                 <!-- 3-Month Free Trial Pill -->
                 <div class="admin-saas-trial-pill" title="3 Months Complimentary Trial active for Sabin Balan">
                     <span class="admin-saas-trial-pill-dot"></span>
-                    <span>3M FREE TRIAL ({{ saas_status.days_remaining|default:'89' }}D LEFT)</span>
+                    <span>3M TRIAL ({{ saas_status.days_remaining|default:'89' }}D)</span>
                 </div>
 
                 <!-- Mail Inquiries Icon -->
@@ -198,7 +212,7 @@
             {% if messages %}
             <div style="padding: 1rem 2rem 0 2rem;">
                 {% for message in messages %}
-                <div style="padding: 0.85rem 1.25rem; border-radius: var(--admin-radius-md); margin-bottom: 1rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: #8C6D1F; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                <div style="padding: 0.85rem 1.25rem; border-radius: var(--admin-radius-md); margin-bottom: 1rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: #FFD700; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
                     {{ message }}
                 </div>
                 {% endfor %}
@@ -228,8 +242,15 @@
 
 </div>
 
-<!-- Global Dashboard Keybindings -->
+<!-- Global Dashboard Keybindings & Mobile Drawer Scripts -->
 <script>
+  function toggleAdminSidebar() {
+    const container = document.getElementById('container');
+    if (container) {
+      container.classList.toggle('sidebar-active');
+    }
+  }
+
   function filterAdminCards(e) {
     const query = e.target.value.toLowerCase().trim();
     const rows = document.querySelectorAll('.admin-metric-card, .admin-reminder-card, .admin-team-row, .admin-vault-table tbody tr, #changelist tbody tr');
