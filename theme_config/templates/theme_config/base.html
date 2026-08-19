@@ -75,24 +75,115 @@
     {% render_footer tagline="Institutional-Grade Advisory & Private Wealth Management" %}
   {% endblock %}
 
-  <!-- FLOATING LIVE CHAT WIDGET -->
-  <div class="live-chat-widget">
-    <button class="chat-btn" onclick="toggleChatPanel()" aria-label="Open support chat">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+  <!-- FLOATING ACCESSIBILITY CONSOLE WIDGET -->
+  <div class="accessibility-widget" id="accessibility-widget">
+    <button class="accessibility-btn" onclick="toggleAccessibilityPanel()" aria-label="Open Accessibility Tools" title="Accessibility Mode & Tools">
+      ♿
+      <span class="accessibility-active-badge" id="accessibility-active-badge" style="display: none;">0</span>
     </button>
-    <div class="chat-panel" id="chat-panel">
-      <div class="chat-header">
-        <span>GuardianTree Support</span>
-        <span class="chat-close" onclick="closeChatPanel()">&times;</span>
-      </div>
-      <div class="chat-body" id="chat-body">
-        <div class="chat-message bot">
-          Hello! How can we assist with your wealth management strategy today?
+    <div class="accessibility-panel" id="accessibility-panel" role="dialog" aria-labelledby="accessibility-title">
+      <div class="accessibility-header">
+        <div class="accessibility-title" id="accessibility-title">
+          <span>♿ Accessibility Tools</span>
         </div>
+        <span class="accessibility-close" onclick="closeAccessibilityPanel()" aria-label="Close accessibility menu">&times;</span>
       </div>
-      <div class="chat-input">
-        <input type="text" id="chat-input-field" placeholder="Type a message..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
-        <button type="button" onclick="sendChatMessage()">Send</button>
+      <div class="accessibility-body">
+        <!-- Blind / Speech Assist Mode -->
+        <button type="button" class="accessibility-item-btn" id="access-btn-blind" onclick="toggleAccessMode('access-blind-mode', 'Blind & Audio Speech Assist')">
+          <div class="accessibility-item-left">
+            <span>🦯</span>
+            <div>
+              <div style="font-weight: 700;">Blind / Speech Assist</div>
+              <div style="font-size: 0.72rem; color: var(--color-subtext, #94A3B8);">Audio narration &amp; screen focus</div>
+            </div>
+          </div>
+          <div class="accessibility-item-right">
+            <span class="accessibility-status-text">OFF</span>
+            <div class="accessibility-status-dot"></div>
+          </div>
+        </button>
+
+        <!-- High Contrast Mode -->
+        <button type="button" class="accessibility-item-btn" id="access-btn-contrast" onclick="toggleAccessMode('access-high-contrast', 'High Contrast Mode')">
+          <div class="accessibility-item-left">
+            <span>🌓</span>
+            <div>
+              <div style="font-weight: 700;">High Contrast</div>
+              <div style="font-size: 0.72rem; color: var(--color-subtext, #94A3B8);">Maximum contrast &amp; crisp text</div>
+            </div>
+          </div>
+          <div class="accessibility-item-right">
+            <span class="accessibility-status-text">OFF</span>
+            <div class="accessibility-status-dot"></div>
+          </div>
+        </button>
+
+        <!-- Larger Text -->
+        <button type="button" class="accessibility-item-btn" id="access-btn-text" onclick="toggleAccessMode('access-large-text', 'Larger Text Size')">
+          <div class="accessibility-item-left">
+            <span>🔍</span>
+            <div>
+              <div style="font-weight: 700;">Larger Text</div>
+              <div style="font-size: 0.72rem; color: var(--color-subtext, #94A3B8);">Scales typography for readability</div>
+            </div>
+          </div>
+          <div class="accessibility-item-right">
+            <span class="accessibility-status-text">OFF</span>
+            <div class="accessibility-status-dot"></div>
+          </div>
+        </button>
+
+        <!-- Readable Font -->
+        <button type="button" class="accessibility-item-btn" id="access-btn-font" onclick="toggleAccessMode('access-readable-font', 'Readable Font')">
+          <div class="accessibility-item-left">
+            <span>📖</span>
+            <div>
+              <div style="font-weight: 700;">Readable Font</div>
+              <div style="font-size: 0.72rem; color: var(--color-subtext, #94A3B8);">Dyslexia &amp; clean sans-serif font</div>
+            </div>
+          </div>
+          <div class="accessibility-item-right">
+            <span class="accessibility-status-text">OFF</span>
+            <div class="accessibility-status-dot"></div>
+          </div>
+        </button>
+
+        <!-- Highlight Links -->
+        <button type="button" class="accessibility-item-btn" id="access-btn-links" onclick="toggleAccessMode('access-highlight-links', 'Highlight Links')">
+          <div class="accessibility-item-left">
+            <span>🔗</span>
+            <div>
+              <div style="font-weight: 700;">Highlight Links</div>
+              <div style="font-size: 0.72rem; color: var(--color-subtext, #94A3B8);">Glowing borders on all links</div>
+            </div>
+          </div>
+          <div class="accessibility-item-right">
+            <span class="accessibility-status-text">OFF</span>
+            <div class="accessibility-status-dot"></div>
+          </div>
+        </button>
+
+        <!-- Reduced Motion -->
+        <button type="button" class="accessibility-item-btn" id="access-btn-motion" onclick="toggleAccessMode('access-reduced-motion', 'Reduced Motion')">
+          <div class="accessibility-item-left">
+            <span>⚡</span>
+            <div>
+              <div style="font-weight: 700;">Reduced Motion</div>
+              <div style="font-size: 0.72rem; color: var(--color-subtext, #94A3B8);">Disables animations &amp; transitions</div>
+            </div>
+          </div>
+          <div class="accessibility-item-right">
+            <span class="accessibility-status-text">OFF</span>
+            <div class="accessibility-status-dot"></div>
+          </div>
+        </button>
+
+        <!-- Reset All Applied Modes -->
+        <button type="button" class="accessibility-reset-btn" onclick="resetAccessibilityModes()">
+          <span>🔄</span>
+          <span>Reset All Applied Modes</span>
+        </button>
       </div>
     </div>
   </div>
