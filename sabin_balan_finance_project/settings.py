@@ -161,9 +161,25 @@ except Exception:
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@wlg*897qb*$lo1_ek^5&5c#bldttck@9$9iah37-)qcf!zd)7')
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# settings.py
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'sabin-balan-finance.onrender.com',  # Your Render domain
+    '.onrender.com',  # Allows all Render subdomains
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://sabin-balan-finance.onrender.com',
+    'https://*.onrender.com',  # Allows all Render subdomains
+]
+
+# Also make sure you have:
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
