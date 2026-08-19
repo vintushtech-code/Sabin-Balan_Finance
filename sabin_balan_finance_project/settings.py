@@ -134,8 +134,6 @@ if os.path.exists(_gen_mv_board):
     except Exception:
         pass
 
-
-
 # Publisher Logos Auto-Sync (KP RegTech & VintushTech)
 _kp_logo_target = BASE_DIR / "photos" / "kplogo.png"
 _vintush_logo_target = BASE_DIR / "photos" / "vintushtech_logo.png"
@@ -163,18 +161,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@wlg*897qb*$lo1_ek^5&
 
 DEBUG = False
 
-# settings.py
-
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'sabin-balan-finance.onrender.com',  # Your Render domain
-    '.onrender.com',  # Allows all Render subdomains
+    'sabin-balan-finance.onrender.com',
+    '.onrender.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://sabin-balan-finance.onrender.com',
-    'https://*.onrender.com',  # Allows all Render subdomains
+    'https://*.onrender.com',
 ]
 
 # Also make sure you have:
@@ -184,9 +180,7 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -235,7 +229,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sabin_balan_finance_project.wsgi.application'
 
-
 # Database
 DATABASES = {
     'default': {
@@ -249,7 +242,6 @@ if os.environ.get('DATABASE_URL'):
         conn_max_age=600,
         conn_health_checks=True,
     )
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -267,27 +259,50 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
+# ================================================================
+# STATIC FILES CONFIGURATION - For Render with collectstatic
+# ================================================================
+# URL prefix for static files
+STATIC_URL = '/static/'
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+# The absolute path to the directory where collectstatic will collect static files for deployment
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Additional locations of static files
 STATICFILES_DIRS = [
-    BASE_DIR / 'videos',
     BASE_DIR / 'photos',
+    BASE_DIR / 'videos',
 ]
+
+# Add app static directories if they exist
+app_static_dirs = [
+    BASE_DIR / 'login' / 'static',
+    BASE_DIR / 'theme_config' / 'static',
+    BASE_DIR / 'navfooter' / 'static',
+]
+
+for app_static_dir in app_static_dirs:
+    if app_static_dir.exists():
+        STATICFILES_DIRS.append(app_static_dir)
+
+# Storage backend for static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Secret unguessable slug for Administrator Portal (configurable via env)
+# ================================================================
+# MEDIA FILES (User Uploads)
+# ================================================================
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# ================================================================
+# SECRET UNGUESSABLE SLUG FOR ADMINISTRATOR PORTAL
+# ================================================================
 ADMIN_SECRET_PATH = os.environ.get('ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip('/')
 
 # Custom User Model & Authentication Redirects
@@ -296,22 +311,9 @@ LOGIN_URL = f'/{ADMIN_SECRET_PATH}/login/'
 LOGIN_REDIRECT_URL = f'/{ADMIN_SECRET_PATH}/'
 LOGOUT_REDIRECT_URL = 'login:home'
 
-# ==============================================================================
-# EMAIL DISPATCH CONFIGURATION (Terminal / Console Mode)
-# ==============================================================================
-# In Terminal Mode (Development), all emails (Consultations, Status Updates, 
-# Contact Confirmations, Testimonials, and Admin 2FA OTPs) print directly to the 
-# terminal console with styled ASCII headers without requiring SMTP servers.
-#
-# WHEN READY TO SWITCH TO REAL EMAILS:
-# 1. Change EMAIL_BACKEND to 'django.core.mail.backends.smtp.EmailBackend'
-# 2. Configure SMTP credentials (e.g. Gmail App Password, SendGrid, Amazon SES, Mailgun):
-#    EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-#    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
-#    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
-#    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'your_account@gmail.com')
-#    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'your_app_password')
-# ==============================================================================
+# ================================================================
+# EMAIL DISPATCH CONFIGURATION
+# ================================================================
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'Sabin Balan Finance <advisory@sabinbalanfinance.com>')
 ADMIN_NOTIFICATION_EMAIL = os.environ.get('ADMIN_NOTIFICATION_EMAIL', 'admin@sabinbalanfinance.com')
@@ -319,23 +321,11 @@ CONTACT_FORM_EMAIL_RECIPIENT = ADMIN_NOTIFICATION_EMAIL
 SITE_NAME = 'Sabin Balan Finance'
 SITE_URL = os.environ.get('SITE_URL', 'http://127.0.0.1:8000')
 
-# --------------------------------------------------------------------------
-# 2-Factor Authentication (2FA) & Terminal Verification Settings
-# --------------------------------------------------------------------------
-# Enforces 6-digit 2FA OTP verification strictly for Admin/Staff user logins.
+# ================================================================
+# 2-Factor Authentication (2FA) Settings
+# ================================================================
 ADMIN_2FA_ENABLED = os.environ.get('ADMIN_2FA_ENABLED', 'True') == 'True'
-
-# Destination email configuration for 2FA OTP codes:
-# - If ADMIN_2FA_EMAIL is empty/unset, codes are sent to the logged-in admin's email address.
-# - You can set ADMIN_2FA_EMAIL in environment or here to route 2FA emails to a specific inbox.
 ADMIN_2FA_EMAIL = os.environ.get('ADMIN_2FA_EMAIL', '')
-
-# Expiration window for 2FA verification codes in seconds (default: 300 seconds = 5 minutes)
 ADMIN_2FA_CODE_EXPIRY_SECONDS = int(os.environ.get('ADMIN_2FA_CODE_EXPIRY_SECONDS', '300'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Media Files Configuration for User Uploaded Assets
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
