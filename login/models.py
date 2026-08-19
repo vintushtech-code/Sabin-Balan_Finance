@@ -565,3 +565,74 @@ class PartnerIntegration(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class AdminSaaSSubscription(models.Model):
+    """
+    Model managing the SaaS License, 3-Month Free Trial, and Subscription Plans
+    provided by VintushTech & KPRegTech for Sabin Balan (Founder of GreenTree FD).
+    """
+    STATUS_CHOICES = (
+        ('active_trial', 'Active 3-Month Free Trial'),
+        ('active_paid', 'Active Paid Subscription'),
+        ('grace_period', 'Grace Period Notice'),
+        ('locked_expired', 'Access Expired & Locked'),
+    )
+
+    PLAN_CHOICES = (
+        ('trial_3_months', '3 Months Free Trial (Complimentary)'),
+        ('1_month', '1 Month Standard Plan ($49 / Rs. 3,999)'),
+        ('3_months', '3 Months Quarterly Plan ($129 / Rs. 9,999)'),
+        ('6_months', '6 Months Semi-Annual Plan ($229 / Rs. 17,999)'),
+        ('1_year', '1 Year Enterprise Annual Plan ($399 / Rs. 29,999)'),
+    )
+
+    service_name = models.CharField(_('Service Name'), max_length=200, default='GreenTree FD Executive Admin Panel')
+    client_name = models.CharField(_('Client Name & Title'), max_length=200, default='Sabin Balan (Founder, GreenTree FD)')
+    client_email = models.EmailField(_('Client Billing Email'), default='sabin@greentreefd.com')
+    provider_credits = models.CharField(_('Provider Credits'), max_length=255, default='VintushTech & KPRegTech')
+    
+    is_free_trial = models.BooleanField(_('Is Free Trial Active'), default=True)
+    trial_start_date = models.DateTimeField(_('Trial Start Date'), auto_now_add=True)
+    trial_duration_days = models.PositiveIntegerField(_('Trial Duration (Days)'), default=90)
+    trial_end_date = models.DateTimeField(_('Trial End Date'), null=True, blank=True)
+    
+    subscription_status = models.CharField(_('Subscription Status'), max_length=50, choices=STATUS_CHOICES, default='active_trial')
+    current_plan = models.CharField(_('Active Plan'), max_length=50, choices=PLAN_CHOICES, default='trial_3_months')
+    paid_until = models.DateTimeField(_('Access Valid Until'), null=True, blank=True)
+    
+    license_key = models.CharField(_('Active License Key'), max_length=150, blank=True, default='')
+    is_locked = models.BooleanField(_('Manually Lock Admin Panel'), default=False, help_text=_('Check to immediately lock the admin panel.'))
+    
+    notes = models.TextField(_('License / Audit Notes'), blank=True, default='Initial 3-month free trial granted by VintushTech & KPRegTech.')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('SaaS Subscription & License')
+        verbose_name_plural = _('SaaS Subscriptions & Licenses')
+
+    def __str__(self):
+        return f"{self.service_name} — {self.get_subscription_status_display()}"
+
+
+class AdminBackupLog(models.Model):
+    """
+    Model logging continuous automated database snapshots and preservation events.
+    """
+    file_name = models.CharField(_('Backup File Name'), max_length=255)
+    file_path = models.CharField(_('File Path'), max_length=500)
+    file_size_kb = models.FloatField(_('File Size (KB)'), default=0.0)
+    trigger_event = models.CharField(_('Trigger Event'), max_length=255, default='Admin Panel Operation')
+    is_automated = models.BooleanField(_('Automated Snapshot'), default=True)
+    status = models.CharField(_('Backup Status'), max_length=50, default='success')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Automated Database Backup')
+        verbose_name_plural = _('Automated Database Backups')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.file_name} ({self.file_size_kb} KB) - {self.created_at.strftime('%Y-%m-%d %H:%M')}"
+

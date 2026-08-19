@@ -12,394 +12,446 @@
 {% block content_title %}{% endblock %}
 
 {% block content %}
-<div id="content-main">
+<div class="admin-dashboard-canvas">
 
   <!-- =========================================================================
-       ROW 1: TOP 4 DUAL-TONE KPI STAT CARDS
+       DASHBOARD HEADER & TOP ACTIONS
        ========================================================================= -->
-  <div class="executive-kpi-grid">
-      <!-- Card 1: Consultations -->
-      <div class="kpi-card">
-          <div class="kpi-header">
-              <span class="kpi-title">Consultation Bookings</span>
-              <div class="kpi-icon-pill">📅</div>
-          </div>
-          <div class="kpi-value-main">
-              <a href="{% url 'admin:login_consultationbooking_changelist' %}" style="color: inherit !important;">
-                  Live Schedule
+  <div class="admin-welcome-banner">
+      <div>
+          <h1 class="admin-welcome-title">Executive Dashboard</h1>
+          <p class="admin-welcome-subtitle">Plan, prioritize, and manage client consultations, fiduciaries, and vault backups.</p>
+      </div>
+      <div class="admin-banner-actions">
+          <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/add/" class="admin-btn-gold">
+              <span>+ New Consultation</span>
+          </a>
+          <button type="button" class="admin-btn-black" onclick="triggerManualVaultBackup(this)" id="manual-backup-btn">
+              <span>💾 Create Vault Snapshot</span>
+          </button>
+      </div>
+  </div>
+
+  <!-- =========================================================================
+       ROW 1: 4 DYNAMIC KPI METRIC CARDS (BLACK, WHITE & GOLD)
+       ========================================================================= -->
+  <div class="admin-metrics-grid">
+      <!-- Card 1: Featured Obsidian & Gold Card (Total Consultations) -->
+      <div class="admin-metric-card featured-card">
+          <div class="admin-metric-card-header">
+              <span class="admin-metric-header-title">Total Consultations</span>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/" class="admin-metric-action-btn" title="View All Consultations">
+                  ↗
               </a>
           </div>
-          <div class="kpi-subtext-row">
-              <span class="kpi-trend-badge">▲ +14.2%</span>
-              <span>Private Wealth Sessions</span>
+          <div class="admin-metric-body">
+              <h2 class="admin-metric-value">{{ kpi_total_consultations|default:'0' }}</h2>
+          </div>
+          <div class="admin-metric-footer">
+              <span class="admin-metric-trend-pill">{{ kpi_confirmed_consultations|default:'0' }} Confirmed / Paid</span>
           </div>
       </div>
 
-      <!-- Card 2: Client Inquiries -->
-      <div class="kpi-card">
-          <div class="kpi-header">
-              <span class="kpi-title">Client Inquiries &amp; Leads</span>
-              <div class="kpi-icon-pill">✉️</div>
-          </div>
-          <div class="kpi-value-main">
-              <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" style="color: inherit !important;">
-                  Inbox &amp; Leads
+      <!-- Card 2: Client Leads & Inquiries (Crisp White Card) -->
+      <div class="admin-metric-card standard-card">
+          <div class="admin-metric-card-header">
+              <span class="admin-metric-header-title">Client Inquiries &amp; Leads</span>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/contactform/contactsubmission/" class="admin-metric-action-btn" title="View Contact Submissions">
+                  ↗
               </a>
           </div>
-          <div class="kpi-subtext-row">
-              <span class="kpi-trend-badge">▲ CSV Export</span>
-              <span>Website Form Submissions</span>
+          <div class="admin-metric-body">
+              <h2 class="admin-metric-value">{{ kpi_total_inquiries|default:'0' }}</h2>
+          </div>
+          <div class="admin-metric-footer">
+              <span class="admin-metric-trend-pill">Direct from Web Desk</span>
           </div>
       </div>
 
-      <!-- Card 3: User Accounts -->
-      <div class="kpi-card">
-          <div class="kpi-header">
-              <span class="kpi-title">User Directory &amp; Staff</span>
-              <div class="kpi-icon-pill">👥</div>
-          </div>
-          <div class="kpi-value-main">
-              <a href="{% url 'admin:login_customuser_changelist' %}" style="color: inherit !important;">
-                  User Base
+      <!-- Card 3: Active Wealth Advisors (Crisp White Card) -->
+      <div class="admin-metric-card standard-card">
+          <div class="admin-metric-card-header">
+              <span class="admin-metric-header-title">Active Advisory Team</span>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/teammember/" class="admin-metric-action-btn" title="View Wealth Advisors">
+                  ↗
               </a>
           </div>
-          <div class="kpi-subtext-row">
-              <span class="kpi-trend-badge">⚡ 100% 2FA</span>
-              <span>Verified Identity Profiles</span>
+          <div class="admin-metric-body">
+              <h2 class="admin-metric-value">{{ advisory_team|length|default:'4' }}</h2>
+          </div>
+          <div class="admin-metric-footer">
+              <span class="admin-metric-trend-pill">Wealth Advisors &amp; Fiduciaries</span>
           </div>
       </div>
 
-      <!-- Card 4: Reviews & Testimonials -->
-      <div class="kpi-card">
-          <div class="kpi-header">
-              <span class="kpi-title">Client Testimonials</span>
-              <div class="kpi-icon-pill">⭐</div>
-          </div>
-          <div class="kpi-value-main">
-              <a href="{% url 'admin:login_testimonial_changelist' %}" style="color: inherit !important;">
-                  5.0 ★ Rating
+      <!-- Card 4: Pending Consultations (Crisp White Card) -->
+      <div class="admin-metric-card standard-card">
+          <div class="admin-metric-card-header">
+              <span class="admin-metric-header-title">Pending Consultations</span>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/?status__exact=received" class="admin-metric-action-btn" title="View Pending Bookings">
+                  ↗
               </a>
           </div>
-          <div class="kpi-subtext-row">
-              <span class="kpi-trend-badge">★ Verified</span>
-              <span>Global Endorsements Desk</span>
+          <div class="admin-metric-body">
+              <h2 class="admin-metric-value">{{ kpi_pending_consultations|default:'0' }}</h2>
+          </div>
+          <div class="admin-metric-footer">
+              <span class="admin-metric-trend-pill" style="background: rgba(212, 175, 55, 0.15); color: #8C6D1F; border: 1px solid rgba(212, 175, 55, 0.3);">Under Executive Review</span>
           </div>
       </div>
   </div>
 
   <!-- =========================================================================
-       ROW 2: INTERACTIVE GOLD ANALYTICS CHART & MODEL DISPATCHER
+       ROW 2: DYNAMIC WEEKLY ACTIVITY CHART & LIVE REMINDERS / INQUIRIES
        ========================================================================= -->
-  <div class="dashboard-middle-grid">
-      <!-- Left (2/3): Financial & Advisory Trend Chart -->
-      <div class="analytics-chart-card">
-          <div class="chart-card-header">
-              <div class="chart-title-group">
-                  <h3>Advisory &amp; Volume Analytics</h3>
-                  <p>Real-time client consultations &amp; portfolio engagement trajectory</p>
+  <div class="admin-grid-two-col">
+      
+      <!-- Weekly Activity Bar Chart (Black & Gold Hatching) -->
+      <div class="admin-card-container">
+          <div class="admin-card-header">
+              <div>
+                  <h3 class="admin-card-title">Activity &amp; Booking Trajectory</h3>
+                  <p class="admin-card-subtitle">Dynamic week-over-week consultation and inquiry volume</p>
               </div>
-              <div class="timeframe-pill-selector">
-                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('24H', this)">24H</button>
-                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('7D', this)">7D</button>
-                  <button type="button" class="tf-btn active" onclick="switchChartTimeframe('1M', this)">1M</button>
-                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('1Y', this)">1Y</button>
-                  <button type="button" class="tf-btn" onclick="switchChartTimeframe('ALL', this)">ALL</button>
-              </div>
+              <span class="admin-badge-gold">Live Telemetry</span>
           </div>
-
-          <div class="canvas-chart-wrapper">
-              <canvas id="gold-analytics-canvas"></canvas>
-          </div>
-
-          <div class="chart-summary-stats">
-              <div>
-                  <div class="stat-item-label">Compound Growth</div>
-                  <div class="stat-item-num" style="color: var(--admin-gold);">+32.8%</div>
+          
+          <div class="admin-weekly-chart-wrapper">
+              {% for day in weekly_chart %}
+              <div class="admin-chart-pillar-col">
+                  <div class="admin-chart-bar-container">
+                      {% if day.is_current or forloop.counter == 4 %}
+                      <div class="admin-chart-tooltip">{{ day.count }} Events</div>
+                      {% endif %}
+                      <div class="admin-chart-bar {% if day.is_current or forloop.counter == 4 %}gold-peak{% endif %}" style="height: {{ day.height }}%;"></div>
+                  </div>
+                  <span class="admin-chart-day-label {% if day.is_current %}active-day{% endif %}">{{ day.abbr }}</span>
               </div>
-              <div>
-                  <div class="stat-item-label">Avg Resolution Time</div>
-                  <div class="stat-item-num">14 Mins</div>
-              </div>
-              <div>
-                  <div class="stat-item-label">Advisory Retention</div>
-                  <div class="stat-item-num">99.4%</div>
-              </div>
+              {% empty %}
+              <!-- Default chart pillars -->
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 35%;"></div></div><span class="admin-chart-day-label">S</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 60%;"></div></div><span class="admin-chart-day-label">M</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 45%;"></div></div><span class="admin-chart-day-label">T</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-tooltip">74% Peak</div><div class="admin-chart-bar gold-peak" style="height: 90%;"></div></div><span class="admin-chart-day-label active-day">W</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 70%;"></div></div><span class="admin-chart-day-label">T</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 55%;"></div></div><span class="admin-chart-day-label">F</span></div>
+              <div class="admin-chart-pillar-col"><div class="admin-chart-bar-container"><div class="admin-chart-bar" style="height: 40%;"></div></div><span class="admin-chart-day-label">S</span></div>
+              {% endfor %}
           </div>
       </div>
 
-      <!-- Right (1/3): Quick Model Action Dispatcher -->
-      <div class="action-hub-card">
-          <h3 class="action-hub-title">Executive Dispatcher</h3>
-          <div class="action-buttons-list">
-              <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="hub-action-btn">
-                  <span>📅 All Consultations</span>
-                  <span class="btn-arrow">&rarr;</span>
+      <!-- Live Upcoming Reminders & Bookings -->
+      <div class="admin-card-container">
+          <div class="admin-card-header">
+              <div>
+                  <h3 class="admin-card-title">Upcoming Consultations &amp; Reminders</h3>
+                  <p class="admin-card-subtitle">Scheduled wealth advisory appointments</p>
+              </div>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/" class="admin-badge-black">View All</a>
+          </div>
+
+          {% for booking in upcoming_consultations %}
+          <div class="admin-reminder-card">
+              <div class="admin-reminder-left">
+                  <div class="admin-reminder-icon-box">📅</div>
+                  <div>
+                      <h4 class="admin-reminder-title">{{ booking.client_name }}</h4>
+                      <p class="admin-reminder-meta">{{ booking.get_service_display|default:booking.service|title }} &bull; {{ booking.consultation_date }} at {{ booking.consultation_time|time:"H:i" }}</p>
+                  </div>
+              </div>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/{{ booking.id }}/change/" class="admin-btn-gold" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">
+                  Manage &rarr;
               </a>
-              <a href="{% url 'admin:login_consultationbooking_add' %}" class="hub-action-btn">
-                  <span>➕ Schedule New Booking</span>
-                  <span class="btn-arrow">&rarr;</span>
+          </div>
+          {% empty %}
+          <div class="admin-reminder-card">
+              <div class="admin-reminder-left">
+                  <div class="admin-reminder-icon-box">⭐</div>
+                  <div>
+                      <h4 class="admin-reminder-title">Advisory Desk Ready</h4>
+                      <p class="admin-reminder-meta">All scheduled bookings are up-to-date.</p>
+                  </div>
+              </div>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/add/" class="admin-btn-gold" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">
+                  + Add Booking
               </a>
-              <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="hub-action-btn">
-                  <span>✉️ Inquiries CSV Export</span>
-                  <span class="btn-arrow">&rarr;</span>
-              </a>
-              <a href="{% url 'admin:login_customuser_changelist' %}" class="hub-action-btn">
-                  <span>👥 User Directory</span>
-                  <span class="btn-arrow">&rarr;</span>
-              </a>
-              <a href="{% url 'admin:login_testimonial_add' %}" class="hub-action-btn">
-                  <span>⭐ Add Testimonial</span>
-                  <span class="btn-arrow">&rarr;</span>
-              </a>
-              <a href="{% url 'admin:login_faq_changelist' %}" class="hub-action-btn">
-                  <span>❓ Knowledge Base FAQs</span>
-                  <span class="btn-arrow">&rarr;</span>
-              </a>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+
+  <!-- =========================================================================
+       ROW 3: ADVISORY TEAM, PROGRESS RADIAL GAUGE & TIME TRACKER
+       ========================================================================= -->
+  <div class="admin-grid-three-col">
+      
+      <!-- Wealth Advisory Team -->
+      <div class="admin-card-container">
+          <div class="admin-card-header">
+              <div>
+                  <h3 class="admin-card-title">Wealth Advisory Team</h3>
+                  <p class="admin-card-subtitle">Active fiduciaries &amp; portfolio managers</p>
+              </div>
+              <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/teammember/" class="admin-badge-gold">Manage</a>
+          </div>
+
+          {% for member in advisory_team %}
+          <div class="admin-team-row">
+              <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="{% if member.image %}{{ member.image.url }}{% else %}{% static 'avatar_leader1.png' %}{% endif %}" alt="{{ member.name }}" class="admin-team-avatar" onerror="this.src='{% static 'avatar_leader1.png' %}'">
+                  <div>
+                      <h4 class="admin-team-name">{{ member.name }}</h4>
+                      <p class="admin-team-role">{{ member.role }}</p>
+                  </div>
+              </div>
+              <span class="admin-badge-gold">Active</span>
+          </div>
+          {% empty %}
+          <div class="admin-team-row">
+              <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="{% static 'team_sabin.png' %}" alt="Sabin Balan" class="admin-team-avatar" onerror="this.src='{% static 'avatar_leader1.png' %}'">
+                  <div>
+                      <h4 class="admin-team-name">Sabin Balan</h4>
+                      <p class="admin-team-role">Founder &amp; Principal</p>
+                  </div>
+              </div>
+              <span class="admin-badge-gold">Founder</span>
+          </div>
+          {% endfor %}
+      </div>
+
+      <!-- Consultation Progress Radial Arc Gauge (41% / Dynamic Rate) -->
+      <div class="admin-card-container" style="text-align: center;">
+          <div class="admin-card-header">
+              <div>
+                  <h3 class="admin-card-title">Delivery Rate</h3>
+                  <p class="admin-card-subtitle">Completed &amp; confirmed consultations</p>
+              </div>
+          </div>
+
+          <div class="admin-radial-container">
+              <svg class="admin-radial-svg" viewBox="0 0 100 100">
+                  <circle class="admin-radial-bg-circle" cx="50" cy="50" r="38"></circle>
+                  <circle class="admin-radial-progress-circle" cx="50" cy="50" r="38"
+                          stroke-dasharray="238.76"
+                          stroke-dashoffset="{{ 238.76|add:-100 }}">
+                  </circle>
+              </svg>
+              <div class="admin-radial-center-text">
+                  {{ kpi_completion_rate|default:'41' }}%
+              </div>
+          </div>
+          <p style="font-size: 0.82rem; color: #6B7280; margin: 0;">
+              <strong>{{ kpi_confirmed_consultations|default:'10' }}</strong> of <strong>{{ kpi_total_consultations|default:'24' }}</strong> client consultations confirmed.
+          </p>
+      </div>
+
+      <!-- Time Tracker Widget (Obsidian & Gold) -->
+      <div class="admin-card-container" style="background: linear-gradient(145deg, #141815 0%, #080A09 100%); color: #FFFFFF; border-color: rgba(212, 175, 55, 0.4);">
+          <div class="admin-card-header">
+              <div>
+                  <h3 class="admin-card-title" style="color: #FFFFFF;">Executive Time Tracker</h3>
+                  <p class="admin-card-subtitle" style="color: rgba(255, 255, 255, 0.6);">Advisory session stopwatch</p>
+              </div>
+              <span class="admin-badge-gold">Live Clock</span>
+          </div>
+
+          <div style="text-align: center; padding: 1.5rem 0;">
+              <div id="stopwatch-display" style="font-family: var(--admin-font-heading); font-size: 2.25rem; font-weight: 800; color: #FFFFFF; letter-spacing: 0.05em; margin-bottom: 1.25rem;">
+                  01:24:08
+              </div>
+              <div style="display: flex; justify-content: center; gap: 0.75rem;">
+                  <button type="button" id="timer-toggle-btn" class="admin-btn-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="toggleStopwatch()">
+                      ⏸ Pause
+                  </button>
+                  <button type="button" class="admin-btn-black" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="resetStopwatch()">
+                      ⏹ Reset
+                  </button>
+              </div>
           </div>
       </div>
   </div>
 
   <!-- =========================================================================
-       ROW 3: PRIMARY CENTRAL OPERATIONS DATA TABLE (Live Crypto Style Table)
+       SECTION 4: DATA VAULT & ONE-CLICK RECOVERY CONSOLE
        ========================================================================= -->
-  <div class="central-table-card">
-      <div class="table-card-header">
+  <div class="admin-vault-section" id="vault-section">
+      <div class="admin-vault-header">
           <div>
-              <h3 style="font-size: 1.15rem; margin: 0 0 4px 0;">Recent Operations &amp; Client Inquiries</h3>
-              <p style="font-size: 0.82rem; color: var(--admin-text-muted); margin: 0;">Live queue of active consultation bookings, inquiries, and reviews</p>
+              <h2 class="admin-vault-title">Continuous Data Vault &amp; <span>1-Click Restore Console</span></h2>
+              <p style="font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); margin: 0.35rem 0 0 0;">
+                  Engineered by <strong>VintushTech &amp; KPRegTech</strong> for <strong>Sabin Balan (GreenTree FD)</strong>. 
+                  Every modification in the admin panel triggers an atomic snapshot copy.
+              </p>
           </div>
-          <input type="text" class="table-search-input" id="table-filter-input" placeholder="Search client or topic..." onkeyup="filterCentralTable(event)">
+          <div style="display: flex; gap: 0.75rem;">
+              <!-- Upload External Backup Form -->
+              <form method="post" enctype="multipart/form-data" action="{% url 'login:admin_upload_backup' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; margin: 0;">
+                  {% csrf_token %}
+                  <label for="backup-upload-input" class="admin-btn-black" style="cursor: pointer; padding: 0.5rem 0.9rem; font-size: 0.78rem;">
+                      📤 Upload &amp; Restore .sqlite3
+                  </label>
+                  <input type="file" id="backup-upload-input" name="backup_file" accept=".sqlite3,.db" style="display: none;" onchange="if(confirm('Restore database from uploaded file? This will overwrite the live database with your uploaded file.')) this.form.submit();">
+              </form>
+
+              <button type="button" class="admin-btn-gold" onclick="triggerManualVaultBackup(this)">
+                  + Take Snapshot Now
+              </button>
+          </div>
       </div>
 
-      <div style="overflow-x: auto;">
-          <table class="crypto-data-table" id="central-operations-table">
-              <thead>
-                  <tr>
-                      <th>Client Identity</th>
-                      <th>Module / Service</th>
-                      <th>Status Badge</th>
-                      <th>Timeline</th>
-                      <th>Action</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>
-                          <div class="client-identity-cell">
-                              <div class="client-avatar-mini">SB</div>
-                              <div>
-                                  <div class="client-name-bold">Sabin Balan</div>
-                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">sabin@guardiantreefp.com</div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>Private Wealth Architecture</td>
-                      <td><span class="status-pill-badge status-confirmed">● Confirmed</span></td>
-                      <td>Just Now</td>
-                      <td>
-                          <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="table-action-btn-gold">Manage</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <div class="client-identity-cell">
-                              <div class="client-avatar-mini">VK</div>
-                              <div>
-                                  <div class="client-name-bold">Vikram Kapoor</div>
-                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">vikram.k@enterprise.io</div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>Institutional Advisory Inquiry</td>
-                      <td><span class="status-pill-badge status-pending">● Review Required</span></td>
-                      <td>12 mins ago</td>
-                      <td>
-                          <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="table-action-btn-gold">View Lead</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <div class="client-identity-cell">
-                              <div class="client-avatar-mini">ER</div>
-                              <div>
-                                  <div class="client-name-bold">Elena Rostova</div>
-                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">elena.rostova@geneva-cap.ch</div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>Family Office Consultation</td>
-                      <td><span class="status-pill-badge status-confirmed">● Confirmed</span></td>
-                      <td>1 hour ago</td>
-                      <td>
-                          <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="table-action-btn-gold">Manage</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <div class="client-identity-cell">
-                              <div class="client-avatar-mini">MM</div>
-                              <div>
-                                  <div class="client-name-bold">Marcus Mercer</div>
-                                  <div style="font-size: 0.76rem; color: var(--admin-text-muted);">marcus.m@luxpartners.com</div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>Client Testimonial Endorsement</td>
-                      <td><span class="status-pill-badge status-confirmed">● Published</span></td>
-                      <td>3 hours ago</td>
-                      <td>
-                          <a href="{% url 'admin:login_testimonial_changelist' %}" class="table-action-btn-gold">Edit</a>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
+      <!-- Backup History Table -->
+      <table class="admin-vault-table">
+          <thead>
+              <tr>
+                  <th>Snapshot File</th>
+                  <th>Timestamp</th>
+                  <th>Size</th>
+                  <th>Vault Status</th>
+                  <th>Recovery Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for backup in vault_backups %}
+              <tr>
+                  <td>
+                      <span style="font-family: monospace; color: #FFFFFF; font-weight: 600;">{{ backup.filename }}</span>
+                      {% if backup.is_latest %}
+                      <span class="admin-badge-gold" style="margin-left: 0.5rem; font-size: 0.65rem;">LATEST</span>
+                      {% endif %}
+                  </td>
+                  <td>{{ backup.timestamp }}</td>
+                  <td>{{ backup.size_kb }} KB</td>
+                  <td>
+                      <span style="color: var(--admin-gold-bright); font-size: 0.78rem;">● SYNCHRONIZED</span>
+                  </td>
+                  <td>
+                      <div class="admin-vault-action-btn-group">
+                          <a href="{% url 'login:admin_download_backup' backup.filename %}" class="admin-btn-download" title="Download SQLite database snapshot to your computer">
+                              📥 Download
+                          </a>
+                          
+                          <form method="post" action="{% url 'login:admin_restore_backup' backup.filename %}" style="display: inline; margin: 0;" onsubmit="return confirm('⚠️ RESTORE DATABASE: Are you sure you want to restore all tables, bookings, and users from snapshot: {{ backup.filename }}? Current database will be safely backed up before restoring.');">
+                              {% csrf_token %}
+                              <button type="submit" class="admin-btn-restore">
+                                  🔄 Restore
+                              </button>
+                          </form>
+                      </div>
+                  </td>
+              </tr>
+              {% empty %}
+              <tr>
+                  <td colspan="5" style="text-align: center; color: rgba(255, 255, 255, 0.6); padding: 2rem;">
+                      No saved snapshots found in vault yet. Click <strong>+ Take Snapshot Now</strong> above to create your first backup.
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
   </div>
 
   <!-- =========================================================================
-       ROW 4: DJANGO APPS & MODELS STRUCTURE (admin.py models)
+       SECTION 5: ALL REGISTERED MODELS & APPLICATIONS DIRECTORY
        ========================================================================= -->
-  <div class="django-modules-card">
-      <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem;">Django Registered Models &amp; Architecture</h3>
-      {% include "admin/app_list.html" with app_list=app_list %}
+  <div class="admin-card-container">
+      <div class="admin-card-header">
+          <div>
+              <h3 class="admin-card-title">Registered Models &amp; Institutional Governance</h3>
+              <p class="admin-card-subtitle">Direct access to manage all database tables and business entities</p>
+          </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;">
+          {% for app in app_list %}
+          <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: var(--admin-radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 0.95rem; font-weight: 700; color: #0C0F0D; margin: 0 0 0.75rem 0; border-bottom: 1px solid #E5E7EB; padding-bottom: 0.5rem;">
+                  {{ app.name }}
+              </h4>
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                  {% for model in app.models %}
+                  <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0;">
+                      <a href="{{ model.admin_url }}" style="color: #374151; font-size: 0.85rem; font-weight: 600;">
+                          {{ model.name }}
+                      </a>
+                      <div style="display: flex; gap: 0.4rem;">
+                          {% if model.add_url %}
+                          <a href="{{ model.add_url }}" style="font-size: 0.72rem; color: var(--admin-gold-dark); font-weight: 700; background: rgba(212, 175, 55, 0.15); padding: 0.15rem 0.45rem; border-radius: 4px;">+ Add</a>
+                          {% endif %}
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+          {% endfor %}
+      </div>
   </div>
 
 </div>
 
-<!-- Interactive Gold Curve Chart Drawing Script -->
+<!-- Interactive Dashboard Scripts -->
 <script>
-  function renderGoldAnalyticsChart(dataPoints) {
-    const canvas = document.getElementById('gold-analytics-canvas');
-    if (!canvas) return;
-    
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-    
-    const width = rect.width;
-    const height = rect.height;
-    
-    ctx.clearRect(0, 0, width, height);
-    
-    const points = dataPoints || [
-      {x: 0, y: 0.8},
-      {x: 0.15, y: 0.65},
-      {x: 0.3, y: 0.72},
-      {x: 0.45, y: 0.45},
-      {x: 0.6, y: 0.5},
-      {x: 0.75, y: 0.28},
-      {x: 0.9, y: 0.35},
-      {x: 1.0, y: 0.18}
-    ];
+  // Manual Live Database Vault Snapshot Trigger
+  function triggerManualVaultBackup(btn) {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = "⏳ Creating Snapshot...";
+    btn.disabled = true;
 
-    const isLight = document.documentElement.getAttribute('data-admin-theme') === 'light';
-    const gridColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)';
-    const goldLine = '#D4AF37';
-    
-    // Draw Subtle Grid Lines
-    ctx.strokeStyle = gridColor;
-    ctx.lineWidth = 1;
-    for (let i = 1; i <= 4; i++) {
-      const y = (height / 5) * i;
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(width, y);
-      ctx.stroke();
-    }
-    
-    // Area Gradient Fill
-    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, 'rgba(212, 175, 55, 0.28)');
-    gradient.addColorStop(1, 'rgba(212, 175, 55, 0.0)');
-    
-    ctx.beginPath();
-    const startX = points[0].x * width;
-    const startY = points[0].y * height;
-    ctx.moveTo(startX, startY);
-    
-    for (let i = 1; i < points.length; i++) {
-      const prev = points[i - 1];
-      const curr = points[i];
-      const cpX1 = (prev.x + (curr.x - prev.x) / 2) * width;
-      const cpY1 = prev.y * height;
-      const cpX2 = (prev.x + (curr.x - prev.x) / 2) * width;
-      const cpY2 = curr.y * height;
-      ctx.bezierCurveTo(cpX1, cpY1, cpX2, cpY2, curr.x * width, curr.y * height);
-    }
-    
-    ctx.lineTo(width, height);
-    ctx.lineTo(0, height);
-    ctx.closePath();
-    ctx.fillStyle = gradient;
-    ctx.fill();
-    
-    // Smooth Gold Curve Stroke
-    ctx.beginPath();
-    ctx.moveTo(startX, startY);
-    for (let i = 1; i < points.length; i++) {
-      const prev = points[i - 1];
-      const curr = points[i];
-      const cpX1 = (prev.x + (curr.x - prev.x) / 2) * width;
-      const cpY1 = prev.y * height;
-      const cpX2 = (prev.x + (curr.x - prev.x) / 2) * width;
-      const cpY2 = curr.y * height;
-      ctx.bezierCurveTo(cpX1, cpY1, cpX2, cpY2, curr.x * width, curr.y * height);
-    }
-    ctx.strokeStyle = goldLine;
-    ctx.lineWidth = 3;
-    ctx.shadowColor = 'rgba(212, 175, 55, 0.5)';
-    ctx.shadowBlur = 10;
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-    
-    // Draw Glowing Points
-    points.forEach((p, idx) => {
-      if (idx === points.length - 1 || idx % 2 === 1) {
-        const px = p.x * width;
-        const py = p.y * height;
-        ctx.beginPath();
-        ctx.arc(px, py, 4.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#D4AF37';
-        ctx.fill();
-        ctx.strokeStyle = isLight ? '#FFFFFF' : '#0E121A';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-    });
+    fetch('/admin-saas/manual-backup/')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('✅ Live Database Snapshot Created Successfully: ' + data.file_name + ' (' + data.file_size_kb + ' KB)');
+          window.location.reload();
+        } else {
+          alert('❌ Error creating backup: ' + (data.error || 'Unknown error'));
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+      })
+      .catch(err => {
+        alert('❌ Error triggering live snapshot: ' + err);
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      });
   }
 
-  function switchChartTimeframe(tf, btn) {
-    document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    const datasets = {
-      '24H': [{x:0, y:0.7}, {x:0.2, y:0.6}, {x:0.4, y:0.68}, {x:0.6, y:0.4}, {x:0.8, y:0.55}, {x:1.0, y:0.25}],
-      '7D': [{x:0, y:0.75}, {x:0.25, y:0.5}, {x:0.5, y:0.65}, {x:0.75, y:0.3}, {x:1.0, y:0.2}],
-      '1M': [{x:0, y:0.8}, {x:0.15, y:0.65}, {x:0.3, y:0.72}, {x:0.45, y:0.45}, {x:0.6, y:0.5}, {x:0.75, y:0.28}, {x:0.9, y:0.35}, {x:1.0, y:0.18}],
-      '1Y': [{x:0, y:0.9}, {x:0.2, y:0.75}, {x:0.4, y:0.55}, {x:0.6, y:0.62}, {x:0.8, y:0.38}, {x:1.0, y:0.12}],
-      'ALL': [{x:0, y:0.95}, {x:0.3, y:0.8}, {x:0.6, y:0.45}, {x:0.85, y:0.3}, {x:1.0, y:0.1}]
-    };
-    renderGoldAnalyticsChart(datasets[tf] || datasets['1M']);
+  // Stopwatch Logic
+  let stopwatchSeconds = 5048; // 01:24:08 in seconds
+  let stopwatchInterval = null;
+  let isRunning = false;
+
+  function formatTime(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
   }
 
-  function filterCentralTable(e) {
-    const q = e.target.value.toLowerCase().trim();
-    const rows = document.querySelectorAll('#central-operations-table tbody tr');
-    rows.forEach(r => {
-      const text = r.textContent.toLowerCase();
-      r.style.display = text.includes(q) ? '' : 'none';
-    });
+  function toggleStopwatch() {
+    const btn = document.getElementById('timer-toggle-btn');
+    const display = document.getElementById('stopwatch-display');
+
+    if (isRunning) {
+      clearInterval(stopwatchInterval);
+      isRunning = false;
+      btn.innerHTML = "▶ Resume";
+    } else {
+      stopwatchInterval = setInterval(() => {
+        stopwatchSeconds++;
+        display.textContent = formatTime(stopwatchSeconds);
+      }, 1000);
+      isRunning = true;
+      btn.innerHTML = "⏸ Pause";
+    }
   }
 
-  window.renderGoldAnalyticsChart = renderGoldAnalyticsChart;
-
-  window.addEventListener('resize', () => renderGoldAnalyticsChart());
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(renderGoldAnalyticsChart, 150);
-  });
+  function resetStopwatch() {
+    clearInterval(stopwatchInterval);
+    isRunning = false;
+    stopwatchSeconds = 0;
+    document.getElementById('stopwatch-display').textContent = "00:00:00";
+    document.getElementById('timer-toggle-btn').innerHTML = "▶ Start";
+  }
 </script>
 {% endblock %}

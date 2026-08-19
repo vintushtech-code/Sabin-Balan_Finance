@@ -2,242 +2,250 @@
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
 <head>
+<meta charset="utf-8">
 <title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
-<link rel="stylesheet" href="{% static 'theme_config/css/admin_theme.css' %}">
 {% block dark-mode-vars %}{% endblock %}
+{% block extrastyle %}{% endblock %}
 {% block extrahead %}{% endblock %}
 {% block responsive %}
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
 {% endblock %}
 <meta name="robots" content="NONE,NOARCHIVE">
-<link rel="icon" href="{% static 'vintushtech_logo.png' %}">
-<script>
-  (function() {
-    try {
-      if (localStorage.getItem('admin_theme') === 'light') {
-        document.documentElement.setAttribute('data-admin-theme', 'light');
-      }
-    } catch(e) {}
-  })();
-</script>
+<link rel="icon" href="{% static 'logo.png' %}">
+
+<!-- Executive Donezo Luxury Black, White & Gold Theme (Loaded with highest cascade precedence) -->
+<link rel="stylesheet" href="{% static 'theme_config/css/admin_theme.css' %}?v=3.0">
 </head>
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
 <a href="#content-start" class="skip-to-content-link">{% translate 'Skip to main content' %}</a>
 
-<div id="container">
+<div id="container" class="admin-root-container">
 
     {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
-    <!-- Crypto / Financial Executive Top Header -->
-    <header id="header">
-        <div class="header-left-group">
-            <button type="button" class="sidebar-toggle-btn" id="sidebar-toggle-btn" onclick="toggleAdminSidebar()" title="Toggle Navigation Sidebar">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
+    <!-- Luxury Obsidian & Gold Sidebar -->
+    <aside class="admin-sidebar" id="nav-sidebar">
+        <div class="admin-sidebar-top-wrap">
+            <!-- Brand Crest with Real GreenTree FD Logo -->
+            <div class="admin-sidebar-brand">
+                <div class="admin-sidebar-brand-logos">
+                    <img src="{% static 'logo.png' %}" alt="GreenTree FD" class="admin-sidebar-logo-img">
+                </div>
+                <div class="admin-sidebar-brand-text">
+                    <h2 class="admin-sidebar-title">GreenTree <span>FD</span></h2>
+                    <span class="admin-sidebar-subtitle">Executive Suite</span>
+                </div>
+            </div>
 
-            {% block branding %}{% endblock %}
+            <!-- MENU ITEMS CORRESPONDING EXACTLY TO ACTIVE MODELS -->
+            <div class="admin-sidebar-nav">
+                <div class="admin-sidebar-section-title">Operations &amp; Models</div>
+                
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/" class="admin-sidebar-link {% if request.path == '/'|add:admin_secret_path|add:'/' or request.resolver_match.url_name == 'index' %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">⊞</span>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+                
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/" class="admin-sidebar-link {% if 'consultationbooking' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">📅</span>
+                        <span>Consultations</span>
+                    </div>
+                    {% if kpi_pending_consultations %}
+                    <span class="admin-sidebar-badge">{{ kpi_pending_consultations }}</span>
+                    {% endif %}
+                </a>
 
-            <div class="header-search-bar">
-                <svg class="search-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input type="text" id="global-admin-search" placeholder="Quick search models, bookings, inquiries... (Ctrl + K)" onkeyup="filterAdminModels(event)">
-                <span class="search-shortcut-tag">⌘ K</span>
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/contactform/contactsubmission/" class="admin-sidebar-link {% if 'contactsubmission' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">✉️</span>
+                        <span>Client Inquiries</span>
+                    </div>
+                    {% if kpi_total_inquiries %}
+                    <span class="admin-sidebar-badge">{{ kpi_total_inquiries }}</span>
+                    {% endif %}
+                </a>
+
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/customuser/" class="admin-sidebar-link {% if 'customuser' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">👥</span>
+                        <span>Users &amp; Staff</span>
+                    </div>
+                </a>
+
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/teammember/" class="admin-sidebar-link {% if 'teammember' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">👔</span>
+                        <span>Advisory Team</span>
+                    </div>
+                </a>
+
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/testimonial/" class="admin-sidebar-link {% if 'testimonial' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">⭐</span>
+                        <span>Testimonials</span>
+                    </div>
+                </a>
+
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/faq/" class="admin-sidebar-link {% if 'faq' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">❓</span>
+                        <span>Knowledge FAQs</span>
+                    </div>
+                </a>
+
+                <div class="admin-sidebar-section-title">System &amp; SaaS Governance</div>
+
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/#vault-section" class="admin-sidebar-link {% if 'adminbackuplog' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">💾</span>
+                        <span>Data Vault Backups</span>
+                    </div>
+                    <span class="admin-sidebar-badge">Auto</span>
+                </a>
+
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/adminsaassubscription/" class="admin-sidebar-link {% if 'adminsaassubscription' in request.path %}active{% endif %}">
+                    <div class="admin-sidebar-link-left">
+                        <span class="admin-sidebar-link-icon">💎</span>
+                        <span>SaaS Subscription</span>
+                    </div>
+                </a>
             </div>
         </div>
 
-        {% block usertools %}
-        {% if has_permission %}
-        <div class="header-right-group">
-            <!-- 2FA Live Security Indicator -->
-            <div class="live-security-badge" title="Cryptographic 2FA Enforced via sys.stdout & Email">
-                <span class="live-dot-pulse"></span>
-                <span>2FA SECURED</span>
+        <!-- Sidebar Bottom Promotional Card (KPRegTech & VintushTech) -->
+        <div class="admin-sidebar-promo">
+            <div class="admin-sidebar-promo-logos">
+                <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" class="admin-sidebar-promo-logo-img">
+                <img src="{% static 'kplogo.png' %}" alt="KPRegTech" class="admin-sidebar-promo-logo-img">
             </div>
-
-            <!-- Theme Toggle Switch -->
-            <button id="admin-theme-toggle" type="button" class="theme-toggle-btn" onclick="toggleAdminTheme()" title="Switch Light / Dark Theme">
-                <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
-            </button>
-
-            <!-- Live Site Link -->
-            <a href="/" target="_blank" class="theme-toggle-btn" style="text-decoration: none;" title="Open Public Client Website">
-                <span>🌐</span> <span>Live Site</span>
+            <span class="admin-sidebar-promo-badge">Admin as a Service</span>
+            <h4 class="admin-sidebar-promo-title">KPRegTech &amp; VintushTech</h4>
+            <p class="admin-sidebar-promo-desc">Continuous live database vault &amp; enterprise support for Sabin Balan (GreenTree FD).</p>
+            <a href="https://vintushtech.cloud" target="_blank" class="admin-sidebar-promo-btn">
+                Cloud Service Desk &rarr;
             </a>
-
-            <!-- User Profile Pill -->
-            <div class="admin-user-pill">
-                <div class="user-avatar-circle">
-                    {{ user.get_initials|default:"AD" }}
-                </div>
-                <div class="user-info-text">
-                    <span class="user-name-text">{{ user.username|default:"Admin" }}</span>
-                </div>
-            </div>
-
-            <!-- Logout Button -->
-            <form id="logout-form" method="post" action="{% url 'admin:logout' %}" style="display:inline; margin:0;">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn-header" title="Terminate Admin Session">Log Out</button>
-            </form>
         </div>
-        {% endif %}
-        {% endblock %}
-    </header>
+    </aside>
     {% endif %}
 
-    <div class="main {% if user.is_authenticated and not 'login' in bodyclass %}shifted{% endif %}" id="main">
+    <!-- Main Content Canvas -->
+    <div id="content" class="admin-main-canvas">
         {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
-        <!-- Collapsible Left Vertical Navigation Sidebar -->
-        <aside class="nav-sidebar" id="nav-sidebar">
-            <div class="sidebar-top-section">
-                <!-- Group 1: Core Navigation -->
-                <div class="sidebar-nav-group">
-                    <div class="sidebar-group-title">Executive Core</div>
-                    <a href="{% url 'admin:index' %}" class="sidebar-nav-item {% if request.path == '/x7K9mQp2LrT4/' or request.resolver_match.url_name == 'index' %}active{% endif %}">
-                        <span class="sidebar-nav-icon">📊</span>
-                        <span>Dashboard Overview</span>
-                    </a>
-                </div>
-
-                <!-- Group 2: Client & Wealth Advisory Models -->
-                <div class="sidebar-nav-group">
-                    <div class="sidebar-group-title">Wealth &amp; Advisory Models</div>
-                    <a href="{% url 'admin:login_consultationbooking_changelist' %}" class="sidebar-nav-item {% if 'consultationbooking' in request.path %}active{% endif %}">
-                        <span class="sidebar-nav-icon">📅</span>
-                        <span>Consultation Bookings</span>
-                    </a>
-                    <a href="{% url 'admin:contactform_contactsubmission_changelist' %}" class="sidebar-nav-item {% if 'contactsubmission' in request.path %}active{% endif %}">
-                        <span class="sidebar-nav-icon">✉️</span>
-                        <span>Client Form Inquiries</span>
-                    </a>
-                    <a href="{% url 'admin:login_customuser_changelist' %}" class="sidebar-nav-item {% if 'customuser' in request.path %}active{% endif %}">
-                        <span class="sidebar-nav-icon">👥</span>
-                        <span>User Base &amp; Staff</span>
-                    </a>
-                    <a href="{% url 'admin:login_testimonial_changelist' %}" class="sidebar-nav-item {% if 'testimonial' in request.path %}active{% endif %}">
-                        <span class="sidebar-nav-icon">⭐</span>
-                        <span>Client Testimonials</span>
-                    </a>
-                    <a href="{% url 'admin:login_faq_changelist' %}" class="sidebar-nav-item {% if 'faq' in request.path %}active{% endif %}">
-                        <span class="sidebar-nav-icon">❓</span>
-                        <span>Knowledge FAQs</span>
-                    </a>
-                </div>
-
-                <!-- Group 3: Operations & Support -->
-                <div class="sidebar-nav-group">
-                    <div class="sidebar-group-title">Operations &amp; Tools</div>
-                    <a href="{% url 'admin:password_change' %}" class="sidebar-nav-item {% if 'password_change' in request.path %}active{% endif %}">
-                        <span class="sidebar-nav-icon">🔑</span>
-                        <span>Security Credentials</span>
-                    </a>
-                </div>
+        <!-- Top Header Navigation Bar (Donezo Style) -->
+        <header class="admin-top-header">
+            <!-- Search Bar with Shortcut -->
+            <div class="admin-search-wrapper">
+                <span class="admin-search-icon">🔍</span>
+                <input type="text" id="global-admin-search" class="admin-search-input" placeholder="Search consultations, users, models... (⌘ F)" onkeyup="filterAdminCards(event)">
+                <span class="admin-search-shortcut">⌘ F</span>
             </div>
 
-        </aside>
+            <!-- Right Actions, Logos, Trial Status & User Pill -->
+            <div class="admin-top-actions">
+                <!-- Partner Developer Crest -->
+                <div class="admin-partner-pill" title="Developed by KPRegTech &amp; VintushTech">
+                    <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" class="admin-partner-pill-logo">
+                    <img src="{% static 'kplogo.png' %}" alt="KPRegTech" class="admin-partner-pill-logo">
+                    <span class="admin-partner-pill-text">KP &bull; VintushTech</span>
+                </div>
+
+                <!-- 3-Month Free Trial Pill -->
+                <div class="admin-saas-trial-pill" title="3 Months Complimentary Trial active for Sabin Balan">
+                    <span class="admin-saas-trial-pill-dot"></span>
+                    <span>3M FREE TRIAL ({{ saas_status.days_remaining|default:'89' }}D LEFT)</span>
+                </div>
+
+                <!-- Mail Inquiries Icon -->
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/contactform/contactsubmission/" class="admin-action-icon-btn" title="Client Inquiries">
+                    <span>✉️</span>
+                    {% if kpi_total_inquiries %}
+                    <span class="admin-action-icon-badge"></span>
+                    {% endif %}
+                </a>
+
+                <!-- Consultation Bookings Icon -->
+                <a href="/{{ admin_secret_path|default:'x7K9mQp2LrT4' }}/login/consultationbooking/" class="admin-action-icon-btn" title="Scheduled Consultations">
+                    <span>🔔</span>
+                    {% if kpi_pending_consultations %}
+                    <span class="admin-action-icon-badge"></span>
+                    {% endif %}
+                </a>
+
+                <!-- User Profile Pill (Sabin Balan) -->
+                <div class="admin-user-profile-pill">
+                    <img src="{% static 'team_sabin.png' %}" alt="Sabin Balan" class="admin-user-avatar" onerror="this.src='{% static 'avatar_leader1.png' %}'">
+                    <div class="admin-user-info">
+                        <span class="admin-user-name">Sabin Balan</span>
+                        <span class="admin-user-role">Founder, GreenTree FD</span>
+                    </div>
+                </div>
+
+                <!-- Logout Form -->
+                <form id="logout-form" method="post" action="{% url 'admin:logout' %}" style="display:inline; margin:0;">
+                    {% csrf_token %}
+                    <button type="submit" class="admin-btn-black" style="padding: 0.45rem 0.85rem; font-size: 0.78rem;" title="Sign out of Admin Session">Log Out</button>
+                </form>
+            </div>
+        </header>
         {% endif %}
 
-        <!-- Main Content Area -->
-        <main class="content" id="content-main-wrapper">
+        <div class="admin-page-body">
             {% block messages %}
             {% if messages %}
-            <ul class="messagelist" style="margin: 0 0 20px 0; padding: 0; list-style: none;">
+            <div style="padding: 1rem 2rem 0 2rem;">
                 {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="padding: 12px 18px; border-radius: var(--admin-radius-md); margin-bottom: 10px; background: var(--admin-gold-muted); border: 1px solid var(--admin-gold-border); color: var(--admin-gold); font-weight: 700;">
-                    🛡️ {{ message|capfirst }}
-                </li>
+                <div style="padding: 0.85rem 1.25rem; border-radius: var(--admin-radius-md); margin-bottom: 1rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: #8C6D1F; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                    {{ message }}
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
             {% endif %}
             {% endblock messages %}
 
             {% block content %}{% endblock %}
+        </div>
 
-            {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
-            <!-- Persistent Dashboard Bottom Attribution -->
-            <footer class="admin-publisher-footer">
-                <p class="footer-legal-copy">
-                    <strong>Enterprise Wealth &amp; Operations Intelligence Suite</strong> &bull; &copy; 2026 GuardianTree FP. All Rights Reserved. &bull; Licensed Consortium Deployment
-                </p>
-            </footer>
-            {% endif %}
-        </main>
+        {% if not is_popup and user.is_authenticated and not 'login' in bodyclass %}
+        <!-- Footer with Developer & Creator Credits -->
+        <footer class="admin-footer">
+            <div class="admin-footer-credits">
+                <strong>GreenTree FD Executive Management Suite</strong> &bull; 
+                Powered as a Service by <a href="https://vintushtech.cloud" target="_blank">VintushTech</a> &amp; <a href="https://kpregtech.com" target="_blank">KPRegTech</a> &bull; 
+                Client: <strong>Sabin Balan (Founder, GreenTree FD)</strong>
+            </div>
+            <div class="admin-footer-logos">
+                <img src="{% static 'logo.png' %}" alt="GreenTree FD" class="admin-footer-logo-item">
+                <img src="{% static 'vintushtech_logo.png' %}" alt="VintushTech" class="admin-footer-logo-item">
+                <img src="{% static 'kplogo.png' %}" alt="KPRegTech" class="admin-footer-logo-item">
+            </div>
+        </footer>
+        {% endif %}
     </div>
+
 </div>
 
-<!-- Core Dashboard Vanilla JavaScript -->
+<!-- Global Dashboard Keybindings -->
 <script>
-  function toggleAdminTheme() {
-    const isLight = document.documentElement.getAttribute('data-admin-theme') === 'light';
-    const newTheme = isLight ? 'dark' : 'light';
-    
-    if (newTheme === 'light') {
-      document.documentElement.setAttribute('data-admin-theme', 'light');
-      document.body.classList.add('admin-light-mode');
-    } else {
-      document.documentElement.removeAttribute('data-admin-theme');
-      document.body.classList.remove('admin-light-mode');
-    }
-    
-    try { localStorage.setItem('admin_theme', newTheme); } catch(e) {}
-    updateThemeToggleUI(newTheme);
-    if (window.renderGoldAnalyticsChart) {
-      window.renderGoldAnalyticsChart();
-    }
-  }
-
-  function updateThemeToggleUI(theme) {
-    const icon = document.getElementById('theme-icon');
-    const text = document.getElementById('theme-text');
-    if (icon && text) {
-      if (theme === 'light') {
-        icon.textContent = '🌙';
-        text.textContent = 'Dark Mode';
-      } else {
-        icon.textContent = '☀️';
-        text.textContent = 'Light Mode';
-      }
-    }
-  }
-
-  function toggleAdminSidebar() {
-    const sidebar = document.getElementById('nav-sidebar');
-    if (sidebar) {
-      sidebar.classList.toggle('mobile-open');
-    }
-  }
-
-  function filterAdminModels(e) {
+  function filterAdminCards(e) {
     const query = e.target.value.toLowerCase().trim();
-    const modelCards = document.querySelectorAll('.model-widget-card, .crypto-data-table tbody tr');
-    modelCards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(query) ? '' : 'none';
+    const rows = document.querySelectorAll('.admin-metric-card, .admin-reminder-card, .admin-team-row, .admin-vault-table tbody tr, #changelist tbody tr');
+    rows.forEach(el => {
+      const text = el.textContent.toLowerCase();
+      el.style.display = text.includes(query) ? '' : 'none';
     });
   }
 
-  // Global Ctrl + K search shortcut
+  // Global ⌘ F / Ctrl + F / Ctrl + K Search Keybinding
   document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'f' || e.key.toLowerCase() === 'k')) {
       e.preventDefault();
       const searchInput = document.getElementById('global-admin-search');
       if (searchInput) searchInput.focus();
     }
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const currentTheme = localStorage.getItem('admin_theme') || 'dark';
-    if (currentTheme === 'light') {
-      document.body.classList.add('admin-light-mode');
-    }
-    updateThemeToggleUI(currentTheme);
   });
 </script>
 
