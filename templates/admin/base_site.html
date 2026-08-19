@@ -1,26 +1,10 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Executive Wealth & Operations Suite{% endblock %}
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | GreenTree FD Executive Management Suite{% endblock %}
 
 {% block branding %}
-<div class="executive-header-brand">
-    <div class="publisher-logos-wrap" title="Powered by BlinkaStack & KPTechTech">
-        <a href="{% url 'admin:index' %}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
-            <div class="brand-crest-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--admin-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                </svg>
-            </div>
-            <div class="brand-portal-title">
-                <span class="portal-main-name">GUARDIANTREE <span style="color: var(--admin-gold);">FP</span></span>
-                <span class="brand-portal-subtitle">Executive Suite</span>
-            </div>
-        </a>
-    </div>
-</div>
 {% endblock %}
 
 {% block nav-global %}
 {% endblock %}
-

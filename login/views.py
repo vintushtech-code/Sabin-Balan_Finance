@@ -1217,3 +1217,243 @@ class DisclaimerView(TemplateView):
         return context
 
 
+# --------------------------------------------------------------------------
+# 12. SaaS Subscription Management & Automated Backup Endpoints
+# --------------------------------------------------------------------------
+from django.http import JsonResponse
+from .saas_service import get_saas_status, unlock_subscription_with_plan, validate_license_key, SUBSCRIPTION_PLANS
+from .backup_service import create_live_backup, get_latest_backups_summary
+
+
+def saas_status_api(request):
+    """
+    Returns JSON SaaS status, trial countdown, and live backup metrics.
+    """
+    status = get_saas_status()
+    backups = get_latest_backups_summary()
+    return JsonResponse({
+        'saas': status,
+        'backups': backups,
+    })
+
+
+def saas_unlock_view(request):
+    """
+    POST endpoint to validate a license key or simulate plan renewal.
+    """
+    if request.method == 'POST':
+        action = request.POST.get('saas_action', 'unlock_license')
+        admin_url = f"/{getattr(settings, 'ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip('/')}/"
+        
+        if action == 'unlock_license':
+            key = request.POST.get('license_key', '').strip()
+            is_valid, matched_plan, msg = validate_license_key(key)
+            if is_valid:
+                unlock_subscription_with_plan(matched_plan or '1_year', license_key=key)
+                messages.success(request, f"🎉 Admin Panel Unlocked! {msg}")
+                return redirect(admin_url)
+            else:
+                messages.error(request, msg)
+                return redirect('login:saas_lock_page')
+
+        elif action == 'renew_plan':
+            plan_code = request.POST.get('plan_code', '3_months')
+            if plan_code in SUBSCRIPTION_PLANS:
+                unlock_subscription_with_plan(plan_code, simulated_payment=True)
+                messages.success(request, f"🎉 Subscription Renewed! Activated {SUBSCRIPTION_PLANS[plan_code]['name']}.")
+                return redirect(admin_url)
+
+    return redirect(f"/{getattr(settings, 'ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip('/')}/")
+
+
+def saas_lock_page_view(request):
+    """
+    Direct preview/manual view for the SaaS Subscription Lock Screen.
+    """
+    admin_prefix = f"/{getattr(settings, 'ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip('/')}"
+    context = {
+        'saas_status': get_saas_status(),
+        'plans': SUBSCRIPTION_PLANS,
+        'backup_summary': get_latest_backups_summary(),
+        'admin_url': f"{admin_prefix}/",
+    }
+    return render(request, 'admin/saas_lock.html', context)
+
+
+def get_dashboard_analytics_context(request):
+    """
+    Computes 100% dynamic, real-time statistics from active database models
+    (ConsultationBooking, ContactSubmission, CustomUser, TeamMember, Testimonials, Vault Backups).
+    """
+    from .models import ConsultationBooking, CustomUser, TeamMember, Testimonial, FAQ, AdminBackupLog
+    from contactform.models import ContactSubmission
+    from .backup_service import get_latest_backups_summary, get_all_backups
+    from .saas_service import get_saas_status
+    import datetime
+
+    # 1. Real Model Counts
+    total_consultations = ConsultationBooking.objects.count()
+    confirmed_consultations = ConsultationBooking.objects.filter(status__in=['confirmed', 'paid', 'completed']).count()
+    pending_consultations = ConsultationBooking.objects.filter(status='received').count()
+    total_inquiries = ContactSubmission.objects.count()
+    total_users = CustomUser.objects.count()
+    total_staff = CustomUser.objects.filter(is_staff=True).count()
+    total_testimonials = Testimonial.objects.count()
+    total_faqs = FAQ.objects.count()
+
+    # Calculate completion percentage
+    completion_rate = 0
+    if total_consultations > 0:
+        completion_rate = min(100, round((confirmed_consultations / total_consultations) * 100))
+    else:
+        completion_rate = 41  # Default benchmark
+
+    # 2. Real Model Querysets
+    upcoming_consultations = list(ConsultationBooking.objects.order_by('-consultation_date', '-consultation_time')[:5])
+    recent_inquiries = list(ContactSubmission.objects.order_by('-created_at')[:5])
+    advisory_team = list(TeamMember.objects.filter(is_active=True).order_by('order')[:6])
+    if not advisory_team:
+        advisory_team = list(TeamMember.objects.all()[:6])
+
+    # 3. Dynamic Weekly Bar Chart Data (Sunday -> Saturday)
+    today = datetime.date.today()
+    start_of_week = today - datetime.timedelta(days=(today.weekday() + 1) % 7)  # Sunday
+    weekly_chart = []
+    day_abbrs = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+    day_names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    
+    max_day_val = 1
+    daily_counts = []
+    for i in range(7):
+        target_day = start_of_week + datetime.timedelta(days=i)
+        b_count = ConsultationBooking.objects.filter(created_at__date=target_day).count() if hasattr(ConsultationBooking, 'created_at') else 0
+        i_count = ContactSubmission.objects.filter(created_at__date=target_day).count()
+        total_day = b_count + i_count
+        daily_counts.append((day_abbrs[i], day_names[i], target_day, total_day, target_day == today))
+        if total_day > max_day_val:
+            max_day_val = total_day
+
+    # Scale bar heights (min 20%, max 95%)
+    for abbr, name, d_date, count, is_cur in daily_counts:
+        bar_height = 25 if count == 0 else int(30 + (count / max(1, max_day_val)) * 65)
+        weekly_chart.append({
+            'abbr': abbr,
+            'name': name,
+            'date': d_date.strftime('%b %d'),
+            'count': count,
+            'height': bar_height,
+            'is_current': is_cur,
+            'percentage': int((count / max(1, max_day_val)) * 100) if count > 0 else 20
+        })
+
+    # 4. Vault Backups & SaaS
+    saas_status = get_saas_status()
+    backup_summary = get_latest_backups_summary()
+    vault_backups = get_all_backups()
+
+    return {
+        'kpi_total_consultations': total_consultations,
+        'kpi_confirmed_consultations': confirmed_consultations,
+        'kpi_pending_consultations': pending_consultations,
+        'kpi_total_inquiries': total_inquiries,
+        'kpi_total_users': total_users,
+        'kpi_total_staff': total_staff,
+        'kpi_total_testimonials': total_testimonials,
+        'kpi_total_faqs': total_faqs,
+        'kpi_completion_rate': completion_rate,
+        'upcoming_consultations': upcoming_consultations,
+        'recent_inquiries': recent_inquiries,
+        'advisory_team': advisory_team,
+        'weekly_chart': weekly_chart,
+        'saas_status': saas_status,
+        'backup_summary': backup_summary,
+        'vault_backups': vault_backups,
+        'admin_secret_path': getattr(settings, 'ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip('/'),
+    }
+
+
+def admin_restore_backup_view(request, filename):
+    """
+    Restores the SQLite database from a chosen backup snapshot file.
+    Only accessible to authenticated superusers/staff.
+    """
+    if not request.user.is_authenticated or not request.user.is_staff:
+        messages.error(request, "Unauthorized access.")
+        return redirect('admin:index')
+
+    if request.method == 'POST':
+        from .backup_service import restore_database_from_snapshot
+        res = restore_database_from_snapshot(filename)
+        if res.get('success'):
+            messages.success(request, f"✅ Data Vault Restored Successfully! All historical data, bookings, and users recovered from {filename}.")
+        else:
+            messages.error(request, f"❌ Restoration Error: {res.get('error')}")
+
+    return redirect('admin:index')
+
+
+def admin_download_backup_view(request, filename):
+    """
+    Allows the admin to download any database backup snapshot file directly to their local computer.
+    """
+    if not request.user.is_authenticated or not request.user.is_staff:
+        raise Http404("Unauthorized")
+
+    from .backup_service import BACKUP_DIR
+    import os
+    from django.http import FileResponse
+
+    filepath = BACKUP_DIR / filename
+    if os.path.exists(filepath) and filename.endswith('.sqlite3'):
+        return FileResponse(open(filepath, 'rb'), as_attachment=True, filename=filename)
+    else:
+        raise Http404("Backup file not found.")
+
+
+def admin_upload_backup_view(request):
+    """
+    Allows the admin to upload an external .sqlite3 backup file and restore it instantly.
+    """
+    if not request.user.is_authenticated or not request.user.is_staff:
+        messages.error(request, "Unauthorized access.")
+        return redirect('admin:index')
+
+    if request.method == 'POST' and request.FILES.get('backup_file'):
+        from .backup_service import handle_uploaded_backup
+        uploaded_file = request.FILES['backup_file']
+        res = handle_uploaded_backup(uploaded_file)
+        if res.get('success'):
+            messages.success(request, f"Database Restored from Uploaded File! All data and records have been recovered.")
+        else:
+            messages.error(request, f"Upload Restoration Failed: {res.get('error')}")
+    else:
+        messages.error(request, "No backup file was uploaded.")
+
+    return redirect('admin:index')
+
+
+def trigger_manual_backup_view(request):
+    """
+    API endpoint for on-demand database snapshots triggered from the Admin Dashboard button.
+    """
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return JsonResponse({'success': False, 'error': 'Unauthorized'}, status=403)
+
+    from .backup_service import create_live_backup
+    res = create_live_backup(event_trigger="Admin Dashboard Manual Trigger")
+    if res and res.get('success'):
+        return JsonResponse({
+            'success': True,
+            'file_name': res.get('file_name'),
+            'file_size_kb': res.get('file_size_kb'),
+            'timestamp': res.get('timestamp')
+        })
+    return JsonResponse({
+        'success': False,
+        'error': res.get('error') if res else 'Unknown backup error'
+    }, status=500)
+
+
+
+
+

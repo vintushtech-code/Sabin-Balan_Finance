@@ -46,12 +46,15 @@ def send_luxury_email(subject, template_name, context, recipient_list, from_emai
 
     # Print a clean terminal summary header during development
     recipients_str = ", ".join(recipient_list)
-    print("\n" + "=" * 70)
-    print(f"🛡️ [SABIN BALAN FINANCE EMAIL DISPATCH]")
-    print(f"   To:      {recipients_str}")
-    print(f"   From:    {sender}")
-    print(f"   Subject: {subject}")
-    print("=" * 70 + "\n")
+    try:
+        print("\n" + "=" * 70)
+        print(f"[SABIN BALAN FINANCE EMAIL DISPATCH]")
+        print(f"   To:      {recipients_str}")
+        print(f"   From:    {sender}")
+        print(f"   Subject: {subject}")
+        print("=" * 70 + "\n")
+    except Exception:
+        pass
 
     try:
         sent_count = send_mail(

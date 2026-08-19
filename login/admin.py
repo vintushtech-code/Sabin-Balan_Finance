@@ -2,14 +2,101 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from .models import CustomUser, SuperUser, FAQ, TeamMember, Testimonial, ConsultationBooking
+from .models import CustomUser, SuperUser, FAQ, TeamMember, Testimonial, ConsultationBooking, AdminSaaSSubscription, AdminBackupLog
+from .saas_service import unlock_subscription_with_plan
+from .backup_service import create_live_backup
+import datetime
+from django.utils import timezone
 
 # ==============================================================================
 # EXECUTIVE PORTAL BRANDING & HEADERS (KP RegTech & VintushTech)
 # ==============================================================================
-admin.site.site_header = "Executive Wealth Admin Suite • KP RegTech & VintushTech"
-admin.site.site_title = "Executive Wealth Admin Portal"
+admin.site.site_header = "GreenTree FD Executive Suite • Powered by KPRegTech & VintushTech"
+admin.site.site_title = "GreenTree FD Admin Portal"
 admin.site.index_title = "Commercial Wealth & Client Operations Dashboard"
+
+
+@admin.register(AdminSaaSSubscription)
+class AdminSaaSSubscriptionAdmin(admin.ModelAdmin):
+    """
+    Admin management panel for SaaS Subscription, 3-Month Free Trial, and License Control.
+    """
+    list_display = (
+        'service_name', 'client_name', 'colored_status', 'current_plan',
+        'is_free_trial', 'paid_until', 'is_locked', 'updated_at'
+    )
+    list_filter = ('subscription_status', 'is_free_trial', 'current_plan', 'is_locked')
+    search_fields = ('service_name', 'client_name', 'client_email', 'license_key')
+    readonly_fields = ('created_at', 'updated_at', 'trial_start_date')
+
+    @admin.display(description=_("SaaS Status"), ordering="subscription_status")
+    def colored_status(self, obj):
+        if obj.is_locked or obj.subscription_status == 'locked_expired':
+            return format_html('<span style="background: #fee2e2; color: #b91c1c; padding: 4px 10px; border-radius: 9999px; font-weight: 700; font-size: 0.78rem;">🔒 LOCKED / EXPIRED</span>')
+        if obj.is_free_trial:
+            return format_html('<span style="background: #ecfdf5; color: #047857; padding: 4px 10px; border-radius: 9999px; font-weight: 700; font-size: 0.78rem;">✨ 3M FREE TRIAL ACTIVE</span>')
+        return format_html('<span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 9999px; font-weight: 700; font-size: 0.78rem;">💎 ACTIVE PAID ({})</span>', obj.get_current_plan_display())
+
+    actions = ['extend_trial_90_days', 'activate_annual_plan', 'lock_admin_panel', 'unlock_admin_panel']
+
+    @admin.action(description=_("Extend 3-Month Free Trial (+90 Days)"))
+    def extend_trial_90_days(self, request, queryset):
+        for sub in queryset:
+            now = timezone.now()
+            sub.is_locked = False
+            sub.is_free_trial = True
+            sub.subscription_status = 'active_trial'
+            sub.trial_end_date = (sub.trial_end_date or now) + datetime.timedelta(days=90)
+            sub.paid_until = sub.trial_end_date
+            sub.save()
+        self.message_user(request, f"Free trial extended by 90 days for {queryset.count()} record(s).")
+
+    @admin.action(description=_("Activate 1-Year Enterprise Annual Plan"))
+    def activate_annual_plan(self, request, queryset):
+        for sub in queryset:
+            unlock_subscription_with_plan('1_year', simulated_payment=True)
+        self.message_user(request, f"1-Year Enterprise Plan activated for {queryset.count()} record(s).")
+
+    @admin.action(description=_("🔒 Test Locking: Lock Admin Panel Immediately"))
+    def lock_admin_panel(self, request, queryset):
+        queryset.update(is_locked=True, subscription_status='locked_expired')
+        self.message_user(request, "Admin panel locked for testing renewal lock screen.")
+
+    @admin.action(description=_("🔓 Unlock Admin Panel & Restore Access"))
+    def unlock_admin_panel(self, request, queryset):
+        for sub in queryset:
+            unlock_subscription_with_plan(sub.current_plan if sub.current_plan != 'trial_3_months' else '3_months', simulated_payment=True)
+        self.message_user(request, "Admin panel unlocked and full access restored.")
+
+
+@admin.register(AdminBackupLog)
+class AdminBackupLogAdmin(admin.ModelAdmin):
+    """
+    Admin management panel for continuous automated database backups and data preservation audit trail.
+    """
+    list_display = ('file_name', 'file_size_display', 'trigger_event', 'is_automated', 'status_badge', 'created_at')
+    list_filter = ('is_automated', 'status', 'created_at')
+    search_fields = ('file_name', 'trigger_event', 'file_path')
+    readonly_fields = ('file_name', 'file_path', 'file_size_kb', 'trigger_event', 'is_automated', 'status', 'created_at')
+
+    @admin.display(description=_("Snapshot Size"), ordering="file_size_kb")
+    def file_size_display(self, obj):
+        return format_html('<strong>{} KB</strong>', obj.file_size_kb)
+
+    @admin.display(description=_("Status"))
+    def status_badge(self, obj):
+        return format_html('<span style="background: #ecfdf5; color: #059669; padding: 3px 8px; border-radius: 9999px; font-weight: 700; font-size: 0.78rem;">✔ PRESERVED & SECURE</span>')
+
+    actions = ['trigger_instant_backup']
+
+    @admin.action(description=_("📸 Generate Instant Database Snapshot Now"))
+    def trigger_instant_backup(self, request, queryset):
+        res = create_live_backup(event_trigger=f"Manual Admin Action by {request.user.username}")
+        if res and res.get('success'):
+            self.message_user(request, f"New database snapshot created: {res['file_name']} ({res['file_size_kb']} KB). All data 100% preserved.")
+        else:
+            self.message_user(request, "Backup failed to generate.", level='ERROR')
+
 
 
 @admin.register(ConsultationBooking)

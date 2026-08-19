@@ -55,6 +55,14 @@ urlpatterns = [
     path('aml-kyc/', views.AMLKYCView.as_view(), name='aml_kyc'),
     path('disclaimer/', views.DisclaimerView.as_view(), name='disclaimer'),
 
+    # SaaS Subscription & Automated Backup Management Routes (KPRegTech & VintushTech)
+    path('admin-saas/status/', views.saas_status_api, name='saas_status_api'),
+    path('admin-saas/unlock/', views.saas_unlock_view, name='saas_unlock'),
+    path('admin-saas/lock/', views.saas_lock_page_view, name='saas_lock_page'),
+    path('admin-saas/manual-backup/', views.trigger_manual_backup_view, name='admin_manual_backup'),
+    path('admin-saas/backup/restore/<str:filename>/', views.admin_restore_backup_view, name='admin_restore_backup'),
+    path('admin-saas/backup/download/<str:filename>/', views.admin_download_backup_view, name='admin_download_backup'),
+    path('admin-saas/backup/upload/', views.admin_upload_backup_view, name='admin_upload_backup'),
 ]
 
 

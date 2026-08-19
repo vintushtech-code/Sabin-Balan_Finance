@@ -9,10 +9,22 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import Http404, HttpResponse
-from login.views import admin_2fa_login
+from login.views import admin_2fa_login, get_dashboard_analytics_context
 
 # Enforce 2-Way Verification (2FA) for Django Admin site authentication
 admin.site.login = admin_2fa_login
+
+# Inject dynamic real-time ORM analytics & vault snapshot data into admin dashboard
+original_admin_index = admin.site.index
+def enhanced_admin_index(request, extra_context=None):
+    extra_context = extra_context or {}
+    try:
+        extra_context.update(get_dashboard_analytics_context(request))
+    except Exception:
+        pass
+    return original_admin_index(request, extra_context=extra_context)
+
+admin.site.index = enhanced_admin_index
 
 # Retrieve secret admin slug from settings
 ADMIN_SECRET_PATH = getattr(settings, 'ADMIN_SECRET_PATH', 'x7K9mQp2LrT4').strip('/')
