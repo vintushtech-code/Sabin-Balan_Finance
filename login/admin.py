@@ -2,7 +2,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from .models import CustomUser, SuperUser, FAQ, TeamMember, Testimonial, ConsultationBooking, AdminSaaSSubscription, AdminBackupLog
+from .models import (
+    CustomUser, SuperUser, FAQ, TeamMember, Testimonial,
+    ConsultationBooking, AdminSaaSSubscription, AdminBackupLog,
+    MediaMention, PartnerIntegration
+)
 from .saas_service import unlock_subscription_with_plan
 from .backup_service import create_live_backup
 import datetime
@@ -251,12 +255,26 @@ class TestimonialAdmin(admin.ModelAdmin):
     """
     Admin configuration for Testimonial model to manage global client reviews.
     """
-    list_display = ('name', 'role', 'location', 'category', 'rating', 'badge_theme', 'card_type', 'is_active', 'order')
+    list_display = ('name', 'role', 'location', 'category', 'star_rating', 'badge_theme', 'card_type', 'is_active', 'order')
     list_editable = ('category', 'badge_theme', 'card_type', 'is_active', 'order')
     list_filter = ('is_active', 'category', 'badge_theme', 'card_type', 'rating')
     search_fields = ('name', 'role', 'location', 'quote')
     ordering = ('order', '-rating')
+    actions = ['make_active', 'make_inactive']
 
+    @admin.display(description=_("Rating"), ordering="rating")
+    def star_rating(self, obj):
+        return f"{'⭐' * (obj.rating or 5)} ({obj.rating}/5)"
+
+    @admin.action(description=_("Publish / Activate selected testimonials"))
+    def make_active(self, request, queryset):
+        count = queryset.update(is_active=True)
+        self.message_user(request, f"{count} testimonial(s) published to the live website.")
+
+    @admin.action(description=_("Hide / Deactivate selected testimonials"))
+    def make_inactive(self, request, queryset):
+        count = queryset.update(is_active=False)
+        self.message_user(request, f"{count} testimonial(s) hidden from the live website.")
 
 
 class CustomUserAdmin(UserAdmin):
@@ -281,6 +299,7 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
+
 class SuperUserAdmin(CustomUserAdmin):
     """
     Admin configuration specifically for superusers.
@@ -291,6 +310,7 @@ class SuperUserAdmin(CustomUserAdmin):
     def get_queryset(self, request):
         # Limit to superusers only
         return super().get_queryset(request).filter(is_superuser=True)
+
 
 @admin.register(FAQ)
 class FAQAdmin(admin.ModelAdmin):
@@ -303,11 +323,22 @@ class FAQAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'category', 'created_at')
     search_fields = ('question', 'answer')
     ordering = ('order', 'created_at')
+    actions = ['make_active', 'make_inactive']
     fieldsets = (
         (None, {
             'fields': ('question', 'answer', 'category', 'order', 'is_active')
         }),
     )
+
+    @admin.action(description=_("Publish selected FAQs"))
+    def make_active(self, request, queryset):
+        count = queryset.update(is_active=True)
+        self.message_user(request, f"{count} FAQ(s) published to the live website.")
+
+    @admin.action(description=_("Hide selected FAQs"))
+    def make_inactive(self, request, queryset):
+        count = queryset.update(is_active=False)
+        self.message_user(request, f"{count} FAQ(s) hidden from the live website.")
 
 
 @admin.register(TeamMember)
@@ -321,11 +352,68 @@ class TeamMemberAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'created_at')
     search_fields = ('name', 'role')
     ordering = ('order', 'name')
+    actions = ['make_active', 'make_inactive']
     fieldsets = (
         (None, {
             'fields': ('name', 'role', 'image', 'order', 'is_active')
         }),
     )
+
+    @admin.action(description=_("Publish selected team members"))
+    def make_active(self, request, queryset):
+        count = queryset.update(is_active=True)
+        self.message_user(request, f"{count} team member(s) published on the live About page.")
+
+    @admin.action(description=_("Hide selected team members"))
+    def make_inactive(self, request, queryset):
+        count = queryset.update(is_active=False)
+        self.message_user(request, f"{count} team member(s) hidden from the live About page.")
+
+
+@admin.register(MediaMention)
+class MediaMentionAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for Media Mention ('As Featured In') logos & press links.
+    """
+    list_display = ('name', 'link', 'order', 'is_active', 'created_at')
+    list_editable = ('link', 'order', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('name', 'link')
+    ordering = ('order', '-created_at')
+    actions = ['make_active', 'make_inactive']
+
+    @admin.action(description=_("Publish selected media mentions"))
+    def make_active(self, request, queryset):
+        count = queryset.update(is_active=True)
+        self.message_user(request, f"{count} media mention(s) published.")
+
+    @admin.action(description=_("Hide selected media mentions"))
+    def make_inactive(self, request, queryset):
+        count = queryset.update(is_active=False)
+        self.message_user(request, f"{count} media mention(s) hidden.")
+
+
+@admin.register(PartnerIntegration)
+class PartnerIntegrationAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for Institutional & Banking Partner logos.
+    """
+    list_display = ('name', 'order', 'is_active', 'created_at')
+    list_editable = ('order', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('name',)
+    ordering = ('order', '-created_at')
+    actions = ['make_active', 'make_inactive']
+
+    @admin.action(description=_("Publish selected partners"))
+    def make_active(self, request, queryset):
+        count = queryset.update(is_active=True)
+        self.message_user(request, f"{count} partner(s) published.")
+
+    @admin.action(description=_("Hide selected partners"))
+    def make_inactive(self, request, queryset):
+        count = queryset.update(is_active=False)
+        self.message_user(request, f"{count} partner(s) hidden.")
 
 
 # Register models in admin panel

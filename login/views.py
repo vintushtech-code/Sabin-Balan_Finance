@@ -479,11 +479,10 @@ class AboutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = "About Us — Sabin Balan Finance"
         
-        # Fetch active team members with auto-seeding if less than 5
+        # Fetch active team members directly from database (respecting Admin edits)
         try:
             from .models import TeamMember
-            if TeamMember.objects.count() < 5:
-                TeamMember.objects.all().delete()
+            if not TeamMember.objects.exists():
                 initial_members = [
                     {
                         "name": "Sabin Balan",

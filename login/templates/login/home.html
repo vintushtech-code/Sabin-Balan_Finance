@@ -190,6 +190,35 @@
         </div>
         <span class="badge-text-label">Portfolio Growth</span>
       </div>
+    </div>
+
+    {% if partners or media_mentions %}
+    <div style="grid-column: 1 / -1; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.15); width: 100%; position: relative; z-index: 10;">
+      <div style="text-align: center; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-gold, #D4AF37); margin-bottom: 1rem;">
+        Institutional Partners &amp; Media Mentions
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1rem 1.75rem;">
+        {% for p in partners %}
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem; background: rgba(10, 20, 15, 0.6); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+          {% if p.logo %}
+          <img src="{{ p.logo.url }}" alt="{{ p.name }}" style="height: 22px; width: auto; object-fit: contain;">
+          {% else %}
+          <span style="font-size: 0.84rem; font-weight: 700; color: #E2E8F0;">🏛️ {{ p.name }}</span>
+          {% endif %}
+        </div>
+        {% endfor %}
+        {% for m in media_mentions %}
+        <a href="{{ m.link|default:'#' }}" {% if m.link %}target="_blank" rel="noopener noreferrer"{% endif %} style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+          {% if m.logo %}
+          <img src="{{ m.logo.url }}" alt="{{ m.name }}" style="height: 22px; width: auto; object-fit: contain;">
+          {% else %}
+          <span style="font-size: 0.84rem; font-weight: 700; color: #F5D77F;">📰 {{ m.name }}</span>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
   </section>
 </div>
 
