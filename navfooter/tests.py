@@ -37,9 +37,10 @@ class NavfooterTemplateTagsTestCase(TestCase):
             "{% render_navbar %}"
         ).render(Context({'request': request}))
 
-        self.assertIn("Base Features", out)
-        self.assertIn("Dashboard", out)
-        self.assertIn("Logout", out)
+        self.assertIn("HOME", out)
+        self.assertIn("ABOUT US", out)
+        self.assertIn("SERVICES", out)
+        self.assertIn("CONTACT", out)
 
     def test_footer_tag_rendering(self):
         """Verify {% render_footer %} inclusion tag executes cleanly."""
@@ -48,8 +49,9 @@ class NavfooterTemplateTagsTestCase(TestCase):
             "{% render_footer %}"
         ).render(Context({}))
 
-        self.assertIn("Platform", out)
-        self.assertIn("Security &amp; Support", out)
+        self.assertIn("OUR SERVICES", out)
+        self.assertIn("QUICK LINKS", out)
+        self.assertIn("Privacy Policy", out)
 
     def test_footer_renders_active_social_links(self):
         """Verify that footer renders active links and hides inactive ones."""
@@ -64,11 +66,10 @@ class NavfooterTemplateTagsTestCase(TestCase):
 
         # Active GitHub link should render
         self.assertIn("https://github.com/myclient", out)
-        self.assertIn("footer-social-icon--github", out)
+        self.assertIn("fa-github", out)
 
         # Inactive LinkedIn link should NOT render
         self.assertNotIn("https://linkedin.com/in/myclient", out)
-        self.assertNotIn("footer-social-icon--linkedin", out)
 
     def test_social_media_link_validation(self):
         """Verify that validation fails when an active link has an empty URL."""

@@ -411,7 +411,7 @@ class ConsultationBooking(models.Model):
             self.reference_key = ConsultationBooking.generate_unique_reference_key()
 
         # Dynamic pricing rule: 30m = ₹3000, 45m = ₹5000, 60m = ₹8000
-        if not self.fee_amount or self.fee_amount == Decimal('0.00'):
+        if not self.fee_amount or self.fee_amount == Decimal('0.00') or (self.pk is None and self.fee_amount == Decimal('5000.00') and self.duration_minutes != 45):
             self.fee_amount = Decimal(str(self.CONSULTATION_FEES.get(self.duration_minutes, 5000.00)))
 
         discount = Decimal(str(self.discount_amount or 0.00))

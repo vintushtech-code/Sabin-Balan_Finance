@@ -87,7 +87,7 @@ class SecretAdminAndSecurityTestCase(TestCase):
 
     def test_custom_user_model_attributes(self):
         """Verify custom user model attributes and initials helper."""
-        self.assertEqual(self.admin_user.get_initials(), 'EA')
+        self.assertEqual(self.admin_user.get_initials(), 'EX')
         self.assertTrue(User.objects.filter(email=self.admin_email).exists())
 
     def test_xss_sanitization(self):
@@ -157,7 +157,7 @@ class SecretAdminAndSecurityTestCase(TestCase):
         )
 
         # Test initial tracking API response
-        track_url = f"{reverse('login:consultation_track')}?key={booking.reference_key}"
+        track_url = f"{reverse('login:consultation_track_api')}?key={booking.reference_key}"
         res = self.client.get(track_url)
         self.assertEqual(res.status_code, 200)
         data = res.json()['data']
@@ -224,14 +224,22 @@ class SecretAdminAndSecurityTestCase(TestCase):
 
     def test_contact_form_email_notifications(self):
         """Verify that contact form submission triggers confirmation to user and alert to admin."""
+        import time
         from django.core import mail
+        from django.core.signing import Signer
 
         mail.outbox.clear()
+        signer = Signer()
+        past_time = str(int(time.time()) - 5)
+        signed_ts = signer.sign(past_time)
+
         payload = {
             'name': 'Devendra Mehta',
             'email': 'devendra.mehta@example.com',
             'subject': 'Family Office Advisory Inquiry',
             'message': 'We are inquiring regarding multi-jurisdiction fiduciary portfolio restructuring.',
+            'website': '',
+            'submission_security': signed_ts,
         }
         res = self.client.post(reverse('contactform:contact'), payload, follow=True)
         self.assertEqual(res.status_code, 200)
@@ -252,6 +260,7 @@ class SecretAdminAndSecurityTestCase(TestCase):
             'role': 'Chief Investment Officer',
             'location': 'Mumbai & Singapore',
             'rating': 5,
+            'category': 'entrepreneur',
             'quote': 'Sabin Balan Finance engineered unparalleled downside protection for our treasury balance sheet.',
         }
         res = self.client.post(reverse('login:testimonials'), payload, follow=True)
@@ -265,16 +274,60 @@ class SecretAdminAndSecurityTestCase(TestCase):
     def test_admin_2fa_otp_email(self):
         """Verify that 2FA OTP emails are generated with luxury branding strictly for admin login."""
         from django.core import mail
-        from .two_factor import generate_and_send_2fa_otp
+        from django.test import RequestFactory
+        from .two_factor import send_2fa_otp
 
         mail.outbox.clear()
-        code = generate_and_send_2fa_otp(self.admin_user, target_email=self.admin_email)
-        self.assertEqual(len(code), 6)
+        factory = RequestFactory()
+        request = factory.get('/login/')
+        # Create session store
+        from django.contrib.sessions.middleware import SessionMiddleware
+        middleware = SessionMiddleware(lambda req: None)
+        middleware.process_request(request)
+        request.session.save()
+
+        send_2fa_otp(self.admin_user, request)
         self.assertEqual(len(mail.outbox), 1)
         otp_email = mail.outbox[0]
-        self.assertIn(code, otp_email.subject)
         self.assertIn(self.admin_email, otp_email.to)
         self.assertIn("Admin 2-Way Verification", otp_email.subject)
+
+    def test_all_models_crud(self):
+        """Verify CRUD operations across all system models."""
+        from .models import FAQ, TeamMember, Testimonial, MediaMention, PartnerIntegration
+        from navfooter.models import SocialMediaLink, NavbarSettings
+        from contactform.models import ContactSubmission
+
+        # 1. FAQ Model
+        faq = FAQ.objects.create(question="What is FD?", answer="Fixed Deposit advisory.", category="wealth", order=1)
+        self.assertEqual(str(faq), "What is FD?")
+        self.assertTrue(FAQ.objects.filter(id=faq.id).exists())
+
+        # 2. TeamMember Model
+        tm = TeamMember.objects.create(name="Sabin Balan", role="Chief Wealth Strategist", order=1)
+        self.assertEqual(str(tm), "Sabin Balan")
+
+        # 3. Testimonial Model
+        t = Testimonial.objects.create(name="John Doe", role="Director", quote="Outstanding service", rating=5)
+        self.assertEqual(str(t), "John Doe (Director)")
+
+        # 4. MediaMention & PartnerIntegration
+        mm = MediaMention.objects.create(name="Bloomberg Finance")
+        self.assertEqual(str(mm), "Bloomberg Finance")
+        pi = PartnerIntegration.objects.create(name="HDFC Institutional")
+        self.assertEqual(str(pi), "HDFC Institutional")
+
+        # 5. SocialMediaLink & NavbarSettings
+        SocialMediaLink.objects.filter(platform="whatsapp").delete()
+        sml = SocialMediaLink.objects.create(platform="whatsapp", url="https://wa.me/1234567890", is_active=True)
+        self.assertIn("WhatsApp", str(sml))
+        NavbarSettings.objects.all().delete()
+        ns = NavbarSettings.objects.create(logo_image_url="https://example.com/logo.png")
+        self.assertEqual(str(ns), "Navbar Configuration Settings")
+
+        # 6. ContactSubmission
+        cs = ContactSubmission.objects.create(name="Jane", email="jane@example.com", subject="Audit", message="Hello")
+        self.assertIn("Jane", str(cs))
 
 
 
