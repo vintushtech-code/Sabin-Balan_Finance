@@ -502,13 +502,10 @@
   <div class="team-members-accordion">
     {% for member in team_members %}
     <div class="team-member-card">
-      {% if member.image %}
-        {% if member.image.name == "team_sabin.png" or member.image.name == "about_showcase_team.png" or member.image.name == "financial_advisors_team.png" or member.image.name == "about_hero.png" or member.image.name == "home_hero.png" %}
-        {% get_static_prefix as static_url %}
-        <img class="team-member-image" src="{{ static_url }}{{ member.image.name }}" alt="{{ member.name }} - {{ member.role }}">
-        {% else %}
-        <img class="team-member-image" src="{{ member.image.url }}" alt="{{ member.name }} - {{ member.role }}">
-        {% endif %}
+      {% if member.get_image_url %}
+      <img class="team-member-image" src="{{ member.get_image_url }}" alt="{{ member.name }} - {{ member.role }}" onerror="this.onerror=null; this.src='{% static 'financial_advisors_team.png' %}';">
+      {% elif member.image %}
+      <img class="team-member-image" src="{{ member.image.url }}" alt="{{ member.name }} - {{ member.role }}" onerror="this.onerror=null; this.src='{% static 'financial_advisors_team.png' %}';">
       {% else %}
       <img class="team-member-image" src="{% static 'financial_advisors_team.png' %}" alt="{{ member.name }} - {{ member.role }}">
       {% endif %}

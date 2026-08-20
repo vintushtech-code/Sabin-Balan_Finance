@@ -200,8 +200,8 @@
       <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1rem 1.75rem;">
         {% for p in partners %}
         <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem; background: rgba(10, 20, 15, 0.6); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-          {% if p.logo %}
-          <img src="{{ p.logo.url }}" alt="{{ p.name }}" style="height: 22px; width: auto; object-fit: contain;">
+          {% if p.get_logo_url %}
+          <img src="{{ p.get_logo_url }}" alt="{{ p.name }}" style="height: 22px; width: auto; object-fit: contain;">
           {% else %}
           <span style="font-size: 0.84rem; font-weight: 700; color: #E2E8F0;">🏛️ {{ p.name }}</span>
           {% endif %}
@@ -209,8 +209,8 @@
         {% endfor %}
         {% for m in media_mentions %}
         <a href="{{ m.link|default:'#' }}" {% if m.link %}target="_blank" rel="noopener noreferrer"{% endif %} style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-          {% if m.logo %}
-          <img src="{{ m.logo.url }}" alt="{{ m.name }}" style="height: 22px; width: auto; object-fit: contain;">
+          {% if m.get_logo_url %}
+          <img src="{{ m.get_logo_url }}" alt="{{ m.name }}" style="height: 22px; width: auto; object-fit: contain;">
           {% else %}
           <span style="font-size: 0.84rem; font-weight: 700; color: #F5D77F;">📰 {{ m.name }}</span>
           {% endif %}

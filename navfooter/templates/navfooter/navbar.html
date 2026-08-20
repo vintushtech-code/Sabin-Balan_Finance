@@ -15,12 +15,11 @@
       <a href="{% url 'login:home' %}"
         class="finance-circle-badge" aria-label="{{ brand_name|default:'Sabin Balan Finance' }}">
         <div class="finance-circle-inner">
-          {% if navbar_settings.logo_image_file %}
-          <img src="{{ navbar_settings.logo_image_file.url }}" alt="{{ brand_name|default:'Logo' }}"
-            class="finance-badge-custom-img" />
-          {% elif navbar_settings.logo_image_url %}
-          <img src="{{ navbar_settings.logo_image_url }}" alt="{{ brand_name|default:'Logo' }}"
-            class="finance-badge-custom-img" />
+          {% if navbar_settings.get_logo_url %}
+          <img src="{{ navbar_settings.get_logo_url }}" alt="{{ brand_name|default:'Logo' }}"
+            class="finance-badge-custom-img" onerror="this.style.display='none'; this.parentElement.querySelector('.finance-badge-real-img').style.display='block';" />
+          <img src="{% static 'navfooter/images/coins_badge_nobg.png' %}" alt="Savings &amp; Growth"
+            class="finance-badge-real-img" style="display:none;" />
           {% else %}
           <!-- Ultra Realistic 3D Coins Badge -->
           <img src="{% static 'navfooter/images/coins_badge_nobg.png' %}" alt="Savings &amp; Growth"

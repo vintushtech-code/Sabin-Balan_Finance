@@ -49,8 +49,16 @@ urlpatterns = [
     path('', include('login.urls')),
 ]
 
+from django.views.static import serve
+from django.urls import re_path
+
+# Permanent media serving for user & admin uploads
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+]
+
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Global Custom Error Handlers for 404 Page Not Found and 500 Internal Server Error
 handler404 = 'login.views.custom_404_view'

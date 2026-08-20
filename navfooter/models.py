@@ -75,3 +75,14 @@ class NavbarSettings(models.Model):
     def __str__(self):
         return "Navbar Configuration Settings"
 
+    @property
+    def get_logo_url(self):
+        if self.logo_image_file:
+            try:
+                return self.logo_image_file.url
+            except Exception:
+                pass
+        if self.logo_image_url:
+            return self.logo_image_url
+        return ''
+

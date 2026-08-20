@@ -199,6 +199,20 @@ class TeamMember(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def get_image_url(self):
+        """Safely retrieves image URL from uploaded file or static filename string."""
+        if not self.image:
+            return ''
+        name = str(self.image.name if hasattr(self.image, 'name') else self.image)
+        if name in ["team_sabin.png", "about_showcase_team.png", "financial_advisors_team.png", "about_hero.png", "home_hero.png", "about_us_hero.png"]:
+            from django.templatetags.static import static
+            return static(name)
+        try:
+            return self.image.url
+        except Exception:
+            return ''
+
 
 class Testimonial(models.Model):
     """
@@ -547,6 +561,15 @@ class MediaMention(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def get_logo_url(self):
+        if self.logo:
+            try:
+                return self.logo.url
+            except Exception:
+                pass
+        return ''
+
 
 class PartnerIntegration(models.Model):
     """
@@ -565,6 +588,15 @@ class PartnerIntegration(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def get_logo_url(self):
+        if self.logo:
+            try:
+                return self.logo.url
+            except Exception:
+                pass
+        return ''
 
 
 class AdminSaaSSubscription(models.Model):
