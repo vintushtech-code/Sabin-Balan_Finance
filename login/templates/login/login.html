@@ -95,13 +95,30 @@
           {{ form.remember_me }}
           <span>Keep me signed in</span>
         </label>
-        <a href="{% url 'login:password_reset' %}" class="forgot-link">Forgot password?</a>
       </div>
 
       <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
         Sign In to Portal &rarr;
       </button>
     </form>
+
+    <!-- Developer & Technical Support Card (Replaces Forgot Password) -->
+    <div style="margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(10, 20, 15, 0.55); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px; font-size: 0.85rem; color: #A0B0A8;">
+      <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--color-gold); margin-bottom: 0.35rem;">
+        <span>🔒</span> Forgot your password?
+      </div>
+      <p style="margin: 0 0 0.5rem 0; font-size: 0.83rem; line-height: 1.5;">
+        If you do not remember your password, please contact the developer team:
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+        <a href="mailto:info@kpregtech.com" style="color: var(--color-gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+          ✉️ <span style="text-decoration: underline;">info@kpregtech.com</span>
+        </a>
+        <a href="mailto:vintushtech@gmail.com" style="color: var(--color-gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+          ✉️ <span style="text-decoration: underline;">vintushtech@gmail.com</span>
+        </a>
+      </div>
+    </div>
 
     <div class="auth-divider">
       <span>Or sign in with</span>

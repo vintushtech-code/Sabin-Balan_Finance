@@ -209,12 +209,11 @@
       <input type="hidden" name="next" value="{% if next and next != '/' and next != '/home/' %}{{ next }}{% else %}{% url 'admin:index' %}{% endif %}">
     </div>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem;">
+    <div style="display: flex; align-items: center; font-size: 0.875rem;">
       <label style="display: flex; align-items: center; gap: 0.5rem; color: #86EFAC; cursor: pointer; font-weight: 600;">
         <input type="checkbox" name="keep_me_signed_in" style="width: 17px; height: 17px; accent-color: #FFD700; cursor: pointer;">
         <span>Keep me signed in</span>
       </label>
-      <a href="#" style="color: #FFD700; text-decoration: none; font-weight: 700;">Forgot password?</a>
     </div>
 
     <button type="submit" style="width: 100%; margin-top: 0.75rem; background: linear-gradient(135deg, #FFE066 0%, #FFD700 50%, #F59E0B 100%); color: #050706; padding: 0.95rem; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1.05rem; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); transition: all 0.2s ease;">
@@ -222,7 +221,26 @@
     </button>
   </form>
 
-  <div style="margin-top: 2rem; text-align: left; font-size: 0.85rem; color: #86EFAC;">
+  <!-- Developer & Technical Support Card (Replaces Forgot Password) -->
+  <div style="margin-top: 1.75rem; padding: 1.15rem 1.25rem; background: rgba(6, 12, 9, 0.92); border: 1px solid rgba(0, 230, 118, 0.25); border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.45rem;">
+      <span style="font-size: 1.05rem;">🔒</span>
+      <span style="font-size: 0.88rem; font-weight: 800; color: #FFD700; letter-spacing: 0.02em;">Forgot your password?</span>
+    </div>
+    <p style="font-size: 0.83rem; color: #86EFAC; margin: 0 0 0.75rem 0; line-height: 1.5;">
+      If you do not remember your password or have lost access to the Admin Portal, please contact the developer team:
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+      <a href="mailto:info@kpregtech.com" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #00E676; font-size: 0.86rem; font-weight: 700; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='#00E676'">
+        <span style="color: #FFD700;">✉️</span> <span style="text-decoration: underline;">info@kpregtech.com</span>
+      </a>
+      <a href="mailto:vintushtech@gmail.com" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #00E676; font-size: 0.86rem; font-weight: 700; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='#00E676'">
+        <span style="color: #FFD700;">✉️</span> <span style="text-decoration: underline;">vintushtech@gmail.com</span>
+      </a>
+    </div>
+  </div>
+
+  <div style="margin-top: 1.5rem; text-align: left; font-size: 0.85rem; color: #86EFAC;">
     <a href="/" style="color: #00E676; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;">
       &larr; Return to Public Website
     </a>
