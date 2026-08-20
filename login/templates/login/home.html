@@ -8,23 +8,8 @@
 {% endblock %}
 
 {% block content %}
-<!-- LIVE MARKET TICKER -->
-<div class="market-ticker-container">
-  <div class="ticker-track">
-    <!-- Duplicate items for seamless scrolling loop -->
-    <div class="ticker-item"><span class="ticker-symbol">SENSEX</span><span class="ticker-price">80,123.45</span><span class="ticker-change up">▲ +0.45%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">NIFTY 50</span><span class="ticker-price">24,354.10</span><span class="ticker-change up">▲ +0.32%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">GOLD (10g)</span><span class="ticker-price">₹74,500</span><span class="ticker-change down">▼ -0.15%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">USD/INR</span><span class="ticker-price">83.45</span><span class="ticker-change up">▲ +0.05%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">S&P 500</span><span class="ticker-price">5,432.80</span><span class="ticker-change up">▲ +0.78%</span></div>
-    <!-- Duplicates -->
-    <div class="ticker-item"><span class="ticker-symbol">SENSEX</span><span class="ticker-price">80,123.45</span><span class="ticker-change up">▲ +0.45%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">NIFTY 50</span><span class="ticker-price">24,354.10</span><span class="ticker-change up">▲ +0.32%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">GOLD (10g)</span><span class="ticker-price">₹74,500</span><span class="ticker-change down">▼ -0.15%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">USD/INR</span><span class="ticker-price">83.45</span><span class="ticker-change up">▲ +0.05%</span></div>
-    <div class="ticker-item"><span class="ticker-symbol">S&P 500</span><span class="ticker-price">5,432.80</span><span class="ticker-change up">▲ +0.78%</span></div>
-  </div>
-</div>
+<!-- REAL-TIME 24/7 DYNAMIC LIVE FINANCIAL MARKET STREAMING TICKER -->
+{% include 'login/includes/market_ticker.html' %}
 
 
 <!-- 1. EXECUTIVE HERO BANNER WITH BACKGROUND IMAGE -->

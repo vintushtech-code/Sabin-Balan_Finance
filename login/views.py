@@ -450,6 +450,16 @@ class HomeView(TemplateView):
             context['media_mentions'] = []
             context['partners'] = []
 
+        # Fetch Real-Time Dynamic Market Rates for live ticker
+        try:
+            from .market_service import get_live_market_rates
+            market_data = get_live_market_rates()
+            context['market_rates'] = market_data.get('rates', [])
+            context['market_server_time'] = market_data.get('server_time')
+        except Exception:
+            context['market_rates'] = []
+            context['market_server_time'] = ''
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -1451,6 +1461,77 @@ def trigger_manual_backup_view(request):
         'success': False,
         'error': res.get('error') if res else 'Unknown backup error'
     }, status=500)
+
+
+# --------------------------------------------------------------------------
+# 16. Live Financial Market Streaming & Rate Aggregation API Endpoints
+# --------------------------------------------------------------------------
+import json
+import time
+from django.http import StreamingHttpResponse
+
+
+class MarketRatesAPIView(View):
+    """
+    High-precision Real-Time Market Rates JSON Endpoint.
+    Returns dynamic market rates, currency exchange, commodities, crypto & indices.
+    Supports optional query params: ?category=indices|forex|commodities|crypto|stocks&symbols=SENSEX,NIFTY 50
+    """
+    def get(self, request, *args, **kwargs):
+        category = request.GET.get('category')
+        symbols = request.GET.get('symbols')
+        micro_tick = request.GET.get('tick', '').lower() in ('true', '1', 'yes')
+
+        try:
+            from .market_service import get_live_market_rates
+            data = get_live_market_rates(category=category, symbols=symbols, micro_tick=micro_tick)
+        except Exception as e:
+            data = {
+                'status': 'error',
+                'message': str(e),
+                'count': 0,
+                'rates': [],
+            }
+
+        response = JsonResponse(data)
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        return response
+
+
+class MarketStreamAPIView(View):
+    """
+    Server-Sent Events (SSE) Live Market Rate Streaming Endpoint.
+    Continuously streams live market updates and micro-ticks every 2 seconds.
+    """
+    def get(self, request, *args, **kwargs):
+        category = request.GET.get('category')
+        symbols = request.GET.get('symbols')
+
+        def stream_generator():
+            from .market_service import get_live_market_rates
+            # Send immediate snapshot
+            try:
+                initial_data = get_live_market_rates(category=category, symbols=symbols, micro_tick=False)
+                yield f"event: market_update\ndata: {json.dumps(initial_data)}\n\n"
+            except Exception as e:
+                yield f"event: error\ndata: {json.dumps({'error': str(e)})}\n\n"
+
+            # Stream up to 120 cycles (approx 4 minutes per connection, auto-reconnects smoothly)
+            for _ in range(120):
+                time.sleep(2)
+                try:
+                    stream_data = get_live_market_rates(category=category, symbols=symbols, micro_tick=True)
+                    yield f"event: market_update\ndata: {json.dumps(stream_data)}\n\n"
+                except Exception as e:
+                    yield f"event: error\ndata: {json.dumps({'error': str(e)})}\n\n"
+
+        response = StreamingHttpResponse(stream_generator(), content_type='text/event-stream')
+        response['Cache-Control'] = 'no-cache'
+        response['X-Accel-Buffering'] = 'no'
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
+
 
 
 

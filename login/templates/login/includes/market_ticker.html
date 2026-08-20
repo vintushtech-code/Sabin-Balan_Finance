@@ -1,0 +1,99 @@
+{% load static %}
+<!-- REAL-TIME 24/7 FINANCIAL MARKET STREAMING TICKER -->
+<div class="market-ticker-container" id="market-ticker-container" role="region" aria-label="Real-time Financial Market Ticker">
+  <!-- Live Stream Header Badge & Clock -->
+  <div class="ticker-live-status-pill">
+    <span class="ticker-live-dot" id="ticker-live-dot"></span>
+    <span class="ticker-live-text">LIVE 24/7</span>
+    <span class="ticker-live-clock" id="ticker-live-clock">--:--:-- LIVE</span>
+  </div>
+
+  <!-- Interactive Category Filter Chips -->
+  <div class="ticker-filter-chips" aria-label="Market Categories">
+    <button type="button" class="ticker-filter-btn active" data-cat="all">ALL</button>
+    <button type="button" class="ticker-filter-btn" data-cat="indices">INDICES</button>
+    <button type="button" class="ticker-filter-btn" data-cat="forex">FOREX</button>
+    <button type="button" class="ticker-filter-btn" data-cat="commodities">COMMODITIES</button>
+    <button type="button" class="ticker-filter-btn" data-cat="crypto">CRYPTO</button>
+    <button type="button" class="ticker-filter-btn" data-cat="stocks">EQUITIES</button>
+  </div>
+
+  <!-- Infinite Seamless Scrolling Marquee Viewport -->
+  <div class="ticker-viewport">
+    <div class="ticker-track" id="ticker-track-primary">
+      {% if market_rates %}
+        {% for item in market_rates %}
+          <div class="ticker-item" data-id="{{ item.id }}" data-category="{{ item.category }}" title="Click for details on {{ item.name }}">
+            <span class="ticker-cat-tag">{{ item.category|upper|slice:":3" }}</span>
+            <span class="ticker-symbol">{{ item.symbol }}</span>
+            <span class="ticker-price" data-price-for="{{ item.id }}">{{ item.formatted_price }}</span>
+            <span class="ticker-change {{ item.direction }}" data-change-for="{{ item.id }}">
+              <span class="ticker-arrow">{{ item.arrow }}</span> {{ item.formatted_change_pct }}
+            </span>
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback Pre-Rendered High-Precision Default Assets -->
+        <div class="ticker-item" data-id="sensex" data-category="indices">
+          <span class="ticker-cat-tag">IND</span>
+          <span class="ticker-symbol">SENSEX</span>
+          <span class="ticker-price" data-price-for="sensex">77,434.59</span>
+          <span class="ticker-change up" data-change-for="sensex"><span class="ticker-arrow">▲</span> +0.26%</span>
+        </div>
+        <div class="ticker-item" data-id="nifty50" data-category="indices">
+          <span class="ticker-cat-tag">IND</span>
+          <span class="ticker-symbol">NIFTY 50</span>
+          <span class="ticker-price" data-price-for="nifty50">24,216.15</span>
+          <span class="ticker-change up" data-change-for="nifty50"><span class="ticker-arrow">▲</span> +0.25%</span>
+        </div>
+        <div class="ticker-item" data-id="usdinr" data-category="forex">
+          <span class="ticker-cat-tag">FOR</span>
+          <span class="ticker-symbol">USD/INR</span>
+          <span class="ticker-price" data-price-for="usdinr">₹95.63</span>
+          <span class="ticker-change down" data-change-for="usdinr"><span class="ticker-arrow">▼</span> -0.12%</span>
+        </div>
+        <div class="ticker-item" data-id="gold10g" data-category="commodities">
+          <span class="ticker-cat-tag">COM</span>
+          <span class="ticker-symbol">GOLD (10g)</span>
+          <span class="ticker-price" data-price-for="gold10g">₹75,240</span>
+          <span class="ticker-change up" data-change-for="gold10g"><span class="ticker-arrow">▲</span> +0.15%</span>
+        </div>
+        <div class="ticker-item" data-id="sp500" data-category="indices">
+          <span class="ticker-cat-tag">IND</span>
+          <span class="ticker-symbol">S&P 500</span>
+          <span class="ticker-price" data-price-for="sp500">7,707.98</span>
+          <span class="ticker-change up" data-change-for="sp500"><span class="ticker-arrow">▲</span> +0.21%</span>
+        </div>
+        <div class="ticker-item" data-id="btc" data-category="crypto">
+          <span class="ticker-cat-tag">CRY</span>
+          <span class="ticker-symbol">BITCOIN</span>
+          <span class="ticker-price" data-price-for="btc">$69,758.88</span>
+          <span class="ticker-change up" data-change-for="btc"><span class="ticker-arrow">▲</span> +0.68%</span>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Secondary duplicate track for 100% continuous infinite loop -->
+    <div class="ticker-track" id="ticker-track-secondary" aria-hidden="true">
+      {% if market_rates %}
+        {% for item in market_rates %}
+          <div class="ticker-item" data-id="{{ item.id }}" data-category="{{ item.category }}">
+            <span class="ticker-cat-tag">{{ item.category|upper|slice:":3" }}</span>
+            <span class="ticker-symbol">{{ item.symbol }}</span>
+            <span class="ticker-price" data-price-for="{{ item.id }}">{{ item.formatted_price }}</span>
+            <span class="ticker-change {{ item.direction }}" data-change-for="{{ item.id }}">
+              <span class="ticker-arrow">{{ item.arrow }}</span> {{ item.formatted_change_pct }}
+            </span>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Real-time Instrument Detail Popover Tooltip Modal -->
+  <div class="ticker-detail-tooltip" id="ticker-detail-tooltip" style="display: none;" role="dialog" aria-modal="true" aria-hidden="true">
+    <!-- Populated dynamically via market-ticker.js -->
+  </div>
+</div>
+
+<script src="{% static 'login/js/market-ticker.js' %}"></script>

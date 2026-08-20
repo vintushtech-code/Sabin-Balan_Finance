@@ -63,6 +63,10 @@ urlpatterns = [
     path('admin-saas/backup/restore/<str:filename>/', views.admin_restore_backup_view, name='admin_restore_backup'),
     path('admin-saas/backup/download/<str:filename>/', views.admin_download_backup_view, name='admin_download_backup'),
     path('admin-saas/backup/upload/', views.admin_upload_backup_view, name='admin_upload_backup'),
+
+    # Real-Time Dynamic Financial Market Rate & Streaming APIs (24/7 Engine)
+    path('api/market-rates/', views.MarketRatesAPIView.as_view(), name='market_rates_api'),
+    path('api/market-stream/', views.MarketStreamAPIView.as_view(), name='market_stream_api'),
 ]
 
 
